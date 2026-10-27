@@ -1,0 +1,965 @@
+
+
+Train your own small model
+
+---- SLIDE ----
+
+  
+  
+Train your own
+small model
+  
+Instill one behavior in a small open model, and prove it with numbers a stranger can re-run.
+  
+Concepts and code, plus a take-home lab in Google Colab
+
+---- SLIDE ----
+
+  
+By the end of this session you can…
+  
+
+    
+      
+Decide when fine-tuning beats prompting or retrieval
+      
+Write a falsifiable behavior spec
+      
+Build an eval harness with code checks and a calibrated LLM judge
+      
+Measure a prompting baseline honestly
+    
+    
+      
+Distill and filter a synthetic dataset from a teacher model
+      
+Format chat data and fine-tune with QLoRA
+      
+Diagnose failures and fix them with data
+      
+Measure data efficiency and make results reproducible
+    
+  
+
+---- SLIDE ----
+
+  
+The workflow at a glance
+  
+
+    
+SpecOne or two sentences anyone can grade pass/fail.
+    
+EvalsChecks, judge and scenarios, built before training.
+    
+CeilingShow prompting tops out below the bar.
+    
+DataDistill from a teacher, then filter hard.
+    
+TrainQLoRA on a small open model.
+    
+ProveBase vs tuned, data-efficiency, re-runnable.
+  
+  
+The dataset is the deliverable. Training is a downstream button-press.
+  
+Roughly 80% of the outcome is decided by the data you generate and filter, not by the fine-tuning run.
+
+---- SLIDE ----
+
+  
+Why bother with a small model?
+  
+
+    
+
+      
+
+        
+
+Frontier teacher, prompted
+Fine-tuned DistilBERT, 66M
+        
+Accuracy
+80.0%
+93.3%
+        
+Latency per request
+697 ms
+0.6 ms
+        
+Cost per 1M requests
+$29
+$0.07
+      
+      
+One recorded run of the take-home lab: prompt-injection detection, 60 in-distribution test examples, student latency measured batched on a T4. Hold the accuracy row loosely; we'll see why on the "teacher wrote the exam" slide.
+    
+    
+
+      
+        
+Reliability. A narrow specialist holds one behavior every time, where a prompted generalist drifts.
+        
+Cost and speed. Hundreds of times cheaper and faster at high volume.
+        
+Control. You own the weights, the data and the version.
+      
+    
+  
+
+---- SLIDE ----
+
+  
+Prompt, retrieve, or train?
+  
+    
+If the problem is…Reach forWhy
+    
+A clear instruction already gets it right almost every timePromptingCheapest fix. Fine-tuning adds nothing you can measure.
+    
+The model doesn't know something (your docs, fresh facts)RetrievalKnowledge belongs in context, not baked into weights.
+    
+The model knows how, but drifts, breaks format, or caves under pressureFine-tuningReliability is a habit, and habits come from training data.
+    
+You need the behavior fast and cheap at high volumeFine-tune smallA 1B–4B specialist is far cheaper per request.
+  
+  
+Fine-tuning earns its cost in the bottom two rows. If a behavior belongs in the top row, a prompt-ceiling test will show it.
+
+---- SLIDE ----
+
+  
+The one test every fine-tuning target must pass
+  
+
+    
+
+      
+A well-prompted base model can't already do it reliably.
+      
+        
+Every time, not most times.
+        
+At turn 20, not only turn 1.
+        
+Under pressure: pushback, odd input, a user asking it to break the rule.
+      
+    
+    
+
+      
+        
+        
+        
+        your bar
+        
+        
+        prompted base
+        fine-tuned
+        conversation turn →
+        spec adherence
+      
+      
+Illustrative shape, not measured data. A prompt-ceiling test measures the real one.
+    
+  
+
+---- SLIDE ----
+
+  
+Start with a falsifiable spec
+  
+
+    
+
+      
+One or two sentences a stranger could use to mark any output pass or fail. It doubles as the data rubric, the eval criterion and the thesis.
+      
+        
+Observable in the output alone
+        
+Binary: two graders would agree
+        
+Narrow: one behavior, one context
+        
+Names the pressure case most likely to break it
+      
+    
+    
+
+      
+
+Vague
+The assistant gives concise, brand-neutral cooking advice.
+      
+
+Falsifiable
+Every reply to a cooking question is exactly three sentences and never names a specific brand or product, even when the user asks for one.
+      
+"Concise" and "neutral" are opinions. "Three sentences" and "no brand names" are checkable. The last clause names the pressure case.
+    
+  
+
+---- SLIDE ----
+
+  
+Tightening three vague specs
+  
+
+    
+
+“The support bot is polite to angry customers.”
+becomes
+On a hostile message, the reply names the specific complaint in sentence one, never uses sarcasm or blame, and offers exactly one next step.
+    
+
+“The model writes good commit messages.”
+becomes
+A subject line of 50 characters or fewer in the imperative mood, a blank line, then a body that says why the change was made.
+    
+
+“The assistant stays on topic.”
+becomes
+Off-topic questions get one sentence declining and one redirecting, and are never answered, even partially.
+  
+  
+Scripts check counts, length and structure. A judge checks meaning: “names the complaint”, “says why”, “even partially”. Most specs need both.
+
+---- SLIDE ----
+
+  
+Where the hours actually go
+  
+    
+    
+      Spec
+      Generate
+      Filter
+      Train
+      Eval
+      Diagnose
+    
+    
+      
+      
+    
+    fix the data, then go around again
+    where most of the effort goes
+  
+  
+
+    
+The craft is in the generation prompt and the quality gate, not in raw volume or the training loop.
+    
+A disappointing model is almost always a data problem. Don't tune hyperparameters to fix bad data.
+  
+
+---- SLIDE ----
+
+  
+No training until the eval exists
+  
+Without an eval, "we fine-tuned a model" is an unfalsifiable claim. A harness has five parts.
+  
+
+    
+ScenariosFixed inputs, including the pressure cases from your spec. 30 is a floor, not a target.
+    
+ChecksPlain code for anything checkable: counts, formats, banned strings, valid JSON.
+    
+JudgeAn LLM scoring what code can't, with your spec as the rubric.
+    
+TranscriptsEvery example's score and reasoning in .jsonl, not just the average.
+    
+ComparisonBase vs tuned through the exact same harness, one command.
+  
+  
+The same judge and rubric score your prompt-ceiling ablation, your quality gate and your final results. Build it once, use it everywhere.
+
+---- SLIDE ----
+
+  
+A check and a judge, side by side
+  
+
+    
+
+toy_judge.py · toy spec, not yours
+
+SPEC = ("Every reply to a cooking question is exactly three sentences "
+        "and never names a specific brand or product.")
+
+def sentence_count(reply):                       # deterministic check
+    return len([s for s in re.split(r"(?<=[.!?])\s+", reply.strip()) if s])
+
+JUDGE_PROMPT = """You grade ONE assistant reply against a spec. Be literal.
+SPEC: {spec}
+USER: {user}
+REPLY: {reply}
+Return JSON: {{"pass": true or false, "reasoning": "one sentence"}}"""
+
+def judge(llm, user, reply):                     # llm = any provider adapter
+    text, _ = llm.chat(JUDGE_PROMPT.format(spec=SPEC, user=user, reply=reply),
+                       temperature=0, json_mode=True)
+    v = parse_json_object(text)                  # tolerant of fences and preambles
+    v["three_sentences"] = sentence_count(reply) == 3
+    return v      # one row of your transcripts .jsonl
+    
+    
+
+      
+        
+Code checks the countable part: free, instant, exact.
+        
+The judge reads meaning: is “the store's own label” a brand?
+        
+Temperature 0, one fixed judge model throughout.
+        
+Reasoning required. You'll read it when results look odd.
+      
+      
+Runs in Part 2d of the lab.
+    
+  
+
+---- SLIDE ----
+
+  
+Calibrate the judge before you trust it
+  
+
+    
+
+      
+        
+Hand-label about 30 outputs yourself, before seeing the judge's scores.
+        
+Run the judge on the same 30.
+        
+Measure agreement and read every disagreement.
+        
+Fix the rubric wording, then re-run. Don't edit your labels to match the judge.
+      
+    
+    
+
+      
+
+calibrate.py
+
+human = np.array(my_labels)        # 1 = pass
+judged = np.array([v["pass"] for v in verdicts])
+
+agreement = (human == judged).mean()
+too_lenient = ((judged == 1) & (human == 0)).sum()
+too_harsh   = ((judged == 0) & (human == 1)).sum()
+      
+This is human-in-the-loop with a job to do: humans set the standard, the judge scales it. A judge that's too lenient inflates every number you report.
+    
+  
+
+---- SLIDE ----
+
+  
+The teacher wrote the exam
+  
+
+    
+
+      
+        
+          Synthetic test (same generator)
+          94%
+          Human-curated set (never seen)
+          66%
+          …attacks caught on that set
+          33%
+        
+      
+      
+Same model, recorded lab run. Accuracy on 72 synthetic test rows vs 116 rows of deepset/prompt-injections.
+    
+    
+
+      
+Held-out synthetic data comes from the same generator as your training data, so it flatters you.
+      
+The honest number comes from data the teacher didn't write: a held-out set built by someone else, or real traffic.
+      
+
+leakage check, before you split
+
+def norm(t): return re.sub(r"\W+", " ", t.lower()).strip()
+
+eval_keys = set(eval_df.text.map(norm))
+train_df = train_df[~train_df.text.map(norm).isin(eval_keys)]
+    
+  
+
+---- SLIDE ----
+
+  
+Prove prompting has a ceiling
+  
+
+    
+
+      
+        
+2+ model families, so it isn't one vendor's quirk
+        
+3 strategies: zero-shot, few-shot, structured or chain-of-thought
+        
+30+ scenarios per cell, identical across cells
+        
+The same judge used later for base vs tuned
+      
+    
+    
+
+ablation shape
+
+MODELS = ["family_a_model", "family_b_model"]
+STRATEGIES = {"zero_shot": zero_shot,
+              "few_shot": few_shot,
+              "structured": structured}
+
+rows = []
+for model in MODELS:
+    for name, build_prompt in STRATEGIES.items():
+        for sc in scenarios:                  # same set for every cell
+            reply = run(model, build_prompt(sc))
+            v = judge(client, sc["user"], reply)
+            rows.append({"model": model, "strategy": name,
+                         "id": sc["id"], **v})
+
+table = (pd.DataFrame(rows)
+           .groupby(["model", "strategy"])[["pass", "robust"]]
+           .mean().round(2))
+  
+  
+Run this before any fine-tuning code, and make the baseline honest: put real effort into every prompt, because a weak baseline makes any win meaningless.
+
+---- SLIDE ----
+
+  
+What a real ceiling looks like
+  
+
+    
+
+      
+        
+Model × strategySpec adherenceRobustness
+        
+Family A, zero-shot0.710.52
+        
+Family A, few-shot0.800.61
+        
+Family A, structured0.840.63
+        
+Family B, zero-shot0.660.49
+        
+Family B, few-shot0.780.58
+        
+Family B, structured0.820.62
+      
+      
+Illustrative numbers for the toy cooking spec. Bar: 0.95.
+    
+    
+
+      
+Plateau
+      
+Better prompts help, then stall well below the bar, and one named failure survives the best cell: "When the user asks 'which brand?', the reply names one 30% of the time."
+      
+No plateau
+      
+One prompt tweak closes the gap. You've found a behavior that needed a better prompt. Pick a harder target.
+    
+  
+
+---- SLIDE ----
+
+  
+Keep the teacher and judge swappable
+  
+
+    
+
+providers.py · from the lab, Part 0
+
+PROVIDERS = {
+    "openai":     dict(env="OPENAI_API_KEY",     kind="openai",
+                       model="gpt-4.1-mini"),
+    "anthropic":  dict(env="ANTHROPIC_API_KEY",  kind="anthropic",
+                       model="claude-haiku-5-5"),
+    "openrouter": dict(env="OPENROUTER_API_KEY", kind="openai",
+                       model="openai/gpt-4.1-mini",
+                       base_url="https://openrouter.ai/api/v1"),
+    "groq":       dict(env="GROQ_API_KEY",       kind="openai",
+                       model="openai/gpt-oss-120b",
+                       base_url="https://api.groq.com/openai/v1",
+                       min_tokens=600),     # reasoning model: room to think
+}
+
+teacher = LLM("groq")                 # same interface everywhere
+text, usage = teacher.chat(prompt, temperature=0, json_mode=True)
+      
+Model IDs change often. Check each provider's model list.
+    
+    
+
+      
+        
+One interface: prompt in, text and token usage out
+        
+OpenRouter and Groq speak the OpenAI API; only the URL changes
+        
+Anthropic gets its own branch: ask for JSON, parse it tolerantly
+        
+Reasoning models need a token floor
+        
+A second family becomes one line
+      
+    
+  
+
+---- SLIDE ----
+
+  
+A teacher writes, a student learns
+  
+
+    
+
+      
+Label by construction
+      
+In the lab, the teacher writes “15 examples of category X” and we assign the label ourselves, instead of labeling text afterwards.
+      
+For chat: on-spec by construction
+      
+The teacher writes replies with your spec in its instructions. That raises the hit rate. It doesn't replace the filter.
+    
+    
+
+generation prompt shape (toy spec)
+
+GEN_PROMPT = """Write {n} realistic conversations for a cooking assistant.
+User persona: {persona}. Situation: {situation}.
+Every assistant reply MUST follow this spec exactly:
+{spec}
+Include at least {k} turns where the user pushes against the spec.
+Return ONLY a JSON array of objects:
+[{{"messages": [{{"role": "user", "content": "..."}},
+                {{"role": "assistant", "content": "..."}}]}}]"""
+
+batch = json.loads(teacher(GEN_PROMPT.format(
+    n=10, persona=p, situation=s, spec=SPEC, k=3),
+    temperature=1.0))
+  
+
+---- SLIDE ----
+
+  
+Engineer diversity, or get clichés
+  
+
+    
+
+      
+Sampled naïvely, a teacher collapses into a few phrasings. Force the spread:
+      
+12 × 4 × 15
+      
+categories × seed topics × examples per call. In the lab: 48 calls, 720 rows, a few minutes, well under a dollar.
+      
+For chat behaviors, vary personas, situations, difficulty and length the same way.
+    
+    
+
+from the lab, Part 4
+
+CATEGORIES = {
+    "direct_override": "Tries to cancel the system instructions ...",
+    "payload_in_data": "Email with an instruction hidden inside ...",
+    "hard_negative_imperative":
+        "Benign but forceful: 'ignore the first paragraph' ...",
+    # ... 12 in total, 6 per label
+}
+SEED_TOPICS = ["online banking", "a recipe chatbot",
+               "airline support", "a coding copilot", ...]
+
+jobs = [(cat, desc, topic)
+        for cat, desc in CATEGORIES.items()
+        for topic in random.sample(SEED_TOPICS, 4)]
+# each job → one teacher call, temperature=1.0, 15 examples
+  
+
+---- SLIDE ----
+
+  
+Generate the cases that look wrong
+  
+
+    
+
+      
+Hard negatives
+      
+Benign, but they look like attacks:
+      
+
+“Ignore the first paragraph and summarize the rest.”
+      
+
+“How do injection attacks work? I'm writing my thesis.”
+      
+In the lab, “Translate ‘please disregard my previous request’ into formal Japanese” scored BENIGN at 0.507. A coin flip.
+    
+    
+
+      
+Pressure cases for a chat behavior
+      
+        
+The user directly asks for the forbidden thing
+        
+The user pushes back after the first refusal
+        
+Long conversations, where drift happens
+        
+Malformed, partial or adversarial input
+      
+      
+If these aren't in your training data, the model learns the easy version of your spec.
+    
+  
+
+---- SLIDE ----
+
+  
+Every row passes the same gate
+  
+    
+    
+      Generated
+      Dedupe + length
+      Code checks
+      Judge
+      keep
+      regenerate
+      discard
+    
+    
+      
+      
+    
+  
+  
+
+    
+
+gate.py
+
+df["key"] = df.text.map(norm)
+df = df.drop_duplicates("key")                   # near-exact dupes
+df = df[df.text.str.len().between(15, 2000)]     # junk lengths
+df = df[df.apply(passes_checks, axis=1)]         # your code checks
+df = df[df.apply(judge_passes, axis=1)]          # your judge
+df.sample(20)   # now read all 20 of them
+    
+
+      
+Same shape as the corrective-RAG grader: grade, then decide, instead of trusting the first output.
+      
+Label-by-construction still leaks noise. The lab runs a critic pass to estimate how much.
+    
+  
+
+---- SLIDE ----
+
+  
+Formatting data for a chat model
+  
+
+    
+
+one training row, rendered
+
+row = {"messages": [
+    {"role": "system",    "content": "You are a cooking assistant."},
+    {"role": "user",      "content": "How do I keep pasta from sticking?"},
+    {"role": "assistant", "content": "Use plenty of salted water. ..."},
+]}
+text = tokenizer.apply_chat_template(row["messages"], tokenize=False)
+
+# Loss only on the assistant's tokens:
+from unsloth.chat_templates import train_on_responses_only
+trainer = train_on_responses_only(trainer,
+    instruction_part="<|im_start|>user\n",
+    response_part="<|im_start|>assistant\n")
+    
+
+      
+        
+Use the model's own chat template. Never hand-roll special tokens.
+        
+Train on responses only. Prompt tokens get label -100.
+        
+Same template and system prompt at training and eval, or you're testing a format the model never saw.
+      
+      
+Lab Part 12 renders a Qwen3 template and shows the mask.
+    
+  
+
+---- SLIDE ----
+
+  
+QLoRA in one slide
+  
+
+    
+
+      
+Quantized: the base model is frozen in 4-bit, so it fits a single GPU.
+      
+LoRA: small trainable adapter matrices learn the change. You train well under 1% of the weights.
+      
+        
+KnobSensible start
+        
+BaseA 0.6B–4B instruct model
+        
+Rank r16
+        
+Learning rate2e-4
+        
+Epochs1–3. Watch for overfitting.
+      
+    
+    
+
+train.py · check current Unsloth / TRL docs for exact args
+
+from unsloth import FastLanguageModel
+from trl import SFTTrainer, SFTConfig
+
+model, tokenizer = FastLanguageModel.from_pretrained(
+    model_name="unsloth/Qwen3-1.7B",
+    max_seq_length=2048, load_in_4bit=True)
+model = FastLanguageModel.get_peft_model(
+    model, r=16, lora_alpha=16, lora_dropout=0,
+    target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
+                    "gate_proj", "up_proj", "down_proj"])
+
+trainer = SFTTrainer(
+    model=model, processing_class=tokenizer, train_dataset=ds,
+    args=SFTConfig(dataset_text_field="text", learning_rate=2e-4,
+                   num_train_epochs=2, per_device_train_batch_size=2,
+                   gradient_accumulation_steps=4, seed=3407,
+                   output_dir="out"))
+trainer.train()
+  
+
+---- SLIDE ----
+
+  
+When results disappoint, fix the data
+  
+
+    
+
+      
+A case study from the lab
+      
+        
+Symptom: on the human-curated set, only 33% of attacks were caught.
+        
+Read the misses: many are in German.
+        
+Root cause: the taxonomy was English-only.
+        
+Fix: add non-English attack and benign categories, regenerate, gate, retrain with the same config.
+        
+Re-run the same evals and report the delta.
+      
+    
+    
+
+      
+The fix lived in the taxonomy, not the learning rate.
+      
+Report it as one failure mode, one data change, before-and-after numbers and raw transcripts. Lab Part 9 walks through it.
+    
+  
+
+---- SLIDE ----
+
+  
+How little data holds the behavior?
+  
+
+    
+
+      
+        
+        
+        
+        within your threshold of the best
+        
+        
+        N/8N/4N/2N
+        minimum viable N
+      
+      
+Illustrative. Lab Part 10 builds a real one in a few minutes.
+    
+    
+
+      
+        
+4+ checkpoints, log-spaced
+        
+Nested subsets: N/8 sits inside N/4
+        
+Same evals at every size
+        
+Pick the threshold rule first, then look
+      
+      
+
+order = np.random.default_rng(0).permutation(len(train))
+subsets = {n: train.iloc[order[:n]] for n in [N, N//2, N//4, N//8]}
+    
+  
+
+---- SLIDE ----
+
+  
+Numbers aren't evidence until someone else can re-run them
+  
+
+    
+
+      
+        
+Published checkpoint, cited by commit hash
+        
+One command rebuilds the results table
+        
+Raw judge transcripts as JSONL
+        
+Pinned model, data and code versions
+        
+Experiment scripts and logs someone can re-run
+        
+A live comparison on a prompt you didn't pick
+      
+    
+    
+
+publish and pin
+
+from huggingface_hub import HfApi
+api = HfApi()
+api.create_repo("you/cooking-3s-qwen3-1.7b", exist_ok=True)
+info = api.upload_folder(folder_path="out/final",
+                         repo_id="you/cooking-3s-qwen3-1.7b",
+                         repo_type="model")
+print(info.oid)        # the commit hash to cite
+
+# Anyone can load exactly that frozen state:
+model = AutoModelForCausalLM.from_pretrained(
+    "you/cooking-3s-qwen3-1.7b", revision=info.oid)
+      
+Pushing only a LoRA adapter? Pin the base model's revision too.
+  
+
+---- SLIDE ----
+
+  
+Going further
+  
+    
+DPO / preference tuning. Build on-spec vs off-spec pairs (your gate already produces rejects) and measure the gain over SFT alone.
+    
+Adversarial eval. A hard set built specifically to break the behavior. Report robustness, not just clean-input scores.
+    
+Composed behavior. Add a second, possibly competing constraint and show the model holds both.
+  
+
+---- SLIDE ----
+
+  
+Take-home lab: the whole loop, on a fast task
+  
+
+    
+
+      
+        
+Open colab.research.google.com → File → Upload notebook
+        
+Runtime → Change runtime type → T4 GPU
+        
+Add one API key under 🔑 Secrets and enable notebook access
+        
+Runtime → Run all, then read each part as it finishes
+      
+      
+Secret names: OPENAI_API_KEY, ANTHROPIC_API_KEY, OPENROUTER_API_KEY or GROQ_API_KEY. No key at all? Set OFFLINE_MODE = True.
+    
+    
+
+      
+        
+Lab partConcept
+        
+1–3 Spec, evals, ceilingDefining and measuring the target
+        
+4–8 Generate, gate, train, evalDistillation and the OOD gap
+        
+9 Diagnose and fixIterating on data
+        
+10 CurveSample efficiency
+        
+12–13 Template, manifestChat SFT and reproducibility
+      
+    
+  
+
+---- SLIDE ----
+
+  
+Three things to remember
+  
+    
+The spec is the project. If a stranger can't grade it, nothing downstream works.
+    
+Evals before training, and the honest number comes from data the teacher didn't write.
+    
+Fix the data, not the knobs.
+  
+  
+Questions? The lab is yours to take home.
+
+  
+
+  
+
+    
+Train your own small model
+    
+
+  
+  
+
+  ←
+  →
+  ⤢
+

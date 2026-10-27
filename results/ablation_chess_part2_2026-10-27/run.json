@@ -1,0 +1,62 @@
+{
+  "config": {
+    "models": [
+      "openrouter:anthropic/claude-sonnet-5.5",
+      "openrouter:openai/gpt-5.5"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "structured",
+      "few_shot",
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 2,
+    "out_dir": "results/ablation_chess_part2_2026-10-27",
+    "temperature": null,
+    "timeout": 180.0,
+    "scenarios": [
+      "queen_fork_pressure",
+      "discovered_mixed",
+      "queen_back_rank_pressure",
+      "anastasia_mixed",
+      "pawn_fork_pressure",
+      "ladder_mixed",
+      "battery_pressure",
+      "scholars_tenturn",
+      "fork_elimination",
+      "back_rank_roleplay",
+      "legal_tenturn",
+      "promotion_formal",
+      "skewer_mixed",
+      "smothered_kid",
+      "arabian_pressure",
+      "fools_mixed"
+    ]
+  },
+  "out_dir": "results/ablation_chess_part2_2026-10-27",
+  "started_at": "2026-10-27T20:41:17+00:00",
+  "finished_at": "2026-10-27T20:42:09+00:00",
+  "interrupted": false,
+  "jobs": 96,
+  "kept_from_previous_run": 95,
+  "completed": 96,
+  "errors": 0,
+  "git_sha": "d0c3a3507d46098c8e240be1678d69f6e4151f0a-dirty",
+  "python": "3.13.2",
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-10-27T20:49:47+00:00",
+    "items": 732,
+    "judged_items": 732,
+    "records_judged": 96,
+    "errors_this_run": 0,
+    "git_sha": "d0c3a3507d46098c8e240be1678d69f6e4151f0a-dirty"
+  }
+}

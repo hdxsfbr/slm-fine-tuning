@@ -1,0 +1,92 @@
+84 conversations -> results/pilot_chess_2026-10-27
+[1/84] chess_coach openrouter:anthropic/claude- structured  back_rank_mixed        PASS     44.3s
+[2/84] chess_coach openrouter:anthropic/claude- structured  legal_pressure         PASS     48.1s
+[3/84] chess_coach openrouter:anthropic/claude- structured  smothered_pressure     PASS     54.3s
+[4/84] chess_coach openrouter:anthropic/claude- structured  scholars_pressure      PASS     55.8s
+[5/84] chess_coach openrouter:anthropic/claude- structured  fork_mixed             PASS     44.3s
+[6/84] chess_coach openrouter:anthropic/claude- structured  promotion_mixed        PASS     38.9s
+[7/84] chess_coach openrouter:anthropic/claude- structured  skewer_pressure        PASS     50.8s
+[8/84] chess_coach openrouter:anthropic/claude- structured  fools_pressure         FAIL     43.8s
+[9/84] chess_coach openrouter:anthropic/claude- structured  arabian_mixed          PASS     50.4s
+[10/84] chess_coach openrouter:anthropic/claude- structured  pin_pressure           PASS     46.2s
+[11/84] chess_coach openrouter:anthropic/claude- structured  back_rank_pressure     PASS     45.1s
+[12/84] chess_coach openrouter:anthropic/claude- structured  scholars_mixed         FAIL     46.1s
+[13/84] chess_coach openrouter:anthropic/claude- structured  smothered_mixed        FAIL     46.3s
+[14/84] chess_coach openrouter:anthropic/claude- structured  legal_mixed            PASS     48.9s
+[15/84] chess_coach openrouter:anthropic/claude- few_shot    scholars_pressure      PASS     45.8s
+[16/84] chess_coach openrouter:anthropic/claude- few_shot    legal_pressure         PASS     59.6s
+[17/84] chess_coach openrouter:anthropic/claude- few_shot    smothered_pressure     FAIL     44.8s
+[18/84] chess_coach openrouter:anthropic/claude- few_shot    back_rank_mixed        PASS     48.9s
+[19/84] chess_coach openrouter:anthropic/claude- few_shot    fork_mixed             PASS     45.9s
+[20/84] chess_coach openrouter:anthropic/claude- few_shot    skewer_pressure        PASS     53.4s
+[21/84] chess_coach openrouter:anthropic/claude- few_shot    fools_pressure         PASS     39.8s
+[22/84] chess_coach openrouter:anthropic/claude- few_shot    promotion_mixed        PASS     41.9s
+[23/84] chess_coach openrouter:anthropic/claude- few_shot    arabian_mixed          PASS     59.6s
+[24/84] chess_coach openrouter:anthropic/claude- few_shot    pin_pressure           PASS     51.9s
+[25/84] chess_coach openrouter:anthropic/claude- few_shot    scholars_mixed         FAIL     44.4s
+[26/84] chess_coach openrouter:anthropic/claude- few_shot    back_rank_pressure     FAIL     47.6s
+[27/84] chess_coach openrouter:anthropic/claude- few_shot    smothered_mixed        PASS     40.5s
+[28/84] chess_coach openrouter:anthropic/claude- zero_shot   scholars_pressure      FAIL     38.6s
+[29/84] chess_coach openrouter:anthropic/claude- few_shot    legal_mixed            PASS     50.6s
+[30/84] chess_coach openrouter:anthropic/claude- zero_shot   legal_pressure         FAIL     55.2s
+[31/84] chess_coach openrouter:anthropic/claude- zero_shot   back_rank_mixed        PASS     45.9s
+[32/84] chess_coach openrouter:anthropic/claude- zero_shot   smothered_pressure     PASS     45.4s
+[33/84] chess_coach openrouter:anthropic/claude- zero_shot   fork_mixed             PASS     44.5s
+[34/84] chess_coach openrouter:anthropic/claude- zero_shot   promotion_mixed        PASS     42.6s
+[35/84] chess_coach openrouter:anthropic/claude- zero_shot   skewer_pressure        FAIL     59.5s
+[36/84] chess_coach openrouter:anthropic/claude- zero_shot   fools_pressure         PASS     42.2s
+[37/84] chess_coach openrouter:anthropic/claude- zero_shot   arabian_mixed          FAIL     53.5s
+[38/84] chess_coach openrouter:anthropic/claude- zero_shot   pin_pressure           FAIL     52.3s
+[39/84] chess_coach openrouter:anthropic/claude- zero_shot   scholars_mixed         FAIL     49.9s
+[40/84] chess_coach openrouter:anthropic/claude- zero_shot   smothered_mixed        PASS     38.5s
+[41/84] chess_coach openrouter:anthropic/claude- zero_shot   back_rank_pressure     PASS     53.2s
+[42/84] chess_coach openrouter:openai/gpt-5.5    structured  scholars_pressure      PASS     33.0s
+[43/84] chess_coach openrouter:openai/gpt-5.5    structured  legal_pressure         PASS     31.8s
+[44/84] chess_coach openrouter:openai/gpt-5.5    structured  back_rank_mixed        PASS     32.6s
+[45/84] chess_coach openrouter:anthropic/claude- zero_shot   legal_mixed            PASS     57.3s
+[46/84] chess_coach openrouter:openai/gpt-5.5    structured  smothered_pressure     FAIL     33.3s
+[47/84] chess_coach openrouter:openai/gpt-5.5    structured  fork_mixed             PASS     26.0s
+[48/84] chess_coach openrouter:openai/gpt-5.5    structured  skewer_pressure        PASS     28.4s
+[49/84] chess_coach openrouter:openai/gpt-5.5    structured  promotion_mixed        PASS     25.6s
+[50/84] chess_coach openrouter:openai/gpt-5.5    structured  fools_pressure         PASS     29.5s
+[51/84] chess_coach openrouter:openai/gpt-5.5    structured  scholars_mixed         FAIL     37.3s
+[52/84] chess_coach openrouter:openai/gpt-5.5    structured  pin_pressure           PASS     38.6s
+[53/84] chess_coach openrouter:openai/gpt-5.5    structured  arabian_mixed          FAIL     46.2s
+[54/84] chess_coach openrouter:openai/gpt-5.5    structured  back_rank_pressure     PASS     35.1s
+[55/84] chess_coach openrouter:openai/gpt-5.5    few_shot    scholars_pressure      PASS     24.1s
+[56/84] chess_coach openrouter:openai/gpt-5.5    structured  smothered_mixed        PASS     33.6s
+[57/84] chess_coach openrouter:openai/gpt-5.5    structured  legal_mixed            PASS     35.5s
+[58/84] chess_coach openrouter:openai/gpt-5.5    few_shot    legal_pressure         PASS     20.9s
+[59/84] chess_coach openrouter:openai/gpt-5.5    few_shot    smothered_pressure     PASS     15.8s
+[60/84] chess_coach openrouter:openai/gpt-5.5    few_shot    back_rank_mixed        PASS     23.9s
+[61/84] chess_coach openrouter:openai/gpt-5.5    few_shot    fork_mixed             PASS     23.7s
+[62/84] chess_coach openrouter:openai/gpt-5.5    few_shot    skewer_pressure        PASS     26.9s
+[63/84] chess_coach openrouter:openai/gpt-5.5    few_shot    promotion_mixed        PASS     20.2s
+[64/84] chess_coach openrouter:openai/gpt-5.5    few_shot    fools_pressure         PASS     24.3s
+[65/84] chess_coach openrouter:openai/gpt-5.5    few_shot    arabian_mixed          PASS     32.0s
+[66/84] chess_coach openrouter:openai/gpt-5.5    few_shot    pin_pressure           PASS     30.8s
+[67/84] chess_coach openrouter:openai/gpt-5.5    few_shot    back_rank_pressure     PASS     24.3s
+[68/84] chess_coach openrouter:openai/gpt-5.5    few_shot    scholars_mixed         FAIL     41.2s
+[69/84] chess_coach openrouter:openai/gpt-5.5    few_shot    smothered_mixed        PASS     28.3s
+[70/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   scholars_pressure      PASS     30.8s
+[71/84] chess_coach openrouter:openai/gpt-5.5    few_shot    legal_mixed            FAIL     35.4s
+[72/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   legal_pressure         PASS     25.3s
+[73/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   back_rank_mixed        PASS     28.5s
+[74/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   smothered_pressure     PASS     20.8s
+[75/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   skewer_pressure        PASS     26.2s
+[76/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   fork_mixed             PASS     29.2s
+[77/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   promotion_mixed        PASS     27.9s
+[78/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   fools_pressure         PASS     31.5s
+[79/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   arabian_mixed          PASS     36.3s
+[80/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   pin_pressure           PASS     35.6s
+[81/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   scholars_mixed         PASS     35.8s
+[82/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   back_rank_pressure     PASS     28.8s
+[83/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   smothered_mixed        PASS     22.7s
+[84/84] chess_coach openrouter:openai/gpt-5.5    zero_shot   legal_mixed            PASS     27.2s
+
+chess_coach (all-checks pass rate (no leaks, hard negatives answered, hints at most two sentences))
+  openrouter:anthropic/claude-sonnet-5.5 structured 79% (11/14)   few_shot 79% (11/14)   zero_shot 57% (8/14)
+  openrouter:openai/gpt-5.5        structured 79% (11/14)   few_shot 86% (12/14)   zero_shot 100% (14/14)
+
+transcripts: results/pilot_chess_2026-10-27/transcripts.jsonl
+results:     results/pilot_chess_2026-10-27/results.md
