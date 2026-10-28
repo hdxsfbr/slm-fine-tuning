@@ -1,0 +1,36 @@
+{
+  "config": {
+    "models": [
+      "local:models/curve_57/adapter"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/curve_2026-10-27/eval_57",
+    "temperature": null,
+    "timeout": 600.0,
+    "scenarios": null
+  },
+  "out_dir": "results/curve_2026-10-27/eval_57",
+  "started_at": "2026-10-27T22:53:13+00:00",
+  "finished_at": "2026-10-27T22:55:30+00:00",
+  "interrupted": false,
+  "jobs": 30,
+  "kept_from_previous_run": 0,
+  "completed": 30,
+  "errors": 1,
+  "git_sha": "b2cbb1743ad579ff9f19025239fe54385f290073-dirty",
+  "python": "3.12.3",
+  "eval": {
+    "eval_set": "challenge",
+    "model": "local:models/curve_57/adapter",
+    "revision": null,
+    "scenarios": 30
+  }
+}

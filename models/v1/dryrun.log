@@ -1,0 +1,23 @@
+W1027 15:19:31.457000 1789724 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1027 15:19:31.500000 1789724 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+rows: 455 of data/train.jsonl (sha256 109377ecb7b35e3c)
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+/home/hdx/code/slm-fine-tuning/.venv-train/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  51%|█████     | 157/310 [00:00<00:00, 1564.47it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 1882.91it/s]
+tokens per row: min 477, median 821, max 1248; over 2048: 0
+Unsloth 2026.10.9 patched 28 layers with 28 QKV layers, 28 O layers and 28 MLP layers.
+Unsloth: compiling each transformer block as one region (Qwen3DecoderLayer).
+Unsloth: Tokenizing ["text"] (num_proc=8):   0%|          | 0/455 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  13%|█▎        | 57/455 [00:01<00:09, 41.46 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  25%|██▌       | 114/455 [00:02<00:06, 55.13 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  38%|███▊      | 171/455 [00:03<00:04, 60.52 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  50%|█████     | 228/455 [00:03<00:03, 64.09 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  63%|██████▎   | 285/455 [00:04<00:02, 65.66 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  75%|███████▌  | 342/455 [00:05<00:01, 67.14 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  88%|████████▊ | 399/455 [00:06<00:00, 68.18 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8): 100%|██████████| 455/455 [00:07<00:00, 69.11 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8): 100%|██████████| 455/455 [00:07<00:00, 63.46 examples/s]
+🦥 Unsloth: Padding-free auto-enabled, enabling faster training.
+Map:   0%|          | 0/455 [00:00<?, ? examples/s]Map: 100%|██████████| 455/455 [00:00<00:00, 6322.81 examples/s]
+masking: 421 of 1007 tokens carry loss on row 0; first trained text: 'Look for a checkmate that your queen can deliver while the knight covers the squares the white king would use to escape. Ask which squares the white king can st'
+dry run, not training

@@ -1,0 +1,104 @@
+{
+  "stages": [
+    {
+      "stage": "structure",
+      "in": 1100,
+      "out": 901,
+      "dropped": 199
+    },
+    {
+      "stage": "dedupe",
+      "in": 901,
+      "out": 901,
+      "dropped": 0
+    },
+    {
+      "stage": "checks",
+      "in": 901,
+      "out": 664,
+      "dropped": 237
+    },
+    {
+      "stage": "judge",
+      "in": 664,
+      "out": 505,
+      "dropped": 159
+    },
+    {
+      "stage": "leakage",
+      "in": 505,
+      "out": 505,
+      "dropped": 0
+    }
+  ],
+  "input": 1100,
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubric": "chess_coach_leak_v2",
+    "verdicts": 4533,
+    "input_tokens": 5085048,
+    "output_tokens": 1970462
+  },
+  "output": {
+    "train": {
+      "path": "data/train.jsonl",
+      "rows": 455,
+      "sha256": "109377ecb7b35e3c4c40c0e5ce992b075c777becbf441090520d5365e8a483ac"
+    },
+    "synthetic_test": {
+      "path": "data/synthetic_test.jsonl",
+      "rows": 50,
+      "sha256": "d6660fb422cb379d024342810bcb23ac591c5de634674f1a92abaa8fe7e37c7d"
+    }
+  },
+  "families": {
+    "Q": 55,
+    "QB": 53,
+    "QB+shield": 29,
+    "QN": 62,
+    "QR": 60,
+    "QR+shield": 29,
+    "R": 51,
+    "RB": 42,
+    "RN": 47,
+    "RN+shield": 14,
+    "RR": 44,
+    "RR+shield": 19
+  },
+  "kinds": {
+    "direct": 594,
+    "disguise": 204,
+    "square": 296,
+    "insist": 341,
+    "elimination": 113,
+    "narrow": 224,
+    "authority": 260,
+    "emotional": 230,
+    "normal": 251,
+    "roleplay": 150,
+    "format": 294,
+    "confirm": 258,
+    "enumerate": 150,
+    "yesno": 205,
+    "closure": 96
+  },
+  "personas": {
+    "kid": 29,
+    "programmer": 37,
+    "formal": 36,
+    "coach": 32,
+    "returning": 38,
+    "club_player": 28,
+    "parent": 32,
+    "arbiter": 35,
+    "blitz": 38,
+    "composer": 32,
+    "skeptic": 34,
+    "beginner": 30,
+    "titled": 26,
+    "flatterer": 28,
+    "streamer": 21,
+    "esl": 29
+  },
+  "gated_at": "2026-10-27T21:56:07+00:00"
+}
