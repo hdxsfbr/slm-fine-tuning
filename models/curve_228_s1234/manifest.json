@@ -1,0 +1,154 @@
+{
+  "created_at": "2026-10-27T23:02:23+00:00",
+  "base_model": "unsloth/Qwen3-1.7B",
+  "base_loaded": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+  "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+  "data": {
+    "path": "data/train.jsonl",
+    "sha256": "109377ecb7b35e3c4c40c0e5ce992b075c777becbf441090520d5365e8a483ac",
+    "rows_total": 455,
+    "rows_used": 228,
+    "n": 228,
+    "perm_seed": 0
+  },
+  "system_prompt": "zero_shot",
+  "config": {
+    "max_seq_length": 2048,
+    "load_in_4bit": true,
+    "lora_r": 16,
+    "lora_alpha": 16,
+    "lora_dropout": 0,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0002,
+    "epochs": 2.0,
+    "batch": 2,
+    "grad_accum": 4,
+    "warmup_steps": 5,
+    "optim": "adamw_8bit",
+    "weight_decay": 0.01,
+    "scheduler": "linear",
+    "seed": 1234,
+    "responses_only": true,
+    "instruction_part": "<|im_start|>user\n",
+    "response_part": "<|im_start|>assistant\n"
+  },
+  "tokens_per_row": {
+    "min": 477,
+    "median": 789,
+    "max": 1248,
+    "over_max": 0
+  },
+  "train": {
+    "steps": 58,
+    "train_loss": 2.1481782650125436,
+    "runtime_s": 35.8,
+    "log": [
+      {
+        "loss": 4.76160774230957,
+        "grad_norm": 6.54679536819458,
+        "learning_rate": 0.00016,
+        "epoch": 0.17543859649122806,
+        "step": 5
+      },
+      {
+        "loss": 3.0997095108032227,
+        "grad_norm": 1.1217985153198242,
+        "learning_rate": 0.0001849056603773585,
+        "epoch": 0.3508771929824561,
+        "step": 10
+      },
+      {
+        "loss": 2.406366157531738,
+        "grad_norm": 0.6298518180847168,
+        "learning_rate": 0.0001660377358490566,
+        "epoch": 0.5263157894736842,
+        "step": 15
+      },
+      {
+        "loss": 2.1365449905395506,
+        "grad_norm": 0.6547144651412964,
+        "learning_rate": 0.00014716981132075472,
+        "epoch": 0.7017543859649122,
+        "step": 20
+      },
+      {
+        "loss": 1.9477273941040039,
+        "grad_norm": 0.5640537142753601,
+        "learning_rate": 0.00012830188679245283,
+        "epoch": 0.8771929824561403,
+        "step": 25
+      },
+      {
+        "loss": 1.7752450942993163,
+        "grad_norm": 0.4761214554309845,
+        "learning_rate": 0.00010943396226415095,
+        "epoch": 1.0350877192982457,
+        "step": 30
+      },
+      {
+        "loss": 1.6782114028930664,
+        "grad_norm": 0.5712646245956421,
+        "learning_rate": 9.056603773584906e-05,
+        "epoch": 1.2105263157894737,
+        "step": 35
+      },
+      {
+        "loss": 1.6068439483642578,
+        "grad_norm": 0.5228153467178345,
+        "learning_rate": 7.169811320754717e-05,
+        "epoch": 1.3859649122807016,
+        "step": 40
+      },
+      {
+        "loss": 1.5943839073181152,
+        "grad_norm": 0.558047890663147,
+        "learning_rate": 5.283018867924528e-05,
+        "epoch": 1.5614035087719298,
+        "step": 45
+      },
+      {
+        "loss": 1.541990089416504,
+        "grad_norm": 0.5516061782836914,
+        "learning_rate": 3.39622641509434e-05,
+        "epoch": 1.736842105263158,
+        "step": 50
+      },
+      {
+        "loss": 1.4884772300720215,
+        "grad_norm": 0.6400393843650818,
+        "learning_rate": 1.509433962264151e-05,
+        "epoch": 1.912280701754386,
+        "step": 55
+      },
+      {
+        "train_runtime": 35.7755,
+        "train_samples_per_second": 12.746,
+        "train_steps_per_second": 1.621,
+        "total_flos": 3152471800836096.0,
+        "train_loss": 2.1481782650125436,
+        "epoch": 2.0,
+        "step": 58
+      }
+    ]
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "transformers": "5.17.0",
+    "trl": "1.15.0",
+    "peft": "0.21.2",
+    "unsloth": "2026.10.9",
+    "gpu": "NVIDIA GeForce RTX 4090"
+  },
+  "code_git_sha": "b2cbb1743ad579ff9f19025239fe54385f290073-dirty",
+  "wall_s": 65.0
+}

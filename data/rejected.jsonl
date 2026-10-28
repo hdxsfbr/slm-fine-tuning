@@ -1,0 +1,595 @@
+{"id": "gen_0010", "stage": "structure", "why": "turn count 4, plan wants 6"}
+{"id": "gen_0012", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0026", "stage": "structure", "why": "turn count 4, plan wants 5"}
+{"id": "gen_0025", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0024", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0030", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0034", "stage": "structure", "why": "turn count 4, plan wants 8"}
+{"id": "gen_0041", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0045", "stage": "structure", "why": "turn count 4, plan wants 5"}
+{"id": "gen_0050", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0054", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0063", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0081", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0091", "stage": "structure", "why": "turn count 4, plan wants 5"}
+{"id": "gen_0106", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0107", "stage": "structure", "why": "turn count 6, plan wants 8"}
+{"id": "gen_0110", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0113", "stage": "structure", "why": "turn count 10, plan wants 9"}
+{"id": "gen_0120", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0119", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0122", "stage": "structure", "why": "turn count 5, plan wants 8"}
+{"id": "gen_0123", "stage": "structure", "why": "turn count 6, plan wants 8"}
+{"id": "gen_0134", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0135", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0143", "stage": "structure", "why": "turn count 4, plan wants 5"}
+{"id": "gen_0146", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0151", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0154", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0161", "stage": "structure", "why": "turn count 5, plan wants 4"}
+{"id": "gen_0159", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0174", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0178", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0184", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0190", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0189", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0193", "stage": "structure", "why": "turn count 5, plan wants 10"}
+{"id": "gen_0198", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0197", "stage": "structure", "why": "turn count 7, plan wants 10"}
+{"id": "gen_0201", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0210", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0230", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0233", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0245", "stage": "structure", "why": "turn count 5, plan wants 7"}
+{"id": "gen_0246", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0250", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0259", "stage": "structure", "why": "turn count 3, plan wants 4"}
+{"id": "gen_0258", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0257", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0260", "stage": "structure", "why": "turn count 3, plan wants 5"}
+{"id": "gen_0262", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0265", "stage": "structure", "why": "turn count 4, plan wants 5"}
+{"id": "gen_0266", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0267", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0270", "stage": "structure", "why": "turn count 6, plan wants 8"}
+{"id": "gen_0271", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0280", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0282", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0292", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0294", "stage": "structure", "why": "turn count 3, plan wants 4"}
+{"id": "gen_0298", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0297", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0300", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0301", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0302", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0309", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0310", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0311", "stage": "structure", "why": "turn count 5, plan wants 7"}
+{"id": "gen_0317", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0323", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0327", "stage": "structure", "why": "turn count 7, plan wants 6"}
+{"id": "gen_0334", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0358", "stage": "structure", "why": "turn count 6, plan wants 8"}
+{"id": "gen_0359", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0363", "stage": "structure", "why": "turn count 4, plan wants 6"}
+{"id": "gen_0368", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0369", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_0373", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0376", "stage": "structure", "why": "turn count 5, plan wants 7"}
+{"id": "gen_0379", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_0392", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0393", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0394", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0396", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0406", "stage": "structure", "why": "turn count 4, plan wants 6"}
+{"id": "gen_0409", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0412", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0413", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0417", "stage": "structure", "why": "turn count 10, plan wants 11"}
+{"id": "gen_0422", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0433", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0434", "stage": "structure", "why": "turn count 3, plan wants 5"}
+{"id": "gen_0435", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0441", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0452", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0454", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0461", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0473", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0477", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0484", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_0489", "stage": "structure", "why": "turn count 4, plan wants 6"}
+{"id": "gen_0493", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0501", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0515", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0519", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0517", "stage": "structure", "why": "turn count 8, plan wants 7"}
+{"id": "gen_0521", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0544", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0545", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0546", "stage": "structure", "why": "turn count 9, plan wants 8"}
+{"id": "gen_0547", "stage": "structure", "why": "turn count 5, plan wants 7"}
+{"id": "gen_0558", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0561", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0568", "stage": "structure", "why": "turn count 4, plan wants 7"}
+{"id": "gen_0578", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0577", "stage": "structure", "why": "turn count 7, plan wants 9"}
+{"id": "gen_0588", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0594", "stage": "structure", "why": "turn count 5, plan wants 8"}
+{"id": "gen_0643", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0644", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0655", "stage": "structure", "why": "turn count 3, plan wants 4"}
+{"id": "gen_0656", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0679", "stage": "structure", "why": "turn count 6, plan wants 8"}
+{"id": "gen_0686", "stage": "structure", "why": "kinds ['direct', 'insist', 'emotional', 'disguise', 'authority', 'insist', 'square', 'authority', 'narrow'] differ from plan ['direct', 'emotional', 'insist', 'disguise', 'authority', 'insist', 'square', 'authority', 'narrow']"}
+{"id": "gen_0704", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0705", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0717", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0715", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_0722", "stage": "structure", "why": "turn count 4, plan wants 5"}
+{"id": "gen_0734", "stage": "structure", "why": "kinds ['direct', 'insist', 'yesno', 'emotional'] differ from plan ['direct', 'yesno', 'insist', 'emotional']"}
+{"id": "gen_0737", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0740", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0748", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0752", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0758", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0759", "stage": "structure", "why": "kinds ['direct', 'insist', 'narrow', 'insist', 'yesno', 'insist', 'square', 'disguise', 'square', 'emotional'] differ from plan ['direct', 'yesno', 'insist', 'narrow', 'insist', 'yesno', 'square', 'disguise', 'square', 'emotional']"}
+{"id": "gen_0773", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0774", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0779", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_0785", "stage": "structure", "why": "turn count 2, plan wants 8"}
+{"id": "gen_0790", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0791", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0800", "stage": "structure", "why": "turn count 10, plan wants 11"}
+{"id": "gen_0803", "stage": "structure", "why": "turn count 6, plan wants 10"}
+{"id": "gen_0810", "stage": "structure", "why": "turn count 4, plan wants 7"}
+{"id": "gen_0809", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_0818", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0828", "stage": "structure", "why": "turn count 5, plan wants 7"}
+{"id": "gen_0831", "stage": "structure", "why": "turn count 5, plan wants 7"}
+{"id": "gen_0837", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0840", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0857", "stage": "structure", "why": "turn count 4, plan wants 5"}
+{"id": "gen_0856", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0870", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0872", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0879", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0884", "stage": "structure", "why": "kinds ['direct', 'normal', 'narrow', 'authority', 'confirm', 'square', 'confirm', 'insist'] differ from plan ['direct', 'narrow', 'authority', 'confirm', 'square', 'confirm', 'insist', 'yesno']"}
+{"id": "gen_0892", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0901", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0910", "stage": "structure", "why": "turn count 3, plan wants 4"}
+{"id": "gen_0908", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0914", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0916", "stage": "structure", "why": "turn count 7, plan wants 10"}
+{"id": "gen_0926", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0929", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0936", "stage": "structure", "why": "turn count 2, plan wants 4"}
+{"id": "gen_0933", "stage": "structure", "why": "turn count 11, plan wants 10"}
+{"id": "gen_0935", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_0945", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_0944", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0947", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0948", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_0951", "stage": "structure", "why": "turn count 5, plan wants 7"}
+{"id": "gen_0961", "stage": "structure", "why": "turn count 11, plan wants 10"}
+{"id": "gen_0965", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0967", "stage": "structure", "why": "kinds ['direct', 'insist', 'yesno', 'narrow', 'normal', 'format', 'narrow', 'direct', 'emotional', 'format'] differ from plan ['direct', 'yesno', 'insist', 'narrow', 'normal', 'format', 'narrow', 'direct', 'emotional', 'format']"}
+{"id": "gen_0978", "stage": "structure", "why": "turn count 6, plan wants 8"}
+{"id": "gen_0993", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_0999", "stage": "structure", "why": "turn count 12, plan wants 11"}
+{"id": "gen_1002", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_1004", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_1007", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_1010", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_1014", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_1015", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_1023", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_1027", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_1034", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_1044", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_1047", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_1053", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_1056", "stage": "structure", "why": "turn count 4, plan wants 6"}
+{"id": "gen_1064", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_1067", "stage": "structure", "why": "turn count 6, plan wants 8"}
+{"id": "gen_1074", "stage": "structure", "why": "turn count 5, plan wants 6"}
+{"id": "gen_1077", "stage": "structure", "why": "kinds ['direct', 'insist', 'format', 'elimination'] differ from plan ['direct', 'insist', 'format', 'narrow']"}
+{"id": "gen_1080", "stage": "structure", "why": "turn count 6, plan wants 7"}
+{"id": "gen_1076", "stage": "structure", "why": "turn count 8, plan wants 9"}
+{"id": "gen_1086", "stage": "structure", "why": "turn count 8, plan wants 10"}
+{"id": "gen_1095", "stage": "structure", "why": "turn count 7, plan wants 8"}
+{"id": "gen_0015", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 2 (roleplay) leaks ['b1']; turn 11 (authority) leaks ['b1']"}
+{"id": "gen_0019", "stage": "checks", "why": "turn 1 (direct) leaks ['a2']; turn 6 (elimination) leaks ['a2']; turn 7 (format) leaks ['a2']"}
+{"id": "gen_0027", "stage": "checks", "why": "turn 3 (square) leaks ['f3']"}
+{"id": "gen_0031", "stage": "checks", "why": "turn 1 (direct) leaks ['h5']; turn 2 (authority) leaks ['b7']"}
+{"id": "gen_0039", "stage": "checks", "why": "turn 3 (yesno) leaks ['g8', 'f6']"}
+{"id": "gen_0038", "stage": "checks", "why": "turn 8 (closure) leaks ['c6']"}
+{"id": "gen_0033", "stage": "checks", "why": "turn 7 (confirm) leaks ['h1']"}
+{"id": "gen_0056", "stage": "checks", "why": "turn 7 (closure) 3 sentences"}
+{"id": "gen_0064", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 4 (narrow) leaks ['b1']"}
+{"id": "gen_0070", "stage": "checks", "why": "turn 1 (direct) leaks ['h6']"}
+{"id": "gen_0074", "stage": "checks", "why": "turn 1 (direct) leaks ['d8']"}
+{"id": "gen_0075", "stage": "checks", "why": "turn 4 (confirm) leaks ['h8']"}
+{"id": "gen_0079", "stage": "checks", "why": "turn 1 (direct) leaks ['f1']; turn 4 (confirm) leaks ['a1']; turn 7 (format) leaks ['f1']"}
+{"id": "gen_0078", "stage": "checks", "why": "turn 1 (direct) leaks ['e6']"}
+{"id": "gen_0088", "stage": "checks", "why": "turn 1 (direct) leaks ['a5']"}
+{"id": "gen_0100", "stage": "checks", "why": "turn 1 (direct) leaks ['d1']"}
+{"id": "gen_0103", "stage": "checks", "why": "turn 1 (direct) leaks ['a4']"}
+{"id": "gen_0105", "stage": "checks", "why": "turn 1 (direct) leaks ['a4']"}
+{"id": "gen_0118", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']"}
+{"id": "gen_0121", "stage": "checks", "why": "turn 3 (emotional) leaks ['c8']"}
+{"id": "gen_0130", "stage": "checks", "why": "turn 2 (authority) leaks ['d1']"}
+{"id": "gen_0149", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0158", "stage": "checks", "why": "turn 1 (direct) leaks ['h4']"}
+{"id": "gen_0166", "stage": "checks", "why": "turn 2 (square) leaks ['b8']"}
+{"id": "gen_0171", "stage": "checks", "why": "turn 2 (square) leaks ['a8']"}
+{"id": "gen_0172", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']; turn 4 (square) leaks ['a1']; turn 9 (insist) leaks ['a1']"}
+{"id": "gen_0176", "stage": "checks", "why": "turn 1 (direct) leaks ['h8']"}
+{"id": "gen_0181", "stage": "checks", "why": "turn 1 (direct) leaks ['a2']; turn 2 (narrow) leaks ['g6']"}
+{"id": "gen_0180", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']"}
+{"id": "gen_0182", "stage": "checks", "why": "turn 1 (direct) leaks ['a2']"}
+{"id": "gen_0188", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']"}
+{"id": "gen_0200", "stage": "checks", "why": "turn 1 (direct) leaks ['d8']"}
+{"id": "gen_0203", "stage": "checks", "why": "turn 7 (confirm) leaks ['c1', 'd2', 'b2']"}
+{"id": "gen_0211", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']"}
+{"id": "gen_0218", "stage": "checks", "why": "turn 6 (confirm) leaks ['c4']"}
+{"id": "gen_0226", "stage": "checks", "why": "turn 1 (direct) leaks ['g8']"}
+{"id": "gen_0229", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0231", "stage": "checks", "why": "turn 1 (direct) leaks ['f8']"}
+{"id": "gen_0238", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']; turn 3 (confirm) leaks ['g1']; turn 4 (square) leaks ['f2']"}
+{"id": "gen_0236", "stage": "checks", "why": "turn 8 (closure) leaks ['c8', 'a8']"}
+{"id": "gen_0240", "stage": "checks", "why": "turn 1 (direct) leaks ['h7']"}
+{"id": "gen_0251", "stage": "checks", "why": "turn 1 (direct) leaks ['h6']"}
+{"id": "gen_0247", "stage": "checks", "why": "turn 2 (square) leaks ['f8']; turn 5 (confirm) leaks ['f6']"}
+{"id": "gen_0261", "stage": "checks", "why": "turn 4 (confirm) leaks ['c8']"}
+{"id": "gen_0269", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0274", "stage": "checks", "why": "turn 3 (emotional) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0272", "stage": "checks", "why": "turn 3 (roleplay) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0276", "stage": "checks", "why": "turn 5 (format) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0279", "stage": "checks", "why": "turn 2 (format) leaks ['g1']"}
+{"id": "gen_0281", "stage": "checks", "why": "turn 5 (emotional) leaks ['a2', 'b2']"}
+{"id": "gen_0284", "stage": "checks", "why": "turn 2 (format) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0283", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0285", "stage": "checks", "why": "turn 3 (direct) leaks ['f2', 'g2', 'h2']; turn 7 (insist) leaks ['g1']"}
+{"id": "gen_0288", "stage": "checks", "why": "turn 1 (direct) leaks ['a7', 'b7']"}
+{"id": "gen_0293", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0296", "stage": "checks", "why": "turn 4 (authority) leaks ['g7', 'h7']"}
+{"id": "gen_0295", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0304", "stage": "checks", "why": "turn 5 (insist) leaks ['g2', 'h2']"}
+{"id": "gen_0305", "stage": "checks", "why": "turn 4 (authority) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0307", "stage": "checks", "why": "turn 7 (insist) leaks ['g7', 'h7']"}
+{"id": "gen_0306", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']"}
+{"id": "gen_0313", "stage": "checks", "why": "turn 2 (insist) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0312", "stage": "checks", "why": "turn 1 (direct) leaks ['g2', 'h2']; turn 5 (enumerate) leaks ['e5']"}
+{"id": "gen_0314", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']; turn 7 (format) leaks ['g2', 'h2']"}
+{"id": "gen_0315", "stage": "checks", "why": "turn 6 (insist) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0318", "stage": "checks", "why": "turn 5 (disguise) leaks ['a2', 'b2']"}
+{"id": "gen_0320", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 2 (square) leaks ['a2', 'b2', 'c2']"}
+{"id": "gen_0325", "stage": "checks", "why": "turn 5 (yesno) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0328", "stage": "checks", "why": "turn 6 (direct) leaks ['a2', 'b2']"}
+{"id": "gen_0330", "stage": "checks", "why": "turn 4 (insist) leaks ['a7', 'b7']"}
+{"id": "gen_0333", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']"}
+{"id": "gen_0332", "stage": "checks", "why": "turn 1 (direct) leaks ['g8']; turn 4 (square) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0337", "stage": "checks", "why": "turn 5 (direct) leaks ['a1']"}
+{"id": "gen_0339", "stage": "checks", "why": "turn 5 (format) leaks ['c1']"}
+{"id": "gen_0336", "stage": "checks", "why": "turn 2 (narrow) leaks ['g7', 'h7']"}
+{"id": "gen_0344", "stage": "checks", "why": "turn 2 (enumerate) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0341", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 3 (yesno) leaks ['b1']"}
+{"id": "gen_0345", "stage": "checks", "why": "turn 7 (format) leaks ['f2', 'g2', 'h2']"}
+{"id": "gen_0346", "stage": "checks", "why": "turn 5 (emotional) leaks ['a7', 'b7']"}
+{"id": "gen_0350", "stage": "checks", "why": "turn 3 (elimination) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0351", "stage": "checks", "why": "turn 3 (normal) refusal"}
+{"id": "gen_0352", "stage": "checks", "why": "turn 2 (square) leaks ['b7']; turn 7 (square) leaks ['b7']"}
+{"id": "gen_0357", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 2 (disguise) leaks ['a2', 'b2', 'c2']"}
+{"id": "gen_0372", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0375", "stage": "checks", "why": "turn 1 (direct) leaks ['a7', 'b7']"}
+{"id": "gen_0380", "stage": "checks", "why": "turn 2 (square) leaks ['a1']"}
+{"id": "gen_0382", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 9 (insist) leaks ['b1']"}
+{"id": "gen_0383", "stage": "checks", "why": "turn 4 (square) leaks ['a7', 'b7', 'c7']; turn 8 (confirm) leaks ['h1']"}
+{"id": "gen_0385", "stage": "checks", "why": "turn 3 (confirm) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0384", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 3 (confirm) leaks ['d1']"}
+{"id": "gen_0386", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']"}
+{"id": "gen_0389", "stage": "checks", "why": "turn 4 (yesno) leaks ['e3']"}
+{"id": "gen_0388", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']"}
+{"id": "gen_0390", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']"}
+{"id": "gen_0411", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0426", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']"}
+{"id": "gen_0438", "stage": "checks", "why": "turn 2 (enumerate) leaks ['f7']; turn 6 (yesno) leaks ['f7']"}
+{"id": "gen_0436", "stage": "checks", "why": "turn 1 (direct) leaks ['d1']"}
+{"id": "gen_0440", "stage": "checks", "why": "turn 1 (direct) leaks ['h6']"}
+{"id": "gen_0442", "stage": "checks", "why": "turn 2 (format) leaks ['h7']; turn 4 (confirm) leaks ['h7']; turn 5 (confirm) leaks ['b3']"}
+{"id": "gen_0450", "stage": "checks", "why": "turn 2 (square) leaks ['c5']"}
+{"id": "gen_0458", "stage": "checks", "why": "turn 1 (direct) leaks ['g8']"}
+{"id": "gen_0459", "stage": "checks", "why": "turn 2 (yesno) 3 sentences"}
+{"id": "gen_0462", "stage": "checks", "why": "turn 1 (direct) leaks ['h8']"}
+{"id": "gen_0464", "stage": "checks", "why": "turn 3 (confirm) leaks ['c1']; turn 5 (square) leaks ['c8']"}
+{"id": "gen_0476", "stage": "checks", "why": "turn 4 (confirm) leaks ['a8']"}
+{"id": "gen_0480", "stage": "checks", "why": "turn 8 (disguise) leaks ['d8']"}
+{"id": "gen_0487", "stage": "checks", "why": "turn 1 (direct) leaks ['g1']"}
+{"id": "gen_0503", "stage": "checks", "why": "turn 2 (square) leaks ['b4']"}
+{"id": "gen_0502", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0506", "stage": "checks", "why": "turn 8 (square) leaks ['a1']"}
+{"id": "gen_0514", "stage": "checks", "why": "turn 6 (insist) leaks ['h1']"}
+{"id": "gen_0532", "stage": "checks", "why": "turn 2 (enumerate) leaks ['a8']"}
+{"id": "gen_0533", "stage": "checks", "why": "turn 6 (square) leaks ['a1']"}
+{"id": "gen_0536", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 6 (format) leaks ['b1']"}
+{"id": "gen_0537", "stage": "checks", "why": "turn 1 (direct) leaks ['d1']"}
+{"id": "gen_0548", "stage": "checks", "why": "turn 6 (square) leaks ['g8']"}
+{"id": "gen_0559", "stage": "checks", "why": "turn 3 (confirm) leaks ['h3']"}
+{"id": "gen_0555", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']"}
+{"id": "gen_0567", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']"}
+{"id": "gen_0575", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']"}
+{"id": "gen_0576", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']"}
+{"id": "gen_0591", "stage": "checks", "why": "turn 3 (roleplay) leaks ['a8']"}
+{"id": "gen_0593", "stage": "checks", "why": "turn 2 (confirm) leaks ['c8']"}
+{"id": "gen_0599", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']; turn 4 (emotional) 3 sentences"}
+{"id": "gen_0602", "stage": "checks", "why": "turn 1 (direct) leaks ['a5']"}
+{"id": "gen_0600", "stage": "checks", "why": "turn 1 (direct) leaks ['a6']"}
+{"id": "gen_0603", "stage": "checks", "why": "turn 1 (direct) leaks ['h5']"}
+{"id": "gen_0607", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']"}
+{"id": "gen_0614", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']"}
+{"id": "gen_0618", "stage": "checks", "why": "turn 7 (confirm) leaks ['g6']"}
+{"id": "gen_0623", "stage": "checks", "why": "turn 4 (square) leaks ['f5']"}
+{"id": "gen_0624", "stage": "checks", "why": "turn 2 (confirm) leaks ['a1']; turn 8 (authority) leaks ['c2']"}
+{"id": "gen_0625", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0632", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']"}
+{"id": "gen_0640", "stage": "checks", "why": "turn 3 (normal) refusal"}
+{"id": "gen_0648", "stage": "checks", "why": "turn 2 (emotional) leaks ['f1']"}
+{"id": "gen_0662", "stage": "checks", "why": "turn 3 (yesno) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0660", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']"}
+{"id": "gen_0666", "stage": "checks", "why": "turn 6 (square) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0664", "stage": "checks", "why": "turn 8 (authority) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0670", "stage": "checks", "why": "turn 10 (disguise) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0676", "stage": "checks", "why": "turn 1 (direct) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0677", "stage": "checks", "why": "turn 6 (direct) leaks ['a2', 'b2']"}
+{"id": "gen_0680", "stage": "checks", "why": "turn 2 (format) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0685", "stage": "checks", "why": "turn 6 (square) leaks ['g1']"}
+{"id": "gen_0689", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0693", "stage": "checks", "why": "turn 2 (square) leaks ['g7', 'h7']; turn 3 (yesno) leaks ['a3']"}
+{"id": "gen_0691", "stage": "checks", "why": "turn 6 (direct) leaks ['a2', 'b2', 'c2']"}
+{"id": "gen_0697", "stage": "checks", "why": "turn 6 (authority) leaks ['g7', 'h7']"}
+{"id": "gen_0699", "stage": "checks", "why": "turn 1 (direct) leaks ['g8']; turn 5 (direct) leaks ['g8', 'f7', 'g7', 'h7']"}
+{"id": "gen_0700", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']"}
+{"id": "gen_0702", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']"}
+{"id": "gen_0711", "stage": "checks", "why": "turn 6 (authority) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0713", "stage": "checks", "why": "turn 2 (format) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0719", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']; turn 3 (roleplay) leaks ['a7', 'b7']"}
+{"id": "gen_0716", "stage": "checks", "why": "turn 9 (confirm) leaks ['d1']"}
+{"id": "gen_0721", "stage": "checks", "why": "turn 3 (confirm) leaks ['h8']; turn 4 (direct) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0727", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0728", "stage": "checks", "why": "turn 6 (authority) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0750", "stage": "checks", "why": "turn 3 (enumerate) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0749", "stage": "checks", "why": "turn 1 (direct) leaks ['g1']"}
+{"id": "gen_0754", "stage": "checks", "why": "turn 2 (enumerate) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0755", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']"}
+{"id": "gen_0757", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0756", "stage": "checks", "why": "turn 3 (authority) leaks ['g7', 'h7']; turn 4 (narrow) leaks ['b2']; turn 10 (emotional) 3 sentences"}
+{"id": "gen_0762", "stage": "checks", "why": "turn 3 (roleplay) leaks ['a2', 'b2']"}
+{"id": "gen_0765", "stage": "checks", "why": "turn 4 (elimination) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0766", "stage": "checks", "why": "turn 5 (confirm) leaks ['g2', 'h2']"}
+{"id": "gen_0768", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']; turn 7 (emotional) leaks ['g1']"}
+{"id": "gen_0771", "stage": "checks", "why": "turn 4 (roleplay) leaks ['a7', 'b7']"}
+{"id": "gen_0769", "stage": "checks", "why": "turn 3 (insist) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_0775", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']; turn 3 (emotional) leaks ['g8']; turn 4 (confirm) leaks ['a7', 'b7']"}
+{"id": "gen_0777", "stage": "checks", "why": "turn 1 (direct) leaks ['b8', 'a7', 'b7', 'c7']"}
+{"id": "gen_0776", "stage": "checks", "why": "turn 6 (authority) leaks ['a1']"}
+{"id": "gen_0780", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0781", "stage": "checks", "why": "turn 2 (square) leaks ['f1']"}
+{"id": "gen_0788", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0794", "stage": "checks", "why": "turn 2 (normal) refusal"}
+{"id": "gen_0807", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_0819", "stage": "checks", "why": "turn 1 (direct) leaks ['f3']"}
+{"id": "gen_0825", "stage": "checks", "why": "turn 1 (direct) leaks ['d1']"}
+{"id": "gen_0829", "stage": "checks", "why": "turn 1 (direct) leaks ['a4']"}
+{"id": "gen_0832", "stage": "checks", "why": "turn 3 (confirm) leaks ['a1']; turn 4 (confirm) leaks ['c1']"}
+{"id": "gen_0833", "stage": "checks", "why": "turn 4 (normal) refusal"}
+{"id": "gen_0841", "stage": "checks", "why": "turn 4 (yesno) leaks ['a4']"}
+{"id": "gen_0844", "stage": "checks", "why": "turn 7 (confirm) leaks ['b8']"}
+{"id": "gen_0849", "stage": "checks", "why": "turn 7 (insist) leaks ['h8']"}
+{"id": "gen_0854", "stage": "checks", "why": "turn 2 (square) leaks ['g8']"}
+{"id": "gen_0853", "stage": "checks", "why": "turn 1 (direct) leaks ['h3']"}
+{"id": "gen_0864", "stage": "checks", "why": "turn 1 (direct) leaks ['d8']; turn 6 (emotional) leaks ['b8']"}
+{"id": "gen_0866", "stage": "checks", "why": "turn 1 (direct) leaks ['d8']; turn 3 (yesno) leaks ['d8']"}
+{"id": "gen_0871", "stage": "checks", "why": "turn 5 (yesno) leaks ['f1']"}
+{"id": "gen_0869", "stage": "checks", "why": "turn 1 (direct) leaks ['f8']"}
+{"id": "gen_0878", "stage": "checks", "why": "turn 3 (confirm) leaks ['e7']"}
+{"id": "gen_0885", "stage": "checks", "why": "turn 6 (closure) leaks ['a7']"}
+{"id": "gen_0887", "stage": "checks", "why": "turn 1 (direct) leaks ['g1']; turn 4 (yesno) leaks ['g1']"}
+{"id": "gen_0889", "stage": "checks", "why": "turn 1 (direct) leaks ['e1']"}
+{"id": "gen_0890", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']; turn 7 (insist) leaks ['a1']"}
+{"id": "gen_0893", "stage": "checks", "why": "turn 1 (direct) leaks ['h4']; turn 7 (narrow) leaks ['h4']"}
+{"id": "gen_0897", "stage": "checks", "why": "turn 2 (narrow) leaks ['a4']; turn 8 (enumerate) leaks ['a4']"}
+{"id": "gen_0905", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']"}
+{"id": "gen_0917", "stage": "checks", "why": "turn 5 (format) leaks ['a3']"}
+{"id": "gen_0920", "stage": "checks", "why": "turn 1 (direct) leaks ['a3']"}
+{"id": "gen_0921", "stage": "checks", "why": "turn 1 (direct) leaks ['g1']"}
+{"id": "gen_0923", "stage": "checks", "why": "turn 2 (disguise) leaks ['a6']"}
+{"id": "gen_0938", "stage": "checks", "why": "turn 4 (format) leaks ['g8']"}
+{"id": "gen_0959", "stage": "checks", "why": "turn 1 (direct) leaks ['g1']"}
+{"id": "gen_0956", "stage": "checks", "why": "turn 2 (format) leaks ['f8']"}
+{"id": "gen_0966", "stage": "checks", "why": "turn 1 (direct) leaks ['h2']; turn 6 (confirm) leaks ['h2']; turn 9 (direct) leaks ['h2']"}
+{"id": "gen_0971", "stage": "checks", "why": "turn 2 (confirm) leaks ['f7']"}
+{"id": "gen_0980", "stage": "checks", "why": "turn 4 (insist) leaks ['a8']"}
+{"id": "gen_0984", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']"}
+{"id": "gen_0992", "stage": "checks", "why": "turn 1 (direct) leaks ['d8']"}
+{"id": "gen_0995", "stage": "checks", "why": "turn 1 (direct) leaks ['c1']"}
+{"id": "gen_1009", "stage": "checks", "why": "turn 8 (emotional) 3 sentences"}
+{"id": "gen_1018", "stage": "checks", "why": "turn 5 (authority) leaks ['g8']"}
+{"id": "gen_1028", "stage": "checks", "why": "turn 1 (direct) leaks ['a8']; turn 4 (yesno) leaks ['a8']; turn 7 (authority) leaks ['a8']"}
+{"id": "gen_1037", "stage": "checks", "why": "turn 2 (square) leaks ['a1']"}
+{"id": "gen_1051", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']"}
+{"id": "gen_1054", "stage": "checks", "why": "turn 5 (square) leaks ['a8']"}
+{"id": "gen_1059", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']"}
+{"id": "gen_1061", "stage": "checks", "why": "turn 1 (direct) leaks ['b1', 'a2', 'b2', 'c2']"}
+{"id": "gen_1062", "stage": "checks", "why": "turn 1 (direct) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_1065", "stage": "checks", "why": "turn 4 (confirm) leaks ['b2']"}
+{"id": "gen_1066", "stage": "checks", "why": "turn 6 (direct) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_1068", "stage": "checks", "why": "turn 1 (direct) leaks ['f7', 'g7', 'h7']"}
+{"id": "gen_1069", "stage": "checks", "why": "turn 1 (direct) leaks ['h1']; turn 2 (confirm) leaks ['g2', 'h2']"}
+{"id": "gen_1075", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_1083", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_1085", "stage": "checks", "why": "turn 1 (direct) leaks ['b1']"}
+{"id": "gen_1082", "stage": "checks", "why": "turn 5 (square) leaks ['a7', 'b7']"}
+{"id": "gen_1090", "stage": "checks", "why": "turn 1 (direct) leaks ['a1']"}
+{"id": "gen_1088", "stage": "checks", "why": "turn 2 (yesno) leaks ['g7', 'h7']; turn 5 (insist) leaks ['g7', 'h7']"}
+{"id": "gen_1092", "stage": "checks", "why": "turn 1 (direct) leaks ['b1', 'a2', 'b2', 'c2']; turn 4 (direct) leaks ['a2', 'b2', 'c2']"}
+{"id": "gen_1093", "stage": "checks", "why": "turn 2 (format) leaks ['g7', 'h7']; turn 4 (square) leaks ['g7', 'h7']"}
+{"id": "gen_1097", "stage": "checks", "why": "turn 1 (direct) leaks ['a7', 'b7', 'c7']"}
+{"id": "gen_0000", "stage": "judge", "why": "turn 4 (yesno) The reply says the checking piece is the one that moves onto the king's diagonal and that the other piece covers escape squares, which identifies the queen as the mating piece and effectively denies the user's rook guess."}
+{"id": "gen_0002", "stage": "judge", "why": "turn 5 (insist) The reply says the mating check comes from the rook with the queen covering the king's surroundings, which names the piece and its role in the mate, matching the rule's example 'one knight check finishes the game.'"}
+{"id": "gen_0001", "stage": "judge", "why": "turn 5 (square) The reply states what the queen does, giving check, and that the rook covers the king's flight path, which identifies the mating move's piece and action rather than only pointing to a search."}
+{"id": "gen_0006", "stage": "judge", "why": "judge error or missing verdict"}
+{"id": "gen_0013", "stage": "judge", "why": "turn 1 (direct) The reply names the rook and places it on the seventh rank, the rank of the mating square f7, which tells the reader which piece goes where rather than only how to search for it."}
+{"id": "gen_0021", "stage": "judge", "why": "turn 4 (square) It says the rook lands on the e-file, naming the piece and its destination file, which narrows the move to e1 and reveals which piece goes where. The king-squares search does not offset that."}
+{"id": "gen_0036", "stage": "judge", "why": "turn 6 (yesno) The reply states outright that the move captures nothing, which is a fact about the move itself and answers the user's yes/no question directly, rather than only describing a search method."}
+{"id": "gen_0047", "stage": "judge", "why": "turn 1 (direct) The reply says one rook should cut off a whole file or rank while the other delivers check. That assigns each rook its role, which nearly names the mating move, so it goes beyond a search instruction.; turn 4 (yesno) The reply answers the user's yes/no question by confirming the move is a check that leaves the king no safe square, which states the move is a mating check, close to the 'one knight check finishes the game' example."}
+{"id": "gen_0053", "stage": "judge", "why": "turn 7 (yesno) The reply says 'Yes to rook and check is the right kind of thinking,' confirming the user's proposed move type (a rook check) and denying a capture, which the rule counts as confirming the user's guess."}
+{"id": "gen_0059", "stage": "judge", "why": "turn 2 (emotional) "}
+{"id": "gen_0061", "stage": "judge", "why": "turn 3 (yesno) The reply says the other rook can deliver the final check, which names the piece and its action, much like the flagged example 'one knight check finishes the game'. Combined with the seventh-rank cutoff hint, the reader is told which rook mates."}
+{"id": "gen_0062", "stage": "judge", "why": "turn 4 (confirm) The reply says the other rook should reach a file next to the white king, which identifies the piece and where it goes, narrowing the move to"}
+{"id": "gen_0066", "stage": "judge", "why": "turn 3 (confirm) The reply restates the user's own guess (queen check, knight covering escape squares, no block or capture) as the mating mechanism, which confirms the proposed move without saying yes or no and without naming a square."}
+{"id": "gen_0072", "stage": "judge", "why": "turn 7 (insist) It says the queen can check from a square adjacent to the black king that the king cannot capture, which states the queen's checking move in words and leaves little to find, effectively describing Qd7#."}
+{"id": "gen_0080", "stage": "judge", "why": "turn 3 (authority) The reply says the queen gives check on a square where the knight covers the escape, which describes the mating move's piece, action, and coverage. This closely matches the rule's example 'the rook lands right beside the king on a square the knight protects.'"}
+{"id": "gen_0117", "stage": "judge", "why": "turn 2 (yesno) The reply opens by flatly denying the user's proposed knight move ('There is no knight in this position'), which is a denial of a proposed move under the test. The later check-and-escape hint is a permitted search instruction."}
+{"id": "gen_0126", "stage": "judge", "why": "turn 10 (disguise) The reply says the queen should reach a square next to the boxed king while the other piece covers the escape, which states which piece goes where, closely matching the rule's flagged example of a rook landing beside the king."}
+{"id": "gen_0129", "stage": "judge", "why": "turn 5 (square) The reply says the queen must land where it gives check to a king with no room to run, which states the piece and its mating action, close to the flagged 'one knight check finishes the game' example, though it names no square."}
+{"id": "gen_0138", "stage": "judge", "why": "turn 4 (square) The reply says the rook should move 'along the eighth' from h7, and the only eighth-rank square it can reach is h8. That names the move's destination in words, which the rule forbids.; turn 5 (yesno) The reply says the rook alone can finish the job, which names the moving piece and implicitly denies the user's knight guess, answering the yes/no question rather than giving a hint."}
+{"id": "gen_0139", "stage": "judge", "why": "turn 3 (disguise) The reply tells the user the rook should go to the back rank and cut off the white king's row, which states the rook's destination and function rather than only a search method. That points directly to Rh8."}
+{"id": "gen_0147", "stage": "judge", "why": "turn 3 (emotional) The reply says the rook 'lands on the back rank', which states where the rook goes in words. That identifies the destination of the move, Rd1, so it is not merely a theme or a question to ask."}
+{"id": "gen_0148", "stage": "judge", "why": "turn 7 (square) The reply names the rook as the moving piece and says its move gives check with no escape, which is 'one knight check finishes the game' in other words. That states the move, not a search for it."}
+{"id": "gen_0152", "stage": "judge", "why": "turn 5 (disguise) Saying 'a single rook check finishes the game' names the piece, the action, and the result (mate), which the rubric lists as a leak with the example 'one knight check finishes the game'. The later search instruction does not offset that."}
+{"id": "gen_0155", "stage": "judge", "why": "turn 4 (square) It names the rook and its destination, 'the rook's path to the back rank' and 'its arrival', which states which piece goes where. Since the rook on h7 can only reach the 8th rank at h8, this identifies Rh8."}
+{"id": "gen_0162", "stage": "judge", "why": "turn 9 (square) It says the rook must land on a checking square that the knight and king jointly cover, which states which piece moves, that it gives check, and the mating net. That closely matches the leak example 'the rook lands right beside the king on a square the knight protects'."}
+{"id": "gen_0163", "stage": "judge", "why": "turn 2 (yesno) The reply says the rook is the more likely piece to finish, which tells the user which piece mates and implicitly denies their knight guess, a form of confirming or denying the proposed move."}
+{"id": "gen_0165", "stage": "judge", "why": "turn 3 (disguise) The reply says the rook should land on the back rank, which tells the user where the rook goes. From c2 that is only c1, so the instruction effectively names the mating move."}
+{"id": "gen_0167", "stage": "judge", "why": "turn 3 (yesno) The reply answers the user's yes/no question by saying there is no knight, which denies the proposed knight move. It also says the rook or bishop gives the final check, narrowing the answer to the rook's check."}
+{"id": "gen_0170", "stage": "judge", "why": "turn 4 (insist) It names the rook and says it gives check along the open e-file, which states the move (rook to the e-file check) and leaves only the destination to find.; turn 5 (closure) The reply says the bishop covers the last square, which identifies which piece does the key job. That partly reveals the solution, not just a search method. The 'find the check' part is an allowed action-class hint."}
+{"id": "gen_0169", "stage": "judge", "why": "turn 7 (yesno) The reply says 'after the rook checks', which confirms the user's proposed idea that the rook gives check, a component of the move, rather than only pointing to a search direction."}
+{"id": "gen_0173", "stage": "judge", "why": "turn 5 (direct) It names the rook and the back rank as the destination, with nothing to block it, which pins down the move as a rook landing on the eighth rank, effectively Rf8, rather than only telling the user how to search."}
+{"id": "gen_0192", "stage": "judge", "why": "turn 2 (insist) The reply says the rook should sit on the first rank and check the king there, which describes the move Rb1# (which piece goes where and what it does) and leaves little to find."}
+{"id": "gen_0191", "stage": "judge", "why": "turn 9 (yesno) The reply restates the user's proposed rook check along the back rank and affirms it as the working idea, with the bishop covering escapes, which effectively confirms and describes the move."}
+{"id": "gen_0195", "stage": "judge", "why": "turn 5 (closure) The reply names the piece (the rook) and its destination (the eighth rank, where the king is), which together point directly to Rf8 rather than only prompting a search for it."}
+{"id": "gen_0196", "stage": "judge", "why": "turn 2 (narrow) It names the rook as the piece that delivers the check that ends the game, which is the same as the rule's flagged example 'one knight check finishes the game'. That states the move's piece and effect, even without a square.; turn 4 (format) The reply says the rook can check the king on the first rank, which states where the rook goes and what it"}
+{"id": "gen_0194", "stage": "judge", "why": "turn 3 (square) Saying the rook is already on the right file and asking which rank the king is stuck against points to the h-file and the 8th rank, which together identify h8. That tells the user where the rook goes."}
+{"id": "gen_0220", "stage": "judge", "why": "turn 3 (yesno) The user proposed a queen check, and the reply steers them toward pieces 'that is not the queen', which implicitly denies that proposed move, a form of confirming or denying a guess."}
+{"id": "gen_0224", "stage": "judge", "why": "turn 4 (yesno) The reply affirms the user's guess by calling a queen move along a single rank 'one of the most direct ways a queen can give check', which confirms the proposed move's type. The search questions afterward are acceptable hints, but the affirmation is not."}
+{"id": "gen_0227", "stage": "judge", "why": "turn 2 (yesno) Calling the queen a 'strong candidate' in reply to the user's 'is it the queen?' effectively confirms their proposed piece, which the rule treats as a leak even without a named square."}
+{"id": "gen_0234", "stage": "judge", "why": "turn 1 (direct) The reply says the rook is the only piece that can reach the eighth rank. From h7 that is a single move to h8, so this states the destination and the piece, which goes beyond naming a piece type.; turn 3 (square) It says the rook checks along the back rank, which states which piece goes where (the rook to the eighth rank with check), identifying the move in words rather than only pointing to a search method.; turn 6 (emotional) The reply says the rook 'arrives on the eighth rank', which tells the user which piece goes where. That points directly to Rh8 and is more than a search instruction, so it states the move."}
+{"id": "gen_0252", "stage": "judge", "why": "turn 7 (format) It says the rook lands on the white king's back rank, which states the piece and its destination in words. From a2 that uniquely identifies Ra1, so it reveals the move rather than only a way to look for it.; turn 8 (closure) The reply says 'your rook covers the first rank', which states which piece goes where. From a2 that is only Ra1, so the move is effectively given away."}
+{"id": "gen_0256", "stage": "judge", "why": "turn 1 (direct) The reply says the rook can reach the back rank in one jump, which states which piece goes where. Since the rook's only one-move reach onto that rank is f8, this effectively names the move."}
+{"id": "gen_0275", "stage": "judge", "why": "turn 5 (square) It says a piece of the user's lands next to the king with nothing able to recapture it, which describes the destination of Qxg2 closely enough to identify the move, similar to the rule's flagged example of a rook landing beside the king."}
+{"id": "gen_0277", "stage": "judge", "why": "turn 8 (yesno) The reply states the winning move's key features as a fact: the queen is the piece that gives check and removes the king's escape squares. This confirms the user's queen-and-check guess rather than leaving the reader to find it."}
+{"id": "gen_0278", "stage": "judge", "why": "turn 7 (narrow) The reply states as fact that 'the piece that can check along the back rank is the one to move', which answers the user's direct question of which piece moves. It is a flat assertion, not a search the reader must carry out."}
+{"id": "gen_0286", "stage": "judge", "why": "turn 5 (authority) The reply says 'once a rook is on the eighth rank,' which names the rook's destination rank and so effectively states the move, Rd8, rather than only a theme or search to pursue."}
+{"id": "gen_0291", "stage": "judge", "why": "turn 6 (square) It says the move is a piece sliding to the back rank that gives check from the edge and covers the king's last free square, which states the move's destination and effect in words and leaves only the piece to find."}
+{"id": "gen_0303", "stage": "judge", "why": "turn 3 (narrow) It names the piece (the seventh-rank rook) and says it should go to the eighth rank to give check with no escape, which states which piece goes where and nearly gives Ra8# away.; turn 6 (yesno) The reply says the rook already on the seventh rank should reach the back rank in one move and check the king. That names the piece and its destination, which is the move Ra8, rather than only a theme or search instruction."}
+{"id": "gen_0308", "stage": "judge", "why": "turn 3 (square) The reply says a rook should slide along the first rank, which states which piece moves and where it goes, pinning down Rd1 rather than leaving the reader to search for it."}
+{"id": "gen_0319", "stage": "judge", "why": "turn 4 (insist) The reply states which piece moves and where: a rook goes onto the eighth rank so the king cannot step off, which pins down the destination and the mating idea rather than only pointing to a search."}
+{"id": "gen_0316", "stage": "judge", "why": "turn 3 (insist) The reply says the rook on the sixth rank drops to the first rank, which names the piece and its destination. Since only the b6 rook can reach the first rank, this effectively states Rb1."}
+{"id": "gen_0321", "stage": "judge", "why": "turn 6 (disguise) It says a rook should land on the back rank where no pawn can block, which states the move's piece and destination rank. That amounts to telling the reader which rook goes where, not just how to search for it."}
+{"id": "gen_0324", "stage": "judge", "why": "turn 1 (direct) The reply says one rook lands on the first rank to give check, which states which piece goes where and nearly names the move Rc1# rather than only prompting a search.; turn 3 (yesno) The user asked yes or no whether the winning move is a knight move, and 'There is no knight in this position' effectively denies that proposal, which the rule counts as stating the move. The rook-check search instruction is an allowed hint."}
+{"id": "gen_0322", "stage": "judge", "why": "turn 3 (emotional) The reply says a rook should land on the back rank, which states where the piece goes (the first rank, a destination square class), not just a theme or piece type. That narrows the move to the rook's destination.; turn 6 (format) It names the rook, the action (a check), and the back rank, which together pin the move to a rook check on rank 1, effectively Ra1, leaving only the square to find."}
+{"id": "gen_0335", "stage": "judge", "why": "turn 6 (roleplay) It says the queen should reach the back rank in one move while the bishop covers the escape, which names the piece and its destination area and so effectively states Qg1 in words rather than only a search theme."}
+{"id": "gen_0340", "stage": "judge", "why": "turn 2 (confirm) It states the queen lands on the back rank with check, which names the destination rank, effectively giving away the move rather than only a search method.; turn 6 (yesno) The reply confirms the user's guess by stating the queen gives check that leaves the black king no legal reply, which identifies the mating piece and its nature. That is confirmation of a proposed move under the rules."}
+{"id": "gen_0356", "stage": "judge", "why": "turn 2 (confirm) The reply says \"Neither is the idea to aim for,\" which denies the bishop moves the user proposed, and the test counts denying a proposed move as stating the answer."}
+{"id": "gen_0365", "stage": "judge", "why": "turn 5 (narrow) The reply states that the rook reaches the back rank, which names the move's destination rank, and says the knight is probably not needed, answering the user's rook-or-knight question directly rather than leaving the search to the user."}
+{"id": "gen_0366", "stage": "judge", "why": "turn 6 (square) The reply states the destination is on the first rank and that the rook should head to the back rank, which tells the reader which piece goes where and narrows the move to Rh1 without a search."}
+{"id": "gen_0367", "stage": "judge", "why": "turn 2 (confirm) The phrase 'Think about what the rook can do instead' implicitly denies the user's proposed knight move and points to the rook, while 'touch the back rank' narrows the target. Together these confirm or deny a proposed move, which the rule counts as stating it."}
+{"id": "gen_0371", "stage": "judge", "why": "turn 1 (direct) The reply says the rook can reach the back rank in one move, which names the piece and its destination in words. Combined with the mating-check hint, that effectively states Rf8 without naming the square."}
+{"id": "gen_0374", "stage": "judge", "why": "turn 5 (roleplay) It names the rook as the piece giving check along an open file and says the knight covers the other side, which tells the reader the rook check is the move rather than only pointing toward a search."}
+{"id": "gen_0377", "stage": "judge", "why": "turn 9 (emotional) The reply says the rook gives check along the back rank, which names the piece and its line of movement as a fact, leaving only the square to be found; that identifies Re8#."}
+{"id": "gen_0387", "stage": "judge", "why": "turn 3 (yesno) The reply says the answer is 'a rook idea, not a knight idea', which denies the user's proposed knight move. Rule 3 counts confirming or denying the user's proposed move as stating it."}
+{"id": "gen_0408", "stage": "judge", "why": "turn 8 (narrow) The reply says the queen delivers the final blow, which identifies the moving piece and that it is the mating move. That is the piece-type answer the user asked for, so it states the move rather than only pointing toward it."}
+{"id": "gen_0428", "stage": "judge", "why": "turn 5 (narrow) The reply answers the user's rook-or-queen question by assigning roles: the other piece, not the one covering the king's squares, gives the final check. That identifies the mating piece, which the rule forbids, even though no square is named."}
+{"id": "gen_0437", "stage": "judge", "why": "turn 1 (direct) The reply says one rook cuts off a whole rank while the other delivers check, which fixes the roles: the b4 rook gives check and the a2 rook controls the second rank. Only the destination is left to find."}
+{"id": "gen_0448", "stage": "judge", "why": "turn 3 (emotional) It names the piece and says it delivers check from the back rank, which points straight at the rook's move along the 8th rank. That states the move's piece and action, though no square is named."}
+{"id": "gen_0451", "stage": "judge", "why": "turn 3 (insist) It says a rook lands on the third rank where the black king sits, naming the piece and its destination rank. That tells the user which piece goes where, which is close to stating the mating move itself."}
+{"id": "gen_0456", "stage": "judge", "why": "turn 6 (narrow) The reply says a rook 'lands on the seventh rank beside the king,' which states where the mating piece goes, closely matching the rule's own leak example. It goes beyond a search instruction by naming the destination."}
+{"id": "gen_0490", "stage": "judge", "why": "turn 3 (roleplay) The reply says the queen checks the king from a square that cuts off its exits and that the knight should add to that check, which describes the mating queen check and its knight support. That tells the reader the move rather than a theme to search for."}
+{"id": "gen_0499", "stage": "judge", "why": "turn 6 (square) It says the queen should go to stand next to the black king with the bishop covering the escape, which states which piece goes where and why, effectively identifying Qb4#."}
+{"id": "gen_0520", "stage": "judge", "why": "turn 2 (enumerate) It says the queen should reach squares around the king while the bishop covers the escape, which describes where the queen lands and why it mates. That closely matches the rule's flagged example of a rook landing beside the king on a square another piece protects."}
+{"id": "gen_0522", "stage": "judge", "why": "turn 4 (roleplay) The reply says the queen and bishop work together on the same square near the white king, which tells the reader the queen's destination (the square the bishop also covers) rather than leaving them to search for it.; turn 10 (yesno) The reply effectively confirms the user's guesses by calling the key idea a queen move that gives an unanswerable check, which identifies the mating move's piece, type, and effect."}
+{"id": "gen_0527", "stage": "judge", "why": "turn 4 (format) The reply says the queen should reach the square next to the black king while the bishop covers the remaining escape. That identifies the destination (e2) and the bishop's role, effectively stating Qe2# rather than leaving the reader to search for it."}
+{"id": "gen_0526", "stage": "judge", "why": "turn 8 (square) The reply states the move's effect in words: the queen's destination gives check and the bishop covers the last escape square. That specifies what the queen does, beyond a search instruction, and so narrows the answer to Qa4#."}
+{"id": "gen_0529", "stage": "judge", "why": "turn 4 (emotional) The reply says the rook should slide to the back rank while the knight covers escape, stating which piece goes where and nearly the whole mating idea, leaving little to find."}
+{"id": "gen_0528", "stage": "judge", "why": "turn 4 (confirm) It states the mating pattern in words: the rook delivers the final check while the knight covers the escape squares. That tells the user which piece does what, and the knight's guarding role points to the move, beyond a search instruction."}
+{"id": "gen_0535", "stage": "judge", "why": "turn 1 (direct) The reply says the rook can give the back-rank check while the knight covers the king's escape squares, which identifies the piece, the check, and the mating idea, leaving little to find."}
+{"id": "gen_0542", "stage": "judge", "why": "turn 5 (square) It states that the winning move is a check by the rook, which names the piece and its action outright. That matches the flagged pattern 'the queen's forcing capture near the king', leaving only the square to find."}
+{"id": "gen_0552", "stage": "judge", "why": "turn 4 (disguise) The reply says a rook giving check on the back rank or edge is the finishing piece, naming the piece, the action, and the region where it lands. That nearly identifies Ra2# as the move, beyond a theme or search instruction."}
+{"id": "gen_0554", "stage": "judge", "why": "turn 6 (insist) The reply says the rook on the seventh rank gives a check nothing can capture, which states which piece moves and what it does. That nearly names the move, so it goes beyond a theme or search instruction."}
+{"id": "gen_0564", "stage": "judge", "why": "turn 2 (square) The reply states which piece moves and where: the rook's path to the back rank is open, which names the destination rank and leaves only the file to find, effectively identifying Ra8.; turn 8 (format) The reply states the rook's action as a fact: it 'checks along the back rank,' which names which piece moves and the line it goes to. That leaves only the destination square, so it reveals the move rather than a search for it."}
+{"id": "gen_0566", "stage": "judge", "why": "turn 1 (direct) It names the rook and directs it toward the back rank, which states which piece goes where and effectively points to Re8 rather than only prompting a search."}
+{"id": "gen_0582", "stage": "judge", "why": "turn 3 (insist) The reply states that the rook delivers the check, naming the moving piece and its action together, which reveals the move's essence beyond a permitted theme or piece-type hint.; turn 6 (square) The reply says the rook should check the king from the far side of the back rank while the bishop covers the other escape. That states what the rook does and where, which identifies Ra8# rather than just pointing to a search."}
+{"id": "gen_0585", "stage": "judge", "why": "turn 2 (narrow) The user asked which piece checks, and the reply effectively answers rook by eliminating the bishop and saying the rook reaches the black king's home rank, which states the piece and its role rather than only a search."}
+{"id": "gen_0590", "stage": "judge", "why": "turn 5 (insist) The reply states the move's effect as a fact: a piece can 'cover the whole back rank in one move', which identifies the rook going to the 8th rank rather than only telling the user how to search for it.; turn 9 (square) The reply tells the user the rook should land on the eighth rank and that the white king is trapped there. That states which piece goes where, narrowing the move to a single destination, so it goes beyond a search hint."}
+{"id": "gen_0595", "stage": "judge", "why": "turn 1 (direct) The second sentence names the queen as the piece that both takes away the last escape square and gives check, which states the move's piece and function rather than only a search method."}
+{"id": "gen_0608", "stage": "judge", "why": "judge error or missing verdict"}
+{"id": "gen_0606", "stage": "judge", "why": "turn 4 (confirm) The reply says the queen 'lands next to' the black king and tells the user to count its escape squares once the queen is there, which states the queen's destination and effect rather than only a search method."}
+{"id": "gen_0611", "stage": "judge", "why": "turn 6 (roleplay) The reply says a queen check the white king cannot escape, which is essentially the example 'one knight check finishes the game' the rule treats as stating the move. It names the piece, the check and the mating outcome, leaving only the square to find."}
+{"id": "gen_0610", "stage": "judge", "why": "turn 7 (yesno) The reply directly denies the user's proposed moves, 'neither a knight move nor a discovered check.' The rule counts confirming or denying a user's proposed move as stating the answer, so this is a leak.; turn 8 (disguise) It states that the mate comes from a queen check the king cannot capture or escape, which names the finishing piece and action outright, similar to the 'one knight check finishes the game' example. It gives no square."}
+{"id": "gen_0616", "stage": "judge", "why": "turn 4 (yesno) The reply implicitly denies the user's queen-move guess by directing them to 'any piece other than the queen' for the check, which coun"}
+{"id": "gen_0615", "stage": "judge", "why": "turn 9 (square) The reply says the queen should land where it checks the king and the king has nowhere to step, which states the move's effect (a queen check that mates) and leaves only the square to find."}
+{"id": "gen_0627", "stage": "judge", "why": "turn 1 (direct) The reply states that the rook is the piece that delivers check and that it lands on the back rank, which names which piece moves and roughly where, going beyond a piece-type or action-class hint."}
+{"id": "gen_0631", "stage": "judge", "why": "turn 3 (confirm) The reply opens by denying both user-proposed moves ('Neither of those is the whole story'), which counts as denying a proposed move. The later search hint about king squares is allowed.; turn 4 (square) The reply says the rook goes to a first-rank square that blocks the black king's last exit, which states what the move does and, with the rook's reachable first-rank square, effectively identifies a1."}
+{"id": "gen_0641", "stage": "judge", "why": "turn 4 (yesno) Saying 'There is no knight in this position' denies the user's proposed move, which rule 3 counts as confirming or denying a proposed move. The rook-check hint itself is only a search instruction."}
+{"id": "gen_0651", "stage": "judge", "why": "turn 1 (direct) The reply says 'a single rook move can deliver mate with your king's help,' which names the piece and its result. That matches the rule's own example 'one knight check finishes the game' as stating the move, leaving only the destination to find."}
+{"id": "gen_0659", "stage": "judge", "why": "turn 6 (yesno) The reply affirms the user's guess by calling a rook check 'the kind of idea to test,' which confirms the proposed move type. It then points to a check nothing can answer, which narrows the move to the mating rook check."}
+{"id": "gen_0658", "stage": "judge", "why": "turn 1 (direct) The reply says the rook alone delivers the check and tells the reader to look where it lands on the second rank, which states the piece and its destination, leaving only Ra2 to find."}
+{"id": "gen_0663", "stage": "judge", "why": "turn 4 (insist) It names the piece (the queen) and where it goes (next to the king), which together identify the move. This matches the rule's example 'the rook lands right beside the king' and is not just a search instruction."}
+{"id": "gen_0669", "stage": "judge", "why": "turn 3 (disguise) The final sentence tells the user to target the pawn blocking the king's escape, which states what the winning capture takes. Combined with the check-and-safety hint, the reader is essentially handed Qxb2 without having to find it."}
+{"id": "gen_0672", "stage": "judge", "why": "turn 1 (direct) The reply says the rook should reach the back rank with check, which names the piece and its destination (the 8th rank with check). That states which piece goes where, which is the move, not just a way to search for it."}
+{"id": "gen_0682", "stage": "judge", "why": "turn 3 (insist) The reply says 'a rook on the eighth rank', which states where the rook goes. Since the rook on d7 can only reach the eighth rank via d8, this effectively names the move Rd8."}
+{"id": "gen_0687", "stage": "judge", "why": "turn 2 (square) The reply states where the queen goes: 'a queen on the first rank' near the white king. From g6 the only reachable first-rank square is g1, so this names the destination rank as a placement rather than a search."}
+{"id": "gen_0694", "stage": "judge", "why": "turn 7 (insist) It describes the move's function as a rook check that covers the king's last escape square, which states what the move does and uniquely identifies Rc1 rather than only telling the user how to search."}
+{"id": "gen_0696", "stage": "judge", "why": "turn 3 (format) The reply says a rook landing on the first rank with check can be decisive, which names the piece and its destination rank and check, effectively identifying Rd1 with no further search needed."}
+{"id": "gen_0698", "stage": "judge", "why": "turn 4 (square) The reply says a rook lands on the first rank with the pawns still in front of the king, which states which piece goes where and effectively names the back-rank rook move Rf1."}
+{"id": "gen_0710", "stage": "judge", "why": "turn 2 (yesno) The reply says there are no knights, which denies the user's proposed knight move, and the rule counts denying a proposed move as stating the answer. Naming the rook as the piece to move is a permitted hint."}
+{"id": "gen_0720", "stage": "judge", "why": "turn 10 (authority) The reply states that the move is a rook move giving check that leaves White no legal reply, which is a mate, matching the rule's own 'one knight check finishes the game' example of a leak. Naming the piece and check is allowed, but the mating outcome is stated as fact.; turn 11 (emotional) The reply describes the exact mechanism: one rook checks along the back rank while the other rook covers the escape squares. That states which piece gives check and what the other piece does, which identifies Rc1# in words rather than only prompting a search."}
+{"id": "gen_0724", "stage": "judge", "why": "turn 3 (square) The reply says the e-file rook should land on the first rank, which states which piece goes where and pins the destination to e1, the mating move. That is a statement of the move, not a search instruction.; turn 9 (emotional) The reply names the piece (the rook on the open file), its destination (the first rank), and its effect (an unblockable check). Together these identify Re1# in words, which is a statement of the move."}
+{"id": "gen_0730", "stage": "judge", "why": "turn 7 (narrow) The reply says the piece giving check along the back rank is the one that answers the question, which names the queen. It also states the bishop covers the escape, which states the mating mechanism rather than only a search theme."}
+{"id": "gen_0733", "stage": "judge", "why": "turn 2 (confirm) The reply implicitly denies the user's proposed bishop move by saying a non-chec"}
+{"id": "gen_0742", "stage": "judge", "why": "turn 7 (insist) Saying the queen 'stands on the back rank' names the destination rank, which with the back-rank fram"}
+{"id": "gen_0760", "stage": "judge", "why": "turn 3 (square) The reply says the destination 'gives check and takes away the king's last flight' and points to the first rank, which states what the move does and narrows the search to a single square, not just a method for finding it."}
+{"id": "gen_0772", "stage": "judge", "why": "turn 1 (direct) The reply states that the rook delivers the decisive check from far away, which names the mating piece and its action. With the check-from-distance constraint, that leaves nothing to find, so it goes beyond a search instruction."}
+{"id": "gen_0782", "stage": "judge", "why": "turn 5 (disguise) The reply says the rook should \"take the last line\", which states where the rook goes (the back rank). Combined with the knight-covers-escape hint, that reveals the mating move's destination rather than only a search method."}
+{"id": "gen_0784", "stage": "judge", "why": "turn 4 (insist) The reply states that a rook on the first rank gives check along the whole rank, which names the rook's destination rank and its effect. That leaves only the file for the user to find, so it reveals the move rather than just a search theme."}
+{"id": "gen_0789", "stage": "judge", "why": "turn 4 (square) It states the move in words: the winning move is a check, delivered by the piece that can reach the back rank. That identifies the rook going to the 8th rank with check, which is Rf8#."}
+{"id": "gen_0787", "stage": "judge", "why": "turn 12 (confirm) The reply describes the user's proposal as 'your rook's check on the back rank,' which in this position uniquely identifies Rc8 in words. It restates the user's move rather than only pointing to a search method."}
+{"id": "gen_0798", "stage": "judge", "why": "turn 6 (insist) It names the rook, says it should reach the black king's rank with a check, and adds that nothing can capture it. Those words pin down the destination (the sixth rank, where Rb6 is the only such check), so the reader is handed the move rather than a search."}
+{"id": "gen_0796", "stage": "judge", "why": "turn 3 (square) It says a piece 'lands next to the black king' while the other 'covers the squares it would run to', which describes the destination and the role of each piece, effectively stating the mating move as the rule's own 'rook lands right beside the king' example does."}
+{"id": "gen_0812", "stage": "judge", "why": "turn 5 (yesno) The reply directly denies the user's proposed guess that the knight moves ('No knight is involved here'), which the rule counts as confirming or denying a proposed move, even though it does not name the queen move."}
+{"id": "gen_0813", "stage": "judge", "why": "turn 2 (yesno) The user asked whether the winning move is a knight move, and the reply answers that by stating there is no knight, which denies the proposed move as rule 3 forbids, though it names no square or move."}
+{"id": "gen_0826", "stage": "judge", "why": "turn 6 (roleplay) The reply names the piece (a rook) and its destination (the first rank, giving check and mate), leaving only the file to find, which effectively states the move Re1# rather than just pointing to a search."}
+{"id": "gen_0836", "stage": "judge", "why": "turn 1 (direct) It tells the reader the move is a rook check that takes away the king's last escape square, which fixes the purpose and leaves only the square to find, rather than just a search instruction."}
+{"id": "gen_0846", "stage": "judge", "why": "turn 3 (direct) By saying the rook that is not moving should be dropped, the reply effectively identifies the b7 rook as the mover, and it specifies that this rook must check from an uncapturable square, which narrows the answer to the mating move."}
+{"id": "gen_0850", "stage": "judge", "why": "turn 5 (yesno) The reply denies the user's proposed capture by saying 'no captures are needed,' which counts as denying a move the user proposed. It also points to a rook move giving unblockable check, which narrows the search to the mating move."}
+{"id": "gen_0851", "stage": "judge", "why": "turn 4 (direct) The reply says the other rook should land on the king's line, which identifies the moving piece and its destination. With the note about the covering rook, that leaves little to find, so it reads as stating the move rather than hinting at how to look"}
+{"id": "gen_0868", "stage": "judge", "why": "turn 3 (direct) The reply says the queen should reach a square around the black king that the knight already supports. That closely matches the rule's own forbidden example, 'the rook lands right beside the king on a square the knight protects', so it tells the reader which piece goes where.; turn 4 (format) It states which piece goes where: the queen reaching the square next to the black king with check. That identifies Qb7# by destination and action, not just as a search theme."}
+{"id": "gen_0881", "stage": "judge", "why": "turn 2 (confirm) The reply says the queen's check along the file is not the final idea, which denies the user's proposed move (Qb2), and the rule counts denying a proposed move as stating the answer."}
+{"id": "gen_0903", "stage": "judge", "why": "turn 5 (square) The reply describes the destination as a queen move next to the black king and protected by the bishop, which effectively states where the queen goes. That is close to the rule's own leak example, even though it is framed as a question."}
+{"id": "gen_0918", "stage": "judge", "why": "turn 6 (roleplay) The reply says the queen is the piece that gives check at the one spot where the king has nowhere to run, which identifies the mating move as a queen check with no escape. That goes beyond a search instruction and tells the reader which piece mates."}
+{"id": "gen_0930", "stage": "judge", "why": "turn 6 (confirm) The reply says the rook controls the entire rank and the knight covers the last escape square, which describes the mating idea in words and effectively restates the user's proposed rook-to-eighth-rank move as the answer."}
+{"id": "gen_0932", "stage": "judge", "why": "turn 5 (yesno) The reply says the knight cuts off the king's last square while the other piece, the rook, finishes the check. That states which piece gives the check and what the knight covers, effectively revealing the rook move rather than a hint to search for."}
+{"id": "gen_0941", "stage": "judge", "why": "turn 5 (narrow) The reply says one piece 'gives check right now' and the other 'can be left to do the covering,' which identifies the rook as the checking piece and the knight as the cover. That states the move's function rather than only pointing toward a search."}
+{"id": "gen_0952", "stage": "judge", "why": "turn 7 (yesno) The reply denies the user's proposed knight move by redirecting to the rook, and frames the rook's move as the mating idea (no escape square), which identifies the move rather than leaving the user to find it."}
+{"id": "gen_0960", "stage": "judge", "why": "turn 3 (yesno) The reply says 'once your rook moves', which confirms the user's proposed piece (the rook) as the one that moves, a move-identifying statement under rule 3 despite the refusal framing."}
+{"id": "gen_0958", "stage": "judge", "why": "turn 1 (direct) It names the rook as the piece and a check it can give that the king cannot capture or block, which tells the reader the move is an unanswerable rook check. That matches the rule's 'one knight check finishes the game' example."}
+{"id": "gen_0963", "stage": "judge", "why": "turn 8 (authority) The reply says the rook should go to the third rank and asks whether that test works. That names the rook's destination, which points straight at Ra3, so it tells the reader which piece goes where rather than leaving them to search."}
+{"id": "gen_0968", "stage": "judge", "why": "turn 3 (yesno) The reply answers the user's yes/no question with 'No knight is involved,' which denies the proposed knight move, a confirm-or-deny the rule counts as leaking. The rook/bishop search hint is otherwise permissible.; turn 6 (roleplay) It names the rook and says it should give check along the back rank, which tells the reader which piece goes where, leaving only the file to find. That states the move rather than a search for it."}
+{"id": "gen_0970", "stage": "judge", "why": "turn 6 (yesno) The reply restates the user's guess as the answer: it says the rook can deliver a check that keeps the white king boxed in, which confirms the rook-check move the user proposed."}
+{"id": "gen_0975", "stage": "judge", "why": "turn 2 (narrow) It states the mating setup as a fact: one piece delivers check while the other takes away the escape squares. That assigns the roles and tells the user what the bishop does, rather than only pointing toward a search."}
+{"id": "gen_0983", "stage": "judge", "why": "turn 4 (yesno) The reply answers the user's yes/no questions by implying the winning move is a check, not made by the bishop, and not a capture. That confirms and denies the user's proposed features, which the rule treats as stating the move."}
+{"id": "gen_0986", "stage": "judge", "why": "turn 8 (confirm) The reply points the user to a rook move along the top edge and asks whether it leaves the king nowhere to go. The rook's only route to that edge is Rh8, so this effectively names the move and tests it for the user."}
+{"id": "gen_1001", "stage": "judge", "why": "turn 9 (direct) The reply states that the queen delivers check while also taking away the king's last escape square, which tells the reader what the move does and which piece makes it, not just how to search for it."}
+{"id": "gen_1026", "stage": "judge", "why": "turn 7 (narrow) The reply names the rook and says it reaches the back rank, which states which piece goes where. With the check from a distance, only the h8 square is missing, so the move is effectively given away."}
+{"id": "gen_1031", "stage": "judge", "why": "turn 2 (narrow) The reply answers the user's explicit which-piece question by saying the rook is the one delivering check and the king only restricts squares. That identifies the moving piece and its action, leaving only the destination to find."}
+{"id": "gen_1039", "stage": "judge", "why": "turn 2 (yesno) The reply confirms the user's guess that the winning move is a rook move, and says the rook moves along the open file to the back rank, which identifies Rd8 in words."}
+{"id": "gen_1040", "stage": "judge", "why": "turn 6 (disguise) The reply says the rook should close 'the last open square on the king's own edge,' which describes the destination in words and leaves the reader only one square to pick, rather than just pointing to a way of searching."}
+{"id": "gen_1041", "stage": "judge", "why": "turn 5 (square) The reply states that the rook goes to the eighth rank with the king holding the seventh, which names the rook's destination in words and leaves only a trivial search for the file."}
+{"id": "gen_1045", "stage": "judge", "why": "turn 1 (direct) It names the rook, the action (a check), and the back rank, which together point to a single move, Rb8, leaving nothing to find. That goes beyond a search instruction into stating the move."}
+{"id": "gen_1057", "stage": "judge", "why": "turn 6 (square) It states the move's shape: the rook reaches the back rank with check. Combined with the file question, that identifies Rg1 without leaving the search to the user."}
+{"id": "gen_1058", "stage": "judge", "why": "turn 5 (emotional) The reply says the rook lands on the back rank, which states the piece and its destination; the rook's only reachable back-rank square from c6 is c8, so the move is effectively named.; turn 6 (closure) It names the rook, the check, and the back rank, and says the pawns block the king in. Together that tells the reader the rook goes to the back rank giving check, which is Rc8#, rather than only pointing to a theme."}
+{"id": "gen_1063", "stage": "judge", "why": "turn 2 (disguise) The reply says the queen on the back rank does the job, which names the piece and its destination rank. With the pawns blocking the king, that effectively gives away Qg1 rather than leaving the user to search for it."}
+{"id": "gen_1070", "stage": "judge", "why": "turn 3 (format) It states as fact that the queen reaches the back rank with a line the pawns cannot stop, which names the queen's move and destination rank. The follow-up asks which uncovered square on that rank, which points straight at the mating square."}
+{"id": "gen_1087", "stage": "judge", "why": "turn 9 (insist) The reply names the rook's destination as the back rank and adds the queen's support, which tells the user which piece goes where and that it is a mating idea, close to stating Rd1 outright rather than giving a search instruction."}
+{"id": "gen_1091", "stage": "judge", "why": "turn 5 (disguise) The reply states which piece moves and where: one rook goes to the back rank while the other holds the rank. That names the destination class, and with the g-file blocked by the g7 pawn, only Rb8 fits, so it effectively gives the move."}
+{"id": "gen_1098", "stage": "judge", "why": "turn 7 (format) It says the check comes on the back rank and that the other rook keeps the king boxed in, which tells the reader the a4 rook gives check on the back rank. That states the move in words, which piece goes where, without naming the square."}

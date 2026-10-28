@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.env
+.venv-train/
+models/*/checkpoints/
+# training artifacts and scratch outputs
+models/*/adapter/
+unsloth_compiled_cache/
+train_env_*.log
+results/mock/

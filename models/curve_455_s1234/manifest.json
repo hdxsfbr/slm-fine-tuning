@@ -1,0 +1,231 @@
+{
+  "created_at": "2026-10-27T22:58:38+00:00",
+  "base_model": "unsloth/Qwen3-1.7B",
+  "base_loaded": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+  "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+  "data": {
+    "path": "data/train.jsonl",
+    "sha256": "109377ecb7b35e3c4c40c0e5ce992b075c777becbf441090520d5365e8a483ac",
+    "rows_total": 455,
+    "rows_used": 455,
+    "n": null,
+    "perm_seed": 0
+  },
+  "system_prompt": "zero_shot",
+  "config": {
+    "max_seq_length": 2048,
+    "load_in_4bit": true,
+    "lora_r": 16,
+    "lora_alpha": 16,
+    "lora_dropout": 0,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0002,
+    "epochs": 2.0,
+    "batch": 2,
+    "grad_accum": 4,
+    "warmup_steps": 5,
+    "optim": "adamw_8bit",
+    "weight_decay": 0.01,
+    "scheduler": "linear",
+    "seed": 1234,
+    "responses_only": true,
+    "instruction_part": "<|im_start|>user\n",
+    "response_part": "<|im_start|>assistant\n"
+  },
+  "tokens_per_row": {
+    "min": 477,
+    "median": 821,
+    "max": 1248,
+    "over_max": 0
+  },
+  "train": {
+    "steps": 114,
+    "train_loss": 1.6845854499883819,
+    "runtime_s": 71.7,
+    "log": [
+      {
+        "loss": 4.727535247802734,
+        "grad_norm": 5.858587265014648,
+        "learning_rate": 0.00016,
+        "epoch": 0.08771929824561403,
+        "step": 5
+      },
+      {
+        "loss": 3.0579807281494142,
+        "grad_norm": 1.3745406866073608,
+        "learning_rate": 0.0001926605504587156,
+        "epoch": 0.17543859649122806,
+        "step": 10
+      },
+      {
+        "loss": 2.417491340637207,
+        "grad_norm": 0.7010664343833923,
+        "learning_rate": 0.00018348623853211012,
+        "epoch": 0.2631578947368421,
+        "step": 15
+      },
+      {
+        "loss": 2.0801166534423827,
+        "grad_norm": 0.7325607538223267,
+        "learning_rate": 0.00017431192660550458,
+        "epoch": 0.3508771929824561,
+        "step": 20
+      },
+      {
+        "loss": 1.8645050048828125,
+        "grad_norm": 0.549669086933136,
+        "learning_rate": 0.0001651376146788991,
+        "epoch": 0.43859649122807015,
+        "step": 25
+      },
+      {
+        "loss": 1.771613311767578,
+        "grad_norm": 0.5314964056015015,
+        "learning_rate": 0.0001559633027522936,
+        "epoch": 0.5263157894736842,
+        "step": 30
+      },
+      {
+        "loss": 1.6376426696777344,
+        "grad_norm": 0.5405785441398621,
+        "learning_rate": 0.0001467889908256881,
+        "epoch": 0.6140350877192983,
+        "step": 35
+      },
+      {
+        "loss": 1.5435850143432617,
+        "grad_norm": 0.6088504195213318,
+        "learning_rate": 0.00013761467889908258,
+        "epoch": 0.7017543859649122,
+        "step": 40
+      },
+      {
+        "loss": 1.503761386871338,
+        "grad_norm": 0.5901104211807251,
+        "learning_rate": 0.00012844036697247707,
+        "epoch": 0.7894736842105263,
+        "step": 45
+      },
+      {
+        "loss": 1.4539867401123048,
+        "grad_norm": 0.5855932831764221,
+        "learning_rate": 0.00011926605504587157,
+        "epoch": 0.8771929824561403,
+        "step": 50
+      },
+      {
+        "loss": 1.4434955596923829,
+        "grad_norm": 0.5283651947975159,
+        "learning_rate": 0.00011009174311926606,
+        "epoch": 0.9649122807017544,
+        "step": 55
+      },
+      {
+        "loss": 1.302828598022461,
+        "grad_norm": 0.5806922912597656,
+        "learning_rate": 0.00010091743119266055,
+        "epoch": 1.0526315789473684,
+        "step": 60
+      },
+      {
+        "loss": 1.3592504501342773,
+        "grad_norm": 0.5878270864486694,
+        "learning_rate": 9.174311926605506e-05,
+        "epoch": 1.1403508771929824,
+        "step": 65
+      },
+      {
+        "loss": 1.2837708473205567,
+        "grad_norm": 0.5723188519477844,
+        "learning_rate": 8.256880733944955e-05,
+        "epoch": 1.2280701754385965,
+        "step": 70
+      },
+      {
+        "loss": 1.2592377662658691,
+        "grad_norm": 0.5758035778999329,
+        "learning_rate": 7.339449541284404e-05,
+        "epoch": 1.3157894736842106,
+        "step": 75
+      },
+      {
+        "loss": 1.3210552215576172,
+        "grad_norm": 0.6525073647499084,
+        "learning_rate": 6.422018348623854e-05,
+        "epoch": 1.4035087719298245,
+        "step": 80
+      },
+      {
+        "loss": 1.2517539024353028,
+        "grad_norm": 0.5911377668380737,
+        "learning_rate": 5.504587155963303e-05,
+        "epoch": 1.4912280701754386,
+        "step": 85
+      },
+      {
+        "loss": 1.2550064086914063,
+        "grad_norm": 0.610764741897583,
+        "learning_rate": 4.587155963302753e-05,
+        "epoch": 1.5789473684210527,
+        "step": 90
+      },
+      {
+        "loss": 1.2091025352478026,
+        "grad_norm": 0.6749849915504456,
+        "learning_rate": 3.669724770642202e-05,
+        "epoch": 1.6666666666666665,
+        "step": 95
+      },
+      {
+        "loss": 1.2339422225952148,
+        "grad_norm": 0.6526293754577637,
+        "learning_rate": 2.7522935779816515e-05,
+        "epoch": 1.7543859649122808,
+        "step": 100
+      },
+      {
+        "loss": 1.2421221733093262,
+        "grad_norm": 0.6487001776695251,
+        "learning_rate": 1.834862385321101e-05,
+        "epoch": 1.8421052631578947,
+        "step": 105
+      },
+      {
+        "loss": 1.2410040855407716,
+        "grad_norm": 0.5776562094688416,
+        "learning_rate": 9.174311926605506e-06,
+        "epoch": 1.9298245614035088,
+        "step": 110
+      },
+      {
+        "train_runtime": 71.6834,
+        "train_samples_per_second": 12.695,
+        "train_steps_per_second": 1.59,
+        "total_flos": 6385263426662400.0,
+        "train_loss": 1.6845854499883819,
+        "epoch": 2.0,
+        "step": 114
+      }
+    ]
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "transformers": "5.17.0",
+    "trl": "1.15.0",
+    "peft": "0.21.2",
+    "unsloth": "2026.10.9",
+    "gpu": "NVIDIA GeForce RTX 4090"
+  },
+  "code_git_sha": "b2cbb1743ad579ff9f19025239fe54385f290073-dirty",
+  "wall_s": 101.5
+}
