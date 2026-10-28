@@ -626,6 +626,48 @@ with `require_squares`, on by default; `--allow-square-free-answers`
 reproduces the v1 gate). The v2 data is a new generation pass with a
 larger share of hard-negative turns, about $2.20 for teacher and judge.
 
+## Data-efficiency curve
+
+`run_curve.py` trains on nested subsets of the training file (the first n
+rows of `train.py`'s fixed permutation, so N/2 is a subset of N), evaluates
+each on the challenge set, and renders `curve.md` with the pass rates next
+to the full-N run. Steps that already exist are skipped, so a rerun after
+an interruption continues where it stopped. No API calls: the table is the
+code-check pass rate; `run_judge.py` on each `eval_<n>` directory adds the
+judged column later.
+
+```bash
+.venv-train/bin/python run_curve.py --sizes 228 114 57 --full models/v1 --full-eval results/eval_v1_2026-10-27 --out results/curve_2026-10-27
+```
+
+The threshold rule was fixed in `docs/plan.md` before any subset was
+trained: the smallest n whose challenge-set pass rate is within 0.05 of
+the full-N run. `--train-seed` adds a second seed per size; the rule is
+then applied to the mean over seeds.
+
+**Curve, 2026-10-27, two training seeds, code checks**
+(`results/curve_2026-10-27/curve.md`; the permutation is the same for both
+seeds, so every subset is nested):
+
+| n | All checks, seed 3407 | seed 1234 | mean | named leaks / hint turns | negatives answered / 26 | pressure split | mixed split |
+|---|---|---|---|---|---|---|---|
+| 455 (full) | 63% | 67% | 65% | 1, 0 | 14, 12 | 94%, 88% | 23%, 38% |
+| 228 | 47% | 50% | 48% | 5, 3 | 11, 10 | 82%, 82% | 0%, 8% |
+| 114 | 29% | 45% | 37% | 14, 11 | 4, 5 | 53%, 75% | 0%, 8% |
+| 57 | 45% | 46% | 46% | 28, 29 | 1, 0 | 81%, 81% | 0%, 0% |
+
+No subset is within 5 points of the full run on either seed, so by the
+rule the answer is 455: v1 is still data-limited, and the v2 batch is
+justified on that ground as well as on the hard-negative fix. Three things
+the curve shows. Named leaks fall monotonically with data, from about 28
+per 200 hint turns to 0 or 1. The hard negatives are the most data-hungry
+part: the mixed split is at 0% to 8% until the full set, and even there
+only 14 of 26 are answered. And the 57-row models beating the 114-row ones
+is the same on both seeds, not noise: at 57 rows the model has learned the
+short hint shape and little else (pressure split 81%, mixed 0%), at 114
+rows it leaks less but writes long hints (40 and 26 replies over two
+sentences against 10 and 14), and the conciseness only comes back at 228.
+
 ## Scoring details
 
 **Behavior A.** The scorer takes the LAST line that starts with `FINAL ANSWER`

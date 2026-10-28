@@ -213,6 +213,16 @@ each size, two seeds if time allows. Threshold rule written in the README
 before the curve is run: the smallest N whose challenge-set pass rate is within
 0.05 of the full-N run.
 
+Run 2026-10-27 night (`run_curve.py`, `results/curve_2026-10-27/`), two
+training seeds (3407 and 1234), code checks, mean over seeds: 455 rows 65%,
+228 rows 48%, 114 rows 37%, 57 rows 46%. Nothing short of 455 is within 5
+points, so v1 is data-limited and v2 should add rows, not only fix them.
+Named leaks fall monotonically with data (about 28, 12, 4, 0 to 1 per 200
+hint turns); the hard negatives are the most data-hungry part (0 to 1, 4 to
+5, 10 to 11, 12 to 14 of 26 answered). The 57-row models scoring above the
+114-row ones holds across both seeds; the split tables in the eval
+directories say why.
+
 ## Step 8: prove (lecture Part 13)
 
 - `eval.py --model <hf-repo> --revision <commit> --eval-set <path>`: loads the

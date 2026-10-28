@@ -68,25 +68,36 @@ def pct(x: Optional[float]) -> str:
 def render(rows: List[Dict], full_n: int) -> str:
     out = ["# Data-efficiency curve", "", "Challenge set, 30 scenarios, zero-shot system prompt, greedy decoding. `All checks` is the code-check pass rate; `Final` adds the judge where it has run.", "",
            "Rule, fixed before looking (docs/plan.md step 7): the smallest n whose challenge-set pass rate is within %.2f of the full-N run." % THRESHOLD, "",
-           "| n | steps | train loss | All checks | Final (judged) | named leaks / hint turns | negatives answered |", "|---|---|---|---|---|---|---|"]
+           "| n | seed | steps | train loss | All checks | Final (judged) | named leaks / hint turns | negatives answered |", "|---|---|---|---|---|---|---|---|"]
     for r in rows:
         c = r["cell"] or {}
-        out.append("| %d%s | %s | %s | %s | %s | %s | %s |" % (
-            r["n"], " (full)" if r["n"] == full_n else "", r.get("steps", "?"),
+        out.append("| %d%s | %s | %s | %s | %s | %s | %s | %s |" % (
+            r["n"], " (full)" if r["n"] == full_n else "", r.get("seed", 3407), r.get("steps", "?"),
             "%.3f" % r["loss"] if r.get("loss") is not None else "?",
             pct(c.get("checks")), pct(c.get("final")),
             "%s / %s" % (c.get("leak_turns", "?"), c.get("hint_turns", "?")),
             "%s / %s" % (c.get("answered", "?"), c.get("normal_turns", "?"))))
-    full = next((r for r in rows if r["n"] == full_n), None)
+    # The rule is applied to the mean over seeds per size, against the
+    # full-N run's seed-3407 value (the committed v1 model).
+    by_n: Dict[int, List[Dict]] = {}
+    for r in rows:
+        by_n.setdefault(r["n"], []).append(r)
+    full = next((r for r in rows if r["n"] == full_n and r.get("seed", 3407) == 3407), None)
     out.append("")
     for metric, label in (("checks", "All checks"), ("final", "Final")):
         if not full or not full["cell"] or full["cell"].get(metric) is None:
             out.append("%s: the full-N run has no value for this metric yet." % label)
             continue
         ref = full["cell"][metric]
-        ok = [r["n"] for r in rows if r["cell"] and r["cell"].get(metric) is not None and r["cell"][metric] >= ref - THRESHOLD]
-        out.append("%s: full-N %s; sizes within %.2f of it: %s; smallest: %s." % (
-            label, pct(ref), THRESHOLD, ", ".join(str(n) for n in sorted(ok)) or "none", min(ok) if ok else "none"))
+        means = {}
+        for n, group in by_n.items():
+            vals = [g["cell"][metric] for g in group if g["cell"] and g["cell"].get(metric) is not None]
+            if vals:
+                means[n] = sum(vals) / len(vals)
+        ok = [n for n, v in means.items() if v >= ref - THRESHOLD]
+        out.append("%s: full-N (seed 3407) %s; mean over seeds per size: %s; sizes within %.2f: %s; smallest: %s." % (
+            label, pct(ref), ", ".join("%d %s" % (n, pct(means[n])) for n in sorted(means, reverse=True)), THRESHOLD,
+            ", ".join(str(n) for n in sorted(ok)) or "none", min(ok) if ok else "none"))
     return "\n".join(out) + "\n"
 
 
@@ -98,27 +109,51 @@ def main(argv=None) -> int:
     p.add_argument("--data", default="data/train.jsonl")
     p.add_argument("--out", required=True)
     p.add_argument("--models-dir", default="models")
+    p.add_argument("--train-seed", type=int, default=3407,
+                   help="training seed; a second seed gives a second row per size (dirs get an _s<seed> suffix)")
+    p.add_argument("--sizes-with-full", action="store_true",
+                   help="also train the full set with --train-seed (for a second seed of the full-N run)")
     args = p.parse_args(argv)
     os.makedirs(args.out, exist_ok=True)
 
     full_m = manifest(args.full)
     full_n = full_m.get("data", {}).get("rows_used") or sum(1 for _ in open(args.data, encoding="utf-8"))
-    rows = [{"n": full_n, "model": args.full, "eval": args.full_eval, "steps": full_m.get("train", {}).get("steps"), "loss": full_m.get("train", {}).get("train_loss")}]
-    for n in sorted(args.sizes, reverse=True):
-        model_dir = os.path.join(args.models_dir, "curve_%d" % n)
-        eval_dir = os.path.join(args.out, "eval_%d" % n)
+    suffix = "" if args.train_seed == 3407 else "_s%d" % args.train_seed
+    sizes = sorted(args.sizes, reverse=True)
+    if args.sizes_with_full and suffix:
+        sizes = [full_n] + [n for n in sizes if n != full_n]
+    new_rows = []
+    for n in sizes:
+        model_dir = os.path.join(args.models_dir, "curve_%d%s" % (n, suffix))
+        eval_dir = os.path.join(args.out, "eval_%d%s" % (n, suffix))
         if not os.path.exists(os.path.join(model_dir, "adapter", "adapter_config.json")):
-            run([PYTHON, "train.py", "--data", args.data, "--out", model_dir, "--n", str(n)], os.path.join(args.out, "train_%d.log" % n))
+            cmd = [PYTHON, "train.py", "--data", args.data, "--out", model_dir, "--seed", str(args.train_seed)]
+            if n != full_n:
+                cmd += ["--n", str(n)]
+            run(cmd, os.path.join(args.out, "train_%d%s.log" % (n, suffix)))
         if not os.path.exists(os.path.join(eval_dir, "transcripts.jsonl")):
-            run([PYTHON, "eval.py", "--model", "local:" + os.path.join(model_dir, "adapter"), "--eval-set", "challenge", "--out", eval_dir], os.path.join(args.out, "eval_%d.log" % n))
+            run([PYTHON, "eval.py", "--model", "local:" + os.path.join(model_dir, "adapter"), "--eval-set", "challenge", "--out", eval_dir], os.path.join(args.out, "eval_%d%s.log" % (n, suffix)))
         m = manifest(model_dir)
-        rows.append({"n": n, "model": model_dir, "eval": eval_dir, "steps": m.get("train", {}).get("steps"), "loss": m.get("train", {}).get("train_loss")})
+        new_rows.append({"n": n, "seed": args.train_seed, "model": model_dir, "eval": eval_dir, "steps": m.get("train", {}).get("steps"), "loss": m.get("train", {}).get("train_loss")})
+
+    # Every row this directory knows about: the full-N run, earlier seeds
+    # from curve.json, and this run's rows.
+    rows = [{"n": full_n, "seed": full_m.get("config", {}).get("seed", 3407), "model": args.full, "eval": args.full_eval, "steps": full_m.get("train", {}).get("steps"), "loss": full_m.get("train", {}).get("train_loss")}]
+    json_path = os.path.join(args.out, "curve.json")
+    if os.path.exists(json_path):
+        for r in json.load(open(json_path, encoding="utf-8"))["rows"]:
+            if not any(r["n"] == x["n"] and r.get("seed", 3407) == x.get("seed", 3407) for x in rows):
+                rows.append({k: r[k] for k in ("n", "seed", "model", "eval", "steps", "loss") if k in r})
+    for r in new_rows:
+        rows = [x for x in rows if not (x["n"] == r["n"] and x.get("seed", 3407) == r["seed"])] + [r]
+    rows.sort(key=lambda r: (-r["n"], r.get("seed", 3407)))
     for r in rows:
+        r.setdefault("seed", 3407)
         r["cell"] = cell(r["eval"])
     text = render(rows, full_n)
     with open(os.path.join(args.out, "curve.md"), "w", encoding="utf-8") as fh:
         fh.write(text)
-    with open(os.path.join(args.out, "curve.json"), "w", encoding="utf-8") as fh:
+    with open(json_path, "w", encoding="utf-8") as fh:
         json.dump({"threshold": THRESHOLD, "rows": rows}, fh, indent=2)
     print(text)
     return 0

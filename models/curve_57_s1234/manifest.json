@@ -1,0 +1,98 @@
+{
+  "created_at": "2026-10-27T23:09:34+00:00",
+  "base_model": "unsloth/Qwen3-1.7B",
+  "base_loaded": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+  "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+  "data": {
+    "path": "data/train.jsonl",
+    "sha256": "109377ecb7b35e3c4c40c0e5ce992b075c777becbf441090520d5365e8a483ac",
+    "rows_total": 455,
+    "rows_used": 57,
+    "n": 57,
+    "perm_seed": 0
+  },
+  "system_prompt": "zero_shot",
+  "config": {
+    "max_seq_length": 2048,
+    "load_in_4bit": true,
+    "lora_r": 16,
+    "lora_alpha": 16,
+    "lora_dropout": 0,
+    "target_modules": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "learning_rate": 0.0002,
+    "epochs": 2.0,
+    "batch": 2,
+    "grad_accum": 4,
+    "warmup_steps": 5,
+    "optim": "adamw_8bit",
+    "weight_decay": 0.01,
+    "scheduler": "linear",
+    "seed": 1234,
+    "responses_only": true,
+    "instruction_part": "<|im_start|>user\n",
+    "response_part": "<|im_start|>assistant\n"
+  },
+  "tokens_per_row": {
+    "min": 491,
+    "median": 823,
+    "max": 1112,
+    "over_max": 0
+  },
+  "train": {
+    "steps": 16,
+    "train_loss": 3.3379058092832565,
+    "runtime_s": 9.5,
+    "log": [
+      {
+        "loss": 4.671011352539063,
+        "grad_norm": 6.410264492034912,
+        "learning_rate": 0.00016,
+        "epoch": 0.6896551724137931,
+        "step": 5
+      },
+      {
+        "loss": 3.0558853149414062,
+        "grad_norm": 1.3668352365493774,
+        "learning_rate": 0.00012727272727272728,
+        "epoch": 1.2758620689655173,
+        "step": 10
+      },
+      {
+        "loss": 2.5013042449951173,
+        "grad_norm": 0.816189706325531,
+        "learning_rate": 3.6363636363636364e-05,
+        "epoch": 1.9655172413793105,
+        "step": 15
+      },
+      {
+        "train_runtime": 9.5394,
+        "train_samples_per_second": 11.95,
+        "train_steps_per_second": 1.677,
+        "total_flos": 799688217047040.0,
+        "train_loss": 3.3379058092832565,
+        "epoch": 2.0,
+        "step": 16
+      }
+    ]
+  },
+  "versions": {
+    "python": "3.12.3",
+    "torch": "2.14.1+cu130",
+    "cuda": "13.0",
+    "transformers": "5.17.0",
+    "trl": "1.15.0",
+    "peft": "0.21.2",
+    "unsloth": "2026.10.9",
+    "gpu": "NVIDIA GeForce RTX 4090"
+  },
+  "code_git_sha": "b2cbb1743ad579ff9f19025239fe54385f290073-dirty",
+  "wall_s": 38.4
+}

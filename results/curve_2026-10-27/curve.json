@@ -1,0 +1,149 @@
+{
+  "threshold": 0.05,
+  "rows": [
+    {
+      "n": 455,
+      "seed": 1234,
+      "model": "models/curve_455_s1234",
+      "eval": "results/curve_2026-10-27/eval_455_s1234",
+      "steps": 114,
+      "loss": 1.6845854499883819,
+      "cell": {
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.6666666666666666,
+        "final": null,
+        "leak_turns": 0,
+        "hint_turns": 220,
+        "answered": 12,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 455,
+      "seed": 3407,
+      "model": "models/v1",
+      "eval": "results/eval_v1_2026-10-27",
+      "steps": 114,
+      "loss": 1.6828729060658238,
+      "cell": {
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.6333333333333333,
+        "final": 0.5,
+        "leak_turns": 1,
+        "hint_turns": 220,
+        "answered": 14,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 228,
+      "seed": 1234,
+      "model": "models/curve_228_s1234",
+      "eval": "results/curve_2026-10-27/eval_228_s1234",
+      "steps": 58,
+      "loss": 2.1481782650125436,
+      "cell": {
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.5,
+        "final": null,
+        "leak_turns": 3,
+        "hint_turns": 220,
+        "answered": 10,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 228,
+      "model": "models/curve_228",
+      "eval": "results/curve_2026-10-27/eval_228",
+      "steps": 58,
+      "loss": 2.1551025982560783,
+      "seed": 3407,
+      "cell": {
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.4666666666666667,
+        "final": null,
+        "leak_turns": 5,
+        "hint_turns": 220,
+        "answered": 11,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 114,
+      "seed": 1234,
+      "model": "models/curve_114_s1234",
+      "eval": "results/curve_2026-10-27/eval_114_s1234",
+      "steps": 30,
+      "loss": 2.7016178448994954,
+      "cell": {
+        "n_scored": 29,
+        "errors": 1,
+        "checks": 0.4482758620689655,
+        "final": null,
+        "leak_turns": 11,
+        "hint_turns": 212,
+        "answered": 5,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 114,
+      "model": "models/curve_114",
+      "eval": "results/curve_2026-10-27/eval_114",
+      "steps": 30,
+      "loss": 2.7272905349731444,
+      "seed": 3407,
+      "cell": {
+        "n_scored": 28,
+        "errors": 2,
+        "checks": 0.2857142857142857,
+        "final": null,
+        "leak_turns": 14,
+        "hint_turns": 202,
+        "answered": 4,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 57,
+      "seed": 1234,
+      "model": "models/curve_57_s1234",
+      "eval": "results/curve_2026-10-27/eval_57_s1234",
+      "steps": 16,
+      "loss": 3.3379058092832565,
+      "cell": {
+        "n_scored": 28,
+        "errors": 2,
+        "checks": 0.4642857142857143,
+        "final": null,
+        "leak_turns": 29,
+        "hint_turns": 204,
+        "answered": 0,
+        "normal_turns": 24
+      }
+    },
+    {
+      "n": 57,
+      "model": "models/curve_57",
+      "eval": "results/curve_2026-10-27/eval_57",
+      "steps": 16,
+      "loss": 3.3471802175045013,
+      "seed": 3407,
+      "cell": {
+        "n_scored": 29,
+        "errors": 1,
+        "checks": 0.4482758620689655,
+        "final": null,
+        "leak_turns": 28,
+        "hint_turns": 212,
+        "answered": 1,
+        "normal_turns": 26
+      }
+    }
+  ]
+}
