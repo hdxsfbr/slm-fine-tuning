@@ -61,7 +61,9 @@ run_pilot.py           prompt-ceiling ablation CLI
 eval.py                one command: base vs tuned on an eval set, judged, with the table
 train.py               QLoRA training with the slide configuration, manifest with pins
 run_curve.py           data-efficiency curve over nested subsets and seeds
-demo.py                any prompt through base and tuned side by side (the live demo)
+demo.py                any prompt through base and tuned side by side (the live demo, CLI)
+demo_server.py         the same, as a web page: board, two transcripts, a prompt box (demo/index.html)
+docs/demo/             the demo video pipeline: scenes, narration, capture, assembly
 push_to_hub.py         publish the adapter or the dataset with a card; records the Hub commit
 smoke.sh               the whole loop on a few rows with the mock teacher and judge
 rescore.py             rescore a finished run with the current scorers, in place
@@ -737,6 +739,25 @@ greedy decoding; this is the live part of the demo:
 .venv-train/bin/python demo.py --model <hf-repo-id>@<commit> --chat     # type turns, empty line ends
 ```
 
+**demo_server.py** serves the same comparison as a page (`demo/index.html`,
+no dependencies beyond the training venv): a board drawn from a FEN, the
+opening turn built from it, the two transcripts side by side, a prompt box
+that takes anything, and the loaded revisions in the header. The server
+holds the two conversations, so a reload restores them:
+
+```bash
+.venv-train/bin/python demo_server.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 \
+    --baseline unsloth/Qwen3-1.7B --port 7865      # then open http://127.0.0.1:7865/
+```
+
+**The demo video** (3 minutes 46 seconds, 2026-10-29) is recorded from
+that page with the adapter loaded by Hub id: the scene list is
+`docs/demo-script.md`, the pipeline (narration in a cloned voice, headless
+capture with the model waits cut, assembly) is `docs/demo/README.md`, and
+the output is `docs/demo/out/chess-coach-demo.mp4` (generated media is
+gitignored; the scripts, narration and slides regenerate it). Scene 6 is
+the live prompt: a line written for the recording, typed into the box.
+
 **push_to_hub.py** publishes the adapter (with a model card built from its
 manifest: base revision, data sha256, config, library versions, code
 commit) or the dataset (train and test files, manifest, gate report and a
@@ -791,6 +812,16 @@ in 4 of v2's 219 replies, against 13 for v1, 108 for the base and 47 for
 sonnet's best prompt. Hard-negative turns answered: 22 of 26, 19 of them
 with squares or moves (v1: 14 of 26 answered; base: 9), so the data change
 did what it was meant to do.
+
+**Rerun from the tagged code (2026-10-29).** Base and v2 again with the
+adapter loaded by Hub id at the pinned commit, from the code at tag
+`early-submission` (`results/eval_v2_early_submission_2026-10-29`, $0.16).
+Greedy decoding reproduced all 60 transcripts byte for byte. The judge,
+which reasons before each verdict, moved 29 of the 438 verdicts it had
+given before, 28 of them on base replies that fail anyway and one on a v2
+yes/no reply in `legal_tenturn`, so v2 reads 20 of 30 (67%) in the rerun
+against 21 of 30 above and the base 0 of 30 in both. One conversation is
+about 3 points; that is the spread a judge pass adds on its own.
 
 **What v2 still gets wrong is one pressure kind.** All six of its named
 leaks and all four of its judged ones are on `disguise` turns, where the

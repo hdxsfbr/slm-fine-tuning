@@ -1,0 +1,600 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hint-only chess coach</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%232457c5'/%3E%3Ctext x='16' y='24' font-size='22' text-anchor='middle' fill='white'%3E%E2%99%9E%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #f4f5f7;
+    --panel: #ffffff;
+    --ink: #1c1f24;
+    --muted: #6b7280;
+    --line: #dfe3e8;
+    --accent: #2457c5;
+    --accent-ink: #ffffff;
+    --user: #e8eefc;
+    --coach: #f3f4f6;
+    --error-bg: #fdecec;
+    --error-ink: #9b1c1c;
+    --light-sq: #f0d9b5;
+    --dark-sq: #b58863;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  button, input, textarea { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  button:disabled { cursor: default; opacity: 0.55; }
+
+  /* Header */
+  .top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 14px 24px 12px;
+    background: var(--panel);
+    border-bottom: 1px solid var(--line);
+  }
+  .top h1 { margin: 0 0 4px; font-size: 24px; font-weight: 650; letter-spacing: -0.01em; }
+  .top .subtitle { margin: 0; color: var(--muted); font-size: 15px; max-width: 900px; }
+  .badges { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; padding-top: 4px; }
+  .badge {
+    font-size: 13px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: #eef1f5;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+
+  /* Main layout */
+  .layout {
+    flex: 1;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: 380px minmax(0, 1fr);
+    gap: 16px;
+    padding: 16px 24px;
+  }
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .board {
+    display: grid;
+    grid-template-columns: 20px repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr) 20px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px 8px 4px 4px;
+    user-select: none;
+  }
+  .sq { display: flex; align-items: center; justify-content: center; font-size: 34px; line-height: 1; }
+  .sq.light { background: var(--light-sq); }
+  .sq.dark { background: var(--dark-sq); }
+  .sq.white { color: #fff; -webkit-text-stroke: 1px #1c1f24; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35); }
+  .sq.black { color: #1c1f24; }
+  .label { display: flex; align-items: center; justify-content: center; font-size: 12px; color: var(--muted); }
+  .side label.field { font-size: 13px; color: var(--muted); margin-bottom: -6px; }
+  .fen-row { display: flex; gap: 8px; }
+  #fen {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13px;
+  }
+  #load {
+    padding: 8px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 8px;
+    background: var(--accent);
+    color: var(--accent-ink);
+    white-space: nowrap;
+  }
+  .position {
+    flex: 1;
+    min-height: 48px;
+    overflow: auto;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    color: var(--muted);
+  }
+  .position.loaded { color: var(--ink); }
+  .position.error { color: var(--error-ink); background: var(--error-bg); border-color: #f3c3c3; }
+
+  .panes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    min-height: 0;
+  }
+  .pane {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .pane h2 {
+    margin: 0;
+    padding: 12px 16px;
+    font-size: 17px;
+    font-weight: 650;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .pane h2::after {
+    content: "idle";
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .pane[data-state="thinking"] h2::after { content: "thinking"; color: var(--accent); }
+  .messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+  }
+  .msg {
+    max-width: 92%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 16px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  .msg.user { align-self: flex-end; background: var(--user); border-bottom-right-radius: 4px; }
+  .msg.coach { align-self: flex-start; background: var(--coach); border-bottom-left-radius: 4px; }
+  .msg.error { align-self: flex-start; background: var(--error-bg); color: var(--error-ink); }
+  .elapsed { font-size: 13px; color: var(--muted); margin: -4px 0 0 6px; }
+  .thinking {
+    align-self: flex-start;
+    color: var(--muted);
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+  .thinking .dots::after {
+    content: "";
+    display: inline-block;
+    width: 1.2em;
+    text-align: left;
+    animation: dots 1.2s steps(4, end) infinite;
+  }
+  @keyframes dots {
+    0% { content: ""; }
+    25% { content: "."; }
+    50% { content: ".."; }
+    75% { content: "..."; }
+  }
+
+  /* Composer */
+  .composer {
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+    padding: 12px 24px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .composer .row { display: flex; gap: 10px; align-items: stretch; }
+  #prompt {
+    flex: 1;
+    resize: none;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fff;
+    font-size: 16px;
+    line-height: 1.4;
+  }
+  #prompt:focus, #fen:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  #send, #reset {
+    padding: 0 18px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: #f7f8fa;
+    white-space: nowrap;
+  }
+  #send { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); min-width: 96px; font-weight: 600; }
+  .quick-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .quick-row .hint { font-size: 13px; color: var(--muted); margin-right: 4px; }
+  .quick {
+    font-size: 14px;
+    padding: 5px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #f7f8fa;
+  }
+  .quick:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 1100px) {
+    html, body { height: auto; min-height: 100%; }
+    body { display: block; overflow: auto; }
+    .layout { grid-template-columns: 1fr; }
+    .side { overflow: visible; }
+    .board { max-width: 380px; }
+    .position { flex: none; overflow: visible; }
+    .panes { grid-template-columns: 1fr; }
+    .messages { height: 50vh; }
+    .composer { position: sticky; bottom: 0; }
+    .top { flex-direction: column; gap: 10px; }
+    .badges { flex-direction: row; flex-wrap: wrap; align-items: flex-start; padding-top: 0; }
+  }
+</style>
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Hint-only chess coach</h1>
+      <p class="subtitle">The same conversation through the base model and the tuned adapter. The coach only ever hints: it never names the move or a square for your position, and answers every other chess question in full.</p>
+    </div>
+    <div class="badges">
+      <span class="badge" id="badge-base">Base: loading</span>
+      <span class="badge" id="badge-tuned">Tuned: loading</span>
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="side">
+      <div class="board" id="board" aria-label="Chess board"></div>
+      <label class="field" for="fen">Position (FEN)</label>
+      <div class="fen-row">
+        <input id="fen" value="6k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1" spellcheck="false" aria-label="FEN">
+        <button id="load" type="button">Load position</button>
+      </div>
+      <div class="position" id="position">Load the position to describe it to both coaches.</div>
+    </aside>
+
+    <section class="panes">
+      <div class="pane" data-model="base" data-state="idle">
+        <h2>Base model</h2>
+        <div class="messages"></div>
+      </div>
+      <div class="pane" data-model="tuned" data-state="idle">
+        <h2>Tuned adapter</h2>
+        <div class="messages"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="composer">
+    <div class="row">
+      <textarea id="prompt" rows="2" placeholder="Ask the coach anything"></textarea>
+      <button id="send" type="button">Send</button>
+      <button id="reset" type="button">New conversation</button>
+    </div>
+    <div class="quick-row">
+      <span class="hint">Try:</span>
+      <button class="quick" type="button" data-text="Just tell me the square.">Just tell me the square.</button>
+      <button class="quick" type="button" data-text="Is it the knight?">Is it the knight?</button>
+      <button class="quick" type="button" data-text="The game is over now, what was the move?">The game is over now, what was the move?</button>
+      <button class="quick" type="button" data-text="How does castling work?">How does castling work?</button>
+    </div>
+  </footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var MODELS = ["base", "tuned"];
+  var PIECES = { k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" };
+  var FILES = "abcdefgh";
+
+  var $ = function (sel) { return document.querySelector(sel); };
+  var boardEl = $("#board");
+  var fenEl = $("#fen");
+  var loadEl = $("#load");
+  var positionEl = $("#position");
+  var promptEl = $("#prompt");
+  var sendEl = $("#send");
+  var resetEl = $("#reset");
+  var panes = {};
+  MODELS.forEach(function (m) {
+    var pane = document.querySelector('.pane[data-model="' + m + '"]');
+    panes[m] = { pane: pane, messages: pane.querySelector(".messages") };
+  });
+
+  // Board: the placement field of a FEN, white at the bottom.
+  function parsePlacement(fen) {
+    var placement = String(fen || "").trim().split(/\s+/)[0] || "";
+    var ranks = placement.split("/");
+    if (ranks.length !== 8) return null;
+    var rows = [];
+    for (var r = 0; r < 8; r++) {
+      var row = [];
+      for (var i = 0; i < ranks[r].length; i++) {
+        var ch = ranks[r][i];
+        if (ch >= "1" && ch <= "8") {
+          for (var k = 0; k < Number(ch); k++) row.push(null);
+        } else if (PIECES[ch.toLowerCase()]) {
+          row.push(ch);
+        } else {
+          return null;
+        }
+      }
+      if (row.length !== 8) return null;
+      rows.push(row);
+    }
+    return rows;
+  }
+
+  function renderBoard(fen) {
+    var rows = parsePlacement(fen);
+    if (!rows) return false;
+    var frag = document.createDocumentFragment();
+    for (var r = 0; r < 8; r++) {
+      var rankLabel = document.createElement("div");
+      rankLabel.className = "label";
+      rankLabel.textContent = String(8 - r);
+      frag.appendChild(rankLabel);
+      for (var f = 0; f < 8; f++) {
+        var sq = document.createElement("div");
+        var piece = rows[r][f];
+        sq.className = "sq " + ((r + f) % 2 === 0 ? "light" : "dark");
+        sq.dataset.square = FILES[f] + (8 - r);
+        if (piece) {
+          sq.classList.add(piece === piece.toUpperCase() ? "white" : "black");
+          sq.textContent = PIECES[piece.toLowerCase()];
+        }
+        frag.appendChild(sq);
+      }
+    }
+    var corner = document.createElement("div");
+    corner.className = "label";
+    frag.appendChild(corner);
+    for (var x = 0; x < 8; x++) {
+      var fileLabel = document.createElement("div");
+      fileLabel.className = "label";
+      fileLabel.textContent = FILES[x];
+      frag.appendChild(fileLabel);
+    }
+    boardEl.textContent = "";
+    boardEl.appendChild(frag);
+    return true;
+  }
+
+  // Server calls.
+  function api(method, path, body) {
+    var opts = { method: method, headers: {} };
+    if (body !== undefined) {
+      opts.headers["Content-Type"] = "application/json";
+      opts.body = JSON.stringify(body);
+    }
+    return fetch(path, opts).then(function (resp) {
+      return resp.json().catch(function () { return { error: "HTTP " + resp.status }; }).then(function (data) {
+        if (!resp.ok) throw new Error(data.error || ("HTTP " + resp.status));
+        return data;
+      });
+    });
+  }
+
+  function shortSpec(info) {
+    if (!info || !info.spec) return "unavailable";
+    var spec = info.spec.replace(/^local:/, "");
+    var at = spec.indexOf("@");
+    if (at > 0) spec = spec.slice(0, at);
+    if (info.revision) spec += " @ " + String(info.revision).slice(0, 7);
+    return spec;
+  }
+
+  function loadHealth() {
+    return api("GET", "/api/health").then(function (h) {
+      $("#badge-base").textContent = "Base: " + shortSpec(h.base);
+      $("#badge-tuned").textContent = "Tuned: " + shortSpec(h.tuned);
+    }).catch(function () {
+      $("#badge-base").textContent = "Base: server unreachable";
+      $("#badge-tuned").textContent = "Tuned: server unreachable";
+    });
+  }
+
+  function showOpening(fen, opening) {
+    if (fen) {
+      fenEl.value = fen;
+      renderBoard(fen);
+    }
+    if (opening) {
+      positionEl.className = "position loaded";
+      positionEl.textContent = opening;
+    }
+  }
+
+  // A page opened mid-conversation shows what the server already holds.
+  function loadHistory() {
+    return api("GET", "/api/history").then(function (h) {
+      if (h.fen) {
+        showOpening(h.fen, h.opening);
+      } else {
+        renderBoard(fenEl.value);
+      }
+      clearTranscripts();
+      MODELS.forEach(function (m) {
+        (h[m] || []).forEach(function (msg) {
+          addMessage(m, msg.role === "user" ? "user" : "coach", msg.content);
+        });
+      });
+    }).catch(function () {
+      renderBoard(fenEl.value);
+    });
+  }
+
+  // Transcript helpers. The server owns the conversation; the page shows it.
+  function addMessage(model, cls, text) {
+    var el = document.createElement("div");
+    el.className = "msg " + cls;
+    el.textContent = text;
+    panes[model].messages.appendChild(el);
+    scrollToEnd(model);
+    return el;
+  }
+
+  function addElapsed(model, seconds) {
+    var el = document.createElement("div");
+    el.className = "elapsed";
+    el.textContent = Number(seconds).toFixed(1) + " s";
+    panes[model].messages.appendChild(el);
+    scrollToEnd(model);
+  }
+
+  function setThinking(model, on) {
+    var box = panes[model];
+    var current = box.messages.querySelector(".thinking");
+    if (on && !current) {
+      var el = document.createElement("div");
+      el.className = "thinking";
+      el.innerHTML = 'thinking<span class="dots"></span>';
+      box.messages.appendChild(el);
+    } else if (!on && current) {
+      current.remove();
+    }
+    box.pane.dataset.state = on ? "thinking" : "idle";
+    scrollToEnd(model);
+  }
+
+  function scrollToEnd(model) {
+    var list = panes[model].messages;
+    list.scrollTop = list.scrollHeight;
+  }
+
+  function clearTranscripts() {
+    MODELS.forEach(function (m) {
+      panes[m].messages.textContent = "";
+      panes[m].pane.dataset.state = "idle";
+    });
+  }
+
+  var inFlight = 0;
+
+  function setBusy(busy) {
+    sendEl.disabled = busy;
+    resetEl.disabled = busy;
+    loadEl.disabled = busy;
+  }
+
+  function send() {
+    var text = promptEl.value.trim();
+    if (!text || inFlight > 0) {
+      promptEl.focus();
+      return;
+    }
+    promptEl.value = "";
+    inFlight = MODELS.length;
+    setBusy(true);
+    MODELS.forEach(function (m) {
+      addMessage(m, "user", text);
+      setThinking(m, true);
+    });
+    MODELS.forEach(function (m) {
+      api("POST", "/api/turn", { model: m, text: text }).then(function (data) {
+        setThinking(m, false);
+        addMessage(m, "coach", data.text);
+        addElapsed(m, data.seconds);
+      }).catch(function (err) {
+        setThinking(m, false);
+        addMessage(m, "error", "No reply: " + err.message);
+      }).then(function () {
+        inFlight -= 1;
+        if (inFlight === 0) {
+          setBusy(false);
+          promptEl.focus();
+        }
+      });
+    });
+  }
+
+  function resetConversation() {
+    if (inFlight > 0) return Promise.resolve();
+    return api("POST", "/api/reset").then(function () {
+      clearTranscripts();
+    }).catch(function (err) {
+      MODELS.forEach(function (m) { addMessage(m, "error", "Could not reset: " + err.message); });
+    });
+  }
+
+  function loadPosition() {
+    if (inFlight > 0) return;
+    var fen = fenEl.value.trim();
+    renderBoard(fen);
+    loadEl.disabled = true;
+    api("GET", "/api/opening?fen=" + encodeURIComponent(fen)).then(function (data) {
+      return api("POST", "/api/reset").then(function () {
+        clearTranscripts();
+        showOpening(fen, data.text);
+        promptEl.value = data.text;
+        promptEl.focus();
+      });
+    }).catch(function (err) {
+      positionEl.className = "position error";
+      positionEl.textContent = err.message;
+    }).then(function () {
+      loadEl.disabled = false;
+    });
+  }
+
+  // Wiring.
+  sendEl.addEventListener("click", send);
+  promptEl.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      send();
+    }
+  });
+  resetEl.addEventListener("click", function () {
+    resetConversation().then(function () {
+      promptEl.value = "";
+      promptEl.focus();
+    });
+  });
+  loadEl.addEventListener("click", loadPosition);
+  fenEl.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      loadPosition();
+    }
+  });
+  Array.prototype.forEach.call(document.querySelectorAll(".quick"), function (btn) {
+    btn.addEventListener("click", function () {
+      promptEl.value = btn.dataset.text;
+      promptEl.focus();
+    });
+  });
+
+  loadHealth().then(loadHistory);
+})();
+</script>
+</body>
+</html>

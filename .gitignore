@@ -11,3 +11,8 @@ unsloth_compiled_cache/
 train_env_*.log
 results/mock/
 results/smoke/
+# demo video: generated media stays out; scripts, narration, slides and thumbnail are committed
+docs/demo/audio/
+docs/demo/clips/
+docs/demo/slides/png/
+docs/demo/out/

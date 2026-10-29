@@ -1,0 +1,3 @@
+We started by trying to get the behavior from a prompt. Two frontier models, Claude Sonnet and GPT, each under three prompting strategies, on thirty scripted conversations of eight to ten turns, judged by one fixed rubric. The best cell holds the rule in one conversation out of five.
+
+By the code checks the models look perfect: they never type a square. Under pressure they state the move in words instead. The rook goes to the far end of its file. That gap between the letter and the meaning of the rule is the ceiling a prompt cannot cross.

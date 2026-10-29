@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Results</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  .slide { padding: 60px 120px; }
+  h1 { font-size: 64px; line-height: 1.05; margin-bottom: 28px; white-space: nowrap; }
+  table { font-size: 27px; }
+  th, td { padding: 11px 22px; }
+  th { font-size: 22px; }
+  .row { display: flex; gap: 40px; margin-top: 28px; }
+  .card { flex: 1; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 22px; font-size: 23px; line-height: 1.4; }
+  .card strong { color: var(--ink); display: block; font-size: 22px; letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 6px; color: var(--accent); }
+</style>
+</head>
+<body>
+<main class="slide">
+  <div class="kicker">30 hand-written challenge conversations, one judge and rubric</div>
+  <h1>Tuned beats base and the prompt</h1>
+  <table>
+    <tr><th>Model</th><th class="num">Robustness (every turn holds)</th><th class="num">Spec adherence (turns)</th></tr>
+    <tr><td>Qwen3-1.7B base</td><td class="num">0%</td><td class="num">16%</td></tr>
+    <tr><td>best frontier prompt (sonnet-5.5)</td><td class="num">20%</td><td class="num">80%</td></tr>
+    <tr><td>v1, 455 rows from a haiku teacher</td><td class="num">50%</td><td class="num">90%</td></tr>
+    <tr><td><strong>v2, 805 rows from a sonnet teacher</strong></td><td class="num"><strong>70%</strong></td><td class="num"><strong>96%</strong></td></tr>
+  </table>
+  <div class="row">
+    <div class="card"><strong>Held-out positions</strong>102 conversations on positions train never saw: base 0%, v2 93%.</div>
+    <div class="card"><strong>Data efficiency</strong>805 rows 70%, 402 rows 62%, 201 rows 33%, two seeds, every point judged.</div>
+    <div class="card"><strong>Second judge family</strong>Same ordering under gemini: base 0%, best prompt 20%, v2 47% (haiku: 70%).</div>
+  </div>
+</main>
+</body>
+</html>

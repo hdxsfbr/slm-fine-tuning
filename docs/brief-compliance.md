@@ -6,8 +6,8 @@ docs/G7_W7_Train_Your_Own_Small_Learning_Model.pdf. First pass on commit c1c3887
 and prove every item from code, data and result files (README and docs excluded as
 evidence), one by the session that built the repo; every disagreement settled by reading the
 code or data again. Rewritten 2026-10-28 evening after the day's fixes, from the same item
-list; updated 2026-10-29 after the Hub push, the synthetic held-out run and the second-family
-judge check. Test suite at the last update: 191 passed.
+list; updated 2026-10-29 after the Hub push, the synthetic held-out run, the second-family
+judge check, the tagged rerun and the demo video. Test suite at the last update: 198 passed.
 
 Deadlines: early submission Thursday 2026-10-30 at midnight, final Sunday 2026-11-02 at noon.
 
@@ -24,12 +24,11 @@ on v2 with two seeds and a pre-registered rule; a one-command base-vs-tuned eval
 judge; a smoke run of the whole loop; raw judge transcripts per turn; a Brainlift draft.
 
 Open for the early submission: nothing; the public Hub checkpoint and the dataset went up on
-2026-10-29 and the day's code is committed on main (0d41d41).
-Open for the final: the hosted inference demo and the video, the staff
+2026-10-29 and the code is committed on main (4dafda9, tagged early-submission).
+Open for the final: a hosted inference demo (the page runs locally; the video is done), the staff
 held-out set when it is published (the synthetic held-out run is done), relabeled calibration items and a hand read of the 16 judge disagreements on v2
-(the second-family judge check itself is done), a clean tagged commit with
-the final evals rerun from it, and a model above the 80% bar (v2 is at 70%, with one failure
-mode left).
+(the second-family judge check itself is done), and a model above the 80% bar (v2 is at
+70%, with one failure mode left).
 
 ## Open items, worst first
 
@@ -38,17 +37,22 @@ F = final.
 
 | # | Item | Brief wording | State | Sev. | Due | Effort |
 |---|---|---|---|---|---|---|
-| 15 | Inference demo and video | "running inference demo", "3 to 5 minute demo video ... one live, grader-supplied prompt" | demo.py runs any prompt through base and tuned side by side (tested). No hosted demo and no video yet; a Colab notebook on a free GPU is the planned host. | blocker | F | notebook 1 h, video 1 to 2 h |
+| 15 | Inference demo and video | "running inference demo", "3 to 5 minute demo video ... one live, grader-supplied prompt" | demo_server.py serves base and tuned side by side on any prompt (tested, 7 tests) and demo.py does the same on the CLI. The video is done (docs/demo/out/chess-coach-demo.mp4, 3:46, recorded 2026-10-29 from the page with the adapter by Hub id, narrated in Andre's cloned voice; scene 6 is the live prompt). Left: hosting the page so a grader can run it without the repo (Colab on a free GPU planned), and publishing the video file, which is gitignored. | should-fix | F | notebook 1 h |
 | 12 | Staff held-out eval set | "run against a scenario set your model never saw" | The loader accepts rows as messages or plain turns, derives positions from a FEN, and documents the schema (README, "Held-out set format"). Synthetic held-out run done 2026-10-29 (results/eval_v2_heldout_2026-10-29): base 0 of 102, v2 95 of 102 (93%) on positions train never saw, every hint turn judged. The staff set itself has not been published; the one command runs it as soon as it exists. | minor (waiting on the course) | F | 20 min once the set exists |
 | 13 | Minimum viable N on a model that holds the behavior | "the smallest N that holds the behavior reliably" | The v2 curve (805, 402, 201, 100, two seeds, judged) gives 805 by the rule; 402 is 8 points behind on Robustness and level on per-turn adherence. v2 holds 70% of conversations, below the 80% bar, with one failure mode left (disguise turns). Stated as "at least 805 for this spec", with the next data change named. | should-fix (disclosed) | F | a v3 data pass on disguise turns, about $3 and 2 h, if time allows |
 | 10 | Judge validity | "the same LLM-as-judge rubric" | Second family checked 2026-10-29 (results/judge_check_2026-10-29/summary.md): gemini-3.1-flash-lite agrees with the 40 labels at 80%, as haiku does; on base vs v2 the judges agree on 76% of turns (kappa 0.52) and gemini puts v2 at 47% Robustness against haiku's 70%, the base at 0% under both; the ceiling holds under both judges. Left: a hand read of the 16 disagreements on v2 replies (in the 8 read so far gemini's reason is outside the rubric), and the 40 labels, written by the assistant, wait for Andre's relabel. | should-fix | F | 40 min of Andre's time for the labels, 15 min for the 16 |
-| 11 | Pinned eval-code commit | "exact eval-code commit hash" | Every run.json and manifest records a dirty sha because the runs were made from the working tree before the commit. Plan: tag the submission commit and rerun base and v2 on the challenge set from it (local, about $0.16 judge). The Hub cards cite 0d41d41-dirty because an untracked log file was present at push time; after the tag, push the cards again from the clean tree (same weights, new card commit). | should-fix | F | 30 min, $0.16 |
+| 11 | Pinned eval-code commit | "exact eval-code commit hash" | The code is tagged early-submission (4dafda9) on main and pushed; model and data commits are pinned in the manifests and every run.json. The sha in run.json and the manifests carries a dirty suffix because the runner flags any untracked file or doc edit, not only code changes; base and v2 rerun from the tag with the adapter loaded by Hub id reproduced the headline transcripts exactly (results/eval_v2_early_submission_2026-10-29). Accepted as is. | minor | F | none; the check could ignore untracked and non-code paths before the final tag, 10 min |
 | 3 | Brainlift | "behavior thesis, and whether data to behavior held, with evidence" | docs/brainlift.md drafted with thesis, spec, ceiling, v1, v2, both curves, minimum N and four spiky views. Final pass after the held-out runs. | should-fix | E draft done, F | 1 h |
 | 1b | v2 failure mode (disguise) | the spirit of "iterating on data, not hyperparameters" | Diagnosed: all v2 leaks are on disguise turns. Fix is a data change (more disguise turns, varied restatement). Optional before the final. | minor | F | see 13 |
 
 ## Fixed items
 
 On 2026-10-29:
+
+- 11 Tag early-submission at 4dafda9, pushed; base and v2 rerun from it with the adapter
+  loaded by Hub id (results/eval_v2_early_submission_2026-10-29, $0.16): transcripts identical
+  to the headline run, v2 20 of 30 under the fresh judge pass (one yes/no verdict moved), base
+  0 of 30.
 
 - 2 Public Hub checkpoint: hdxsfbr/qwen3-1.7b-chess-coach-hints at commit 020015527aa37100ff6b10ba323cd0c329b57d97,
   public, model card with the base revision, data sha256, config, library versions and
@@ -58,7 +62,7 @@ On 2026-10-29:
 - 14 Dataset published: hdxsfbr/chess-coach-hints at commit a4325dbdfd3a14c7b59b371a27b28795bbc8a788, public, with
   train.jsonl, synthetic_test.jsonl, manifest.json, gate_report.md and a dataset card
   (sha256 of both files, row shape, gate table). Recorded in data/v2/manifest.json.
-- Eval harness committed: main at 0d41d41, pushed to origin.
+- Eval harness committed: main at 4dafda9, tag early-submission, pushed to origin.
 - 10 (check half) Second-family judge check: judge_check.py (tested) judged copies of the
   base-vs-v2 eval and the two best ablation cells with gemini-3.1-flash-lite, and the 40
   labeled items fresh (run_judge.py calibrate --fresh --tag). Numbers in
@@ -93,6 +97,9 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 - 12 (loader half) Held-out ingestion: tolerant loader and documented schema; judge_items
   falls back to the scenario position for other opening layouts.
 - 15 (demo half) demo.py, base and tuned side by side on any prompt, tested.
+- 15 (video half, 2026-10-29) demo_server.py and demo/index.html (tested), and the video:
+  docs/demo-script.md, docs/demo/ pipeline, out/chess-coach-demo.mp4 (3:46). Every reply on
+  screen is a live call; the only cuts are page loads and model waits (clips/cuts.json).
 - 16 Two-sentence grader spec in the README.
 - 17 Failure-mode paragraph in results/ablation_chess_2026-10-27/failure_mode.md.
 - 18 Eval report template: results.md of an eval run opens with "Base vs tuned".
@@ -156,7 +163,8 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 - Adapters are gitignored; manifests with hashes are committed; the public checkpoint is
   on the Hub (hdxsfbr/qwen3-1.7b-chess-coach-hints at 0200155).
 - The curve holds epochs fixed, so steps scale with N, as in the lecture recipe.
-- Every run's code sha is dirty because the code was committed after the runs; item 11.
+- Every run's code sha carries a dirty suffix: the runner flags any untracked file or doc
+  edit, not only code changes. The code is tag early-submission (4dafda9); item 11.
 - The 40 calibration labels were written by the assistant; item 10.
 - v1's curve is code-checks only; v2's is judged and supersedes it.
 
@@ -181,12 +189,12 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | One-command eval regenerates the table | Met | eval.py; Hub-id loading verified in results/hub_load_test_2026-10-29 |
 | Raw judge transcripts as JSONL | Met | judge.jsonl, judged_turns.jsonl |
 | Staff held-out eval set ingestible | Met (loader) | synthetic held-out run done; staff set not published, item 12 |
-| Pinned versions (model and eval code) | Partial | base and data pinned; code sha dirty, item 11 |
-| Live comparison in demo | Partial | demo.py works; video pending, item 15 |
+| Pinned versions (model and eval code) | Met | base, data and adapter commits pinned; code at tag early-submission; the dirty suffix is explained in item 11 |
+| Live comparison in demo | Met | demo_server.py page and demo.py; the video shows it, item 15 |
 | Ablation reproducibility (script and training logs) | Met | run_pilot.py, run_judge.py, curve logs |
 | Early: finalized spec | Met | |
 | Early: full ablation report | Met | |
-| Early: eval harness committed | Met | main at 0d41d41, pushed 2026-10-29 |
+| Early: eval harness committed | Met | main at 4dafda9, tag early-submission, pushed 2026-10-29 |
 | Early: smoke run of the full loop | Met | smoke.sh, results/smoke_2026-10-28.log |
 | Early: first dataset and first QLoRA run | Met | |
 | Early: first base-vs-tuned numbers in the verification format | Met | results/eval_v2_2026-10-28; checkpoint public |
@@ -194,9 +202,9 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Early: two or more curve points | Met | sixteen |
 | Early: draft artifacts (dataset shape, checkpoint, Brainlift) | Met | checkpoint and dataset public on the Hub |
 | Final: dataset published | Met | hdxsfbr/chess-coach-hints at a4325db, 2026-10-29 |
-| Final: model on Hub plus running inference demo | Partial | model on the Hub; demo is item 15 |
+| Final: model on Hub plus running inference demo | Partial | model on the Hub; the demo page runs locally, hosting is item 15 |
 | Final: results on own set and staff held-out set | Partial | challenge set and synthetic held-out done; staff set not published |
 | Final: full curve with justified minimum N | Met, with the caveat in item 13 | |
 | Final: Brainlift | Draft | item 3 |
-| Final: demo video with a live grader prompt | Gap | item 15 |
+| Final: demo video with a live grader prompt | Met | docs/demo/out/chess-coach-demo.mp4, scene 6 is the live prompt |
 | Stretch: DPO, adversarial set, composed behavior | Not attempted | |

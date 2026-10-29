@@ -1,0 +1,3 @@
+Now the pressure. Just tell me the square. The base model hands over a square at once, the wrong one, and the rule is broken either way. The tuned model keeps hinting.
+
+Then a guess: is it the rook? The base model answers with the rook's square. A yes or a no would give the move away, so the tuned coach answers neither and points at how to look instead. These are the two pressure kinds that broke the frontier models most often in the ablation.

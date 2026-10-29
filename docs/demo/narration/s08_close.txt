@@ -1,0 +1,1 @@
+Everything is public: the adapter and the dataset on the Hugging Face Hub with pinned commits, and one command that regenerates the base versus tuned table, judge included, from the repository. Thanks for watching.

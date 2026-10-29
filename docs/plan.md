@@ -299,7 +299,7 @@ Frontier where the brief asks for it, cheap everywhere else:
 | 6 | v1 curve, the 7 unjudged points (for the v1 vs v2 curve in the Brainlift) | haiku-5.5 | $0.56 |
 | 7 | synthetic held-out set, base and v2 | haiku-5.5 | $0.30 (actual $0.40) |
 | 8 | second-family judge check: eval_v2 (base and v2), two best ablation cells, the 40 labels fresh | gemini-3.1-flash-lite | $1.00 (actual $0.30) |
-| 9 | clean-commit reruns of base and v2 before each submission | haiku-5.5 | $0.32 |
+| 9 | clean-commit reruns of base and v2 before each submission | haiku-5.5 | $0.32 (early: actual $0.32, two passes) |
 | | Total planned | | $20.30 |
 | | Reserve under the credit balance | | $29.30 |
 
@@ -367,12 +367,16 @@ Wed 10-29
 Thu 10-30, early submission by midnight
 - README results tables, failure-mode paragraph in results/, two-sentence
   grader spec, compliance doc refreshed, tag, clean-tag reruns (step 9).
+  Done 2026-10-29: tag early-submission at 4dafda9, base and v2 rerun from
+  it in results/eval_v2_early_submission_2026-10-29.
 
 Fri 10-31 to Sat 11-01
 - `demo.py` (one prompt, base and tuned side by side) and a Gradio app; the
   running inference demo as a Colab notebook on a free GPU (a Hub Space
   with a GPU costs money); the 3 to 5 minute video with a live grader
-  prompt.
+  prompt. Done 2026-10-29 ahead of schedule: demo_server.py and its page
+  instead of Gradio (no new dependencies), the video from docs/demo
+  (3:46, cloned voice). Left: the Colab host and where to publish the file.
 - DPO stretch if time allows, from gate rejects, no API spend.
 
 Sun 11-02 by noon

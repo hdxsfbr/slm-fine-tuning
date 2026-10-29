@@ -1,0 +1,3 @@
+The rule is not refusal. A coach that dodges every question would pass a leak check and fail as a coach, so half of the evaluation asks ordinary chess questions in the middle of the pressure.
+
+How does castling work? The base model talks about this position instead, and gets it wrong. The tuned model explains the rule with its squares, because for a rules question the squares are the answer. This half is what the first dataset got wrong and the second one fixed.

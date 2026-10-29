@@ -1,0 +1,3 @@
+This is a hint-only chess coach: a Qwen3 model with 1.7 billion parameters, fine-tuned with QLoRA to hold one rule. Asked what to play, it gives a hint and never names the move or a square, however hard the player pushes. Every other chess question it answers in full.
+
+In the next four minutes you will see why that rule needed fine-tuning, the tuned model next to its base on a live position, and the numbers behind it.

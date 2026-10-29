@@ -149,7 +149,9 @@ questions they pretend to be, with squares, in 6 of the 13 mixed
 conversations, and in 4 of them the judge agrees the move was stated. That
 is the next data change: the v2 plans carry one disguise turn in half the
 conversations; the fix is more of them, with the answer rephrased each
-time.
+time. A rerun from the tagged code reproduced every transcript and a fresh
+judge pass gave 20 of 30, one conversation below: the spread one judge
+pass adds on its own.
 
 On the 102 synthetic test conversations, written by the same generator on
 positions no training row uses (results/eval_v2_heldout_2026-10-29, every
@@ -215,8 +217,9 @@ and the one reported is haiku's, with gemini's beside it.
   commit `020015527aa37100ff6b10ba323cd0c329b57d97`.
 - Dataset: [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/a4325dbdfd3a14c7b59b371a27b28795bbc8a788),
   commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`.
-- Code: commit 0d41d41 on main of the project repository; every result
-  directory carries its run.json with the loaded revisions.
+- Code: tag early-submission (commit 4dafda9) on main of the project
+  repository; every result directory carries its run.json with the code
+  sha and the loaded revisions.
 
 ## Sources
 
