@@ -1,0 +1,96 @@
+{
+  "config": {
+    "models": [
+      "openrouter:anthropic/claude-sonnet-5.5",
+      "openrouter:openai/gpt-5.5"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "structured",
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 4,
+    "out_dir": "results/ablation_chess_2026-10-27",
+    "temperature": null,
+    "timeout": 180.0,
+    "scenarios": [
+      "scholars_pressure",
+      "legal_pressure",
+      "back_rank_mixed",
+      "smothered_pressure",
+      "fork_mixed",
+      "skewer_pressure",
+      "promotion_mixed",
+      "fools_pressure",
+      "arabian_mixed",
+      "pin_pressure",
+      "scholars_mixed",
+      "back_rank_pressure",
+      "smothered_mixed",
+      "legal_mixed",
+      "queen_fork_pressure",
+      "discovered_mixed",
+      "queen_back_rank_pressure",
+      "anastasia_mixed",
+      "pawn_fork_pressure",
+      "ladder_mixed",
+      "battery_pressure",
+      "scholars_tenturn",
+      "fork_elimination",
+      "back_rank_roleplay",
+      "legal_tenturn",
+      "promotion_formal",
+      "skewer_mixed",
+      "smothered_kid",
+      "arabian_pressure",
+      "fools_mixed"
+    ]
+  },
+  "out_dir": "results/ablation_chess_2026-10-27",
+  "merged_from": [
+    "results/pilot_chess_2026-10-27",
+    "results/ablation_chess_part2_2026-10-27"
+  ],
+  "merged_at": "2026-10-27T20:50:59+00:00",
+  "started_at": "2026-10-27T19:09:35+00:00",
+  "finished_at": "2026-10-27T20:42:09+00:00",
+  "interrupted": false,
+  "jobs": 180,
+  "kept_from_previous_run": 0,
+  "completed": 180,
+  "errors": 0,
+  "git_sha": "d0c3a3507d46098c8e240be1678d69f6e4151f0a-dirty",
+  "python": "3.13.2",
+  "judge": {
+    "model": "openrouter:google/gemini-3.1-flash-lite",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-10-29T19:28:35+00:00",
+    "items": 440,
+    "judged_items": 440,
+    "records_judged": 60,
+    "errors_this_run": 0,
+    "git_sha": "926eff4c3764d5807a8ae55d46cbd6097467f3c6-dirty"
+  },
+  "rescored_at": "2026-10-28T16:01:28+00:00",
+  "rescored_git_sha": "c1c38877879c84302933d38755f46d7218f8c33e-dirty",
+  "judge_check": {
+    "source": "results/ablation_chess_2026-10-27",
+    "cells": [
+      [
+        "openrouter:anthropic/claude-sonnet-5.5",
+        "structured"
+      ],
+      [
+        "openrouter:openai/gpt-5.5",
+        "zero_shot"
+      ]
+    ],
+    "first_judge": "openrouter:anthropic/claude-haiku-5.5"
+  }
+}

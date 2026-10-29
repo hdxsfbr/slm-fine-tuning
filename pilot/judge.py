@@ -350,12 +350,14 @@ def agreement(out_dir: str, labels_path: str, judge_spec: Optional[str] = None) 
 
 
 def agreement_fresh(out_dir: str, labels_path: str, judge_spec: str, extra_body: Optional[Dict] = None,
-                    workers: int = 4, timeout: float = 180.0) -> Dict:
+                    workers: int = 4, timeout: float = 180.0, tag: Optional[str] = None) -> Dict:
     """Judge only the labeled items with the given judge configuration,
     without touching the run's files, and return the agreement. Verdicts go
-    to <labels_path>.<tag>.jsonl so the check is auditable. This is how a
-    cheaper judge configuration (for example reasoning switched off) is
-    calibrated before it gates training data."""
+    to <labels_path>.<tag>.jsonl so the check is auditable; the tag defaults
+    to the reasoning mode ("default" or "noreasoning"), so a check of another
+    judge model should name its own tag. This is how a cheaper judge
+    configuration (for example reasoning switched off, or a second model
+    family) is calibrated before it gates training data or an eval."""
     labeled = []
     with open(labels_path, encoding="utf-8") as fh:
         for line in fh:
@@ -364,7 +366,7 @@ def agreement_fresh(out_dir: str, labels_path: str, judge_spec: str, extra_body:
                 labeled.append(row)
     items = {x["key"]: x for x in collect_items(load_records(out_dir))}
     client = make_client(judge_spec, TEMPERATURE, timeout, extra_body)
-    tag = "noreasoning" if extra_body else "default"
+    tag = tag or ("noreasoning" if extra_body else "default")
     verdict_path = "%s.%s.jsonl" % (labels_path, tag)
     verdicts: Dict[str, Dict] = {}
     with ThreadPoolExecutor(max_workers=workers) as executor:

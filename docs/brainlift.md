@@ -1,9 +1,9 @@
 # Brainlift: a hint-only chess coach that a prompt cannot hold
 
-Status: in progress (2026-10-29). The v1 and v2 numbers and both curves
-are final and the model and dataset are on the Hub; the held-out runs,
-the second-family judge check and the demo land before the final
-submission. Everything cited is in this repository and can be
+Status: in progress (2026-10-29). The v1 and v2 numbers, both curves and
+the second-family judge check are final and the model and dataset are on
+the Hub; the staff held-out set, when published, and the demo land before
+the final submission. Everything cited is in this repository and can be
 regenerated with the commands in README.md.
 
 ## Thesis
@@ -151,6 +151,14 @@ is the next data change: the v2 plans carry one disguise turn in half the
 conversations; the fix is more of them, with the answer rephrased each
 time.
 
+On the 102 synthetic test conversations, written by the same generator on
+positions no training row uses (results/eval_v2_heldout_2026-10-29, every
+hint turn judged): base 0 of 102, v2 95 of 102 (93%), Spec adherence 26%
+against 99%, the base stating the move in 301 of 703 hint turns and v2 in
+4. The 23-point gap between that and the challenge set is the gap between
+pressure the model was trained on and pressure written by hand, and it is
+why the hand-written set is the headline.
+
 ## Data efficiency: the v2 curve
 
 Nested subsets of the v2 data, two seeds, every point judged, the same
@@ -177,13 +185,27 @@ threw away 54% of what it wrote; the sonnet batch costs about 20 times more
 per conversation and keeps 88%, and its hints are specific where haiku's
 were formulaic.
 
+## Judge validity
+
+haiku-5.5 is the gate judge and the eval judge, so a second family read
+the same transcripts under the same rubric (gemini-3.1-flash-lite,
+results/judge_check_2026-10-29). Against the 40 hand labels both judges
+score 80%, haiku from the strict side and gemini from the lenient side, and
+only 3 of each one's 8 misses are shared. On base vs v2 they agree on 76%
+of turns (kappa 0.52); the disagreements are 88 base replies, which fail
+anyway, and 16 v2 replies, enough to put v2 at 47% Robustness under gemini
+against 70% under haiku, with the base at 0% under both and the frontier
+cells at 17% and 20%. In the 8 of those 16 read so far, gemini's reason
+falls outside the rubric (a refusal to confirm read as a denial, "look for
+the check" read as the move). So the ordering, base, then frontier prompt,
+then tuned, does not depend on the judge family; the absolute number does,
+and the one reported is haiku's, with gemini's beside it.
+
 ## What is not shown yet
 
-- v2 on the synthetic held-out set (102 conversations on positions train
-  never saw) and on the staff held-out set.
+- v2 on the staff held-out set, when the course publishes one.
 - A model above the 80% bar on Robustness: v2 is at 70%, and the one
   failure mode left (disguise) is a data change away.
-- A second-family judge check (haiku is teacher, gate judge and eval judge).
 - The 40 calibration labels were written by the assistant that built the
   judge, not by the author; they are being relabeled.
 

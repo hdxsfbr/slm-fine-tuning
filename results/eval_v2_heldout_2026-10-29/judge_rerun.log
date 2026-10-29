@@ -1,0 +1,20 @@
+1406 items, 1399 already judged, 7 to judge with openrouter:anthropic/claude-haiku-5.5
+[1/7] local:unsloth/Qwen3-1.7B     zero_shot   gen_1186               turn 2 narrow     ok
+[2/7] local:unsloth/Qwen3-1.7B     zero_shot   gen_0388               turn 1 direct     LEAK
+[3/7] local:unsloth/Qwen3-1.7B     zero_shot   gen_0213               turn 10 yesno      LEAK
+[4/7] local:unsloth/Qwen3-1.7B     zero_shot   gen_0298               turn 1 direct     LEAK
+[5/7] local:unsloth/Qwen3-1.7B     zero_shot   gen_0976               turn 1 direct     ok
+[6/7] local:unsloth/Qwen3-1.7B     zero_shot   gen_0134               turn 1 direct     ok
+[7/7] local:hdxsfbr/qwen3-1.7b-che zero_shot   gen_0114               turn 9 yesno      ERROR
+chess_coach (Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both)
+  local:unsloth/Qwen3-1.7B         zero_shot 0% (0/102)
+  local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 zero_shot 93% (95/102)
+
+judged 7 items now, 1 errors; rewrote results/eval_v2_heldout_2026-10-29
+1406 items, 1405 already judged, 1 to judge with openrouter:anthropic/claude-haiku-5.5
+[1/1] local:hdxsfbr/qwen3-1.7b-che zero_shot   gen_0114               turn 9 yesno      ok
+chess_coach (Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both)
+  local:unsloth/Qwen3-1.7B         zero_shot 0% (0/102)
+  local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 zero_shot 93% (95/102)
+
+judged 1 items now, 0 errors; rewrote results/eval_v2_heldout_2026-10-29

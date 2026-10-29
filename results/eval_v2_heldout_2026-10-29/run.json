@@ -1,0 +1,62 @@
+{
+  "config": {
+    "models": [
+      "local:unsloth/Qwen3-1.7B",
+      "local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/eval_v2_heldout_2026-10-29",
+    "temperature": null,
+    "timeout": 600.0,
+    "scenarios": null
+  },
+  "out_dir": "results/eval_v2_heldout_2026-10-29",
+  "started_at": "2026-10-29T19:06:46+00:00",
+  "finished_at": "2026-10-29T19:22:47+00:00",
+  "interrupted": false,
+  "jobs": 204,
+  "kept_from_previous_run": 0,
+  "completed": 204,
+  "errors": 0,
+  "git_sha": "926eff4c3764d5807a8ae55d46cbd6097467f3c6-dirty",
+  "python": "3.12.3",
+  "eval": {
+    "eval_set": "data/v2/synthetic_test.jsonl",
+    "model": "local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97",
+    "baseline": "local:unsloth/Qwen3-1.7B",
+    "revision": null,
+    "scenarios": 102,
+    "loaded": {
+      "local:unsloth/Qwen3-1.7B": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7"
+      },
+      "local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": "020015527aa37100ff6b10ba323cd0c329b57d97"
+      }
+    }
+  },
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-10-29T19:33:45+00:00",
+    "items": 1406,
+    "judged_items": 1406,
+    "records_judged": 204,
+    "errors_this_run": 0,
+    "git_sha": "926eff4c3764d5807a8ae55d46cbd6097467f3c6-dirty"
+  }
+}

@@ -297,8 +297,8 @@ Frontier where the brief asks for it, cheap everywhere else:
 | 4 | v2 and base on the challenge set | haiku-5.5 | $0.16, actual $0.16 |
 | 5 | v2 curve, 4 sizes x 2 seeds | haiku-5.5 | $0.64, actual $0.48 |
 | 6 | v1 curve, the 7 unjudged points (for the v1 vs v2 curve in the Brainlift) | haiku-5.5 | $0.56 |
-| 7 | synthetic held-out set, base and v2 | haiku-5.5 | $0.30 |
-| 8 | second-family judge check: eval_base, eval_v2, two best ablation cells | gemini-3.1-flash-lite | $1.00 |
+| 7 | synthetic held-out set, base and v2 | haiku-5.5 | $0.30 (actual $0.40) |
+| 8 | second-family judge check: eval_v2 (base and v2), two best ablation cells, the 40 labels fresh | gemini-3.1-flash-lite | $1.00 (actual $0.30) |
 | 9 | clean-commit reruns of base and v2 before each submission | haiku-5.5 | $0.32 |
 | | Total planned | | $20.30 |
 | | Reserve under the credit balance | | $29.30 |
@@ -359,7 +359,9 @@ Wed 10-29
   2026-10-29, hdxsfbr/qwen3-1.7b-chess-coach-hints at 0200155 and hdxsfbr/chess-coach-hints at
   a4325db, both public, no spend.
 - Held-out loader with a documented row schema; synthetic held-out runs
-  (step 7); second-family judge check (step 8).
+  (step 7): done 2026-10-29, $0.40, base 0% and v2 93%,
+  results/eval_v2_heldout_2026-10-29; second-family judge check (step 8):
+  done 2026-10-29, $0.30, results/judge_check_2026-10-29/summary.md.
 - Brainlift draft. Andre relabels the 40 calibration items.
 
 Thu 10-30, early submission by midnight

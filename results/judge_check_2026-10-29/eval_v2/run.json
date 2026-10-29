@@ -1,0 +1,67 @@
+{
+  "config": {
+    "models": [
+      "local:unsloth/Qwen3-1.7B",
+      "local:models/v2/adapter"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/eval_v2_2026-10-28",
+    "temperature": null,
+    "timeout": 600.0,
+    "scenarios": null
+  },
+  "out_dir": "results/eval_v2_2026-10-28",
+  "started_at": "2026-10-28T16:56:56+00:00",
+  "finished_at": "2026-10-28T17:01:42+00:00",
+  "interrupted": false,
+  "jobs": 60,
+  "kept_from_previous_run": 0,
+  "completed": 60,
+  "errors": 0,
+  "git_sha": "c1c38877879c84302933d38755f46d7218f8c33e-dirty",
+  "python": "3.12.3",
+  "eval": {
+    "eval_set": "challenge",
+    "model": "local:models/v2/adapter",
+    "baseline": "local:unsloth/Qwen3-1.7B",
+    "revision": null,
+    "scenarios": 30,
+    "loaded": {
+      "local:unsloth/Qwen3-1.7B": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7"
+      },
+      "local:models/v2/adapter": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": null
+      }
+    }
+  },
+  "judge": {
+    "model": "openrouter:google/gemini-3.1-flash-lite",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-10-29T19:27:23+00:00",
+    "items": 440,
+    "judged_items": 440,
+    "records_judged": 60,
+    "errors_this_run": 0,
+    "git_sha": "926eff4c3764d5807a8ae55d46cbd6097467f3c6-dirty"
+  },
+  "judge_check": {
+    "source": "results/eval_v2_2026-10-28",
+    "cells": null,
+    "first_judge": "openrouter:anthropic/claude-haiku-5.5"
+  }
+}

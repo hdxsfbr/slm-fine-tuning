@@ -54,6 +54,8 @@ def parse_args(argv=None) -> argparse.Namespace:
     c.add_argument("--fresh", action="store_true",
                    help="judge the labeled items again now with --judge (and --no-reasoning if given) instead of reading judge.jsonl")
     c.add_argument("--no-reasoning", action="store_true")
+    c.add_argument("--tag", default=None,
+                   help="name for the fresh verdicts file, <labels>.<tag>.jsonl (default: the reasoning mode)")
 
     e = sub.add_parser("export", help="one self-contained JSONL line per judged turn")
     e.add_argument("out_dir")
@@ -84,7 +86,7 @@ def main(argv=None) -> int:
             if not args.judge:
                 print("--fresh needs --judge", file=sys.stderr)
                 return 2
-            result = agreement_fresh(args.out_dir, args.labels, args.judge, NO_REASONING if args.no_reasoning else None)
+            result = agreement_fresh(args.out_dir, args.labels, args.judge, NO_REASONING if args.no_reasoning else None, tag=args.tag)
             print(render_agreement(result))
             print("\nverdicts: " + result["verdicts_path"])
         else:

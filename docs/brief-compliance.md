@@ -6,7 +6,8 @@ docs/G7_W7_Train_Your_Own_Small_Learning_Model.pdf. First pass on commit c1c3887
 and prove every item from code, data and result files (README and docs excluded as
 evidence), one by the session that built the repo; every disagreement settled by reading the
 code or data again. Rewritten 2026-10-28 evening after the day's fixes, from the same item
-list; updated 2026-10-29 after the Hub push. Test suite at the rewrite: 186 passed.
+list; updated 2026-10-29 after the Hub push, the synthetic held-out run and the second-family
+judge check. Test suite at the last update: 191 passed.
 
 Deadlines: early submission Thursday 2026-10-30 at midnight, final Sunday 2026-11-02 at noon.
 
@@ -24,8 +25,9 @@ judge; a smoke run of the whole loop; raw judge transcripts per turn; a Brainlif
 
 Open for the early submission: nothing; the public Hub checkpoint and the dataset went up on
 2026-10-29 and the day's code is committed on main (0d41d41).
-Open for the final: the hosted inference demo and the video, the held-out
-runs, a second-family judge check and relabeled calibration items, a clean tagged commit with
+Open for the final: the hosted inference demo and the video, the staff
+held-out set when it is published (the synthetic held-out run is done), relabeled calibration items and a hand read of the 16 judge disagreements on v2
+(the second-family judge check itself is done), a clean tagged commit with
 the final evals rerun from it, and a model above the 80% bar (v2 is at 70%, with one failure
 mode left).
 
@@ -37,9 +39,9 @@ F = final.
 | # | Item | Brief wording | State | Sev. | Due | Effort |
 |---|---|---|---|---|---|---|
 | 15 | Inference demo and video | "running inference demo", "3 to 5 minute demo video ... one live, grader-supplied prompt" | demo.py runs any prompt through base and tuned side by side (tested). No hosted demo and no video yet; a Colab notebook on a free GPU is the planned host. | blocker | F | notebook 1 h, video 1 to 2 h |
-| 12 | Staff held-out eval set | "run against a scenario set your model never saw" | The loader accepts rows as messages or plain turns, derives positions from a FEN, and documents the schema (README, "Held-out set format"). Not yet run: v2 and base on data/v2/synthetic_test.jsonl (102 conversations on positions train never saw). | should-fix | F | 1 h GPU, about $0.45 judge |
+| 12 | Staff held-out eval set | "run against a scenario set your model never saw" | The loader accepts rows as messages or plain turns, derives positions from a FEN, and documents the schema (README, "Held-out set format"). Synthetic held-out run done 2026-10-29 (results/eval_v2_heldout_2026-10-29): base 0 of 102, v2 95 of 102 (93%) on positions train never saw, every hint turn judged. The staff set itself has not been published; the one command runs it as soon as it exists. | minor (waiting on the course) | F | 20 min once the set exists |
 | 13 | Minimum viable N on a model that holds the behavior | "the smallest N that holds the behavior reliably" | The v2 curve (805, 402, 201, 100, two seeds, judged) gives 805 by the rule; 402 is 8 points behind on Robustness and level on per-turn adherence. v2 holds 70% of conversations, below the 80% bar, with one failure mode left (disguise turns). Stated as "at least 805 for this spec", with the next data change named. | should-fix (disclosed) | F | a v3 data pass on disguise turns, about $3 and 2 h, if time allows |
-| 10 | Judge validity | "the same LLM-as-judge rubric" | haiku-5.5 is teacher of v1, gate judge and eval judge; agreement 80% on 40 labels written by the assistant. Planned: gemini-3.1-flash-lite on eval_base, eval_v2 and the two best ablation cells; Andre relabels the 40 items. | should-fix | F | 30 min, about $1; 40 min of Andre's time |
+| 10 | Judge validity | "the same LLM-as-judge rubric" | Second family checked 2026-10-29 (results/judge_check_2026-10-29/summary.md): gemini-3.1-flash-lite agrees with the 40 labels at 80%, as haiku does; on base vs v2 the judges agree on 76% of turns (kappa 0.52) and gemini puts v2 at 47% Robustness against haiku's 70%, the base at 0% under both; the ceiling holds under both judges. Left: a hand read of the 16 disagreements on v2 replies (in the 8 read so far gemini's reason is outside the rubric), and the 40 labels, written by the assistant, wait for Andre's relabel. | should-fix | F | 40 min of Andre's time for the labels, 15 min for the 16 |
 | 11 | Pinned eval-code commit | "exact eval-code commit hash" | Every run.json and manifest records a dirty sha because the runs were made from the working tree before the commit. Plan: tag the submission commit and rerun base and v2 on the challenge set from it (local, about $0.16 judge). The Hub cards cite 0d41d41-dirty because an untracked log file was present at push time; after the tag, push the cards again from the clean tree (same weights, new card commit). | should-fix | F | 30 min, $0.16 |
 | 3 | Brainlift | "behavior thesis, and whether data to behavior held, with evidence" | docs/brainlift.md drafted with thesis, spec, ceiling, v1, v2, both curves, minimum N and four spiky views. Final pass after the held-out runs. | should-fix | E draft done, F | 1 h |
 | 1b | v2 failure mode (disguise) | the spirit of "iterating on data, not hyperparameters" | Diagnosed: all v2 leaks are on disguise turns. Fix is a data change (more disguise turns, varied restatement). Optional before the final. | minor | F | see 13 |
@@ -57,6 +59,14 @@ On 2026-10-29:
   train.jsonl, synthetic_test.jsonl, manifest.json, gate_report.md and a dataset card
   (sha256 of both files, row shape, gate table). Recorded in data/v2/manifest.json.
 - Eval harness committed: main at 0d41d41, pushed to origin.
+- 10 (check half) Second-family judge check: judge_check.py (tested) judged copies of the
+  base-vs-v2 eval and the two best ablation cells with gemini-3.1-flash-lite, and the 40
+  labeled items fresh (run_judge.py calibrate --fresh --tag). Numbers in
+  results/judge_check_2026-10-29/summary.md and in the README's judge section. $0.30.
+- 12 (run half) Synthetic held-out run: base and v2 on the 102 test conversations, adapter
+  loaded by Hub id, 1,406 hint turns judged (seven judge calls errored on the first pass and
+  were rerun). Base 0%, v2 93% Robustness, 99% Spec adherence; results.md, judge.jsonl and
+  judged_turns.jsonl in results/eval_v2_heldout_2026-10-29. About $0.40.
 
 On 2026-10-28, from the morning audit's list, numbered as there:
 
@@ -119,6 +129,11 @@ On 2026-10-28, from the morning audit's list, numbered as there:
   repo holds adapter_config.json, adapter_model.safetensors, the tokenizer files and the
   card; the dataset repo holds the two JSONL files, the manifest, the gate report and the
   card; neither card has an em dash.
+- Held-out positions: the synthetic test rows share no placement with train (gate report);
+  v2 at 93% on them against 70% on the hand-written challenge set.
+- Judge: a second family reproduces the ordering from the committed transcripts (base 0%,
+  best frontier prompt 17 to 20%, v2 47% under gemini and 70% under haiku) and the 80%
+  agreement with the 40 labels.
 - Stack: post-trained Qwen3-1.7B through Unsloth QLoRA on an RTX 4090; teacher sonnet-5.5 for
   v2 (haiku-5.5 for v1).
 
@@ -135,7 +150,9 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 
 - The second frontier family is gpt-5.5, not gemini as the plan first said (budget).
 - Teacher, gate judge and eval judge share one model for v1 (haiku-5.5); v2's teacher is
-  sonnet-5.5 and the judges stay haiku-5.5. A second-family judge check is item 10.
+  sonnet-5.5 and the judges stay haiku-5.5. The second-family check (item 10) shows the
+  ordering holds under gemini and that the absolute v2 number is judge-dependent (70%
+  under haiku, 47% under gemini); the README reports haiku's with gemini's beside it.
 - Adapters are gitignored; manifests with hashes are committed; the public checkpoint is
   on the Hub (hdxsfbr/qwen3-1.7b-chess-coach-hints at 0200155).
 - The curve holds epochs fixed, so steps scale with N, as in the lecture recipe.
@@ -163,7 +180,7 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Public Hub checkpoint with commit hash | Met | hdxsfbr/qwen3-1.7b-chess-coach-hints at 0200155, 2026-10-29 |
 | One-command eval regenerates the table | Met | eval.py; Hub-id loading verified in results/hub_load_test_2026-10-29 |
 | Raw judge transcripts as JSONL | Met | judge.jsonl, judged_turns.jsonl |
-| Staff held-out eval set ingestible | Met (loader) | runs pending, item 12 |
+| Staff held-out eval set ingestible | Met (loader) | synthetic held-out run done; staff set not published, item 12 |
 | Pinned versions (model and eval code) | Partial | base and data pinned; code sha dirty, item 11 |
 | Live comparison in demo | Partial | demo.py works; video pending, item 15 |
 | Ablation reproducibility (script and training logs) | Met | run_pilot.py, run_judge.py, curve logs |
@@ -178,7 +195,7 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Early: draft artifacts (dataset shape, checkpoint, Brainlift) | Met | checkpoint and dataset public on the Hub |
 | Final: dataset published | Met | hdxsfbr/chess-coach-hints at a4325db, 2026-10-29 |
 | Final: model on Hub plus running inference demo | Partial | model on the Hub; demo is item 15 |
-| Final: results on own set and staff held-out set | Partial | challenge set done; held-out runs pending |
+| Final: results on own set and staff held-out set | Partial | challenge set and synthetic held-out done; staff set not published |
 | Final: full curve with justified minimum N | Met, with the caveat in item 13 | |
 | Final: Brainlift | Draft | item 3 |
 | Final: demo video with a live grader prompt | Gap | item 15 |

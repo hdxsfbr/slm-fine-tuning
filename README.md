@@ -66,6 +66,7 @@ push_to_hub.py         publish the adapter or the dataset with a card; records t
 smoke.sh               the whole loop on a few rows with the mock teacher and judge
 rescore.py             rescore a finished run with the current scorers, in place
 run_judge.py           sample for hand labels, judge a run, measure agreement, export judged turns
+judge_check.py         judge a run again with a second judge model, on a copy, and compare the judges
 run_datagen.py         positions | generate | gate
 merge_runs.py          join runs made in parts into one directory with a combined report
 behaviors/             one module per behavior; reused by the eval harness
@@ -212,7 +213,49 @@ python run_judge.py calibrate results/<dir> --labels results/<dir>/labels.jsonl
 
 prints agreement, the confusion matrix with leak as the positive class, and
 every disagreement with the human note and the judge's reasoning side by
-side.
+side. Adding `--fresh --judge PROVIDER:MODEL [--tag NAME]` judges only the
+labeled items again with that judge, without touching the run's files, and
+writes the verdicts to `labels.jsonl.<tag>.jsonl` (the tag defaults to the
+reasoning mode); this is how a cheaper configuration or a second model
+family is calibrated before it is trusted.
+
+```bash
+python judge_check.py results/<dir> --judge openrouter:google/gemini-3.1-flash-lite \
+    --out results/judge_check_<date>/<dir> [--cell MODEL STRATEGY ...] [--labels results/<dir>/labels.jsonl]
+```
+
+copies a judged run and judges the copy with a second judge, so the first
+judge's files stay as they are, then writes `judge_check.md` and
+`judge_check.json`: agreement and Cohen's kappa over the items both judges
+read, the confusion matrix, the split by pressure kind, Spec adherence and
+Robustness per cell under each judge, every disagreement with both
+reasonings, and each judge's agreement with the labels. `--cell` keeps only
+the named model and strategy pairs. The copy's `results.md` is the same
+table under the second judge.
+
+**Second judge family (2026-10-29, `results/judge_check_2026-10-29`,
+summary.md there).** haiku-5.5 is the gate judge and the eval judge, so
+the numbers were checked against gemini-3.1-flash-lite, a second family, on
+the same rubric ($0.30 for 920 verdicts). On the 40 hand-labeled items
+both judges agree with the labels at 80% (32 of 40), from opposite sides:
+haiku calls 18 leaks where the labels have 14, gemini 12, and only 3 of
+each judge's 8 misses are shared. On the base-vs-v2 eval the judges agree
+on 76% of 438 turns (kappa 0.52) and the disagreement runs one way: gemini
+flags 101 replies haiku passed, haiku 3 that gemini passed. 88 of those
+104 are base replies, which fail anyway; 16 are v2 replies, and they move
+v2 from 70% to 47% Robustness (14 of 30) while the base stays at 0% and
+v2's Spec adherence goes from 96% to 89%. On the two best ablation cells
+(agreement 76%, kappa 0.47) the ceiling holds under both judges: sonnet
+structured 20% under haiku and 17% under gemini, gpt-5.5 zero-shot 10% and
+20%. A read of 8 of the 16 v2 disagreements finds gemini's stated reason
+outside the rubric in each: a refusal to confirm a guess counted as a
+denial, "a win doesn't change my answer" counted as a confirmation, "look
+for the check" counted as stating the move, a wrong piece name in a hint
+counted as a leak. The 104 disagreements are in
+`results/judge_check_2026-10-29/eval_v2/disagreements_to_label.jsonl` with
+both reasonings and an empty `label` field for a hand read. What survives
+either judge: tuned beats base by 47 points or more, and tuned beats the
+best frontier prompt. The 70% figure is haiku's.
 
 **Rubric for the chess coach** (`JUDGE_RUBRIC` in `behaviors/chess_coach.py`,
 version `chess_coach_leak_v2`). The judge sees the rule, the position as the
@@ -730,7 +773,9 @@ frontier rows are on the same 30 scenarios with the same judge. The v2
 adapter is public at [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/020015527aa37100ff6b10ba323cd0c329b57d97)
 (commit `020015527aa37100ff6b10ba323cd0c329b57d97`) and its data at
 [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/a4325dbdfd3a14c7b59b371a27b28795bbc8a788)
-(commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`).
+(commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`). Under a second judge
+family (gemini-3.1-flash-lite, "LLM judge" above) v2 is at 47% Robustness
+and the base at 0%.
 
 | Model | No named leaks | Negatives answered | Concise hints | All checks | No stated move (judge) | Spec adherence (turns) | Robustness (Final) |
 |---|---|---|---|---|---|---|---|
@@ -816,6 +861,37 @@ reproduces the v1 gate). The v2 data (see "Training data") is a new
 generation pass from a sonnet-5.5 teacher with a larger share of
 hard-negative turns; v2 answers 22 of its 26 hard-negative turns (v1: 14),
 19 of them with squares or moves.
+
+### Held-out positions: the synthetic test set
+
+The 102 rows of `data/v2/synthetic_test.jsonl` come from the same
+generator and gate as the training data (same teacher, personas,
+pressure kinds and hard negatives) on positions no training row uses, so
+this is the in-distribution held-out read; the 30 challenge scenarios
+above are hand-written and are the harder, out-of-distribution one. Run
+2026-10-29 with the adapter loaded by Hub id, base in the same command,
+haiku judge, every one of the 1,406 hint turns judged
+(`results/eval_v2_heldout_2026-10-29`, about $0.40):
+
+```bash
+.venv-train/bin/python eval.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 \
+    --baseline unsloth/Qwen3-1.7B --eval-set data/v2/synthetic_test.jsonl \
+    --judge openrouter:anthropic/claude-haiku-5.5 --out results/eval_v2_heldout_2026-10-29
+```
+
+| Model | No named leaks | Negatives answered | Concise hints | All checks | No stated move (judge) | Spec adherence (turns) | Robustness (Final) |
+|---|---|---|---|---|---|---|---|
+| Qwen3-1.7B base | 0% (0/102) | 61% (62/102) | 43% (44/102) | 0% (0/102) | 4% (4/102) | 26% (220/844) | 0% (0/102) |
+| v2 adapter | 100% (102/102) | 100% (102/102) | 96% (98/102) | 96% (98/102) | 97% (99/102) | 99% (836/844) | 93% (95/102) |
+
+The base states the move in 301 of its 703 hint turns, v2 in 4. By
+position family v2 holds between 78% (7 of 9, queen and bishop with a
+shield) and 100% (seven of the twelve families). Its 7 failures are 4
+hints over two sentences (two on disguise turns, one insist, one
+emotional) and 3 conversations with a stated move (on direct, format and
+"just the square" turns). Every hard negative is answered with squares.
+The held-out gap to the challenge set (93% against 70%) is the gap between
+pressure the model was trained on and pressure written by hand.
 
 ## Data-efficiency curve
 
