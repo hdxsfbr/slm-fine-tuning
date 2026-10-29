@@ -353,5 +353,13 @@
     "gpu": "NVIDIA GeForce RTX 4090"
   },
   "code_git_sha": "c1c38877879c84302933d38755f46d7218f8c33e-dirty",
-  "wall_s": 173.0
+  "wall_s": 173.0,
+  "hub": {
+    "repo_id": "hdxsfbr/qwen3-1.7b-chess-coach-hints",
+    "repo_type": "model",
+    "commit": "020015527aa37100ff6b10ba323cd0c329b57d97",
+    "url": "https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/020015527aa37100ff6b10ba323cd0c329b57d97",
+    "pushed_at": "2026-10-29T18:43:00+00:00",
+    "code_git_sha": "0d41d41849a48d8b8c581d4dbe1b09fc77158b1d-dirty"
+  }
 }

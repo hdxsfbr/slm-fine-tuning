@@ -355,8 +355,9 @@ Tue 10-28
 
 Wed 10-29
 - v2 curve, 4 sizes x 2 seeds, local; judge (steps 5 and 6).
-- Hub push of the v2 adapter and the v2 dataset with commit hashes (needs a
-  Hugging Face write token in ~/.config/agentforge/hf_token).
+- Hub push of the v2 adapter and the v2 dataset with commit hashes: done
+  2026-10-29, hdxsfbr/qwen3-1.7b-chess-coach-hints at 0200155 and hdxsfbr/chess-coach-hints at
+  a4325db, both public, no spend.
 - Held-out loader with a documented row schema; synthetic held-out runs
   (step 7); second-family judge check (step 8).
 - Brainlift draft. Andre relabels the 40 calibration items.
@@ -377,7 +378,7 @@ Sun 11-02 by noon
 
 ### Needed from Andre
 
-- A Hugging Face write token at ~/.config/agentforge/hf_token.
+- A Hugging Face write token at ~/.config/agentforge/hf_token (received 2026-10-29).
 - The demo hosting choice: Colab notebook (free) or a paid Hub Space.
 - 40 relabeled calibration items (about 40 minutes).
 - The staff held-out format, if the course has published one.

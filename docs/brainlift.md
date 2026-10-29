@@ -1,10 +1,10 @@
 # Brainlift: a hint-only chess coach that a prompt cannot hold
 
-Status: in progress (2026-10-28 evening). The v1 and v2 numbers and both
-curves are final; the Hub links, the held-out runs, the second-family
-judge check and the demo land before the final submission. Everything
-cited is in this repository and can be regenerated with the commands in
-README.md.
+Status: in progress (2026-10-29). The v1 and v2 numbers and both curves
+are final and the model and dataset are on the Hub; the held-out runs,
+the second-family judge check and the demo land before the final
+submission. Everything cited is in this repository and can be
+regenerated with the commands in README.md.
 
 ## Thesis
 
@@ -186,6 +186,15 @@ were formulaic.
 - A second-family judge check (haiku is teacher, gate judge and eval judge).
 - The 40 calibration labels were written by the assistant that built the
   judge, not by the author; they are being relabeled.
+
+## Artifacts
+
+- Model: [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/020015527aa37100ff6b10ba323cd0c329b57d97),
+  commit `020015527aa37100ff6b10ba323cd0c329b57d97`.
+- Dataset: [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/a4325dbdfd3a14c7b59b371a27b28795bbc8a788),
+  commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`.
+- Code: commit 0d41d41 on main of the project repository; every result
+  directory carries its run.json with the loaded revisions.
 
 ## Sources
 

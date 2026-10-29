@@ -1,0 +1,56 @@
+{
+  "config": {
+    "models": [
+      "local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "zero_shot"
+    ],
+    "limit": 2,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/hub_load_test_2026-10-29",
+    "temperature": null,
+    "timeout": 600.0,
+    "scenarios": null
+  },
+  "out_dir": "results/hub_load_test_2026-10-29",
+  "started_at": "2026-10-29T18:43:49+00:00",
+  "finished_at": "2026-10-29T18:43:58+00:00",
+  "interrupted": false,
+  "jobs": 2,
+  "kept_from_previous_run": 0,
+  "completed": 2,
+  "errors": 0,
+  "git_sha": "0d41d41849a48d8b8c581d4dbe1b09fc77158b1d-dirty",
+  "python": "3.12.3",
+  "eval": {
+    "eval_set": "challenge",
+    "model": "local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97",
+    "baseline": null,
+    "revision": null,
+    "scenarios": 30,
+    "loaded": {
+      "local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": "020015527aa37100ff6b10ba323cd0c329b57d97"
+      }
+    }
+  },
+  "judge": {
+    "model": "mock:judge",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-10-29T18:43:58+00:00",
+    "items": 16,
+    "judged_items": 16,
+    "records_judged": 2,
+    "errors_this_run": 0,
+    "git_sha": "0d41d41849a48d8b8c581d4dbe1b09fc77158b1d-dirty"
+  }
+}

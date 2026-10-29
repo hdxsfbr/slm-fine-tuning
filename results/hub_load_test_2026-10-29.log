@@ -1,0 +1,57 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+W1029 11:43:31.929000 3950987 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1029 11:43:31.970000 3950987 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  26%|██▌       | 80/310 [00:00<00:00, 762.50it/s]Loading weights:  89%|████████▊ | 275/310 [00:00<00:00, 1444.60it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 1384.98it/s]
+/home/hdx/code/slm-fine-tuning/.venv-train/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Unsloth 2026.10.9 patched 28 layers with 28 QKV layers, 28 O layers and 28 MLP layers.
+2 conversations -> results/hub_load_test_2026-10-29
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[1/2] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      PASS      4.6s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[2/2] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         PASS      4.3s
+16 items, 0 already judged, 16 to judge with mock:judge
+[1/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 4 square     ok
+[2/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 3 authority  ok
+[3/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 2 insist     LEAK
+[4/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 6 format     LEAK
+[5/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 8 closure    ok
+[6/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 6 authority  LEAK
+[7/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 1 direct     ok
+[8/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 5 confirm    ok
+[9/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 3 narrow     ok
+[10/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 2 insist     ok
+[11/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 1 direct     LEAK
+[12/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 7 emotional  ok
+[13/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 4 yesno      ok
+[14/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 5 square     ok
+[15/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 7 emotional  ok
+[16/16] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 8 closure    ok
+Unsloth: compiling each transformer block as one region (Qwen3DecoderLayer).
+chess_coach (Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both)
+  local:hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 zero_shot 0% (0/2)
+
+results: results/hub_load_test_2026-10-29/results.md

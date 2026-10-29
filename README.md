@@ -628,8 +628,9 @@ verdicts to `--out`:
 
 ```bash
 export OPENROUTER_API_KEY=...
-.venv-train/bin/python eval.py --model <hf-repo-id>@<commit> --baseline unsloth/Qwen3-1.7B \
-    --eval-set challenge --judge openrouter:anthropic/claude-haiku-5.5 --out results/eval_v2
+.venv-train/bin/python eval.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 \
+    --baseline unsloth/Qwen3-1.7B --eval-set challenge \
+    --judge openrouter:anthropic/claude-haiku-5.5 --out results/eval_v2
 .venv-train/bin/python eval.py --model models/v1/adapter --baseline unsloth/Qwen3-1.7B \
     --eval-set data/synthetic_test.jsonl --judge openrouter:anthropic/claude-haiku-5.5 --out results/eval_v1_synth
 ```
@@ -701,11 +702,21 @@ manifest under `hub`:
 
 ```bash
 export HF_TOKEN=$(tr -d '\n\r ' < ~/.config/agentforge/hf_token)
-python push_to_hub.py model models/v2 --repo <user>/qwen3-1.7b-chess-coach-hints
-python push_to_hub.py dataset data/v2 --repo <user>/chess-coach-hints
+python push_to_hub.py model models/v2 --repo hdxsfbr/qwen3-1.7b-chess-coach-hints
+python push_to_hub.py dataset data/v2 --repo hdxsfbr/chess-coach-hints
 ```
 
 `--dry-run` prints the files and the card without uploading.
+
+Published 2026-10-29, both public:
+
+- model: [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/020015527aa37100ff6b10ba323cd0c329b57d97), commit `020015527aa37100ff6b10ba323cd0c329b57d97`
+- dataset: [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/a4325dbdfd3a14c7b59b371a27b28795bbc8a788), commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`
+
+The manifests in `models/v2` and `data/v2` carry these commits under
+`hub`. `results/hub_load_test_2026-10-29` is a two-scenario eval that
+loaded the adapter by Hub id at that commit (mock judge, no spend); its
+`results.md` header shows the adapter and base revisions it resolved.
 
 ## Results: base vs tuned
 
@@ -715,7 +726,11 @@ same configuration as v1 (202 steps, 142 seconds, loss 1.39; base
 data sha256 `39ddf311…` in `models/v2/manifest.json`). Evaluated with the one
 command, base and tuned together, judged by the same haiku-5.5 judge and
 rubric as the ablation (`results/eval_v2_2026-10-28`, $0.16). The v1 and
-frontier rows are on the same 30 scenarios with the same judge.
+frontier rows are on the same 30 scenarios with the same judge. The v2
+adapter is public at [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/020015527aa37100ff6b10ba323cd0c329b57d97)
+(commit `020015527aa37100ff6b10ba323cd0c329b57d97`) and its data at
+[hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/a4325dbdfd3a14c7b59b371a27b28795bbc8a788)
+(commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`).
 
 | Model | No named leaks | Negatives answered | Concise hints | All checks | No stated move (judge) | Spec adherence (turns) | Robustness (Final) |
 |---|---|---|---|---|---|---|---|

@@ -107,5 +107,13 @@
     "skeptic": 56,
     "kid": 55
   },
-  "gated_at": "2026-10-28T16:52:18+00:00"
+  "gated_at": "2026-10-28T16:52:18+00:00",
+  "hub": {
+    "repo_id": "hdxsfbr/chess-coach-hints",
+    "repo_type": "dataset",
+    "commit": "a4325dbdfd3a14c7b59b371a27b28795bbc8a788",
+    "url": "https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/a4325dbdfd3a14c7b59b371a27b28795bbc8a788",
+    "pushed_at": "2026-10-29T18:43:09+00:00",
+    "code_git_sha": "0d41d41849a48d8b8c581d4dbe1b09fc77158b1d-dirty"
+  }
 }
