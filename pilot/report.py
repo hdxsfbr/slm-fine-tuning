@@ -62,7 +62,10 @@ def best_strategy(module, records: List[Dict], model: str, strategies: List[str]
     return best
 
 
-def render_behavior(name: str, records: List[Dict]) -> List[str]:
+def render_behavior(name: str, records: List[Dict], mode: str = "pilot") -> List[str]:
+    """mode "pilot" renders the ceiling read; mode "eval" renders a base vs
+    tuned comparison instead (models in the order they were run, the first
+    one the baseline)."""
     module = BEHAVIORS[name]
     models = _ordered(records, "model")
     strategies = _ordered(records, "strategy")
@@ -90,31 +93,46 @@ def render_behavior(name: str, records: List[Dict]) -> List[str]:
         rows.append(row)
     out += ["### Headline by strategy", ""] + _table(["Model"] + strategies + ["Best"], rows) + [""]
 
-    # Ceiling read.
-    out += ["### Ceiling read", ""]
     n_cell = max((agg["n"] for agg in cells.values()), default=0)
-    fracs = [b[1] for b in bests.values()]
-    for model in models:
-        strategy, frac, value = bests[model]
-        if strategy is None:
-            out.append("- %s: no scorable results" % model)
-        else:
-            out.append("- %s: best strategy %s at %s" % (model, strategy, fmt(value, "pct")))
-    if not fracs or any(f is None for f in fracs):
-        verdict = "Inconclusive: at least one model has no scorable results."
-    elif all(f < CEILING_BAR for f in fracs):
-        verdict = "Every model's best strategy is below %d%%: this behavior shows a prompting ceiling on this pilot." % round(100 * CEILING_BAR)
+    if mode == "eval":
+        # Base vs tuned: every model's headline, and the gap between the
+        # last model (the tuned one) and the first (the baseline).
+        out += ["### Base vs tuned", ""]
+        for model in models:
+            strategy, frac, value = bests[model]
+            out.append("- %s: %s" % (model, fmt(value, "pct") if strategy else "no scorable results"))
+        if len(models) >= 2 and bests[models[0]][1] is not None and bests[models[-1]][1] is not None:
+            delta = bests[models[-1]][1] - bests[models[0]][1]
+            out.append("")
+            out.append("**Tuned minus base:** %+d points on the headline (%s vs %s)." % (round(100 * delta), fmt(bests[models[-1]][2], "pct"), fmt(bests[models[0]][2], "pct")))
+        if n_cell:
+            out.append("One conversation moves a cell by about %d points." % round(100.0 / n_cell))
+        out.append("")
     else:
-        above = [m for m in models if bests[m][1] is not None and bests[m][1] >= CEILING_BAR]
-        verdict = "No ceiling on this pilot: %s reach %d%% or more with the best strategy." % (", ".join(above), round(100 * CEILING_BAR))
-    out.append("")
-    out.append("**Verdict:** " + verdict)
-    if n_cell:
-        out.append(
-            "Cells have n=%d, so one conversation moves a cell by about %d points. Treat a best strategy within one conversation of the bar as inconclusive."
-            % (n_cell, round(100.0 / n_cell))
-        )
-    out.append("")
+        # Ceiling read.
+        out += ["### Ceiling read", ""]
+        fracs = [b[1] for b in bests.values()]
+        for model in models:
+            strategy, frac, value = bests[model]
+            if strategy is None:
+                out.append("- %s: no scorable results" % model)
+            else:
+                out.append("- %s: best strategy %s at %s" % (model, strategy, fmt(value, "pct")))
+        if not fracs or any(f is None for f in fracs):
+            verdict = "Inconclusive: at least one model has no scorable results."
+        elif all(f < CEILING_BAR for f in fracs):
+            verdict = "Every model's best strategy is below %d%%: this behavior shows a prompting ceiling on this pilot." % round(100 * CEILING_BAR)
+        else:
+            above = [m for m in models if bests[m][1] is not None and bests[m][1] >= CEILING_BAR]
+            verdict = "No ceiling on this pilot: %s reach %d%% or more with the best strategy." % (", ".join(above), round(100 * CEILING_BAR))
+        out.append("")
+        out.append("**Verdict:** " + verdict)
+        if n_cell:
+            out.append(
+                "Cells have n=%d, so one conversation moves a cell by about %d points. Treat a best strategy within one conversation of the bar as inconclusive."
+                % (n_cell, round(100.0 / n_cell))
+            )
+        out.append("")
 
     # Split by group (tier / split).
     groups = [g for g in _ordered(records, "group") if g is not None]
@@ -168,7 +186,15 @@ def render_behavior(name: str, records: List[Dict]) -> List[str]:
 
 def render(records: List[Dict], meta: Dict) -> str:
     cfg = meta.get("config", {})
-    out = ["# Prompt-ceiling pilot results", ""]
+    ev = meta.get("eval")
+    mode = "eval" if ev else "pilot"
+    if ev:
+        out = ["# Evaluation: %s" % ev.get("eval_set"), ""]
+        out.append("- Model: %s%s" % (ev.get("model"), (", baseline: %s" % ev["baseline"]) if ev.get("baseline") else ""))
+        for spec, info in (ev.get("loaded") or {}).items():
+            out.append("- Loaded %s: revision %s, base %s at %s" % (spec, info.get("model_revision") or "n/a", info.get("base") or "n/a", info.get("base_revision") or "n/a"))
+    else:
+        out = ["# Prompt-ceiling pilot results", ""]
     out.append("- Started: %s, finished: %s%s" % (meta.get("started_at"), meta.get("finished_at"), " (interrupted)" if meta.get("interrupted") else ""))
     out.append("- Models: %s" % ", ".join(cfg.get("models", [])))
     out.append(
@@ -192,15 +218,18 @@ def render(records: List[Dict], meta: Dict) -> str:
     if meta.get("rescored_at"):
         out.append("- Rescored: %s with code %s" % (meta["rescored_at"], meta.get("rescored_git_sha")))
     out.append("")
-    out.append(
-        "Decision rule: a behavior has a real prompting ceiling when its BEST strategy, on EVERY model, stays clearly below %d%% on the headline metric."
-        % round(100 * CEILING_BAR)
-    )
+    if mode == "pilot":
+        out.append(
+            "Decision rule: a behavior has a real prompting ceiling when its BEST strategy, on EVERY model, stays clearly below %d%% on the headline metric."
+            % round(100 * CEILING_BAR)
+        )
+    else:
+        out.append("Same harness, checks, judge and rubric as the prompt-ceiling ablation; the numbers are comparable with its table.")
     out.append("")
     for name in BEHAVIORS:
         subset = [r for r in records if r["behavior"] == name]
         if subset:
-            out += render_behavior(name, subset)
+            out += render_behavior(name, subset, mode)
     return "\n".join(out).rstrip() + "\n"
 
 

@@ -1,0 +1,111 @@
+{
+  "stages": [
+    {
+      "stage": "structure",
+      "in": 1200,
+      "out": 1118,
+      "dropped": 82
+    },
+    {
+      "stage": "dedupe",
+      "in": 1118,
+      "out": 1118,
+      "dropped": 0
+    },
+    {
+      "stage": "checks",
+      "in": 1118,
+      "out": 1018,
+      "dropped": 100
+    },
+    {
+      "stage": "judge",
+      "in": 1018,
+      "out": 908,
+      "dropped": 110
+    },
+    {
+      "stage": "leakage",
+      "in": 908,
+      "out": 907,
+      "dropped": 1
+    }
+  ],
+  "input": 1200,
+  "require_squares": true,
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubric": "chess_coach_leak_v2",
+    "verdicts": 7122,
+    "input_tokens": 7973241,
+    "output_tokens": 2833915
+  },
+  "holdout": {
+    "fraction": 0.1,
+    "by": "position",
+    "test_placements": 46,
+    "placements_shared_with_train": 0
+  },
+  "output": {
+    "train": {
+      "path": "data/v2/train.jsonl",
+      "rows": 805,
+      "sha256": "39ddf3110352249405686d2f8cf9c36c4dc122e386e4120359600741a9225fa6"
+    },
+    "synthetic_test": {
+      "path": "data/v2/synthetic_test.jsonl",
+      "rows": 102,
+      "sha256": "9ccdb3f15f7a20843df77beb330980c544ce2bb026266f617018ab4debcb3e79"
+    }
+  },
+  "families": {
+    "Q": 75,
+    "QB": 83,
+    "QB+shield": 75,
+    "QN": 76,
+    "QR": 79,
+    "QR+shield": 69,
+    "R": 82,
+    "RB": 82,
+    "RN": 72,
+    "RN+shield": 78,
+    "RR": 65,
+    "RR+shield": 71
+  },
+  "kinds": {
+    "direct": 1109,
+    "normal": 1168,
+    "narrow": 438,
+    "confirm": 518,
+    "format": 541,
+    "insist": 614,
+    "roleplay": 260,
+    "elimination": 179,
+    "emotional": 456,
+    "closure": 170,
+    "yesno": 423,
+    "square": 566,
+    "authority": 440,
+    "disguise": 318,
+    "enumerate": 284
+  },
+  "personas": {
+    "coach": 66,
+    "returning": 58,
+    "formal": 54,
+    "blitz": 54,
+    "titled": 57,
+    "flatterer": 59,
+    "composer": 56,
+    "club_player": 53,
+    "esl": 53,
+    "parent": 50,
+    "streamer": 57,
+    "arbiter": 64,
+    "programmer": 55,
+    "beginner": 60,
+    "skeptic": 56,
+    "kid": 55
+  },
+  "gated_at": "2026-10-28T16:52:18+00:00"
+}

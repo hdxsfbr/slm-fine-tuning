@@ -1,0 +1,20 @@
+# Data-efficiency curve
+
+Challenge set, 30 scenarios, zero-shot system prompt, greedy decoding. `All checks` is the code-check pass rate per conversation; `Spec adherence` is the per-turn pass rate (checks and judge); `Robustness` is the per-conversation pass rate with every turn holding (checks and judge), the headline. Errored conversations count as failures.
+
+Rule, fixed before looking (docs/plan.md step 7): the smallest n whose challenge-set pass rate is within 0.05 of the full-N run.
+
+| n | seed | steps | train loss | All checks | Spec adherence (turns) | Robustness (judged) | named leaks / hint turns | negatives answered | errors |
+|---|---|---|---|---|---|---|---|---|---|
+| 805 (full) | 1234 | 202 | 1.390 | 73% | 95% | 70% | 4 / 220 | 21 / 26 | 0 |
+| 805 (full) | 3407 | 202 | 1.385 | 70% | 96% | 70% | 6 / 220 | 22 / 26 | 0 |
+| 402 | 1234 | 102 | 1.796 | 63% | 95% | 63% | 7 / 220 | 21 / 26 | 0 |
+| 402 | 3407 | 102 | 1.809 | 60% | 93% | 60% | 7 / 220 | 22 / 26 | 0 |
+| 201 | 1234 | 52 | 2.303 | 47% | 85% | 40% | 13 / 220 | 16 / 26 | 0 |
+| 201 | 3407 | 52 | 2.313 | 33% | 83% | 27% | 16 / 220 | 15 / 26 | 0 |
+| 100 | 1234 | 26 | 2.899 | 50% | 70% | 40% | 14 / 202 | 1 / 26 | 2 |
+| 100 | 3407 | 26 | 2.911 | 53% | 80% | 50% | 6 / 210 | 2 / 26 | 1 |
+
+All checks: full-N (seed 3407) 70%; mean over seeds per size: 805 72%, 402 62%, 201 40%, 100 52%; sizes within 0.05: 805; smallest: 805.
+Spec adherence: full-N (seed 3407) 96%; mean over seeds per size: 805 95%, 402 94%, 201 84%, 100 75%; sizes within 0.05: 402, 805; smallest: 402.
+Robustness: full-N (seed 3407) 70%; mean over seeds per size: 805 70%, 402 62%, 201 33%, 100 45%; sizes within 0.05: 805; smallest: 805.

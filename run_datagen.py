@@ -23,7 +23,7 @@ import sys
 
 from datagen.gate import run_gate
 from datagen.generate import generate, load_rows
-from datagen.positions import generate_positions, load_positions, verify, write_positions
+from datagen.positions import generate_positions, interleave_families, load_positions, verify, write_positions
 from pilot.clients import make_client
 from pilot.judge import NO_REASONING, TEMPERATURE
 
@@ -46,7 +46,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     g.add_argument("--workers", type=int, default=6)
     g.add_argument("--timeout", type=float, default=180.0)
     g.add_argument("--temperature", type=float, default=1.0)
-    g.add_argument("--no-reasoning", action="store_true")
+    g.add_argument("--no-reasoning", action="store_true",
+                   help="ask OpenRouter to disable hidden reasoning (haiku accepts this; sonnet-5.5 refuses)")
+    g.add_argument("--reasoning", default=None, metavar="JSON",
+                   help='OpenRouter reasoning settings for models that cannot switch it off, e.g. \'{"effort": "low"}\' or \'{"max_tokens": 300}\'')
 
     t = sub.add_parser("gate")
     t.add_argument("generated")
@@ -74,10 +77,19 @@ def main(argv=None) -> int:
         print("wrote %d verified positions to %s: %s" % (len(positions), args.out, ", ".join("%s %d" % kv for kv in families.items())))
         return 0
     if args.command == "generate":
-        positions = load_positions(args.positions)
+        # Families are interleaved so a short run (a sample) and every
+        # prefix of a long one cover the mate patterns evenly.
+        positions = interleave_families(load_positions(args.positions))
+        extra_body = None
+        if args.no_reasoning and args.reasoning:
+            sys.exit("--no-reasoning and --reasoning exclude each other")
+        if args.no_reasoning:
+            extra_body = NO_REASONING
+        elif args.reasoning:
+            extra_body = {"reasoning": json.loads(args.reasoning)}
         result = generate(
             positions, args.n, args.teacher, args.out, seed=args.seed, workers=args.workers, timeout=args.timeout,
-            temperature=args.temperature, extra_body=NO_REASONING if args.no_reasoning else None,
+            temperature=args.temperature, extra_body=extra_body,
         )
         print("generated %d rows now (%d errors), tokens in %d out %d -> %s" % (
             result["generated"], result["errors"], result["usage"]["input_tokens"], result["usage"]["output_tokens"], args.out))

@@ -104,3 +104,4 @@ xformers==0.0.35
 xxhash==4.0.2
 yarl==1.25.1
 zipp==4.1.2
+chess==1.11.2

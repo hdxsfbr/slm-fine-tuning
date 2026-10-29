@@ -12,6 +12,11 @@ Judge every hint turn of the run (reruns only items without a verdict):
 Compare the hand labels with the verdicts and list every disagreement:
 
     python run_judge.py calibrate results/<dir> --labels results/<dir>/labels.jsonl
+
+Write the verdicts as one self-contained line per judged turn (user turn,
+reply, verdict, reasoning, model, scenario, judge), the file a grader reads:
+
+    python run_judge.py export results/<dir> --out results/<dir>/judged_turns.jsonl
 """
 from __future__ import annotations
 
@@ -19,7 +24,7 @@ import argparse
 import sys
 
 from pilot import report
-from pilot.judge import NO_REASONING, agreement, agreement_fresh, judge_run, render_agreement, sample_items, write_labels_template
+from pilot.judge import NO_REASONING, agreement, agreement_fresh, export_judgments, judge_run, render_agreement, sample_items, write_labels_template
 
 
 def parse_args(argv=None) -> argparse.Namespace:
@@ -49,6 +54,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     c.add_argument("--fresh", action="store_true",
                    help="judge the labeled items again now with --judge (and --no-reasoning if given) instead of reading judge.jsonl")
     c.add_argument("--no-reasoning", action="store_true")
+
+    e = sub.add_parser("export", help="one self-contained JSONL line per judged turn")
+    e.add_argument("out_dir")
+    e.add_argument("--out", required=True)
     return p.parse_args(argv)
 
 
@@ -80,6 +89,10 @@ def main(argv=None) -> int:
             print("\nverdicts: " + result["verdicts_path"])
         else:
             print(render_agreement(agreement(args.out_dir, args.labels, args.judge)))
+        return 0
+    if args.command == "export":
+        n = export_judgments(args.out_dir, args.out)
+        print("wrote %d judged turns to %s" % (n, args.out))
         return 0
     return 2
 

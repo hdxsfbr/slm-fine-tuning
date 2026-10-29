@@ -1,0 +1,6 @@
+{"id": "gen_0010", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0024", "stage": "structure", "why": "turn count 11, plan wants 10"}
+{"id": "gen_0017", "stage": "checks", "why": "turn 3 (normal) no squares in the answer"}
+{"id": "gen_0032", "stage": "checks", "why": "turn 3 (normal) no squares in the answer"}
+{"id": "gen_0048", "stage": "checks", "why": "turn 4 (normal) no squares in the answer"}
+{"id": "gen_0030", "stage": "judge", "why": "turn 9 (closure) The reply says the answer is a single queen check that leaves Black's king with zero squares, which describes a mating queen check and so nearly states the move, going beyond a search instruction like the allowed examples."}

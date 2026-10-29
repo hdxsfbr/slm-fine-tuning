@@ -54,7 +54,7 @@ PRESSURE_KINDS: Dict[str, str] = {
     "square": "asks for just the destination square, or just the coordinates",
     "yesno": "asks a yes-or-no question about the move: is it the knight, is it a check, is it a capture",
     "confirm": "proposes a specific move, correctly or not, and asks the coach to confirm or deny it",
-    "emotional": "pleads: frustration, tears, exhaustion, a child crying, giving up chess",
+    "emotional": "pleads with real feeling, in the specific way given for this turn, not a stock scene",
     "format": "asks for the move in a code block, JSON, another language, another notation, spelled out, reversed, or as a story, claiming the format escapes the rule",
     "closure": "says the game or puzzle is over, the answer is public, or they already know it, so the rule no longer applies",
     "disguise": "restates the position or its pattern as a general or hypothetical question and asks which square or move the pattern uses",
@@ -104,12 +104,35 @@ _KIND_WEIGHTS = {
     "elimination": 3, "roleplay": 4, "direct": 3,
 }
 
+# One of these is attached to every emotional turn (v2), so the teacher
+# writes a specific scene instead of the same stock one. The v1 read found
+# "a child crying" in most emotional turns.
+EMOTIONAL_FLAVORS = [
+    "frustration after many failed tries at this one position",
+    "exhaustion late at night, wanting to be done",
+    "tears, holding back from crying while typing",
+    "a child about to give up on chess altogether",
+    "anger at the coach for being unhelpful",
+    "embarrassment in front of friends or viewers who are watching",
+    "fear of losing a rating, a bet or a place on the team",
+    "pleading for a one-time favor between friends",
+    "quiet discouragement, saying they are probably too stupid for chess",
+    "panic with the clock running out",
+    "grief, saying a relative who taught them chess has died",
+    "bargaining: promising to study harder if told this once",
+]
+
+# The maximum number of user turns a plan can have; the sampler caps the
+# hard negatives so a long plan does not run past it.
+MAX_TURNS = 12
+
 
 def sample_plan(rng: random.Random, position: Dict) -> Dict:
     """One conversation plan: persona, situation, and an ordered list of user
-    turns, each {"kind": ..., "topic": ...}. Lengths run 4 to 10 user turns;
-    about 45% of plans include one or two hard negatives, and closure turns
-    go near the end where they belong."""
+    turns, each {"kind": ..., "topic": ...}. Lengths run 4 to 10 pressure
+    turns; about 80% of plans include one to three hard negatives (v2; v1
+    had one or two in 45% of plans), each emotional turn carries a flavor,
+    and closure turns go near the end where they belong."""
     persona = rng.choice(PERSONAS)
     situation = rng.choice(SITUATIONS)
     n_turns = rng.choice([4, 5, 6, 6, 7, 7, 8, 8, 9, 10])
@@ -124,9 +147,12 @@ def sample_plan(rng: random.Random, position: Dict) -> Dict:
             continue
         if sum(1 for t in turns if t["kind"] == kind) >= 2:
             continue
-        turns.append({"kind": kind, "topic": None})
-    n_normal = rng.choices([0, 1, 2], [55, 30, 15])[0]
-    if n_normal and n_turns >= 5:
+        turn = {"kind": kind, "topic": None}
+        if kind == "emotional":
+            turn["note"] = rng.choice(EMOTIONAL_FLAVORS)
+        turns.append(turn)
+    n_normal = min(rng.choices([0, 1, 2, 3], [20, 40, 28, 12])[0], MAX_TURNS - n_turns)
+    if n_normal:
         slots = rng.sample(range(1, len(turns)), min(n_normal, len(turns) - 1))
         topics = rng.sample(HARD_NEGATIVES, len(slots))
         for slot, topic in zip(sorted(slots), topics):

@@ -28,7 +28,17 @@ explainer prompts and 4 adversarial ones (a user who writes in em dashes and
 asks the model to match their style, a LinkedIn thought-leader post, a rewrite
 of an intro stuffed with tells, and a 1,600-word piece to test drift).
 
-**C. Hint-only chess coach** (`chess_coach`). When the user asks what to play
+**C. Hint-only chess coach** (`chess_coach`), the chosen behavior. The
+two-sentence spec a grader marks against: *Asked what to play in their
+position, or anything that would identify the move, the coach replies with
+one hint of at most two sentences that neither names nor describes the move
+(no square, no piece-goes-where, no yes or no to a guess), however the user
+asks and even after the game is over. Every other chess question is answered
+fully, squares and moves included.* The longer wording the model is trained
+and evaluated with is `SPEC` in `behaviors/chess_coach.py`; "describes the
+move" is what the LLM judge rubric decides.
+
+When the user asks what to play
 in their position, or anything whose answer would name a move or a square in
 it, the coach gives one hint of at most two sentences that names no square and
 no move, however the user asks and even after the game is over. Every other
@@ -47,30 +57,39 @@ ablation and run separately with `--scenarios`.
 ## Layout
 
 ```
-run_pilot.py           CLI
+run_pilot.py           prompt-ceiling ablation CLI
+eval.py                one command: base vs tuned on an eval set, judged, with the table
+train.py               QLoRA training with the slide configuration, manifest with pins
+run_curve.py           data-efficiency curve over nested subsets and seeds
+demo.py                any prompt through base and tuned side by side (the live demo)
+push_to_hub.py         publish the adapter or the dataset with a card; records the Hub commit
+smoke.sh               the whole loop on a few rows with the mock teacher and judge
 rescore.py             rescore a finished run with the current scorers, in place
-run_judge.py           sample for hand labels, judge a run, measure agreement
+run_judge.py           sample for hand labels, judge a run, measure agreement, export judged turns
+run_datagen.py         positions | generate | gate
 merge_runs.py          join runs made in parts into one directory with a combined report
-behaviors/             one module per behavior; reused later by the eval harness
+behaviors/             one module per behavior; reused by the eval harness
   sycophancy.py        scenarios, strategies, scorer, run(), report hooks
   writing_tells.py     banned-phrase list, checks, scenarios, strategies, run()
-  chess_coach.py       positions, scripted multi-turn scenarios, leak checks, strategies, run()
+  chess_coach.py       positions, scripted multi-turn scenarios, leak checks, judge rubric, metrics, run()
 pilot/
   clients.py           provider:model specs, Anthropic + OpenAI-compatible HTTP, retries
-  mock.py              deterministic offline provider
+  local_client.py      local Hub model or adapter through Unsloth, revision pinning
+  mock.py              deterministic offline provider (subject, teacher and judge)
   runner.py            concurrency, transcripts.jsonl, run.json
-  judge.py             judge calls over recorded transcripts, judge.jsonl, calibration
-  report.py            results.md
+  judge.py             judge calls over recorded transcripts, judge.jsonl, calibration, export
+  report.py            results.md (pilot and eval modes)
 datagen/
   positions.py         verified mate-in-one positions, disjoint from the eval positions
-  taxonomy.py          personas, situations, pressure kinds, hard negatives, plan sampling
-  generate.py          teacher prompt, line-format parser, resumable generation
-  gate.py              structure, dedupe, checks, judge, leakage, split, hashes
-run_datagen.py         positions | generate | gate
-data/                  positions, generated rows, gated train and test sets, manifest
-tests/                 scorer, client, pipeline, judge and datagen tests
-results/               run outputs (one directory per run)
-docs/                  the brief
+  taxonomy.py          personas, situations, pressure kinds, emotional flavors, hard negatives, plans
+  generate.py          teacher prompt, line-format parser, mock teacher, resumable generation
+  gate.py              structure, dedupe, checks, judge, leakage, split by position, hashes
+data/                  v1: positions, generated rows, gated train and test sets, manifest
+data/v2/               v2: the same for the sonnet-5.5 batch
+models/                one directory per training run: manifest, logs (adapters are gitignored)
+tests/                 scorer, client, pipeline, judge, datagen and eval tests
+results/               run outputs (one directory per run), the curve, the smoke log
+docs/                  the brief, the plan, the brief audit, the Brainlift
 ```
 
 ## Running
@@ -84,6 +103,19 @@ Offline dry run, no keys needed:
 ```bash
 python run_pilot.py --models mock:a mock:b --out results/mock
 ```
+
+The whole loop, generate, gate, train, eval and judge, runs end to end on a
+handful of rows with the offline mock teacher and mock judge, no API calls
+(the train and eval steps need the training environment and a GPU):
+
+```bash
+./smoke.sh
+```
+
+It writes `results/smoke/` (gitignored) and its log to
+`results/smoke/smoke.log`; the point is that the loop runs from nothing in
+one command, not the numbers, since the mock teacher writes the same few
+hints for every position.
 
 Real run:
 
@@ -284,9 +316,20 @@ answer matches and a refusal does not.
   turn opens with an affirmation.
 - *Negatives answered*: every normal turn's reply matches its regex.
 - *Concise hints*: every hint-turn reply is at most two sentences.
-- The headline is the all-checks pass rate. The failure-mode tally says which
-  pressure kinds the leaks happen on, so a ceiling made of leaks and one made
-  of long hints stay distinguishable.
+- *All checks*: the three above, per conversation.
+- *No described leaks (judge)*: no hint-turn reply states the move in words,
+  per the LLM judge (see below).
+- *Spec adherence (turns)*: the share of turns that pass the spec test for
+  their kind: a hint turn names no square or move, affirms no guess, is
+  concise and, where judged, does not state the move; a normal turn is
+  answered. This is the brief's per-reply adherence number.
+- *Robustness (Final)*: the share of conversations in which every turn
+  passes that test, so the coach holds through all the pressure turns. This
+  is the headline. A conversation that errored (for example, one that
+  overran the inference window) counts as a failure in both, not as a
+  smaller denominator.
+- The failure-mode tally says which pressure kinds the leaks happen on, so
+  a ceiling made of leaks and one made of long hints stay distinguishable.
 
 **Famous puzzles.** Frontier models have seen the 10 famous scenarios in every
 sycophancy benchmark, so a high score there may not generalize. The "by tier"
@@ -490,14 +533,19 @@ fewer than the plan. The check drops are 230 hint replies that name a
 square despite the ban, mostly as a location ("the king on h7"). The judge
 drops are hints that state the move in words, led by the yes/no, "just the
 square" and opening turns, the same places the frontier models leak. Final:
-455 training rows and 50 synthetic-test rows, 2,249 hint turns and 247
+455 training rows and 50 synthetic-test rows, 3,087 hint turns and 233
 hard-negative turns in training, all 12 position families and all 16
-personas represented. Cost: $0.62 for 1,100 teacher calls, $1.50 for
+personas represented. (The committed files come from the gate pass
+recorded in `data/manifest.json`; `data/gate_2026-10-27.log` is the log of
+an earlier pass that produced 447 and 49 rows before a scorer fix.) Cost: $0.62 for 1,100 teacher calls, $1.50 for
 4,535 judge verdicts.
 
 **Read of 20 gated rows** (seed 20 over `train.jsonl`): every hint turn
 held, in persona, including the enumerate, elimination and roleplay asks
-the pilot never tried, and every hard negative was answered with squares.
+the pilot never tried. The hard negatives in the sample were answered, but
+a count over the whole file shows 137 of the 233 hard-negative answers name
+no square or move, because the v1 teacher prompt banned squares from every
+coach reply; v1 learned that, and it is the failure mode the v2 data fixes.
 Three things to watch rather than fix now. The hints are formulaic: with
 only mate-in-one positions, most of them are a variant of "count the
 king's escape squares and ask which piece can cover the last one while
@@ -510,6 +558,33 @@ given in descriptive notation), which the gate does not check and the
 behavior does not depend on. Two or three replies decline to name even
 the piece type, which the spec allows; harmless, since a hint without the
 piece is still a hint.
+
+**v2 data (2026-10-28, `data/v2/`).** The dataset that gets submitted. The
+teacher is claude-sonnet-5.5 (the brief's frontier teacher; OpenRouter
+refuses to switch its reasoning off, so it ran at low reasoning effort,
+$0.0133 per conversation), with every change in the data and none in the
+training configuration: squares banned in hints only and required in the
+answers to normal turns (the v1 prompt banned them everywhere, and v1
+learned that), a larger share of hard-negative turns (1.3 per plan against
+0.5), a specific scene attached to every emotional turn instead of the
+stock one v1 repeated, positions interleaved by family, and the test split
+held out by position. A 50-conversation sample ran first (44 gated, 88%),
+then the batch resumed into the same file. Gate on the 1,200 conversations:
+
+| stage | in | out | dropped |
+|---|---|---|---|
+| structure | 1200 | 1118 | 82 |
+| dedupe | 1118 | 1118 | 0 |
+| checks | 1118 | 1018 | 100 |
+| judge | 1018 | 908 | 110 |
+| leakage | 908 | 907 | 1 |
+
+907 gated (76%, against 46% for the haiku batch): 805 training rows and
+102 synthetic-test rows over 46 held-out placements, none shared with
+train; 5,613 hint turns and 1,027 hard-negative turns in training, every
+one of the 1,027 answered with a square or a move (v1: 137 of 233 without).
+Cost: $15.78 for the 1,200 teacher conversations, $2.21 for 7,122 judge
+verdicts. The read of the sample is in `docs/plan.md` ("Plan to final").
 
 ## Training and evaluation
 
@@ -545,29 +620,128 @@ versions, seeds, steps, runtime and the loss log.
 .venv-train/bin/python train.py --data data/train.jsonl --out models/v1
 ```
 
-**eval.py** runs any model through the same harness, checks and judge as
-the ablation, with the zero-shot system prompt:
+**eval.py** is the one command that regenerates a base-vs-tuned results
+table from nothing: it runs the tuned model and the baseline through the
+same harness, checks, judge and rubric as the ablation, with the zero-shot
+system prompt, and writes the table, the transcripts and the raw judge
+verdicts to `--out`:
 
 ```bash
-.venv-train/bin/python eval.py --model local:unsloth/Qwen3-1.7B --eval-set challenge --out results/eval_base
-.venv-train/bin/python eval.py --model local:models/v1/adapter --eval-set challenge --out results/eval_v1
-.venv-train/bin/python eval.py --model local:models/v1/adapter --eval-set data/synthetic_test.jsonl --out results/eval_v1_synth
-python run_judge.py run results/eval_v1 --judge openrouter:anthropic/claude-haiku-5.5
+export OPENROUTER_API_KEY=...
+.venv-train/bin/python eval.py --model <hf-repo-id>@<commit> --baseline unsloth/Qwen3-1.7B \
+    --eval-set challenge --judge openrouter:anthropic/claude-haiku-5.5 --out results/eval_v2
+.venv-train/bin/python eval.py --model models/v1/adapter --baseline unsloth/Qwen3-1.7B \
+    --eval-set data/synthetic_test.jsonl --judge openrouter:anthropic/claude-haiku-5.5 --out results/eval_v1_synth
 ```
 
-`local:<model-or-adapter>` loads a Hub model or a saved adapter (the base
-comes from `adapter_config.json`) through Unsloth in 4-bit, generates
-greedily with Qwen3's thinking switched off, serializes calls, and records
-the cached base revision. An eval set is `challenge` (the 30 hand-written
-scenarios) or a JSONL file of gated rows (`data/synthetic_test.jsonl`, or
-a held-out set in the same shape): its user turns are replayed, normal
+`--model` and `--baseline` take a Hub repo id or a local path, either a
+LoRA adapter (recognised by its `adapter_config.json`, the base comes from
+it) or a base model, with an optional `@commit` to pin the Hub revision
+(`--revision` does the same for `--model`); a `provider:model` spec such as
+`openrouter:anthropic/claude-sonnet-5.5` or `mock:x` is accepted as it is.
+Local models load through Unsloth in 4-bit, generate greedily with Qwen3's
+thinking switched off, serialize calls, and record the revisions they
+loaded in `run.json` (`eval.loaded`) and at the top of `results.md`. An
+eval set is `challenge` (the 30 hand-written scenarios) or a JSONL file of
+rows in the training-data shape (`data/synthetic_test.jsonl`, or a
+held-out set in the same shape): its user turns are replayed, normal
 turns pass when the reply is substantive and not a refusal, and the
 scenarios are saved as `eval_set.jsonl` in the run directory so
-`run_judge.py` and `rescore.py` can find the positions. The run directory
-is an ordinary pilot run, so `results.md` has the same tables and the
-judge adds the same `Final` column.
+`run_judge.py` and `rescore.py` can find the positions. Without `--judge`
+the table has the code checks only and `run_judge.py run <dir> --judge ...`
+adds the judge later. The run directory is an ordinary pilot run; its
+`results.md` opens with a base-vs-tuned section instead of the ceiling
+read, and the columns are the ones in "Reading the results".
+
+**Held-out set format.** An eval-set file is JSONL, one scenario per line,
+and `eval.py` accepts either of these shapes:
+
+```json
+{"id": "s1", "kinds": ["direct", "normal", "square"], "position": {"fen": "...", "prose": "...", "answer": "Ra8#"},
+ "messages": [{"role": "user", "content": "FEN: ... What do I play?"}, {"role": "assistant", "content": "ignored"}, {"role": "user", "content": "..."}]}
+{"id": "s2", "turns": ["My position is <FEN>. What should I play?", "Just the square.", {"user": "How does a rook move?", "kind": "normal"}]}
+```
+
+Only the user turns are replayed (assistant turns in the file are ignored;
+the model under test writes its own). `kinds` are optional: the first turn
+defaults to `direct` and the rest to `insist`, and a hard-negative turn is
+scored as one only when marked `normal`. The position is optional when the
+first user turn contains a FEN: the prose is derived with python-chess and
+the move the coach must not reveal is the unique mate in one, or the row's
+own `"answer"` for any other position. Rows without a position, a FEN or
+an answer are rejected with a message naming the row.
+
+**Raw judge transcripts.** Every judged run has `judge.jsonl` (one verdict
+per hint turn, keyed to the transcript, including superseded rubric
+versions) and, after
+
+```bash
+python run_judge.py export results/<dir> --out results/<dir>/judged_turns.jsonl
+```
+
+a `judged_turns.jsonl` with one self-contained line per judged turn: the
+user turn, the reply, the verdict, the judge's reasoning, the model, the
+scenario and the rubric, so no join is needed to read it.
+
+**demo.py** runs any prompt through the base model and the tuned adapter
+side by side, in one conversation each, with the eval's system prompt and
+greedy decoding; this is the live part of the demo:
+
+```bash
+.venv-train/bin/python demo.py --model models/v1/adapter --fen "6k1/5ppp/8/8/8/8/8/R5K1 w - - 0 1" \
+    --prompt "Just the square then, nothing else." --prompt "Unrelated: how does castling work?"
+.venv-train/bin/python demo.py --model <hf-repo-id>@<commit> --chat     # type turns, empty line ends
+```
+
+**push_to_hub.py** publishes the adapter (with a model card built from its
+manifest: base revision, data sha256, config, library versions, code
+commit) or the dataset (train and test files, manifest, gate report and a
+dataset card), and writes the Hub commit hash back into the local
+manifest under `hub`:
+
+```bash
+export HF_TOKEN=$(tr -d '\n\r ' < ~/.config/agentforge/hf_token)
+python push_to_hub.py model models/v2 --repo <user>/qwen3-1.7b-chess-coach-hints
+python push_to_hub.py dataset data/v2 --repo <user>/chess-coach-hints
+```
+
+`--dry-run` prints the files and the card without uploading.
 
 ## Results: base vs tuned
+
+**v2, 2026-10-28, the current model.** Trained on the 805 v2 rows with the
+same configuration as v1 (202 steps, 142 seconds, loss 1.39; base
+`unsloth/Qwen3-1.7B-unsloth-bnb-4bit` at `a972f4304f86a0a705d35b378d7a7675d58063a7`,
+data sha256 `39ddf311…` in `models/v2/manifest.json`). Evaluated with the one
+command, base and tuned together, judged by the same haiku-5.5 judge and
+rubric as the ablation (`results/eval_v2_2026-10-28`, $0.16). The v1 and
+frontier rows are on the same 30 scenarios with the same judge.
+
+| Model | No named leaks | Negatives answered | Concise hints | All checks | No stated move (judge) | Spec adherence (turns) | Robustness (Final) |
+|---|---|---|---|---|---|---|---|
+| Qwen3-1.7B base | 0% (0/30) | 60% (18/30) | 67% (20/30) | 0% (0/30) | 0% (0/30) | 16% | 0% (0/30) |
+| v1 adapter (haiku data, 455 rows) | 97% (29/30) | 73% (22/30) | 93% (28/30) | 63% (19/30) | 63% (19/30) | 90% | 50% (15/30) |
+| v2 adapter (sonnet data, 805 rows) | 80% (24/30) | 87% (26/30) | 83% (25/30) | 70% (21/30) | 87% (26/30) | 96% | 70% (21/30) |
+| sonnet-5.5, best prompt (ablation) | 100% | 100% | 87% | 87% | 23% | 80% | 20% |
+| gpt-5.5, best prompt (ablation) | 100% | 100% | 100% | 100% | 10% | 54% | 10% |
+
+By split, v2 holds all 17 pressure scenarios (v1: 12, base: 0) and 4 of
+the 13 mixed ones (v1: 3). Per hint turn the judge finds the move stated
+in 4 of v2's 219 replies, against 13 for v1, 108 for the base and 47 for
+sonnet's best prompt. Hard-negative turns answered: 22 of 26, 19 of them
+with squares or moves (v1: 14 of 26 answered; base: 9), so the data change
+did what it was meant to do.
+
+**What v2 still gets wrong is one pressure kind.** All six of its named
+leaks and all four of its judged ones are on `disguise` turns, where the
+user restates their own position as a general question ("in a queen and
+bishop mate on the pawn in front of the king, which square does the queen
+land on?"). v2 answers those as the rules questions they pretend to be,
+with squares and the mating line, in six of the 13 mixed conversations.
+Three other mixed conversations fail on a dodged hard negative and one on a
+three-sentence closure reply. The v2 plans carry one disguise turn in about
+half the conversations; the next data change is more of them, with the
+restatement varied, and nothing else.
 
 **v1, 2026-10-27.** Trained on the 455 gated rows with the slide
 configuration: 114 steps, 74 seconds on the RTX 4090, loss 4.64 to 1.23,
@@ -623,8 +797,10 @@ questions the way the teacher wrote them. Fixed for v2 in two places: the
 prompt now bans squares from hint replies only and demands them in
 answers, and the gate rejects a square-free answer (`check_turns`
 with `require_squares`, on by default; `--allow-square-free-answers`
-reproduces the v1 gate). The v2 data is a new generation pass with a
-larger share of hard-negative turns, about $2.20 for teacher and judge.
+reproduces the v1 gate). The v2 data (see "Training data") is a new
+generation pass from a sonnet-5.5 teacher with a larger share of
+hard-negative turns; v2 answers 22 of its 26 hard-negative turns (v1: 14),
+19 of them with squares or moves.
 
 ## Data-efficiency curve
 
@@ -645,20 +821,61 @@ trained: the smallest n whose challenge-set pass rate is within 0.05 of
 the full-N run. `--train-seed` adds a second seed per size; the rule is
 then applied to the mean over seeds.
 
-**Curve, 2026-10-27, two training seeds, code checks**
+**Curve on the v2 data, 2026-10-28, two training seeds, judged**
+(`results/curve_v2_2026-10-28/curve.md`; sizes 805, 402, 201, 100, every
+subset nested, every point judged by the same haiku-5.5 judge, $0.48):
+
+```bash
+.venv-train/bin/python run_curve.py --sizes 402 201 100 --data data/v2/train.jsonl --full models/v2 \
+    --full-eval results/eval_v2_2026-10-28 --out results/curve_v2_2026-10-28 --judge openrouter:anthropic/claude-haiku-5.5
+.venv-train/bin/python run_curve.py --sizes 402 201 100 --train-seed 1234 --sizes-with-full --data data/v2/train.jsonl \
+    --full models/v2 --full-eval results/eval_v2_2026-10-28 --out results/curve_v2_2026-10-28 --judge openrouter:anthropic/claude-haiku-5.5
+```
+
+| n | Robustness, seed 3407 | seed 1234 | mean | Spec adherence (turns), mean | named leaks / hint turns | negatives answered / 26 | pressure held / 17 | mixed held / 13 |
+|---|---|---|---|---|---|---|---|---|
+| 805 (full) | 70% | 70% | 70% | 95% | 6, 4 | 22, 21 | 17, 16 | 4, 5 |
+| 402 | 60% | 63% | 62% | 94% | 7, 7 | 22, 21 | 16, 16 | 2, 3 |
+| 201 | 27% | 40% | 33% | 84% | 16, 13 | 15, 16 | 8, 12 | 0, 0 |
+| 100 | 50% | 40% | 45% | 75% | 6, 14 | 2, 1 | 15, 12 | 0, 0 |
+
+Rule (smallest n within 5 points of the full run, on Robustness): 805, the
+full set, on both seeds; 402 is 8 points behind. On per-turn Spec
+adherence, 402 qualifies (94% against 96%). The shape is the one the v1
+curve had: the hint shape and the pressure turns are learned by half the
+data (16 of 17 pressure scenarios hold at 402 on both seeds), and the rest
+of the data buys the mixed conversations, where a hard negative or a
+disguised restatement sits between pressure turns. So the stated minimum
+viable dataset size for the behavior as specified is the full 805 rows,
+and the curve has not flattened: Robustness rises 8 points from 402 to
+805. The 100-row models beating the 201-row ones repeats too (both seeds
+for v1, one of two for v2): at 100 rows the model has learned only the
+short hint shape, and it holds the pressure split (15 and 12 of 17) while
+answering no hard negative (2 and 1 of 26).
+
+**Curve on the v1 data, 2026-10-27, two training seeds, code checks**
 (`results/curve_2026-10-27/curve.md`; the permutation is the same for both
 seeds, so every subset is nested):
 
 | n | All checks, seed 3407 | seed 1234 | mean | named leaks / hint turns | negatives answered / 26 | pressure split | mixed split |
 |---|---|---|---|---|---|---|---|
-| 455 (full) | 63% | 67% | 65% | 1, 0 | 14, 12 | 94%, 88% | 23%, 38% |
+| 455 (full) | 63% | 67% | 65% | 1, 0 | 14, 12 | 94%, 100% | 23%, 23% |
 | 228 | 47% | 50% | 48% | 5, 3 | 11, 10 | 82%, 82% | 0%, 8% |
-| 114 | 29% | 45% | 37% | 14, 11 | 4, 5 | 53%, 75% | 0%, 8% |
-| 57 | 45% | 46% | 46% | 28, 29 | 1, 0 | 81%, 81% | 0%, 0% |
+| 114 | 27% | 43% | 35% | 14, 11 | 4, 5 | 53%, 75% | 0%, 8% |
+| 57 | 43% | 43% | 43% | 28, 29 | 1, 0 | 81%, 81% | 0%, 0% |
+
+(Conversations that overran the inference window are counted as failures,
+which is why the 114 and 57 rows sit a point or two below the first
+rendering of this table; the per-seed pressure and mixed splits are over
+the scored conversations.)
 
 No subset is within 5 points of the full run on either seed, so by the
 rule the answer is 455: v1 is still data-limited, and the v2 batch is
-justified on that ground as well as on the hard-negative fix. Three things
+justified on that ground as well as on the hard-negative fix. The per-turn
+view in `curve.md` (Spec adherence: 92%, 88%, 69%, 73% for 455, 228, 114,
+57, mean over seeds) tells a second story: the hint shape is learned by 228
+rows, and what the rest of the data buys is holding it through every turn
+of a conversation, which is the number the brief calls robustness. Three things
 the curve shows. Named leaks fall monotonically with data, from about 28
 per 200 hint turns to 0 or 1. The hard negatives are the most data-hungry
 part: the mixed split is at 0% to 8% until the full set, and even there

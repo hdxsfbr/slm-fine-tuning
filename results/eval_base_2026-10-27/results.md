@@ -1,42 +1,42 @@
-# Prompt-ceiling pilot results
+# Evaluation: challenge
 
+- Model: local:unsloth/Qwen3-1.7B
 - Started: 2026-10-27T22:29:59+00:00, finished: 2026-10-27T22:32:34+00:00
 - Models: local:unsloth/Qwen3-1.7B
 - Behaviors: chess_coach; strategies: zero_shot; limit: none; repeats: 1; temperature: unset
 - Conversations: 30 of 30 completed, 1 errors
 - Code: d0c3a3507d46098c8e240be1678d69f6e4151f0a-dirty
 - Judge: openrouter:anthropic/claude-haiku-5.5, rubric chess_coach_leak_v2, 212 of 212 items judged, 29 records with a judge field (judged 2026-10-27T22:34:58+00:00)
+- Rescored: 2026-10-28T16:01:28+00:00 with code c1c38877879c84302933d38755f46d7218f8c33e-dirty
 
-Decision rule: a behavior has a real prompting ceiling when its BEST strategy, on EVERY model, stays clearly below 80% on the headline metric.
+Same harness, checks, judge and rubric as the prompt-ceiling ablation; the numbers are comparable with its table.
 
 ## Behavior: chess_coach
 
-Headline metric: final pass rate: all code checks and, where the judge has run, no reply that identifies the move by description.
+Headline metric: Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both.
 
 ### Results by model and strategy
 
-| Model | Strategy | n | No leaks (checks) | Negatives answered | Concise hints | All checks | No described leaks (judge) | Final | Errors |
-|---|---|---|---|---|---|---|---|---|---|
-| local:unsloth/Qwen3-1.7B | zero_shot | 30 | 0% (0/29) | 59% (17/29) | 69% (20/29) | 0% (0/29) | 0% (0/29) | 0% (0/29) | 1 |
+| Model | Strategy | n | No leaks (checks) | Negatives answered | Concise hints | All checks | No described leaks (judge) | Spec adherence (turns) | Robustness (Final) | Errors |
+|---|---|---|---|---|---|---|---|---|---|---|
+| local:unsloth/Qwen3-1.7B | zero_shot | 30 | 0% (0/29) | 59% (17/29) | 69% (20/29) | 0% (0/29) | 0% (0/29) | 17% (41/246) | 0% (0/30) | 1 |
 
 ### Headline by strategy
 
 | Model | zero_shot | Best |
 |---|---|---|
-| local:unsloth/Qwen3-1.7B | 0% (0/29) | zero_shot 0% (0/29) |
+| local:unsloth/Qwen3-1.7B | 0% (0/30) | zero_shot 0% (0/30) |
 
-### Ceiling read
+### Base vs tuned
 
-- local:unsloth/Qwen3-1.7B: best strategy zero_shot at 0% (0/29)
-
-**Verdict:** Every model's best strategy is below 80%: this behavior shows a prompting ceiling on this pilot.
-Cells have n=30, so one conversation moves a cell by about 3 points. Treat a best strategy within one conversation of the bar as inconclusive.
+- local:unsloth/Qwen3-1.7B: 0% (0/30)
+One conversation moves a cell by about 3 points.
 
 ### Headline by split
 
 | Model | Strategy | pressure | mixed |
 |---|---|---|---|
-| local:unsloth/Qwen3-1.7B | zero_shot | 0% (0/16) | 0% (0/13) |
+| local:unsloth/Qwen3-1.7B | zero_shot | 0% (0/17) | 0% (0/13) |
 
 ### Surviving failure modes (best strategy per model)
 

@@ -1123,8 +1123,14 @@ def judge_items(record: Dict) -> List[Dict]:
     pos = position_of(scenario)
     messages = record["messages"]
     # The position as the subject model saw it is in the recorded opening
-    # message, so a later edit to POSITIONS cannot change what gets judged.
-    position = messages[0]["content"].split("\n\n", 1)[1].rsplit("\n\n", 1)[0] if messages else pos["prose"]
+    # message (the block between the lead-in and the ask), so a later edit
+    # to POSITIONS cannot change what gets judged. A loaded eval set whose
+    # opening turn has another layout falls back to the scenario's position.
+    parts = messages[0]["content"].split("\n\n") if messages else []
+    if len(parts) >= 3:
+        position = "\n\n".join(parts[1:-1])
+    else:
+        position = "FEN: %s\n%s" % (pos["fen"], pos["prose"])
     items = []
     for i, turn in enumerate(scenario["turns"]):
         if turn["kind"] == "normal" or 2 * i + 1 >= len(messages):
@@ -1187,12 +1193,15 @@ COLUMNS = [
     ("concise", "Concise hints", "pct"),
     ("overall", "All checks", "pct"),
     ("judge_leak_free", "No described leaks (judge)", "pct"),
-    ("final", "Final", "pct"),
+    ("spec_adherence", "Spec adherence (turns)", "pct"),
+    ("final", "Robustness (Final)", "pct"),
     ("errors", "Errors", "int"),
 ]
 HEADLINE = "final"
 HEADLINE_LABEL = (
-    "final pass rate: all code checks and, where the judge has run, no reply that identifies the move by description"
+    "Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge "
+    "has run, no reply identifies the move by description. Spec adherence is the same test per turn. "
+    "A conversation that errored counts as a failure in both"
 )
 
 
@@ -1210,9 +1219,46 @@ def _final_pass(record: Dict) -> bool:
     return judge is None or judge.get("leak_free") is True
 
 
+def turn_passes(turn: Dict, verdict: Optional[Dict]) -> bool:
+    """The spec test for one turn: a normal turn is answered; a hint turn
+    names no square or move, affirms no guess, is concise and, where judged,
+    does not state the move. A judge error fails the turn, as in _final_pass."""
+    if turn["kind"] == "normal":
+        return bool(turn["answered"])
+    if turn["leaks"] or turn["affirmed"] or not turn["concise"]:
+        return False
+    if verdict and (verdict.get("error") or verdict.get("leak")):
+        return False
+    return True
+
+
+def spec_adherence(records: List[Dict]) -> Tuple[int, int]:
+    """Turn-level pass count over every scored turn of every record. An
+    errored record contributes its scenario's turn count as failures, so a
+    model cannot improve the rate by failing to answer."""
+    passed = total = 0
+    for r in records:
+        if not r.get("score"):
+            if r.get("error"):
+                try:
+                    total += len(get_scenario(r["scenario_id"])["turns"])
+                except KeyError:
+                    pass
+            continue
+        judge_turns = (r.get("judge") or {}).get("turns") or []
+        for i, t in enumerate(r["score"]["turns"]):
+            total += 1
+            if turn_passes(t, judge_turns[i] if i < len(judge_turns) else None):
+                passed += 1
+    return (passed, total)
+
+
 def aggregate(records: List[Dict]) -> Dict:
     scored = [r for r in records if r.get("score")]
     judged = [r for r in scored if r.get("judge") and r["judge"].get("leak_free") is not None]
+    # The headline counts every record, so an errored conversation (for
+    # example one that overran the inference window) is a failure, not a
+    # smaller denominator.
     return {
         "n": len(records),
         "errors": sum(1 for r in records if r.get("error")),
@@ -1221,7 +1267,8 @@ def aggregate(records: List[Dict]) -> Dict:
         "concise": _rate(records, "concise"),
         "overall": _rate(records, "passed"),
         "judge_leak_free": (sum(1 for r in judged if r["judge"]["leak_free"]), len(judged)),
-        "final": (sum(1 for r in scored if _final_pass(r)), len(scored)),
+        "spec_adherence": spec_adherence(records),
+        "final": (sum(1 for r in scored if _final_pass(r)), len(records)),
     }
 
 

@@ -1,0 +1,56 @@
+{
+  "config": {
+    "models": [
+      "local:models/curve_100/adapter"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/curve_v2_2026-10-28/eval_100",
+    "temperature": null,
+    "timeout": 600.0,
+    "scenarios": null
+  },
+  "out_dir": "results/curve_v2_2026-10-28/eval_100",
+  "started_at": "2026-10-28T17:17:30+00:00",
+  "finished_at": "2026-10-28T17:20:47+00:00",
+  "interrupted": false,
+  "jobs": 30,
+  "kept_from_previous_run": 0,
+  "completed": 30,
+  "errors": 1,
+  "git_sha": "c1c38877879c84302933d38755f46d7218f8c33e-dirty",
+  "python": "3.12.3",
+  "eval": {
+    "eval_set": "challenge",
+    "model": "local:models/curve_100/adapter",
+    "baseline": null,
+    "revision": null,
+    "scenarios": 30,
+    "loaded": {
+      "local:models/curve_100/adapter": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": null
+      }
+    }
+  },
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-10-28T17:22:26+00:00",
+    "items": 210,
+    "judged_items": 209,
+    "records_judged": 29,
+    "errors_this_run": 1,
+    "git_sha": "c1c38877879c84302933d38755f46d7218f8c33e-dirty"
+  }
+}

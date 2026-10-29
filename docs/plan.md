@@ -127,7 +127,8 @@ spot-checking the labels.
 
 Rerun the ablation on the new behavior with the existing CLI: 2 families
 (claude-sonnet-5.5 and gemini-3.1-pro-preview through OpenRouter; gpt-5.5
-only if budget allows) x 3 strategies x 30+ scenarios, scored by checks and
+only if budget allows; what ran on 2026-10-27 was sonnet-5.5 and gpt-5.5,
+see results/ablation_chess_2026-10-27) x 3 strategies x 30+ scenarios, scored by checks and
 the same haiku-5.5 judge used later for base vs tuned. Put real
 effort into each prompt; a weak baseline makes any win meaningless. The
 useful output is the table plus one sentence naming the failure that survives
@@ -137,7 +138,10 @@ the best cell. If there is no plateau, go back to step 1 with the music tutor.
 
 - Teacher: a cheap, strong model (the lab uses gpt-4.1-mini or
   claude-haiku-5-5; we pick from the ablation's second-best cell so the
-  teacher is not also the judge).
+  teacher is not also the judge). What ran for v1 on 2026-10-27 was
+  claude-haiku-5.5 as teacher, gate judge and eval judge, for cost. The v2
+  plan below moves the teacher to sonnet-5.5, as the brief asks, and adds a
+  second-family judge check.
 - Generation prompt in the slide's shape: the spec inside the instructions,
   `n` conversations per call, persona x situation x difficulty x length grid,
   at least `k` pushback turns per conversation, JSON array of `{"messages"}`.
@@ -248,50 +252,132 @@ directories say why.
 4. Our provider layer instead of the lab's `LLM` class. Same interface, plus
    the retry and resume behavior the pilot needed.
 
-## Budget for the rest of the project (written 2026-10-27 evening)
+## Budget as spent through 2026-10-27
 
-Measured so far: a sonnet-5.5 8-turn conversation costs about $0.05, a
-gpt-5.5 one about $0.06, a haiku-5.5 judge call about $0.0004. Training is
-local on the 4090 and free. What is left, in the order it will be spent:
+Measured: a sonnet-5.5 8-turn conversation costs about $0.05, a gpt-5.5 one
+about $0.06, a haiku-5.5 judge call about $0.0004, a haiku-5.5 teacher
+conversation about $0.0006. Training is local on the 4090 and free. Spent on
+2026-10-27: pilots and judge calibration about $9.60, the 16-scenario
+ablation $6.14, v1 data $0.62 teacher plus $1.50 gate judge, eval judge
+$0.13. Decisions taken that day: the hint-only chess coach (judged plateau
+at 20%); every run over about $1 is quoted first; training on the local
+4090.
 
-| Step | What runs | Estimate |
-|---|---|---|
-| Ablation, 16 more scenarios | 96 frontier conversations + haiku judge | $5.50, actual $6.14 |
-| Training data, 700 rows | haiku teacher, about 150 calls | under $1, actual $0.67 for 1,100 one-row calls |
-| Gate on the generated rows | haiku judge, about 5,000 hint turns | $1.70, actual $1.50 |
-| Base vs tuned, v1 and v2 | haiku judge on challenge + synthetic sets, 4 evals | $1.30 |
-| Data-efficiency curve | haiku judge on the challenge set only, 4 sizes x 2 seeds | $0.60 |
-| Staff held-out set | haiku judge, 2 evals | $0.30 |
-| Total | | about $10.50 |
+## Plan to final (written 2026-10-28, after the brief audit)
 
-Against, after the ablation: $11.90 of credit, and a $20 weekly key limit
-with $3.18 left this week (measured 2026-10-27 evening), which covers the
-data generation and its gate; the evals wait for the weekly reset or a limit
-bump. Rules: every run over $1 is quoted first; the running total is kept in
-this table; if the week's key limit runs out before the evals, the
-challenge-set evals (about $0.10 each) go first and the synthetic-set evals
-wait for the reset. Fallback if money stops after the ablation and v1: the
-submission still has the full ablation table, v1 base vs tuned on the
-challenge set, and a code-check-only curve with a judged sample.
+The audit is in docs/brief-compliance.md. Money on 2026-10-28 morning:
+credit balance $49.63, all there is; Andre raised the key's weekly limit to
+$100 so the window no longer binds. The cap for the rest of the project is
+the $49.63 balance, and the plan below spends about $20 of it.
 
-## Timeline (brief: early submission Thu 2026-10-30 midnight, final Sun 2026-11-02 noon)
+### Model policy
 
-- Mon 10-27: choose the behavior; spec; 30+ scenarios; checks; judge and its
-  calibration labels.
-- Tue 10-28: ceiling ablation (needs OpenRouter credits, about $15 to $25 with
-  frontier models and 30+ multi-turn scenarios); if a plateau shows, generate,
-  gate, split; `train.py`; v1; base vs tuned.
-- Wed 10-29: diagnose, v2, delta; curve; `eval.py`; Hub push; README.
-- Thu 10-30: early submission.
-- Fri to Sun: staff held-out set, second seed on the curve, polish, final.
+Frontier where the brief asks for it, cheap everywhere else:
 
-## Decisions needed now
+- Teacher for distillation: the brief says "distilling from a frontier
+  teacher model". v1 used haiku-5.5; v2, the dataset that gets submitted,
+  uses claude-sonnet-5.5 ($2 in, $10 out per million tokens). It was the
+  best cell of the ablation and is half the price of gpt-5.5.
+- Prompt-ceiling ablation: done with sonnet-5.5 and gpt-5.5. No more spend.
+- LLM judge: the brief asks for one rubric used everywhere, not a frontier
+  model. haiku-5.5 stays (calibrated at 80% on 40 labels, same rubric for
+  ablation, gate and base vs tuned). One second-family check with
+  gemini-3.1-flash-lite ($0.25 in, $1.50 out) on four runs shows the
+  ceiling and the base-vs-tuned gap do not depend on an Anthropic judge.
+- Gate judge: haiku-5.5, as the eval judge, so the data is filtered by the
+  rubric it is graded on.
 
-1. Behavior: the hint-only chess coach (judged pilot shows a plateau at 21%).
-2. Spend: about $9.60 went on the two pilots and the judge on 2026-10-27,
-   which Andre flagged as too much. From here every run over about $1 gets a
-   cost quote first, the judge and the teacher are claude-haiku-5.5, and the
-   ablation uses sonnet-5.5 plus gemini-3.1-pro-preview rather than gpt-5.5
-   (three times the output price). Rough remaining total: $8 to $10, with
-   about $18.40 of credit and a $20 weekly key limit ($9.60 left this week).
-3. Training on the local 4090 (recommended) or Colab.
+### Spend plan (cap $49.63, the credit balance)
+
+| # | Step | Model | Estimate |
+|---|---|---|---|
+| 1 | v2 teacher sample, 50 conversations, read 10, gate yield | sonnet-5.5 | $0.60, actual $0.67 plus $0.10 gate judge |
+| 2 | v2 teacher batch, 1,150 more conversations to reach 1,200 | sonnet-5.5 | $14.40, requoted $15.30, actual $15.11 (whole batch $15.78 with the sample) |
+| 3 | v2 gate judge, 7,122 verdicts | haiku-5.5 | $2.30, requoted $2.40, actual $2.21 |
+| 4 | v2 and base on the challenge set | haiku-5.5 | $0.16, actual $0.16 |
+| 5 | v2 curve, 4 sizes x 2 seeds | haiku-5.5 | $0.64, actual $0.48 |
+| 6 | v1 curve, the 7 unjudged points (for the v1 vs v2 curve in the Brainlift) | haiku-5.5 | $0.56 |
+| 7 | synthetic held-out set, base and v2 | haiku-5.5 | $0.30 |
+| 8 | second-family judge check: eval_base, eval_v2, two best ablation cells | gemini-3.1-flash-lite | $1.00 |
+| 9 | clean-commit reruns of base and v2 before each submission | haiku-5.5 | $0.32 |
+| | Total planned | | $20.30 |
+| | Reserve under the credit balance | | $29.30 |
+
+Step 2 token estimate came from v1 (1,470 input and 840 output tokens per
+conversation) at sonnet prices, $0.012 per conversation. The sample
+(2026-10-28, data/v2, seed 1) measured 1,611 input and 1,010 output tokens
+per conversation, $0.0133, with OpenRouter's reasoning set to low effort
+because sonnet-5.5 refuses to switch reasoning off; the plans are also
+longer than v1's (8.4 user turns against 7.5, 1.3 hard negatives against
+0.5). Gate yield on the sample: 44 of 50 (88%; v1 with haiku was 46%), 2
+structure drops, 3 square-free answers, 1 judged leak. Read of six
+conversations: specific hints, none over two sentences, answers with real
+squares and lines, varied emotional scenes. Rules stay: every step over $1 is quoted
+with the sample's real numbers and waits for a yes; the running total is
+kept in this table with actuals.
+
+Reserve uses, in order: a second teacher sample if the first yield is under
+50% (prompt tightened first, $0.60); a top-up batch if v2 lands under 600
+gated rows ($0.012 per conversation); nothing else. The DPO stretch costs no
+API money: preference pairs come from the gate's rejected rows (off-spec)
+against the accepted ones (on-spec).
+
+### v2 data changes (data only, same training config)
+
+1. Teacher sonnet-5.5 instead of haiku-5.5.
+2. Prompt fix already coded: squares banned in hints only, required in the
+   answers to normal turns; gate `require_squares` on. In v1, 137 of 233
+   hard-negative answers had no square, which is v1's failure mode.
+3. Larger share of hard-negative turns (the curve showed they are the
+   data-hungry part) and varied emotional wording (the v1 read found one
+   repeated trope).
+4. Held-out split by position, not by row: 36 of the 50 v1 synthetic-test
+   rows share a placement with train.
+5. Target: about 740 gated rows from 1,200 conversations at a 62% yield,
+   roughly 665 train after a 10% position-disjoint hold-out. Curve sizes N,
+   N/2, N/4, N/8. Actual (2026-10-28, data/v2): 907 gated from 1,200 (76%;
+   82 structure, 100 checks, 110 judge, 1 leakage), 805 train and 102 test
+   rows over 46 test placements, none shared with train; 5,613 hint turns
+   and 1,027 hard-negative turns in train, all 1,027 with a square. Curve
+   sizes 805, 402, 201, 100.
+
+### Work plan
+
+Tue 10-28
+- Step 1 sample, read, yield; then step 2 and 3 in the background.
+- No-API code while the batch runs: Spec adherence and Robustness columns
+  in the ablation table and the curve; errored conversations counted as
+  failures and the inference window raised; `eval.py` with `--judge`,
+  `--baseline`, a bare Hub id, `--revision` passed through and the snapshot
+  hash recorded; a smoke script with a mock teacher; the README and plan
+  number fixes from the audit; position-disjoint split in the gate.
+- Train v2, rerun base and v2 on the challenge set, judge (step 4).
+
+Wed 10-29
+- v2 curve, 4 sizes x 2 seeds, local; judge (steps 5 and 6).
+- Hub push of the v2 adapter and the v2 dataset with commit hashes (needs a
+  Hugging Face write token in ~/.config/agentforge/hf_token).
+- Held-out loader with a documented row schema; synthetic held-out runs
+  (step 7); second-family judge check (step 8).
+- Brainlift draft. Andre relabels the 40 calibration items.
+
+Thu 10-30, early submission by midnight
+- README results tables, failure-mode paragraph in results/, two-sentence
+  grader spec, compliance doc refreshed, tag, clean-tag reruns (step 9).
+
+Fri 10-31 to Sat 11-01
+- `demo.py` (one prompt, base and tuned side by side) and a Gradio app; the
+  running inference demo as a Colab notebook on a free GPU (a Hub Space
+  with a GPU costs money); the 3 to 5 minute video with a live grader
+  prompt.
+- DPO stretch if time allows, from gate rejects, no API spend.
+
+Sun 11-02 by noon
+- Final clean-tag reruns if code changed, final README, Brainlift, submit.
+
+### Needed from Andre
+
+- A Hugging Face write token at ~/.config/agentforge/hf_token.
+- The demo hosting choice: Colab notebook (free) or a paid Hub Space.
+- 40 relabeled calibration items (about 40 minutes).
+- The staff held-out format, if the course has published one.

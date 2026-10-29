@@ -195,12 +195,19 @@ def run_pilot(
     cfg: RunConfig,
     log: Callable[[str], None] = lambda s: print(s, file=sys.stderr),
     kept: Optional[Dict[Tuple, Dict]] = None,
+    clients: Optional[Dict[str, object]] = None,
 ) -> Dict:
+    """clients: ready-made chat clients per model spec (eval.py builds the
+    local ones itself so it can record what they loaded); any spec missing
+    from it is built here."""
     _validate(cfg)
     out_dir = cfg.out_dir or default_out_dir()
     os.makedirs(out_dir, exist_ok=True)
     # Fail fast on missing API keys before any job starts.
-    clients = {spec: make_client(spec, cfg.temperature, cfg.timeout) for spec in cfg.models}
+    clients = dict(clients or {})
+    for spec in cfg.models:
+        if spec not in clients:
+            clients[spec] = make_client(spec, cfg.temperature, cfg.timeout)
     jobs = build_jobs(cfg)
     kept = kept or {}
     records: List[Optional[Dict]] = [kept.get(_job_key(job)) for job in jobs]

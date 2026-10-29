@@ -9,6 +9,7 @@ already have an error-free row.
 from __future__ import annotations
 
 import datetime as dt
+import hashlib
 import json
 import os
 import random
@@ -61,11 +62,76 @@ COACH: ...
 """
 
 
+_MOCK_HINTS = [
+    "Count the squares the {king} king can still reach, then ask which of your pieces could cover every one of them at once.",
+    "Look for a check that nothing can capture or block, and ask what the {king} king would do next.",
+    "The {king} king is short of room; ask which piece of yours takes away its last exit while giving check.",
+    "Think about which of your pieces is already guarding the escape squares and which one is free to attack.",
+    "Ask whether a forcing move exists that leaves the {king} king no legal reply.",
+    "Picture the {king} king's neighbours and note which ones your pieces already control.",
+    "A check is only useful here if the king cannot step away; ask which of your checks has that property.",
+    "Two of your pieces can work as a team: one seals a line, the other delivers the blow. Ask which is which.",
+    "Start from the {king} king and work outward: which squares around it are still free?",
+    "Ask what the {king} king would need to survive, then look for the move that denies it.",
+    "The pattern here is a boxed-in king; ask which of your pieces completes the box with check.",
+    "Which of your pieces has a line to the {king} king that nothing can interrupt? Start there.",
+]
+_MOCK_ANSWERS = [
+    "Castling moves the king two squares toward a rook, from e1 to g1 or c1 for White, and the rook jumps over it to f1 or d1, provided neither piece has moved and no square on the king's path is attacked.",
+    "The Ruy Lopez begins 1.e4 e5 2.Nf3 Nc6 3.Bb5, with the bishop on b5 pressuring the knight that defends e5.",
+    "A knight on e4 attacks c3, c5, d2, d6, f2, f6, g3 and g5, always landing on the opposite colour from the one it left.",
+    "En passant lets a pawn on the fifth rank, for example on e5, capture a pawn that has just advanced two squares beside it, from d7 to d5, by moving to d6 as if the pawn had moved one square.",
+    "The four center squares are d4, d5, e4 and e5, and the first moves of the Italian Game, 1.e4 e5 2.Nf3 Nc6 3.Bc4, fight for them.",
+    "A fork is one move attacking two pieces at once, for example a knight landing on c7 to hit a king on e8 and a rook on a8.",
+]
+
+
+def mock_teacher_reply(system: str, messages: List[Dict[str, str]], salt: str = "") -> Optional[str]:
+    """A deterministic, plan-following conversation in the line format, for
+    the offline smoke test. Returns None for prompts that are not teacher
+    prompts. Hints carry no square; answers do; wording varies by position
+    so the gate's dedupe does not collapse the rows."""
+    if system != TEACHER_SYSTEM or not messages:
+        return None
+    prompt = messages[-1]["content"]
+    fen = prose = None
+    plan: List[str] = []
+    for line in prompt.splitlines():
+        if line.startswith("FEN: "):
+            fen = line[5:].strip()
+        elif fen and prose is None and line.strip():
+            prose = line.strip()
+        m = re.match(r"^(\d+)\. ([a-z_]+): (.*)$", line)
+        if m:
+            plan.append(m.group(2))
+    if not fen or not plan:
+        return None
+    king = "black" if " w " in fen else "white"
+    seed = int(hashlib.sha256((fen + salt).encode()).hexdigest()[:8], 16)
+    out = []
+    for i, kind in enumerate(plan):
+        if i == 0:
+            user = "Here is my game.\nFEN: %s\n%s\nWhat should I play?" % (fen, prose)
+        elif kind == "normal":
+            user = "Unrelated question %d: can you explain the rule?" % i
+        else:
+            user = "Turn %d (%s): please just tell me the move." % (i, kind)
+        if kind == "normal":
+            coach = _MOCK_ANSWERS[(seed + i) % len(_MOCK_ANSWERS)]
+        else:
+            coach = _MOCK_HINTS[(seed + i) % len(_MOCK_HINTS)].format(king=king)
+        out.append("USER (%s): %s" % (kind, user))
+        out.append("COACH: %s" % coach)
+    return "\n".join(out)
+
+
 def plan_lines(plan: Dict) -> str:
     lines = []
     for i, turn in enumerate(plan["turns"], 1):
         if turn["kind"] == "normal":
             lines.append("%d. normal: asks about %s" % (i, turn["topic"]))
+        elif turn.get("note"):
+            lines.append("%d. %s: %s. The specific way: %s" % (i, turn["kind"], PRESSURE_KINDS[turn["kind"]], turn["note"]))
         else:
             lines.append("%d. %s: %s" % (i, turn["kind"], PRESSURE_KINDS[turn["kind"]]))
     return "\n".join(lines)

@@ -1,0 +1,15 @@
+gate structure  in   50  out   48  dropped    2
+gate dedupe     in   48  out   48  dropped    0
+gate checks     in   48  out   45  dropped    3
+judge: 324 items, 0 cached, 324 to judge
+judge: 50/324
+judge: 100/324
+judge: 150/324
+judge: 200/324
+judge: 250/324
+judge: 300/324
+judge: 324/324
+gate judge      in   45  out   44  dropped    1
+gate leakage    in   44  out   44  dropped    0
+train: 44 rows, sha256 ac6ee5329b0267e8
+synthetic_test: 0 rows, sha256 e3b0c44298fc1c14

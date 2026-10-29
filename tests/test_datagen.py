@@ -33,6 +33,15 @@ def test_verify_rejects_a_wrong_answer_and_an_illegal_position():
     assert not positions.verify(illegal)
 
 
+def test_interleave_families_covers_families_evenly_and_keeps_order():
+    ps = [{"id": "%s%d" % (f, i), "family": f} for f in ("A", "B", "C") for i in range(3)] + [{"id": "D0", "family": "D"}]
+    out = positions.interleave_families(ps)
+    assert [p["id"] for p in out[:4]] == ["A0", "B0", "C0", "D0"]
+    assert sorted(p["id"] for p in out) == sorted(p["id"] for p in ps)
+    assert [p["id"] for p in out if p["family"] == "B"] == ["B0", "B1", "B2"]
+    assert positions.interleave_families([]) == []
+
+
 def test_prose_lists_pieces_in_order():
     board = chess.Board("6k1/1b3ppp/8/8/8/8/5PPP/3Q2K1 w - - 0 1")
     assert positions.prose(board) == "White: king g1, queen d1, pawns f2 g2 h2. Black: king g8, bishop b7, pawns f7 g7 h7. White to move."
@@ -59,6 +68,20 @@ def test_plan_sampler_is_seeded_and_well_formed():
     assert any("normal" in [t["kind"] for t in p["turns"]] for p in plans)
     assert len({p["persona"] for p in plans}) >= 12
     assert set(taxonomy.PRESSURE_KINDS) == c.HINT_KINDS
+    # v2: most plans carry hard negatives, and every emotional turn has a flavor
+    with_normal = sum(1 for p in plans if any(t["kind"] == "normal" for t in p["turns"]))
+    assert with_normal >= 0.7 * len(plans)
+    emotional = [t for p in plans for t in p["turns"] if t["kind"] == "emotional"]
+    assert emotional and all(t.get("note") in taxonomy.EMOTIONAL_FLAVORS for t in emotional)
+    assert len({t["note"] for t in emotional}) >= 6
+    assert all(len(p["turns"]) <= taxonomy.MAX_TURNS for p in plans)
+
+
+def test_plan_lines_carry_the_emotional_flavor():
+    plan = {"turns": [{"kind": "direct", "topic": None}, {"kind": "emotional", "topic": None, "note": "panic with the clock running out"}, {"kind": "normal", "topic": "how a rook moves"}]}
+    text = generate.plan_lines(plan)
+    assert "2. emotional:" in text and "The specific way: panic with the clock running out" in text
+    assert "3. normal: asks about how a rook moves" in text
 
 
 # --- teacher prompt and parsing ---------------------------------------------
@@ -101,6 +124,25 @@ def test_parse_conversation_line_format():
         generate.parse_conversation("COACH: hello\nUSER (direct): hi")
     with pytest.raises(ValueError):
         generate.parse_conversation("nothing useful")
+
+
+def test_mock_teacher_follows_the_plan_and_passes_the_gate_checks():
+    from pilot.clients import make_client
+
+    ps = positions.generate_positions(3, seed=11)
+    jobs = generate.make_jobs(ps, 3, seed=11)
+    client = make_client("mock:teacher")
+    texts = set()
+    for job in jobs:
+        reply = client.chat(generate.TEACHER_SYSTEM, [{"role": "user", "content": generate.teacher_prompt(job["position"], job["plan"])}], max_tokens=10)
+        msgs = generate.parse_conversation(reply.text)
+        row = {"id": job["id"], "position": job["position"], "plan": job["plan"], "messages": msgs, "error": None}
+        assert gate.check_structure(row) is None, gate.check_structure(row)
+        ok, results = gate.check_turns(row)
+        assert ok, [r for r in results if not r["ok"]]
+        texts.add(gate.normalize(" ".join(m["content"] for m in msgs if m["role"] == "assistant")))
+    assert len(texts) == 3  # wording varies by position, so the dedupe stage keeps them
+    assert generate.mock_teacher_reply("some other system prompt", [{"role": "user", "content": "hi"}]) is None
 
 
 def test_make_jobs_cycles_positions_and_is_stable():
@@ -151,6 +193,21 @@ def test_gate_dry_run_writes_split_and_manifest(tmp_path):
     assert set(first) == {"id", "family", "persona", "kinds", "messages"}
     assert "kind" not in first["messages"][0]
     assert report["output"]["train"]["sha256"] == gate.sha256_of(os.path.join(str(tmp_path), "train.jsonl"))
+
+
+def test_split_holds_out_whole_positions():
+    rows = []
+    for fam in ("A", "B"):
+        for p in range(5):
+            for twin in range(3):  # three conversations per position
+                rows.append({"id": "%s%d_%d" % (fam, p, twin), "position": {"family": fam, "fen": "%s%d/8/8/8/8/8/8/K6k w - - 0 1" % (fam.lower(), p)}})
+    train, test = gate.split_rows(rows, 0.2, seed=0)
+    assert len(train) + len(test) == 30 and test
+    assert not ({gate._placement(r) for r in test} & {gate._placement(r) for r in train})
+    for fam in ("A", "B"):  # one placement (3 rows) per family: 20% of 15 rounds to 3
+        assert sum(1 for r in test if r["position"]["family"] == fam) == 3
+    assert (train, test) == gate.split_rows(rows, 0.2, seed=0)
+    assert gate.split_rows([], 0.2, seed=0) == ([], [])
 
 
 def test_gate_with_mock_judge_drops_judged_leaks(tmp_path):

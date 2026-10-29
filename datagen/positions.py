@@ -189,3 +189,21 @@ def write_positions(positions: List[Dict], path: str) -> None:
 def load_positions(path: str) -> List[Dict]:
     with open(path, encoding="utf-8") as fh:
         return [json.loads(line) for line in fh]
+
+
+def interleave_families(positions: List[Dict]) -> List[Dict]:
+    """The same positions reordered round-robin over families, keeping each
+    family's own order, so any prefix of the list covers the families as
+    evenly as it can. The generated file is sorted by family."""
+    by_family: Dict[str, List[Dict]] = {}
+    for p in positions:
+        by_family.setdefault(p["family"], []).append(p)
+    queues = list(by_family.values())
+    out: List[Dict] = []
+    i = 0
+    while len(out) < len(positions):
+        q = queues[i % len(queues)]
+        if q:
+            out.append(q.pop(0))
+        i += 1
+    return out

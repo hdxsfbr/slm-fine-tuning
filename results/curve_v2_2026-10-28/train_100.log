@@ -1,0 +1,36 @@
+W1028 10:16:29.926000 2044498 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1028 10:16:29.965000 2044498 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+rows: 100 of data/v2/train.jsonl (sha256 39ddf31103522494)
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  65%|██████▌   | 203/310 [00:00<00:00, 2029.13it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 2272.95it/s]
+tokens per row: min 557, median 934, max 1319; over 2048: 0
+Unsloth 2026.10.9 patched 28 layers with 28 QKV layers, 28 O layers and 28 MLP layers.
+Unsloth: compiling each transformer block as one region (Qwen3DecoderLayer).
+Unsloth: Tokenizing ["text"] (num_proc=8):   0%|          | 0/100 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  13%|█▎        | 13/100 [00:01<00:08,  9.77 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  26%|██▌       | 26/100 [00:02<00:05, 12.81 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  39%|███▉      | 39/100 [00:02<00:04, 14.10 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  52%|█████▏    | 52/100 [00:03<00:03, 14.30 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  64%|██████▍   | 64/100 [00:04<00:02, 14.62 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  76%|███████▌  | 76/100 [00:05<00:01, 14.53 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8):  88%|████████▊ | 88/100 [00:06<00:00, 14.69 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8): 100%|██████████| 100/100 [00:07<00:00, 14.75 examples/s]Unsloth: Tokenizing ["text"] (num_proc=8): 100%|██████████| 100/100 [00:07<00:00, 13.95 examples/s]
+🦥 Unsloth: Padding-free auto-enabled, enabling faster training.
+Map:   0%|          | 0/100 [00:00<?, ? examples/s]Map: 100%|██████████| 100/100 [00:00<00:00, 3818.80 examples/s]
+masking: 636 of 1283 tokens carry loss on row 0; first trained text: "Look at the black king's boxed-in position: its own pawns take away two escape squares, so ask which of your pieces can deliver a check that nothing can block o"
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None}.
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 100 | Num Epochs = 2 | Total steps = 26
+O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 4
+\        /    Data Parallel GPUs = 1 | Total batch size (2 x 4 x 1) = 8
+ "-____-"     Trainable parameters = 17,432,576 of 1,738,007,552 (1.00% trained)
+  0%|          | 0/26 [00:00<?, ?it/s]  4%|▍         | 1/26 [00:01<00:34,  1.38s/it]  8%|▊         | 2/26 [00:02<00:23,  1.01it/s] 12%|█▏        | 3/26 [00:02<00:20,  1.15it/s] 15%|█▌        | 4/26 [00:03<00:17,  1.24it/s] 19%|█▉        | 5/26 [00:04<00:15,  1.31it/s]                                               19%|█▉        | 5/26 [00:04<00:15,  1.31it/s] 23%|██▎       | 6/26 [00:04<00:14,  1.39it/s] 27%|██▋       | 7/26 [00:05<00:13,  1.38it/s] 31%|███       | 8/26 [00:06<00:12,  1.41it/s] 35%|███▍      | 9/26 [00:07<00:12,  1.36it/s] 38%|███▊      | 10/26 [00:07<00:11,  1.37it/s]                                                38%|███▊      | 10/26 [00:07<00:11,  1.37it/s] 42%|████▏     | 11/26 [00:08<00:10,  1.42it/s] 46%|████▌     | 12/26 [00:09<00:09,  1.46it/s] 50%|█████     | 13/26 [00:09<00:07,  1.67it/s] 54%|█████▍    | 14/26 [00:10<00:07,  1.58it/s] 58%|█████▊    | 15/26 [00:10<00:07,  1.47it/s]                                                58%|█████▊    | 15/26 [00:10<00:07,  1.47it/s] 62%|██████▏   | 16/26 [00:11<00:06,  1.43it/s] 65%|██████▌   | 17/26 [00:12<00:06,  1.41it/s] 69%|██████▉   | 18/26 [00:13<00:05,  1.40it/s] 73%|███████▎  | 19/26 [00:13<00:05,  1.37it/s] 77%|███████▋  | 20/26 [00:14<00:04,  1.40it/s]                                                77%|███████▋  | 20/26 [00:14<00:04,  1.40it/s] 81%|████████  | 21/26 [00:15<00:03,  1.42it/s] 85%|████████▍ | 22/26 [00:15<00:02,  1.48it/s] 88%|████████▊ | 23/26 [00:16<00:02,  1.47it/s] 92%|█████████▏| 24/26 [00:17<00:01,  1.45it/s] 96%|█████████▌| 25/26 [00:17<00:00,  1.46it/s]                                                96%|█████████▌| 25/26 [00:17<00:00,  1.46it/s]100%|██████████| 26/26 [00:18<00:00,  1.74it/s]                                               100%|██████████| 26/26 [00:18<00:00,  1.74it/s]100%|██████████| 26/26 [00:18<00:00,  1.42it/s]
+Unsloth: Restored added_tokens_decoder metadata in models/curve_100/adapter/tokenizer_config.json.
+trained 26 steps, loss 2.9108, 18s -> models/curve_100/adapter
+Unsloth: Will smartly offload gradients to save VRAM!
+Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass.
+{'loss': '4.536', 'grad_norm': '5.126', 'learning_rate': '0.00016', 'epoch': '0.4'}
+{'loss': '3.066', 'grad_norm': '1.027', 'learning_rate': '0.0001619', 'epoch': '0.8'}
+{'loss': '2.57', 'grad_norm': '0.6156', 'learning_rate': '0.0001143', 'epoch': '1.16'}
+{'loss': '2.34', 'grad_norm': '0.5542', 'learning_rate': '6.667e-05', 'epoch': '1.56'}
+{'loss': '2.18', 'grad_norm': '0.528', 'learning_rate': '1.905e-05', 'epoch': '1.96'}
+{'train_runtime': '18.31', 'train_samples_per_second': '10.93', 'train_steps_per_second': '1.42', 'train_loss': '2.911', 'epoch': '2'}

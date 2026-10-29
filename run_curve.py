@@ -34,21 +34,37 @@ def run(cmd: List[str], log_path: str) -> None:
         subprocess.run(cmd, stdout=log, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL, check=True)
 
 
-def cell(eval_dir: str) -> Optional[Dict]:
-    """Pass rates of one eval directory from its transcripts."""
+def cell(eval_dir: str, model_contains: Optional[str] = None) -> Optional[Dict]:
+    """Pass rates of one eval directory from its transcripts, with the
+    behavior module's own aggregate so the curve and the results tables
+    agree. Errored conversations count as failures (they stay in the
+    denominator). model_contains keeps only the records of one model, for
+    an eval directory that also holds the baseline."""
     path = os.path.join(eval_dir, "transcripts.jsonl")
     if not os.path.exists(path):
         return None
+    from behaviors import chess_coach
+    from eval import register_from_dir
+
+    register_from_dir(eval_dir)
     recs = [json.loads(line) for line in open(path, encoding="utf-8")]
+    if model_contains:
+        recs = [r for r in recs if model_contains in r.get("model", "")]
+    if not recs:
+        return None
     scored = [r for r in recs if r.get("score")]
     judged = [r for r in scored if r.get("judge") and r["judge"].get("leak_free") is not None]
     hint = [t for r in scored for t in r["score"]["turns"] if t["kind"] != "normal"]
     normal = [t for r in scored for t in r["score"]["turns"] if t["kind"] == "normal"]
+    agg = chess_coach.aggregate(recs)
+    spec_k, spec_n = agg["spec_adherence"]
     return {
+        "n": len(recs),
         "n_scored": len(scored),
-        "errors": sum(1 for r in recs if r.get("error")),
-        "checks": sum(1 for r in scored if r["score"]["passed"]) / len(scored) if scored else None,
-        "final": (sum(1 for r in scored if r["score"]["passed"] and (r.get("judge") or {}).get("leak_free") is True) / len(scored)) if judged else None,
+        "errors": agg["errors"],
+        "checks": agg["overall"][0] / len(recs) if recs else None,
+        "spec": spec_k / spec_n if spec_n else None,
+        "final": (agg["final"][0] / len(recs)) if judged else None,
         "leak_turns": sum(1 for t in hint if t["leaks"]),
         "hint_turns": len(hint),
         "answered": sum(1 for t in normal if t["answered"]),
@@ -66,17 +82,22 @@ def pct(x: Optional[float]) -> str:
 
 
 def render(rows: List[Dict], full_n: int) -> str:
-    out = ["# Data-efficiency curve", "", "Challenge set, 30 scenarios, zero-shot system prompt, greedy decoding. `All checks` is the code-check pass rate; `Final` adds the judge where it has run.", "",
+    out = ["# Data-efficiency curve", "",
+           "Challenge set, 30 scenarios, zero-shot system prompt, greedy decoding. `All checks` is the code-check pass rate per conversation; "
+           "`Spec adherence` is the per-turn pass rate (checks and judge); `Robustness` is the per-conversation pass rate with every turn "
+           "holding (checks and judge), the headline. Errored conversations count as failures.", "",
            "Rule, fixed before looking (docs/plan.md step 7): the smallest n whose challenge-set pass rate is within %.2f of the full-N run." % THRESHOLD, "",
-           "| n | seed | steps | train loss | All checks | Final (judged) | named leaks / hint turns | negatives answered |", "|---|---|---|---|---|---|---|---|"]
+           "| n | seed | steps | train loss | All checks | Spec adherence (turns) | Robustness (judged) | named leaks / hint turns | negatives answered | errors |",
+           "|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         c = r["cell"] or {}
-        out.append("| %d%s | %s | %s | %s | %s | %s | %s | %s |" % (
+        out.append("| %d%s | %s | %s | %s | %s | %s | %s | %s | %s | %s |" % (
             r["n"], " (full)" if r["n"] == full_n else "", r.get("seed", 3407), r.get("steps", "?"),
             "%.3f" % r["loss"] if r.get("loss") is not None else "?",
-            pct(c.get("checks")), pct(c.get("final")),
+            pct(c.get("checks")), pct(c.get("spec")), pct(c.get("final")),
             "%s / %s" % (c.get("leak_turns", "?"), c.get("hint_turns", "?")),
-            "%s / %s" % (c.get("answered", "?"), c.get("normal_turns", "?"))))
+            "%s / %s" % (c.get("answered", "?"), c.get("normal_turns", "?")),
+            c.get("errors", "?")))
     # The rule is applied to the mean over seeds per size, against the
     # full-N run's seed-3407 value (the committed v1 model).
     by_n: Dict[int, List[Dict]] = {}
@@ -84,7 +105,7 @@ def render(rows: List[Dict], full_n: int) -> str:
         by_n.setdefault(r["n"], []).append(r)
     full = next((r for r in rows if r["n"] == full_n and r.get("seed", 3407) == 3407), None)
     out.append("")
-    for metric, label in (("checks", "All checks"), ("final", "Final")):
+    for metric, label in (("checks", "All checks"), ("spec", "Spec adherence"), ("final", "Robustness")):
         if not full or not full["cell"] or full["cell"].get(metric) is None:
             out.append("%s: the full-N run has no value for this metric yet." % label)
             continue
@@ -113,6 +134,8 @@ def main(argv=None) -> int:
                    help="training seed; a second seed gives a second row per size (dirs get an _s<seed> suffix)")
     p.add_argument("--sizes-with-full", action="store_true",
                    help="also train the full set with --train-seed (for a second seed of the full-N run)")
+    p.add_argument("--judge", default=None, metavar="PROVIDER:MODEL",
+                   help="run the LLM judge on each new eval (passed to eval.py); needs the provider's key")
     args = p.parse_args(argv)
     os.makedirs(args.out, exist_ok=True)
 
@@ -132,7 +155,10 @@ def main(argv=None) -> int:
                 cmd += ["--n", str(n)]
             run(cmd, os.path.join(args.out, "train_%d%s.log" % (n, suffix)))
         if not os.path.exists(os.path.join(eval_dir, "transcripts.jsonl")):
-            run([PYTHON, "eval.py", "--model", "local:" + os.path.join(model_dir, "adapter"), "--eval-set", "challenge", "--out", eval_dir], os.path.join(args.out, "eval_%d%s.log" % (n, suffix)))
+            cmd = [PYTHON, "eval.py", "--model", os.path.join(model_dir, "adapter"), "--eval-set", "challenge", "--out", eval_dir]
+            if args.judge:
+                cmd += ["--judge", args.judge]
+            run(cmd, os.path.join(args.out, "eval_%d%s.log" % (n, suffix)))
         m = manifest(model_dir)
         new_rows.append({"n": n, "seed": args.train_seed, "model": model_dir, "eval": eval_dir, "steps": m.get("train", {}).get("steps"), "loss": m.get("train", {}).get("train_loss")})
 
@@ -149,7 +175,9 @@ def main(argv=None) -> int:
     rows.sort(key=lambda r: (-r["n"], r.get("seed", 3407)))
     for r in rows:
         r.setdefault("seed", 3407)
-        r["cell"] = cell(r["eval"])
+        # The full-N eval directory may also hold the baseline's records
+        # (eval.py --baseline); keep the adapter's only.
+        r["cell"] = cell(r["eval"], os.path.join(r["model"], "adapter"))
     text = render(rows, full_n)
     with open(os.path.join(args.out, "curve.md"), "w", encoding="utf-8") as fh:
         fh.write(text)

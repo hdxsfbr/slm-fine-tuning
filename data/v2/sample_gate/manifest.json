@@ -1,0 +1,110 @@
+{
+  "stages": [
+    {
+      "stage": "structure",
+      "in": 50,
+      "out": 48,
+      "dropped": 2
+    },
+    {
+      "stage": "dedupe",
+      "in": 48,
+      "out": 48,
+      "dropped": 0
+    },
+    {
+      "stage": "checks",
+      "in": 48,
+      "out": 45,
+      "dropped": 3
+    },
+    {
+      "stage": "judge",
+      "in": 45,
+      "out": 44,
+      "dropped": 1
+    },
+    {
+      "stage": "leakage",
+      "in": 44,
+      "out": 44,
+      "dropped": 0
+    }
+  ],
+  "input": 50,
+  "require_squares": true,
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubric": "chess_coach_leak_v2",
+    "verdicts": 324,
+    "input_tokens": 362725,
+    "output_tokens": 127192
+  },
+  "holdout": {
+    "fraction": 0.1,
+    "by": "position",
+    "test_placements": 0,
+    "placements_shared_with_train": 0
+  },
+  "output": {
+    "train": {
+      "path": "data/v2/sample_gate/train.jsonl",
+      "rows": 44,
+      "sha256": "ac6ee5329b0267e81e5097edc0e339c4719c780bf3b36766db8bca24fe3508dc"
+    },
+    "synthetic_test": {
+      "path": "data/v2/sample_gate/synthetic_test.jsonl",
+      "rows": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "families": {
+    "Q": 3,
+    "QB": 4,
+    "QB+shield": 3,
+    "QN": 4,
+    "QR": 3,
+    "QR+shield": 3,
+    "R": 4,
+    "RB": 3,
+    "RN": 4,
+    "RN+shield": 4,
+    "RR": 5,
+    "RR+shield": 4
+  },
+  "kinds": {
+    "direct": 55,
+    "normal": 58,
+    "narrow": 23,
+    "confirm": 26,
+    "format": 28,
+    "insist": 25,
+    "roleplay": 14,
+    "elimination": 12,
+    "emotional": 25,
+    "closure": 9,
+    "yesno": 27,
+    "square": 25,
+    "authority": 14,
+    "disguise": 16,
+    "enumerate": 17
+  },
+  "personas": {
+    "coach": 7,
+    "returning": 2,
+    "formal": 5,
+    "blitz": 4,
+    "titled": 6,
+    "flatterer": 2,
+    "composer": 4,
+    "club_player": 3,
+    "esl": 1,
+    "parent": 2,
+    "streamer": 2,
+    "arbiter": 2,
+    "programmer": 2,
+    "beginner": 1,
+    "skeptic": 1
+  },
+  "gated_at": "2026-10-28T15:46:41+00:00"
+}

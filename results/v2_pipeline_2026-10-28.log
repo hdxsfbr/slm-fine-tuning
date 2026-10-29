@@ -1,0 +1,12 @@
+== train v2 16:53:40Z
+{'loss': '1.005', 'grad_norm': '0.7626', 'learning_rate': '3.046e-06', 'epoch': '1.983'}
+{'train_runtime': '141.8', 'train_samples_per_second': '11.35', 'train_steps_per_second': '1.424', 'train_loss': '1.385', 'epoch': '2'}
+== eval base vs v2 16:56:34Z
+chess_coach (Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both)
+  local:unsloth/Qwen3-1.7B         zero_shot 0% (0/30)
+  local:models/v2/adapter          zero_shot 70% (21/30)
+
+results: results/eval_v2_2026-10-28/results.md
+== curve seed 3407 17:04:44Z
+== curve seed 1234 17:22:27Z
+== pipeline exit 0 17:48:48Z

@@ -1,0 +1,165 @@
+{
+  "threshold": 0.05,
+  "rows": [
+    {
+      "n": 805,
+      "seed": 1234,
+      "model": "models/curve_805_s1234",
+      "eval": "results/curve_v2_2026-10-28/eval_805_s1234",
+      "steps": 202,
+      "loss": 1.3897985054714845,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.7333333333333333,
+        "spec": 0.9512195121951219,
+        "final": 0.7,
+        "leak_turns": 4,
+        "hint_turns": 220,
+        "answered": 21,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 805,
+      "seed": 3407,
+      "model": "models/v2",
+      "eval": "results/eval_v2_2026-10-28",
+      "steps": 202,
+      "loss": 1.3854668529907075,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.7,
+        "spec": 0.9552845528455285,
+        "final": 0.7,
+        "leak_turns": 6,
+        "hint_turns": 220,
+        "answered": 22,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 402,
+      "seed": 1234,
+      "model": "models/curve_402_s1234",
+      "eval": "results/curve_v2_2026-10-28/eval_402_s1234",
+      "steps": 102,
+      "loss": 1.7960801451813941,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.6333333333333333,
+        "spec": 0.9471544715447154,
+        "final": 0.6333333333333333,
+        "leak_turns": 7,
+        "hint_turns": 220,
+        "answered": 21,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 402,
+      "seed": 3407,
+      "model": "models/curve_402",
+      "eval": "results/curve_v2_2026-10-28/eval_402",
+      "steps": 102,
+      "loss": 1.8086412186716117,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.6,
+        "spec": 0.9349593495934959,
+        "final": 0.6,
+        "leak_turns": 7,
+        "hint_turns": 220,
+        "answered": 22,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 201,
+      "seed": 1234,
+      "model": "models/curve_201_s1234",
+      "eval": "results/curve_v2_2026-10-28/eval_201_s1234",
+      "steps": 52,
+      "loss": 2.303087124457726,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.4666666666666667,
+        "spec": 0.8495934959349594,
+        "final": 0.4,
+        "leak_turns": 13,
+        "hint_turns": 220,
+        "answered": 16,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 201,
+      "seed": 3407,
+      "model": "models/curve_201",
+      "eval": "results/curve_v2_2026-10-28/eval_201",
+      "steps": 52,
+      "loss": 2.313275497693282,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.3333333333333333,
+        "spec": 0.8333333333333334,
+        "final": 0.26666666666666666,
+        "leak_turns": 16,
+        "hint_turns": 220,
+        "answered": 15,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 100,
+      "seed": 1234,
+      "model": "models/curve_100_s1234",
+      "eval": "results/curve_v2_2026-10-28/eval_100_s1234",
+      "steps": 26,
+      "loss": 2.899296760559082,
+      "cell": {
+        "n": 30,
+        "n_scored": 28,
+        "errors": 2,
+        "checks": 0.5,
+        "spec": 0.6991869918699187,
+        "final": 0.4,
+        "leak_turns": 14,
+        "hint_turns": 202,
+        "answered": 1,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 100,
+      "seed": 3407,
+      "model": "models/curve_100",
+      "eval": "results/curve_v2_2026-10-28/eval_100",
+      "steps": 26,
+      "loss": 2.9107765968029318,
+      "cell": {
+        "n": 30,
+        "n_scored": 29,
+        "errors": 1,
+        "checks": 0.5333333333333333,
+        "spec": 0.8048780487804879,
+        "final": 0.5,
+        "leak_turns": 6,
+        "hint_turns": 210,
+        "answered": 2,
+        "normal_turns": 26
+      }
+    }
+  ]
+}

@@ -12,8 +12,9 @@ Stages, each recorded in the report with how many rows it dropped:
     judge       every hint turn through the same judge and rubric as the
                 ablation; a row fails if any hint turn states the move
     leakage     no FEN or user message shared with the eval scenarios
-    split       stratified by position family, 10% held out as the
-                synthetic test set; sha256 of each file in the manifest
+    split       stratified by position family and held out by position
+                (whole placements go to one side), 10% as the synthetic
+                test set; sha256 of each file in the manifest
 """
 from __future__ import annotations
 
@@ -176,6 +177,43 @@ def sha256_of(path: str) -> str:
     return h.hexdigest()
 
 
+def _placement(row: Dict) -> str:
+    return row["position"]["fen"].split()[0]
+
+
+def split_rows(rows: List[Dict], holdout: float, seed: int) -> Tuple[List[Dict], List[Dict]]:
+    """Train/test split stratified by position family and held out by
+    position: every row of a placement goes to one side, so a test
+    conversation never shares its position with a training one. (v1 held
+    out rows, and 36 of its 50 test rows shared a placement with train.)
+    Within a family, whole placements are moved to test until the held-out
+    share of that family's rows is reached, so the test share can overshoot
+    by part of one placement."""
+    rng = random.Random(seed)
+    by_family: Dict[str, List[Dict]] = {}
+    for row in rows:
+        by_family.setdefault(row["position"]["family"], []).append(row)
+    train, test = [], []
+    for family in sorted(by_family):
+        bucket = by_family[family]
+        groups: Dict[str, List[Dict]] = {}
+        for row in bucket:
+            groups.setdefault(_placement(row), []).append(row)
+        keys = sorted(groups)
+        rng.shuffle(keys)
+        k = int(round(holdout * len(bucket)))
+        taken = 0
+        for key in keys:
+            if taken < k:
+                test += groups[key]
+                taken += len(groups[key])
+            else:
+                train += groups[key]
+    rng.shuffle(train)
+    rng.shuffle(test)
+    return train, test
+
+
 def run_gate(rows: List[Dict], out_dir: str, judge_client=None, judge_workers: int = 6, seed: int = 0,
              holdout: float = 0.10, require_squares: bool = True,
              log: Callable[[str], None] = lambda s: print(s, file=sys.stderr)) -> Dict:
@@ -263,20 +301,17 @@ def run_gate(rows: List[Dict], out_dir: str, judge_client=None, judge_workers: i
         keep.append(row)
     rows = stage("leakage", keep, drop)
 
-    # split, stratified by position family
-    rng = random.Random(seed)
+    # split, stratified by position family and held out by position
+    train, test = split_rows(rows, holdout, seed)
     by_family: Dict[str, List[Dict]] = {}
     for row in rows:
         by_family.setdefault(row["position"]["family"], []).append(row)
-    train, test = [], []
-    for family in sorted(by_family):
-        bucket = by_family[family]
-        rng.shuffle(bucket)
-        k = int(round(holdout * len(bucket)))
-        test += bucket[:k]
-        train += bucket[k:]
-    rng.shuffle(train)
-    rng.shuffle(test)
+    report["holdout"] = {
+        "fraction": holdout,
+        "by": "position",
+        "test_placements": len({_placement(r) for r in test}),
+        "placements_shared_with_train": len({_placement(r) for r in test} & {_placement(r) for r in train}),
+    }
 
     def strip(row: Dict) -> Dict:
         return {

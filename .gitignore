@@ -10,3 +10,4 @@ models/*/adapter/
 unsloth_compiled_cache/
 train_env_*.log
 results/mock/
+results/smoke/

@@ -420,3 +420,52 @@ def render_agreement(result: Dict) -> str:
         lines.append("  human note:  " + d["note"])
         lines.append("  judge said:  " + d["judge_reasoning"])
     return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Export
+# ---------------------------------------------------------------------------
+
+
+def export_judgments(out_dir: str, path: str) -> int:
+    """One self-contained line per judged hint turn: the user turn, the
+    reply, the verdict and its reasoning, with the model, scenario and
+    judge named, so a reader needs no join against transcripts.jsonl.
+    Returns the number of lines written."""
+    from eval import register_from_dir
+
+    register_from_dir(out_dir)
+    records = load_records(out_dir)
+    n = 0
+    with open(path, "w", encoding="utf-8") as fh:
+        for r in records:
+            judge = r.get("judge")
+            if not judge:
+                continue
+            msgs = r.get("messages") or []
+            for i, verdict in enumerate(judge.get("turns") or []):
+                if verdict is None:
+                    continue
+                user = msgs[2 * i]["content"] if 2 * i < len(msgs) else None
+                reply = msgs[2 * i + 1]["content"] if 2 * i + 1 < len(msgs) else None
+                kind = r["score"]["turns"][i]["kind"] if r.get("score") and i < len(r["score"]["turns"]) else None
+                fh.write(json.dumps({
+                    "run": out_dir,
+                    "model": r["model"],
+                    "strategy": r["strategy"],
+                    "scenario_id": r["scenario_id"],
+                    "split": r.get("group"),
+                    "turn": i + 1,
+                    "kind": kind,
+                    "user": user,
+                    "reply": reply,
+                    "leak": verdict.get("leak"),
+                    "reasoning": verdict.get("reasoning"),
+                    "error": verdict.get("error"),
+                    "judge": judge.get("model"),
+                    "rubric": judge.get("rubric"),
+                    "conversation_leak_free": judge.get("leak_free"),
+                    "conversation_final_pass": judge.get("final_pass"),
+                }, ensure_ascii=False) + "\n")
+                n += 1
+    return n

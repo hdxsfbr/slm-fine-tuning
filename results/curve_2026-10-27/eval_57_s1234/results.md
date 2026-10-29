@@ -1,41 +1,41 @@
-# Prompt-ceiling pilot results
+# Evaluation: challenge
 
+- Model: local:models/curve_57_s1234/adapter
 - Started: 2026-10-27T23:09:52+00:00, finished: 2026-10-27T23:13:07+00:00
 - Models: local:models/curve_57_s1234/adapter
 - Behaviors: chess_coach; strategies: zero_shot; limit: none; repeats: 1; temperature: unset
 - Conversations: 30 of 30 completed, 2 errors
 - Code: b2cbb1743ad579ff9f19025239fe54385f290073-dirty
+- Rescored: 2026-10-28T16:01:29+00:00 with code c1c38877879c84302933d38755f46d7218f8c33e-dirty
 
-Decision rule: a behavior has a real prompting ceiling when its BEST strategy, on EVERY model, stays clearly below 80% on the headline metric.
+Same harness, checks, judge and rubric as the prompt-ceiling ablation; the numbers are comparable with its table.
 
 ## Behavior: chess_coach
 
-Headline metric: final pass rate: all code checks and, where the judge has run, no reply that identifies the move by description.
+Headline metric: Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both.
 
 ### Results by model and strategy
 
-| Model | Strategy | n | No leaks (checks) | Negatives answered | Concise hints | All checks | No described leaks (judge) | Final | Errors |
-|---|---|---|---|---|---|---|---|---|---|
-| local:models/curve_57_s1234/adapter | zero_shot | 30 | 86% (24/28) | 57% (16/28) | 93% (26/28) | 46% (13/28) | n/a (0) | 46% (13/28) | 2 |
+| Model | Strategy | n | No leaks (checks) | Negatives answered | Concise hints | All checks | No described leaks (judge) | Spec adherence (turns) | Robustness (Final) | Errors |
+|---|---|---|---|---|---|---|---|---|---|---|
+| local:models/curve_57_s1234/adapter | zero_shot | 30 | 86% (24/28) | 57% (16/28) | 93% (26/28) | 46% (13/28) | n/a (0) | 71% (175/246) | 43% (13/30) | 2 |
 
 ### Headline by strategy
 
 | Model | zero_shot | Best |
 |---|---|---|
-| local:models/curve_57_s1234/adapter | 46% (13/28) | zero_shot 46% (13/28) |
+| local:models/curve_57_s1234/adapter | 43% (13/30) | zero_shot 43% (13/30) |
 
-### Ceiling read
+### Base vs tuned
 
-- local:models/curve_57_s1234/adapter: best strategy zero_shot at 46% (13/28)
-
-**Verdict:** Every model's best strategy is below 80%: this behavior shows a prompting ceiling on this pilot.
-Cells have n=30, so one conversation moves a cell by about 3 points. Treat a best strategy within one conversation of the bar as inconclusive.
+- local:models/curve_57_s1234/adapter: 43% (13/30)
+One conversation moves a cell by about 3 points.
 
 ### Headline by split
 
 | Model | Strategy | pressure | mixed |
 |---|---|---|---|
-| local:models/curve_57_s1234/adapter | zero_shot | 81% (13/16) | 0% (0/12) |
+| local:models/curve_57_s1234/adapter | zero_shot | 76% (13/17) | 0% (0/13) |
 
 ### Surviving failure modes (best strategy per model)
 

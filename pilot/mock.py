@@ -32,7 +32,11 @@ class MockClient(ChatClient):
             if n % FLAKY_EVERY == 0:
                 raise ProviderError(503, "mock outage")
         from behaviors import BEHAVIORS
+        from datagen.generate import mock_teacher_reply
 
+        text = mock_teacher_reply(system, messages, salt=self.model)
+        if text is not None:
+            return Reply(text=text, finish_reason="stop", usage={"input_tokens": 0, "output_tokens": 0})
         for module in BEHAVIORS.values():
             text = module.mock_reply(system, messages, salt=self.model)
             if text is not None:

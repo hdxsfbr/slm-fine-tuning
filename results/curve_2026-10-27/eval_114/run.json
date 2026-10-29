@@ -32,5 +32,7 @@
     "model": "local:models/curve_114/adapter",
     "revision": null,
     "scenarios": 30
-  }
+  },
+  "rescored_at": "2026-10-28T16:01:28+00:00",
+  "rescored_git_sha": "c1c38877879c84302933d38755f46d7218f8c33e-dirty"
 }

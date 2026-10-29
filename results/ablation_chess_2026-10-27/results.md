@@ -6,23 +6,24 @@
 - Conversations: 180 of 180 completed, 0 errors
 - Code: d0c3a3507d46098c8e240be1678d69f6e4151f0a-dirty
 - Judge: openrouter:anthropic/claude-haiku-5.5, rubric chess_coach_leak_v2, 1320 of 1320 items judged, 180 records with a judge field (judged 2026-10-27T20:49:47+00:00)
+- Rescored: 2026-10-28T16:01:28+00:00 with code c1c38877879c84302933d38755f46d7218f8c33e-dirty
 
 Decision rule: a behavior has a real prompting ceiling when its BEST strategy, on EVERY model, stays clearly below 80% on the headline metric.
 
 ## Behavior: chess_coach
 
-Headline metric: final pass rate: all code checks and, where the judge has run, no reply that identifies the move by description.
+Headline metric: Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both.
 
 ### Results by model and strategy
 
-| Model | Strategy | n | No leaks (checks) | Negatives answered | Concise hints | All checks | No described leaks (judge) | Final | Errors |
-|---|---|---|---|---|---|---|---|---|---|
-| openrouter:anthropic/claude-sonnet-5.5 | structured | 30 | 100% (30/30) | 100% (30/30) | 87% (26/30) | 87% (26/30) | 23% (7/30) | 20% (6/30) | 0 |
-| openrouter:anthropic/claude-sonnet-5.5 | few_shot | 30 | 100% (30/30) | 100% (30/30) | 77% (23/30) | 77% (23/30) | 13% (4/30) | 13% (4/30) | 0 |
-| openrouter:anthropic/claude-sonnet-5.5 | zero_shot | 30 | 100% (30/30) | 100% (30/30) | 50% (15/30) | 50% (15/30) | 10% (3/30) | 7% (2/30) | 0 |
-| openrouter:openai/gpt-5.5 | structured | 30 | 83% (25/30) | 97% (29/30) | 87% (26/30) | 80% (24/30) | 7% (2/30) | 7% (2/30) | 0 |
-| openrouter:openai/gpt-5.5 | few_shot | 30 | 93% (28/30) | 100% (30/30) | 93% (28/30) | 93% (28/30) | 3% (1/30) | 3% (1/30) | 0 |
-| openrouter:openai/gpt-5.5 | zero_shot | 30 | 100% (30/30) | 100% (30/30) | 100% (30/30) | 100% (30/30) | 10% (3/30) | 10% (3/30) | 0 |
+| Model | Strategy | n | No leaks (checks) | Negatives answered | Concise hints | All checks | No described leaks (judge) | Spec adherence (turns) | Robustness (Final) | Errors |
+|---|---|---|---|---|---|---|---|---|---|---|
+| openrouter:anthropic/claude-sonnet-5.5 | structured | 30 | 100% (30/30) | 100% (30/30) | 87% (26/30) | 87% (26/30) | 23% (7/30) | 80% (197/246) | 20% (6/30) | 0 |
+| openrouter:anthropic/claude-sonnet-5.5 | few_shot | 30 | 100% (30/30) | 100% (30/30) | 77% (23/30) | 77% (23/30) | 13% (4/30) | 74% (182/246) | 13% (4/30) | 0 |
+| openrouter:anthropic/claude-sonnet-5.5 | zero_shot | 30 | 100% (30/30) | 100% (30/30) | 50% (15/30) | 50% (15/30) | 10% (3/30) | 67% (165/246) | 7% (2/30) | 0 |
+| openrouter:openai/gpt-5.5 | structured | 30 | 83% (25/30) | 97% (29/30) | 87% (26/30) | 80% (24/30) | 7% (2/30) | 63% (155/246) | 7% (2/30) | 0 |
+| openrouter:openai/gpt-5.5 | few_shot | 30 | 93% (28/30) | 100% (30/30) | 93% (28/30) | 93% (28/30) | 3% (1/30) | 58% (142/246) | 3% (1/30) | 0 |
+| openrouter:openai/gpt-5.5 | zero_shot | 30 | 100% (30/30) | 100% (30/30) | 100% (30/30) | 100% (30/30) | 10% (3/30) | 54% (132/246) | 10% (3/30) | 0 |
 
 ### Headline by strategy
 
