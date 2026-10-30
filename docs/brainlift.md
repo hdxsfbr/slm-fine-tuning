@@ -52,9 +52,11 @@ results/ablation_chess_2026-10-27/failure_mode.md.
 Spiky view 1: a behavior can have a prompt ceiling that your checks cannot
 see. Two earlier candidates (anti-sycophancy, no AI-writing tells) scored
 100% on the best prompt and were dropped. The chess coach looked the same
-until the judge was built and calibrated (80% agreement with 40 hand labels;
-rubric v1, which asked the judge to work out whether only one move fit the
-hint, agreed 66% because the judges solved the puzzle themselves).
+until the judge was built and calibrated (80% agreement with the 40 hand
+labels written before judging, 68% with the author's later blind relabel,
+which is also the two labelers' agreement with each other; rubric v1,
+which asked the judge to work out whether only one move fit the hint,
+agreed 66% because the judges solved the puzzle themselves).
 
 ## Method
 
@@ -258,9 +260,15 @@ flattened between 649 and 1,298.
 
 haiku-5.5 is the gate judge and the eval judge, so a second family read
 the same transcripts under the same rubric (gemini-3.1-flash-lite,
-results/judge_check_2026-10-29). Against the 40 hand labels both judges
-score 80%, haiku from the strict side and gemini from the lenient side, and
-only 3 of each one's 8 misses are shared. On base vs v2 they agree on 76%
+results/judge_check_2026-10-29). Against the 40 hand labels written before
+judging both judges score 80%, haiku from the strict side and gemini from
+the lenient side, and only 3 of each one's 8 misses are shared. Against
+the author's blind relabel of the same items (2026-10-30) both score 68%,
+and the two labelers agree with each other 68%: the line between a hint
+that names the piece and a stated move is where people disagree too, and
+the 80% with the first labels reflects a shared author. On the 16 v2
+replies the judges disputed, the author sides with haiku on 15 of 16. On
+base vs v2 they agree on 76%
 of turns (kappa 0.52); the disagreements are 88 base replies, which fail
 anyway, and 16 v2 replies, enough to put v2 at 47% Robustness under gemini
 against 70% under haiku, with the base at 0% under both and the frontier
@@ -276,8 +284,10 @@ and the one reported is haiku's, with gemini's beside it.
 - A model above the 80% bar on Robustness: v3c is at 77% on the
   submitted seed and 70% on a second, one to three conversations short,
   with two disguise leaks and five over-refused hard negatives left.
-- The 40 calibration labels were written by the assistant that built the
-  judge, not by the author; they are being relabeled.
+- The judge's agreement with hand labels is 80% against labels written by
+  the assistant that built it and 68% against the author's, with the two
+  labelers at 68%; at the margin the rubric's line is fuzzy for people
+  too.
 
 ## Artifacts
 

@@ -26,10 +26,10 @@ judge; a smoke run of the whole loop; raw judge transcripts per turn; a Brainlif
 
 Open for the early submission: nothing; the public Hub checkpoint and the dataset went up on
 2026-10-29 and the code is committed on main (4dafda9, tagged early-submission).
-Open for the final: a Hub Space for the demo (it is deployed from the lab machine; the video is done), the staff
-held-out set when it is published (the synthetic held-out run is done), relabeled calibration items and a hand read of the 16 judge disagreements on v2
-(the second-family judge check itself is done), and a model above the 80% bar (v2 is at
-70%, with one failure mode left).
+Open for the final (as of 2026-10-30 night): the staff held-out set when it is published
+(the synthetic held-out runs are done), the video upload, and a model above the 80% bar
+(v3c is at 77% and 70% on two seeds). The relabel is done; the demo stays on the lab
+machine by decision.
 
 ## Open items, worst first
 
@@ -41,7 +41,7 @@ F = final.
 | 15 | Inference demo and video | "running inference demo", "3 to 5 minute demo video ... one live, grader-supplied prompt" | demo_server.py serves base and tuned side by side on any prompt (tested, 7 tests) and demo.py does the same on the CLI. The video is done (docs/demo/out/chess-coach-demo.mp4, 3:46, recorded 2026-10-29 from the page with the adapter by Hub id, narrated in Andre's cloned voice; scene 6 is the live prompt). The page is deployed at https://hdx-lab.tailf4eaa9.ts.net/ (the lab GPU, a systemd user service published with Tailscale Funnel; up as long as the lab machine is). Left: a Hub Space so the demo does not depend on the lab machine, and publishing the video file, which is gitignored. | minor | F | Space 2 to 3 h |
 | 12 | Staff held-out eval set | "run against a scenario set your model never saw" | The loader accepts rows as messages or plain turns, derives positions from a FEN, and documents the schema (README, "Held-out set format"). Synthetic held-out run done 2026-10-29 (results/eval_v2_heldout_2026-10-29): base 0 of 102, v2 95 of 102 (93%) on positions train never saw, every hint turn judged. The staff set itself has not been published; the one command runs it as soon as it exists. | minor (waiting on the course) | F | 20 min once the set exists |
 | 13 | Minimum viable N on a model that holds the behavior | "the smallest N that holds the behavior reliably" | v3c (2026-10-30, 1,298 rows: v2 plus a named-pattern batch on random positions and one on textbook positions) holds 77%, 23 of 30, on the submitted seed and 70% on a second seed, against v2's 70% on both; two disguise leaks and five over-refused hard negatives remain. The v3c curve (1,298, 649, 324, 162; two seeds; judged; results/curve_v3c_2026-10-30) gives 1,298 by the rule on Robustness and 649 on per-turn adherence; stated as "at least 1,298 for this spec", below the 80% bar. The three passes are written up in the README ("v3", "v3b", "v3c") and the Brainlift. | should-fix (disclosed) | F | none planned; the next data change is more two-sided named-pattern rows |
-| 10 | Judge validity | "the same LLM-as-judge rubric" | Second family checked 2026-10-29 (results/judge_check_2026-10-29/summary.md): gemini-3.1-flash-lite agrees with the 40 labels at 80%, as haiku does; on base vs v2 the judges agree on 76% of turns (kappa 0.52) and gemini puts v2 at 47% Robustness against haiku's 70%, the base at 0% under both; the ceiling holds under both judges. Left: a hand read of the 16 disagreements on v2 replies (in the 8 read so far gemini's reason is outside the rubric), and the 40 labels, written by the assistant, wait for Andre's relabel. | should-fix | F | 40 min of Andre's time for the labels, 15 min for the 16 |
+| 10 | Judge validity | "the same LLM-as-judge rubric" | Second family checked 2026-10-29 (results/judge_check_2026-10-29/summary.md): gemini-3.1-flash-lite agrees with the 40 labels at 80%, as haiku does; on base vs v2 the judges agree on 76% of turns (kappa 0.52) and gemini puts v2 at 47% Robustness against haiku's 70%, the base at 0% under both; the ceiling holds under both judges. Andre relabeled the 40 items blind on 2026-10-30 (labels_andre.jsonl, via label_server.py): haiku and gemini each agree 68% (27 of 40) with his labels, and the two labelers agree 68% with each other; on the 16 disputed v2 replies he sides with haiku on 15 (disagreements_labeled_andre.jsonl). Disclosed in the README and the Brainlift. | resolved (disclosed) | F | none |
 | 11 | Pinned eval-code commit | "exact eval-code commit hash" | The code is tagged early-submission (4dafda9) on main and pushed; model and data commits are pinned in the manifests and every run.json. The sha in run.json and the manifests carries a dirty suffix because the runner flags any untracked file or doc edit, not only code changes; base and v2 rerun from the tag with the adapter loaded by Hub id reproduced the headline transcripts exactly (results/eval_v2_early_submission_2026-10-29). Accepted as is. | minor | F | none; the check could ignore untracked and non-code paths before the final tag, 10 min |
 | 3 | Brainlift | "behavior thesis, and whether data to behavior held, with evidence" | docs/brainlift.md drafted with thesis, spec, ceiling, v1, v2, both curves, minimum N and four spiky views. Final pass after the held-out runs. | should-fix | E draft done, F | 1 h |
 | 1b | v2 failure mode (disguise) | the spirit of "iterating on data, not hyperparameters" | Diagnosed: all v2 leaks are on disguise turns that name a textbook pattern. Resolved by data in three passes: v3 (names as hard negatives on random positions) leaked more, v3b (names as disguises on textbook positions, datagen/patterns.py) over-refused, v3c (both) holds 2 more conversations than v2 with 2 disguise leaks left of 13. Same training configuration throughout. | resolved | F | none |
@@ -70,12 +70,12 @@ items found, and Andre's decision on each:
   - the smoke log predated the v3 data-generation code: rerun, results/smoke_2026-10-30.log;
   - a labeling page for the 40 calibration items and the 16 disputed v2 turns
     (label_server.py), so the relabel is Andre's own read (item 10).
-- Still open from the audit: the video's live prompt was written for the recording and
-  typed live, not supplied by a grader; scene 6 is re-recorded once Andre or a peer
-  supplies one. The eval-code commit is pinned by a tag on the final commit.
+- Accepted from the audit (Andre, 2026-10-30): the video's live prompt was written for
+  the recording and typed live, not supplied by a grader. The eval-code commit is pinned
+  by a tag on the final commit.
 - Optional, not done: the second-judge check on v3c ($0.30), a curve on the synthetic
   test rows (about $5), a model above the 80% bar (v3c is at 77% and 70% on two seeds).
-- Outside the repo: the video upload, Andre's relabels, the staff held-out set (not
+- Outside the repo: the video upload, the staff held-out set (not
   posted as of 2026-10-30), confirmation that graders can clone an internal GitLab
   project.
 

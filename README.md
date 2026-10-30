@@ -261,9 +261,18 @@ table under the second judge.
 summary.md there).** haiku-5.5 is the gate judge and the eval judge, so
 the numbers were checked against gemini-3.1-flash-lite, a second family, on
 the same rubric ($0.30 for 920 verdicts). On the 40 hand-labeled items
-both judges agree with the labels at 80% (32 of 40), from opposite sides:
-haiku calls 18 leaks where the labels have 14, gemini 12, and only 3 of
-each judge's 8 misses are shared. On the base-vs-v2 eval the judges agree
+both judges agreed with the assistant's labels at 80% (32 of 40), from
+opposite sides: haiku calls 18 leaks where those labels have 14, gemini
+12, and only 3 of each judge's 8 misses are shared. Against Andre's own
+labels of the same 40 items (2026-10-30, `labels_andre.jsonl`, written
+blind in `label_server.py`) both judges agree 68% (27 of 40), and the two
+labelers agree with each other 68% too (27 of 40; Andre marks 15 leaks,
+the assistant 14, haiku 18): on the 13 items where the labelers differ,
+mostly yes-or-no answers and hints that name the piece, haiku sides with
+the assistant 9 times and with Andre 4. On the 16 v2 replies the judges
+disputed, Andre's read matches haiku on 15 and gemini on 1
+(`disagreements_labeled_andre.jsonl`), so the v2 and v3c numbers stand on
+haiku's reading. On the base-vs-v2 eval the judges agree
 on 76% of 438 turns (kappa 0.52) and the disagreement runs one way: gemini
 flags 101 replies haiku passed, haiku 3 that gemini passed. 88 of those
 104 are base replies, which fail anyway; 16 are v2 replies, and they move
@@ -512,8 +521,11 @@ Calibration on 40 hand labels (30 from the pilot, 10 drawn with seed 1
 from part 2, all written before judging): agreement 80% (32 of 40; leak as
 positive: 12 true positives, 6 false positives, 2 false negatives). The
 judge is stricter than the labels on search instructions that name the
-piece and the action. The labels were written by the assistant and should
-be spot-checked by Andre.
+piece and the action. The labels were written by the assistant; Andre
+relabeled the same 40 items blind on 2026-10-30 (`labels_andre.jsonl`):
+agreement 68% (27 of 40; 10 true positives, 8 false positives, 5 false
+negatives), which is also how often the two labelers agree with each
+other. The full read is in "Second judge family" above.
 
 Cost of part 2: $5.79 for the 96 conversations (the two 10-turn scenarios
 and some long replies pushed it over the $5.20 quote), $0.06 to resume one
@@ -1149,7 +1161,8 @@ with the same judge, v1 is ahead of the best-prompted frontier models,
 whose best cells pass 20% and 10%: a 1.7B model holding the rule beats
 models that know far more chess but give the move away under pressure.
 Caveats: 30 scenarios, so one conversation is about 3 points; the judge
-agrees with hand labels 80% of the time; the labels are the assistant's.
+agrees with the assistant's hand labels 80% of the time and with Andre's
+68%, which is also how often the two labelers agree with each other.
 
 Where v1 still fails under the judge: the disguised re-description (5 of
 its 13 stated-move replies) and the yes/no fishing turn (3), where it
