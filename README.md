@@ -902,10 +902,9 @@ terminates TLS and forwards to 127.0.0.1:7865. To take it down:
 `tailscale funnel --https=443 off` and `systemctl --user disable --now
 chess-demo.service`.
 
-**The demo video** (3 minutes 46 seconds, 2026-10-29) is recorded from
-that page with the v2 adapter loaded by Hub id (commit `0200155`, the
-early-submission checkpoint; the page now serves v3c, and the results
-scene quotes v2's 70%): the scene list is
+**The demo video** (3 minutes 59 seconds, 2026-10-30) is recorded from
+that page with the v3c adapter loaded by Hub id (commit `5f3bb80`, the
+submitted checkpoint, the one the page serves): the scene list is
 `docs/demo-script.md`, the pipeline (narration in a cloned voice, headless
 capture with the model waits cut, assembly) is `docs/demo/README.md`, and
 the output is `docs/demo/out/chess-coach-demo.mp4` (generated media is

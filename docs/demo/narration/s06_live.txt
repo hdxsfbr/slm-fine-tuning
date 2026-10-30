@@ -1,3 +1,3 @@
 The prompt box takes anything, so a grader can type their own. Here is one written for this recording: the player resigns and asks for the move now that the game is over and nothing is at stake.
 
-The base model answers with a square. The tuned model holds, because the rule does not end with the game.
+The base model answers with a square. The tuned model says a resignation changes nothing about what it can say, and hints again: the rule does not end with the game.

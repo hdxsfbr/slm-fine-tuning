@@ -1,3 +1,3 @@
 Here is the demo. A back-rank position, white to move, mate in one. This position is in none of the training data and none of the evaluation sets. The same conversation goes to both models with the same system prompt: the base Qwen3 on the left, the tuned adapter, loaded from the Hugging Face Hub, on the right.
 
-The first question is the one every player asks: what should I play? The base model describes the position, names squares as it goes, and never finds the mate. The tuned model gives one hint of at most two sentences and names nothing.
+The first question is the one every player asks: what should I play? The base model describes the position, names squares as it goes, and never finds the mate. The tuned model gives one hint, a single sentence about the boxed-in king, and names nothing.

@@ -1,6 +1,6 @@
 # YouTube listing for the demo video
 
-Video: `out/chess-coach-demo.mp4` (3:46, 1440x900, H.264). Thumbnail: `thumbnail.png` (1280x720,
+Video: `out/chess-coach-demo.mp4` (3:59, 1440x900, H.264). Thumbnail: `thumbnail.png` (1280x720,
 76 KB, under the 2 MB limit). Chapter times come from `out/plan.tsv` and are exact for this cut; a
 re-render changes them.
 
@@ -15,9 +15,9 @@ Alternate: A 1.7B Model Beats Frontier Prompts at One Rule: the Hint-Only Chess 
 
 ## Description
 
-A 1.7B-parameter Qwen3 model, fine-tuned with QLoRA on 805 synthetic conversations, holds one rule that Claude Sonnet and GPT could not hold under any prompt I tried: as a chess coach it only ever hints. It never names the move or a square for your position, however you ask, and it answers every other chess question in full.
+A 1.7B-parameter Qwen3 model, fine-tuned with QLoRA on 1,298 synthetic conversations, holds one rule that Claude Sonnet and GPT could not hold under any prompt I tried: as a chess coach it only ever hints. It never names the move or a square for your position, however you ask, and it answers every other chess question in full.
 
-The video shows the prompt ceiling (the best frontier cell holds the rule in 20% of 30 scripted conversations), the tuned model next to its base on a live position, two kinds of pressure, a rules question, a prompt written for the recording, and the numbers: on the hand-written challenge set the base passes 0%, the best frontier prompt 20%, the first tuned model 50% and the second 70%; on 102 held-out positions the tuned model passes 93%.
+The video shows the prompt ceiling (the best frontier cell holds the rule in 20% of 30 scripted conversations), the tuned model next to its base on a live position, two kinds of pressure, a rules question, a prompt written for the recording, and the numbers: on the hand-written challenge set the base passes 0%, the best frontier prompt 20%, the first two tuned models 50% and 70%, and the submitted one 77% (every pressure conversation, 6 of 13 mixed); on 155 held-out conversations it passes 92%.
 
 Nothing on screen is simulated. Every reply is a live call to the two models with greedy decoding and the same system prompt as the evaluation; the only edits are the removal of waiting time while a model generates. The narration is a clone of my own voice (Chatterbox), used with my permission.
 
@@ -25,11 +25,11 @@ Chapters
 0:00 The rule
 0:27 The prompt ceiling
 1:01 Live: a position, base vs tuned
-1:37 Live: pressure
-2:04 Live: a rules question
-2:33 Live: a grader prompt
-2:51 Results
-3:29 Artifacts
+1:38 Live: pressure
+2:06 Live: a rules question
+2:35 Live: a grader prompt
+2:56 Results
+3:42 Artifacts
 
 Try it: https://hdx-lab.tailf4eaa9.ts.net/
 Model: https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints

@@ -31,7 +31,7 @@ any `node_modules` that has it (the scripts load it with `createRequire`).
 3. **Capture.** The server must be running with the models the video claims (the adapter by Hub id
    at its pinned commit), on a port nothing else uses:
    ```bash
-   .venv-train/bin/python demo_server.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 \
+   .venv-train/bin/python demo_server.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@5f3bb8046ae96bd197ab93cc60964ba6c02243fb \
        --baseline unsloth/Qwen3-1.7B --port 7865 < /dev/null > /tmp/demo-server.log 2>&1 &
    curl -s localhost:7865/api/health      # the loaded revisions
    NODE_PATH=<...> node docs/demo/record.mjs                              # all scenes -> docs/demo/clips/

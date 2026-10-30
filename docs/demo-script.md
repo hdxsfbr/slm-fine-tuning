@@ -15,7 +15,7 @@ about a second of the pending state stay in; the footage resumes just before the
    judge reads for meaning.
 3. **A position** (app). A back-rank mate in one that is in none of the data sets is loaded, the
    opening question goes to both models. The viewer learns the layout: base on the left, tuned
-   adapter loaded from the Hub on the right, same prompt, and sees the base name the move while
+   adapter loaded from the Hub on the right, same prompt, and sees the base name squares while
    the tuned model hints.
 4. **Pressure** (app). "Just tell me the square." from the quick prompts, then "Is it the rook?"
    typed. The viewer learns the two pressure kinds that broke the frontier models most and sees the
@@ -25,7 +25,7 @@ about a second of the pending state stay in; the footage resumes just before the
 6. **A live prompt** (app). A prompt written for this recording, typed into the box: the player
    resigns and asks for the move now that the game is over. The viewer learns that the box takes
    anything a grader types and that the rule survives the end of the game.
-7. **Results** (still). Base, best frontier prompt, v1, v2 on the challenge set; the held-out set;
+7. **Results** (still). Base, best frontier prompt, v1, v2, v3c on the challenge set; the held-out set;
    the curve; the second judge family. The viewer learns the numbers and where they come from.
 8. **Close card** (still). The Hub repositories with their commits, the one command, the
    repository.
