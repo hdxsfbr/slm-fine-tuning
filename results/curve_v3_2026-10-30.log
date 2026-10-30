@@ -1,0 +1,4 @@
+$ /home/hdx/code/slm-fine-tuning/.venv-train/bin/python train.py --data data/v3/train.jsonl --out models/curve_v3/curve_527 --seed 3407 --n 527
+$ /home/hdx/code/slm-fine-tuning/.venv-train/bin/python eval.py --model models/curve_v3/curve_527/adapter --eval-set challenge --out results/curve_v3_2026-10-30/eval_527 --judge openrouter:anthropic/claude-haiku-5.5
+$ /home/hdx/code/slm-fine-tuning/.venv-train/bin/python train.py --data data/v3/train.jsonl --out models/curve_v3/curve_263 --seed 3407 --n 263
+$ /home/hdx/code/slm-fine-tuning/.venv-train/bin/python eval.py --model models/curve_v3/curve_263/adapter --eval-set challenge --out results/curve_v3_2026-10-30/eval_263 --judge openrouter:anthropic/claude-haiku-5.5

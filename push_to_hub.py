@@ -142,9 +142,32 @@ def dataset_card(repo: str, manifest: Dict) -> str:
         "",
         "## Gate",
         "",
-        "| Stage | In | Out | Dropped |",
-        "|---|---|---|---|",
     ]
+    if manifest.get("merged_from"):
+        # A merged version (run_datagen.py merge): every source was gated on
+        # its own, so the card shows each gate; the merge only checks that
+        # no test row shares a position with a train row.
+        lines += [
+            "This version merges %d gated batches; row ids carry the batch name as a prefix. Each batch went through"
+            % len(manifest["merged_from"]),
+            "the same gate on its own, and the merge checked that the test rows share no position with the train rows",
+            "(%s held-out positions, %s shared)." % (manifest.get("holdout", {}).get("test_placements"), manifest.get("holdout", {}).get("placements_shared_with_train")),
+            "",
+        ]
+        for entry in manifest["merged_from"]:
+            gate = entry.get("gate", {})
+            lines += [
+                "### `%s`: %s train rows, %s test rows" % (entry.get("name"), entry.get("train.jsonl", {}).get("rows"), entry.get("synthetic_test.jsonl", {}).get("rows")),
+                "",
+            ]
+            lines += _gate_table(gate.get("stages", []), gate.get("judge", {}))
+    else:
+        lines += _gate_table(stages, judge)
+    return "\n".join(lines)
+
+
+def _gate_table(stages, judge) -> list:
+    lines = ["| Stage | In | Out | Dropped |", "|---|---|---|---|"]
     for s in stages:
         lines.append("| %s | %s | %s | %s |" % (s.get("stage"), s.get("in"), s.get("out"), s.get("dropped")))
     lines += [
@@ -152,7 +175,7 @@ def dataset_card(repo: str, manifest: Dict) -> str:
         "Judge: `%s`, rubric `%s`, %s verdicts." % (judge.get("model"), judge.get("rubric"), judge.get("verdicts")),
         "",
     ]
-    return "\n".join(lines)
+    return lines
 
 
 def main(argv=None) -> int:

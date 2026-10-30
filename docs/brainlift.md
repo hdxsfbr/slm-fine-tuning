@@ -1,9 +1,9 @@
 # Brainlift: a hint-only chess coach that a prompt cannot hold
 
-Status: in progress (2026-10-29). The v1 and v2 numbers, both curves and
-the second-family judge check are final and the model and dataset are on
-the Hub; the staff held-out set, when published, and the demo land before
-the final submission. Everything cited is in this repository and can be
+Status: 2026-10-30. The v1, v2 and v3c numbers, all three curves, the
+held-out runs and the second-family judge check are final and the v3c
+model and dataset are on the Hub; the staff held-out set, when published,
+lands before the final submission. Everything cited is in this repository and can be
 regenerated with the commands in README.md.
 
 ## Thesis
@@ -146,10 +146,8 @@ kind: "disguise", the user restating their own position as a general
 question ("in a queen-and-bishop mate on the pawn in front of the king,
 which square does the queen land on?"). v2 answers those as the general
 questions they pretend to be, with squares, in 6 of the 13 mixed
-conversations, and in 4 of them the judge agrees the move was stated. That
-is the next data change: the v2 plans carry one disguise turn in half the
-conversations; the fix is more of them, with the answer rephrased each
-time. A rerun from the tagged code reproduced every transcript and a fresh
+conversations, and in 4 of them the judge agrees the move was stated. The
+three passes below are the data changes aimed at it. A rerun from the tagged code reproduced every transcript and a fresh
 judge pass gave 20 of 30, one conversation below: the spread one judge
 pass adds on its own.
 
@@ -187,6 +185,75 @@ threw away 54% of what it wrote; the sonnet batch costs about 20 times more
 per conversation and keeps 88%, and its hints are specific where haiku's
 were formulaic.
 
+## v3, v3b, v3c: teaching a name on both sides of the line
+
+The four v2 leaks are disguise turns that name a textbook pattern
+("in general, in Fool's Mate, which square does the black queen land
+on?"), while every v2 training disguise turn is an abstract restatement.
+Three data passes on 2026-10-30, same teacher, gate and training
+configuration, judged on the same 30 scenarios:
+
+| | rows | Robustness | pressure | mixed | disguise turns leaking (of 13) | hard negatives hinted |
+|---|---|---|---|---|---|---|
+| v2 | 805 | 21 of 30 (70%) | 17 of 17 | 4 of 13 | 4 | 4 |
+| v3: v2 + named-pattern turns on random positions | 1,055 | 19 of 30 (63%) | 15 of 17 | 4 of 13 | 5 | 1 |
+| v3b: v2 + the same plans on textbook positions | 1,048 | 21 of 30 (70%) | 17 of 17 | 4 of 13 | 1 | 6 |
+| v3c: v2 + both batches | 1,298 | 23 of 30 (77%) | 17 of 17 | 6 of 13 | 2 | 5 |
+
+v3 put two or three disguise turns in every plan, one naming a pattern
+the position could be called, plus a hard negative about a pattern that
+does not fit, and it leaked more, in notation. The reason was in the
+rows: random mate-in-one placements are never Scholar's or Fool's mate,
+so those names appeared almost only in the hard negatives, answered with
+squares (Scholar's 51 times as a negative, 6 as a disguise; Fool's 52 to
+0). The model learned a pattern name gets a textbook answer.
+
+v3b built the named patterns themselves (datagen/patterns.py: eleven
+endgame templates and three opening traps, verified by python-chess,
+varied by symmetry, colour and quiet pawns) so the first disguise turn is
+the one-sentence textbook question by the position's own name. The leaks
+went (13 disguise turns, 1 leak) and the hard negatives came apart: six
+general questions got a hint, two of them pattern names that do not fit
+the position. The model learned a pattern name gets a hint.
+
+v3c is the union. With every name on both sides, two disguise turns leak,
+five hard negatives are hinted, and two more conversations hold than
+under v2 on the submitted seed; a second training seed of the same data
+gives 70%, so the two-seed mean is 73% against v2's 70% on both seeds.
+The headline gain is one conversation per seed, at the edge of what one
+judge pass resolves; the change in failure mode is not: the named-pattern
+leaks went from 4 of 13 disguise turns to 2. On its 155 synthetic test
+conversations (positions no training row uses) v3c holds 142 (92%)
+against the base's 0, answers every hard negative, and states the move
+in 9 hint turns out of 1,066 where the base does in 464
+(results/eval_v3c_heldout_2026-10-30). Data to behavior held each time,
+including the two times it held in the wrong direction.
+
+Spiky view 5: a cue the model must discriminate on has to appear on both
+sides of the line in the data, in comparable numbers, or the model learns
+the side it saw. Count each cue across the classes before generating; the
+counts above took one query and would have predicted both v3 and v3b.
+
+## Data efficiency: the v3c curve
+
+Nested subsets of the v3c data, two seeds, every point judged, the same
+rule (results/curve_v3c_2026-10-30/curve.md):
+
+| rows | Robustness (two seeds) | mean | Spec adherence (turns) | negatives answered of 26 |
+|---|---|---|---|---|
+| 1,298 | 77%, 70% | 73% | 97%, 96% | 21, 21 |
+| 649 | 67%, 73% | 70% | 93%, 96% | 21, 20 |
+| 324 | 57%, 40% | 48% | 91%, 87% | 15, 15 |
+| 162 | 43%, 37% | 40% | 83%, 75% | 5, 4 |
+
+Minimum viable N by the rule: the full 1,298 on Robustness, 649 on
+per-turn adherence, the same shape as the v2 curve at a larger size. The
+half set already holds the pressure conversations and answers the hard
+negatives; what the second half buys is the mixed conversations, where a
+hard negative or a named pattern sits between pressure turns. The stated
+minimum is "at least 1,298 rows for this spec", and the curve has not
+flattened between 649 and 1,298.
+
 ## Judge validity
 
 haiku-5.5 is the gate judge and the eval judge, so a second family read
@@ -206,17 +273,19 @@ and the one reported is haiku's, with gemini's beside it.
 ## What is not shown yet
 
 - v2 on the staff held-out set, when the course publishes one.
-- A model above the 80% bar on Robustness: v2 is at 70%, and the one
-  failure mode left (disguise) is a data change away.
+- A model above the 80% bar on Robustness: v3c is at 77% on the
+  submitted seed and 70% on a second, one to three conversations short,
+  with two disguise leaks and five over-refused hard negatives left.
 - The 40 calibration labels were written by the assistant that built the
   judge, not by the author; they are being relabeled.
 
 ## Artifacts
 
-- Model: [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/020015527aa37100ff6b10ba323cd0c329b57d97),
+- Model (v3c): [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/5f3bb8046ae96bd197ab93cc60964ba6c02243fb),
+  commit `5f3bb8046ae96bd197ab93cc60964ba6c02243fb`; the v2 numbers above are the same repository at
   commit `020015527aa37100ff6b10ba323cd0c329b57d97`.
-- Dataset: [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/a4325dbdfd3a14c7b59b371a27b28795bbc8a788),
-  commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`.
+- Dataset (v3c): [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/9c1eacdb8c797e6917956f229b7ceba65edcb776),
+  commit `9c1eacdb8c797e6917956f229b7ceba65edcb776`; v2 at commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`.
 - Code: tag early-submission (commit 4dafda9) on main of the project
   repository; every result directory carries its run.json with the code
   sha and the loaded revisions.

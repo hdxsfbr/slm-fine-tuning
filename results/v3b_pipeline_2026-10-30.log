@@ -1,0 +1,437 @@
+== 2026-10-30T17:23:04Z generate sample: 50 conversations, mix v3b on textbook positions, sonnet-5.5 low reasoning
+50 jobs, 0 done, 50 to generate with openrouter:anthropic/claude-sonnet-5.5
+[1/50] gen_0006 streamer     back_rank   7 turns ok
+[2/50] gen_0000 beginner     scholars    8 turns ok
+[3/50] gen_0004 beginner     anastasia   8 turns ok
+[4/50] gen_0007 kid          epaulette  10 turns ok
+[5/50] gen_0005 streamer     smothered   7 turns ok
+[6/50] gen_0001 composer     fools      11 turns ok
+[7/50] gen_0003 flatterer    arabian    11 turns ok
+[8/50] gen_0002 streamer     legals     10 turns ok
+[9/50] gen_0009 skeptic      opera       6 turns ok
+[10/50] gen_0012 kid          box         7 turns ok
+[11/50] gen_0008 blitz        boden       9 turns ok
+[12/50] gen_0010 kid          damiano     9 turns ok
+[13/50] gen_0011 beginner     ladder      8 turns ok
+[14/50] gen_0013 composer     promotion   8 turns ok
+[15/50] gen_0014 blitz        scholars   10 turns ok
+[16/50] gen_0015 parent       fools      10 turns ok
+[17/50] gen_0016 esl          legals      9 turns ok
+[18/50] gen_0019 streamer     smothered   7 turns ok
+[19/50] gen_0018 skeptic      anastasia  11 turns ok
+[20/50] gen_0017 esl          arabian    10 turns ok
+[21/50] gen_0020 kid          back_rank  10 turns ok
+[22/50] gen_0022 programmer   boden      10 turns ok
+[23/50] gen_0021 streamer     epaulette  10 turns ok
+[24/50] gen_0023 titled       opera      10 turns ok
+[25/50] gen_0024 titled       damiano    10 turns ok
+[26/50] gen_0025 arbiter      ladder      8 turns ok
+[27/50] gen_0026 esl          box         9 turns ok
+[28/50] gen_0028 coach        scholars    8 turns ok
+[29/50] gen_0027 blitz        promotion  10 turns ok
+[30/50] gen_0029 skeptic      fools       8 turns ok
+[31/50] gen_0031 streamer     arabian     7 turns ok
+[32/50] gen_0030 kid          legals     10 turns ok
+[33/50] gen_0032 arbiter      anastasia   8 turns ok
+[34/50] gen_0033 beginner     smothered   8 turns ok
+[35/50] gen_0034 streamer     back_rank  10 turns ok
+[36/50] gen_0035 formal       epaulette   9 turns ok
+[37/50] gen_0036 blitz        boden       7 turns ok
+[38/50] gen_0037 programmer   opera       8 turns ok
+[39/50] gen_0038 flatterer    damiano     8 turns ok
+[40/50] gen_0039 esl          ladder     10 turns ok
+[41/50] gen_0040 skeptic      box         9 turns ok
+[42/50] gen_0041 formal       promotion   8 turns ok
+[43/50] gen_0042 blitz        scholars   10 turns ok
+[44/50] gen_0043 skeptic      fools       6 turns ok
+[45/50] gen_0044 composer     legals      8 turns ok
+[46/50] gen_0045 formal       arabian     7 turns ok
+[47/50] gen_0046 flatterer    anastasia  10 turns ok
+[48/50] gen_0047 parent       smothered   9 turns ok
+[49/50] gen_0048 composer     back_rank  11 turns ok
+[50/50] gen_0049 returning    epaulette  10 turns ok
+generated 50 rows now (0 errors), tokens in 97099 out 57283 -> data/v3b_extra/generated.jsonl
+== 2026-10-30T17:24:21Z gate sample
+gate structure  in   50  out   49  dropped    1
+gate dedupe     in   49  out   49  dropped    0
+gate checks     in   49  out   47  dropped    2
+judge: 331 items, 0 cached, 331 to judge
+judge: 50/331
+judge: 100/331
+judge: 150/331
+judge: 200/331
+judge: 250/331
+judge: 300/331
+judge: 331/331
+gate judge      in   47  out   41  dropped    6
+gate leakage    in   41  out   41  dropped    0
+train: 41 rows, sha256 295140f550f2c6a8
+synthetic_test: 0 rows, sha256 e3b0c44298fc1c14
+== 2026-10-30T17:26:44Z batch: resume to 350 conversations (mix v3b), then gate, merge v2 + v3b_extra -> data/v3b, train models/v3b, eval vs base
+350 jobs, 50 done, 300 to generate with openrouter:anthropic/claude-sonnet-5.5
+[1/300] gen_0052 programmer   damiano    10 turns ok
+[2/300] gen_0055 flatterer    promotion   8 turns ok
+[3/300] gen_0057 formal       fools       9 turns ok
+[4/300] gen_0054 formal       box         8 turns ok
+[5/300] gen_0051 club_player  opera      11 turns ok
+[6/300] gen_0050 parent       boden      10 turns ok
+[7/300] gen_0053 returning    ladder      9 turns ok
+[8/300] gen_0056 formal       scholars   10 turns ok
+[9/300] gen_0059 composer     arabian     7 turns ok
+[10/300] gen_0058 kid          legals      9 turns ok
+[11/300] gen_0063 coach        epaulette   7 turns ok
+[12/300] gen_0060 formal       anastasia   7 turns ok
+[13/300] gen_0062 esl          back_rank  10 turns ok
+[14/300] gen_0061 skeptic      smothered   9 turns ok
+[15/300] gen_0064 skeptic      boden       9 turns ok
+[16/300] gen_0065 blitz        opera      10 turns ok
+[17/300] gen_0066 blitz        damiano     9 turns ok
+[18/300] gen_0067 arbiter      ladder      7 turns ok
+[19/300] gen_0069 arbiter      promotion   6 turns ok
+[20/300] gen_0068 formal       box         8 turns ok
+[21/300] gen_0071 programmer   fools       7 turns ok
+[22/300] gen_0072 streamer     legals      7 turns ok
+[23/300] gen_0070 coach        scholars    9 turns ok
+[24/300] gen_0073 esl          arabian     7 turns ok
+[25/300] gen_0074 titled       anastasia  11 turns ok
+[26/300] gen_0077 kid          epaulette   8 turns ok
+[27/300] gen_0075 coach        smothered   9 turns ok
+[28/300] gen_0078 club_player  boden       9 turns ok
+[29/300] gen_0076 formal       back_rank   8 turns ok
+[30/300] gen_0080 streamer     damiano     9 turns ok
+[31/300] gen_0081 formal       ladder      9 turns ok
+[32/300] gen_0079 skeptic      opera       9 turns ok
+[33/300] gen_0082 parent       box         9 turns ok
+[34/300] gen_0086 flatterer    legals      8 turns ok
+[35/300] gen_0087 programmer   arabian     8 turns ok
+[36/300] gen_0085 beginner     fools      10 turns ok
+[37/300] gen_0084 coach        scholars    9 turns ok
+[38/300] gen_0083 titled       promotion  11 turns ok
+[39/300] gen_0089 esl          smothered   9 turns ok
+[40/300] gen_0088 coach        anastasia  10 turns ok
+[41/300] gen_0090 coach        back_rank   7 turns ok
+[42/300] gen_0091 parent       epaulette   9 turns ok
+[43/300] gen_0092 skeptic      boden       8 turns ok
+[44/300] gen_0093 coach        opera       9 turns ok
+[45/300] gen_0095 formal       ladder      8 turns ok
+[46/300] gen_0094 returning    damiano     8 turns ok
+[47/300] gen_0096 streamer     box         8 turns ok
+[48/300] gen_0098 club_player  scholars    7 turns ok
+[49/300] gen_0097 skeptic      promotion   8 turns ok
+[50/300] gen_0101 formal       arabian     9 turns ok
+[51/300] gen_0103 arbiter      smothered   8 turns ok
+[52/300] gen_0099 skeptic      fools      11 turns ok
+[53/300] gen_0100 blitz        legals     11 turns ok
+[54/300] gen_0102 arbiter      anastasia   8 turns ok
+[55/300] gen_0105 composer     epaulette   8 turns ok
+[56/300] gen_0104 esl          back_rank  10 turns ok
+[57/300] gen_0106 beginner     boden      10 turns ok
+[58/300] gen_0107 coach        opera      10 turns ok
+[59/300] gen_0108 arbiter      damiano     8 turns ok
+[60/300] gen_0110 returning    box         6 turns ok
+[61/300] gen_0109 kid          ladder      9 turns ok
+[62/300] gen_0113 parent       fools       7 turns ok
+[63/300] gen_0112 returning    scholars    8 turns ok
+[64/300] gen_0111 returning    promotion  11 turns ok
+[65/300] gen_0114 streamer     legals      9 turns ok
+[66/300] gen_0116 blitz        anastasia  10 turns ok
+[67/300] gen_0115 kid          arabian    10 turns ok
+[68/300] gen_0119 kid          epaulette   7 turns ok
+[69/300] gen_0117 formal       smothered   9 turns ok
+[70/300] gen_0122 arbiter      damiano     6 turns ok
+[71/300] gen_0118 flatterer    back_rank   9 turns ok
+[72/300] gen_0121 returning    opera      10 turns ok
+[73/300] gen_0120 skeptic      boden       9 turns ok
+[74/300] gen_0123 returning    ladder      7 turns ok
+[75/300] gen_0128 esl          legals      9 turns ok
+[76/300] gen_0124 returning    box        10 turns ok
+[77/300] gen_0125 streamer     promotion   9 turns ok
+[78/300] gen_0127 beginner     fools      10 turns ok
+[79/300] gen_0126 arbiter      scholars    9 turns ok
+[80/300] gen_0129 beginner     arabian     7 turns ok
+[81/300] gen_0130 esl          anastasia   9 turns ok
+[82/300] gen_0131 composer     smothered   7 turns ok
+[83/300] gen_0134 formal       boden       7 turns ok
+[84/300] gen_0133 streamer     epaulette   9 turns ok
+[85/300] gen_0136 streamer     damiano    10 turns ok
+[86/300] gen_0132 streamer     back_rank   9 turns ok
+[87/300] gen_0137 esl          ladder      9 turns ok
+[88/300] gen_0135 flatterer    opera      10 turns ok
+[89/300] gen_0138 parent       box         7 turns ok
+[90/300] gen_0139 flatterer    promotion   8 turns ok
+[91/300] gen_0140 formal       scholars    8 turns ok
+[92/300] gen_0143 flatterer    arabian     7 turns ok
+[93/300] gen_0144 kid          anastasia  10 turns ok
+[94/300] gen_0146 titled       back_rank   8 turns ok
+[95/300] gen_0141 coach        fools      10 turns ok
+[96/300] gen_0142 programmer   legals     10 turns ok
+[97/300] gen_0145 kid          smothered   9 turns ok
+[98/300] gen_0147 formal       epaulette   9 turns ok
+[99/300] gen_0148 composer     boden       8 turns ok
+[100/300] gen_0151 flatterer    ladder      7 turns ok
+[101/300] gen_0152 titled       box         8 turns ok
+[102/300] gen_0149 parent       opera       9 turns ok
+[103/300] gen_0150 coach        damiano    10 turns ok
+[104/300] gen_0154 skeptic      scholars    7 turns ok
+[105/300] gen_0153 beginner     promotion  11 turns ok
+[106/300] gen_0155 blitz        fools       8 turns ok
+[107/300] gen_0156 flatterer    legals      8 turns ok
+[108/300] gen_0158 kid          anastasia   8 turns ok
+[109/300] gen_0160 coach        back_rank   9 turns ok
+[110/300] gen_0157 programmer   arabian    10 turns ok
+[111/300] gen_0159 coach        smothered   8 turns ok
+[112/300] gen_0161 kid          epaulette   8 turns ok
+[113/300] gen_0163 skeptic      opera       9 turns ok
+[114/300] gen_0162 kid          boden       9 turns ok
+[115/300] gen_0164 skeptic      damiano     9 turns ok
+[116/300] gen_0166 composer     box         7 turns ok
+[117/300] gen_0165 club_player  ladder     10 turns ok
+[118/300] gen_0168 parent       scholars    9 turns ok
+[119/300] gen_0171 esl          arabian     8 turns ok
+[120/300] gen_0167 beginner     promotion  11 turns ok
+[121/300] gen_0172 skeptic      anastasia   8 turns ok
+[122/300] gen_0169 formal       fools      11 turns ok
+[123/300] gen_0170 titled       legals     11 turns ok
+[124/300] gen_0173 titled       smothered   8 turns ok
+[125/300] gen_0176 esl          boden       8 turns ok
+[126/300] gen_0175 esl          epaulette   8 turns ok
+[127/300] gen_0174 beginner     back_rank   8 turns ok
+[128/300] gen_0177 beginner     opera      10 turns ok
+[129/300] gen_0179 kid          ladder      7 turns ok
+[130/300] gen_0178 coach        damiano    11 turns ok
+[131/300] gen_0180 arbiter      box         9 turns ok
+[132/300] gen_0181 titled       promotion   9 turns ok
+[133/300] gen_0183 esl          fools       7 turns ok
+[134/300] gen_0182 blitz        scholars    9 turns ok
+[135/300] gen_0186 composer     anastasia   9 turns ok
+[136/300] gen_0185 blitz        arabian     9 turns ok
+[137/300] gen_0187 kid          smothered   8 turns ok
+[138/300] gen_0184 composer     legals     11 turns ok
+[139/300] gen_0188 blitz        back_rank   8 turns ok
+[140/300] gen_0189 titled       epaulette   7 turns ok
+[141/300] gen_0191 blitz        opera      10 turns ok
+[142/300] gen_0190 blitz        boden      10 turns ok
+[143/300] gen_0192 skeptic      damiano    10 turns ok
+[144/300] gen_0193 flatterer    ladder     11 turns ok
+[145/300] gen_0195 returning    promotion   7 turns ok
+[146/300] gen_0196 composer     scholars    8 turns ok
+[147/300] gen_0194 composer     box         8 turns ok
+[148/300] gen_0197 coach        fools      10 turns ok
+[149/300] gen_0198 beginner     legals      9 turns ok
+[150/300] gen_0199 formal       arabian     9 turns ok
+[151/300] gen_0203 blitz        epaulette   7 turns ok
+[152/300] gen_0201 parent       smothered   7 turns ok
+[153/300] gen_0202 beginner     back_rank   7 turns ok
+[154/300] gen_0200 coach        anastasia   8 turns ok
+[155/300] gen_0205 blitz        opera       9 turns ok
+[156/300] gen_0204 composer     boden       9 turns ok
+[157/300] gen_0208 parent       box         7 turns ok
+[158/300] gen_0206 streamer     damiano    10 turns ok
+[159/300] gen_0207 parent       ladder     10 turns ok
+[160/300] gen_0211 arbiter      fools       6 turns ok
+[161/300] gen_0209 returning    promotion   9 turns ok
+[162/300] gen_0210 parent       scholars   10 turns ok
+[163/300] gen_0213 coach        arabian     9 turns ok
+[164/300] gen_0212 kid          legals      8 turns ok
+[165/300] gen_0214 club_player  anastasia   9 turns ok
+[166/300] gen_0217 blitz        epaulette  11 turns ok
+[167/300] gen_0216 formal       back_rank   8 turns ok
+[168/300] gen_0215 parent       smothered   8 turns ok
+[169/300] gen_0218 flatterer    boden      10 turns ok
+[170/300] gen_0219 parent       opera      11 turns ok
+[171/300] gen_0220 coach        damiano    10 turns ok
+[172/300] gen_0221 parent       ladder     10 turns ok
+[173/300] gen_0222 parent       box         8 turns ok
+[174/300] gen_0224 returning    scholars    8 turns ok
+[175/300] gen_0223 beginner     promotion   9 turns ok
+[176/300] gen_0225 blitz        fools      10 turns ok
+[177/300] gen_0230 arbiter      back_rank   7 turns ok
+[178/300] gen_0227 club_player  arabian    10 turns ok
+[179/300] gen_0228 esl          anastasia  10 turns ok
+[180/300] gen_0229 parent       smothered   9 turns ok
+[181/300] gen_0226 titled       legals      9 turns ok
+[182/300] gen_0233 arbiter      opera       9 turns ok
+[183/300] gen_0231 parent       epaulette  10 turns ok
+[184/300] gen_0232 titled       boden      10 turns ok
+[185/300] gen_0235 kid          ladder      7 turns ok
+[186/300] gen_0237 streamer     promotion   7 turns ok
+[187/300] gen_0236 kid          box         9 turns ok
+[188/300] gen_0234 coach        damiano     9 turns ok
+[189/300] gen_0238 titled       scholars    8 turns ok
+[190/300] gen_0241 blitz        arabian     8 turns ok
+[191/300] gen_0239 esl          fools       8 turns ok
+[192/300] gen_0240 esl          legals      9 turns ok
+[193/300] gen_0242 esl          anastasia   7 turns ok
+[194/300] gen_0245 skeptic      epaulette   8 turns ok
+[195/300] gen_0246 titled       boden       8 turns ok
+[196/300] gen_0248 arbiter      damiano     7 turns ok
+[197/300] gen_0244 formal       back_rank  10 turns ok
+[198/300] gen_0243 titled       smothered   9 turns ok
+[199/300] gen_0247 coach        opera      10 turns ok
+[200/300] gen_0249 esl          ladder     10 turns ok
+[201/300] gen_0250 arbiter      box         8 turns ok
+[202/300] gen_0253 beginner     fools       7 turns ok
+[203/300] gen_0252 flatterer    scholars    6 turns ok
+[204/300] gen_0251 arbiter      promotion   9 turns ok
+[205/300] gen_0255 kid          arabian    10 turns ok
+[206/300] gen_0256 composer     anastasia  11 turns ok
+[207/300] gen_0257 esl          smothered  10 turns ok
+[208/300] gen_0254 returning    legals      9 turns ok
+[209/300] gen_0258 blitz        back_rank   9 turns ok
+[210/300] gen_0259 arbiter      epaulette  10 turns ok
+[211/300] gen_0260 skeptic      boden       9 turns ok
+[212/300] gen_0261 parent       opera       9 turns ok
+[213/300] gen_0262 esl          damiano    10 turns ok
+[214/300] gen_0263 titled       ladder      7 turns ok
+[215/300] gen_0265 club_player  promotion   9 turns ok
+[216/300] gen_0264 skeptic      box         8 turns ok
+[217/300] gen_0266 arbiter      scholars   11 turns ok
+[218/300] gen_0270 blitz        anastasia   8 turns ok
+[219/300] gen_0267 kid          fools      10 turns ok
+[220/300] gen_0269 skeptic      arabian     7 turns ok
+[221/300] gen_0268 returning    legals      7 turns ok
+[222/300] gen_0271 composer     smothered   8 turns ok
+[223/300] gen_0272 club_player  back_rank   9 turns ok
+[224/300] gen_0273 returning    epaulette   8 turns ok
+[225/300] gen_0275 beginner     opera       7 turns ok
+[226/300] gen_0277 kid          ladder      8 turns ok
+[227/300] gen_0274 coach        boden      10 turns ok
+[228/300] gen_0276 beginner     damiano     8 turns ok
+[229/300] gen_0278 arbiter      box         8 turns ok
+[230/300] gen_0279 esl          promotion   8 turns ok
+[231/300] gen_0281 skeptic      fools       8 turns ok
+[232/300] gen_0280 formal       scholars   11 turns ok
+[233/300] gen_0286 skeptic      back_rank   7 turns ok
+[234/300] gen_0285 formal       smothered   7 turns ok
+[235/300] gen_0282 flatterer    legals     10 turns ok
+[236/300] gen_0284 streamer     anastasia   8 turns ok
+[237/300] gen_0283 flatterer    arabian    11 turns ok
+[238/300] gen_0288 composer     boden       9 turns ok
+[239/300] gen_0287 beginner     epaulette  10 turns ok
+[240/300] gen_0289 formal       opera       7 turns ok
+[241/300] gen_0290 club_player  damiano     7 turns ok
+[242/300] gen_0293 kid          promotion   8 turns ok
+[243/300] gen_0291 streamer     ladder      8 turns ok
+[244/300] gen_0292 skeptic      box         8 turns ok
+[245/300] gen_0294 arbiter      scholars    7 turns ok
+[246/300] gen_0295 flatterer    fools       8 turns ok
+[247/300] gen_0297 parent       arabian    10 turns ok
+[248/300] gen_0296 programmer   legals     10 turns ok
+[249/300] gen_0298 returning    anastasia   7 turns ok
+[250/300] gen_0299 esl          smothered   9 turns ok
+[251/300] gen_0301 esl          epaulette   9 turns ok
+[252/300] gen_0303 parent       opera       8 turns ok
+[253/300] gen_0300 formal       back_rank  11 turns ok
+[254/300] gen_0304 arbiter      damiano     9 turns ok
+[255/300] gen_0302 programmer   boden      11 turns ok
+[256/300] gen_0305 formal       ladder      8 turns ok
+[257/300] gen_0307 arbiter      promotion   7 turns ok
+[258/300] gen_0306 composer     box         9 turns ok
+[259/300] gen_0308 formal       scholars    7 turns ok
+[260/300] gen_0311 coach        arabian     8 turns ok
+[261/300] gen_0309 coach        fools       9 turns ok
+[262/300] gen_0313 coach        smothered   8 turns ok
+[263/300] gen_0312 returning    anastasia   7 turns ok
+[264/300] gen_0315 titled       epaulette   7 turns ok
+[265/300] gen_0314 beginner     back_rank   9 turns ok
+[266/300] gen_0310 returning    legals     11 turns ok
+[267/300] gen_0316 club_player  boden       9 turns ok
+[268/300] gen_0317 beginner     opera       8 turns ok
+[269/300] gen_0318 parent       damiano     8 turns ok
+[270/300] gen_0319 titled       ladder      8 turns ok
+[271/300] gen_0320 parent       box        10 turns ok
+[272/300] gen_0322 returning    scholars    7 turns ok
+[273/300] gen_0321 club_player  promotion   9 turns ok
+[274/300] gen_0323 coach        fools      11 turns ok
+[275/300] gen_0324 formal       legals      9 turns ok
+[276/300] gen_0325 beginner     arabian     7 turns ok
+[277/300] gen_0326 titled       anastasia   8 turns ok
+[278/300] gen_0330 arbiter      boden       8 turns ok
+[279/300] gen_0328 flatterer    back_rank   9 turns ok
+[280/300] gen_0327 beginner     smothered  11 turns ok
+[281/300] gen_0329 flatterer    epaulette  10 turns ok
+[282/300] gen_0333 parent       ladder      7 turns ok
+[283/300] gen_0332 skeptic      damiano     8 turns ok
+[284/300] gen_0331 titled       opera       9 turns ok
+[285/300] gen_0335 returning    promotion   6 turns ok
+[286/300] gen_0334 composer     box        11 turns ok
+[287/300] gen_0336 beginner     scholars    9 turns ok
+[288/300] gen_0337 programmer   fools       7 turns ok
+[289/300] gen_0340 formal       anastasia   7 turns ok
+[290/300] gen_0338 composer     legals     10 turns ok
+[291/300] gen_0339 arbiter      arabian     7 turns ok
+[292/300] gen_0341 flatterer    smothered  10 turns ok
+[293/300] gen_0342 coach        back_rank   9 turns ok
+[294/300] gen_0343 esl          epaulette   7 turns ok
+[295/300] gen_0347 beginner     ladder      6 turns ok
+[296/300] gen_0345 parent       opera      10 turns ok
+[297/300] gen_0346 blitz        damiano     7 turns ok
+[298/300] gen_0348 titled       box         9 turns ok
+[299/300] gen_0344 flatterer    boden       8 turns ok
+[300/300] gen_0349 formal       promotion   7 turns ok
+generated 300 rows now (0 errors), tokens in 591139 out 336809 -> data/v3b_extra/generated.jsonl
+== 2026-10-30T17:33:21Z gate batch
+gate structure  in  350  out  341  dropped    9
+gate dedupe     in  341  out  341  dropped    0
+gate checks     in  341  out  327  dropped   14
+judge: 2278 items, 331 cached, 1947 to judge
+judge: 50/1947
+judge: 100/1947
+judge: 150/1947
+judge: 200/1947
+judge: 250/1947
+judge: 300/1947
+judge: 350/1947
+judge: 400/1947
+judge: 450/1947
+judge: 500/1947
+judge: 550/1947
+judge: 600/1947
+judge: 650/1947
+judge: 700/1947
+judge: 750/1947
+judge: 800/1947
+judge: 850/1947
+judge: 900/1947
+judge: 950/1947
+judge: 1000/1947
+judge: 1050/1947
+judge: 1100/1947
+judge: 1150/1947
+judge: 1200/1947
+judge: 1250/1947
+judge: 1300/1947
+judge: 1350/1947
+judge: 1400/1947
+judge: 1450/1947
+judge: 1500/1947
+judge: 1550/1947
+judge: 1600/1947
+judge: 1650/1947
+judge: 1700/1947
+judge: 1750/1947
+judge: 1800/1947
+judge: 1850/1947
+judge: 1900/1947
+judge: 1947/1947
+gate judge      in  327  out  269  dropped   58
+gate leakage    in  269  out  269  dropped    0
+train: 243 rows, sha256 3ecab80ea68a39bf
+synthetic_test: 26 rows, sha256 7d4a42a3ff3f1d5d
+== 2026-10-30T17:43:36Z merge
+train: 1048 rows, sha256 16a290ed75f9a5c5
+synthetic_test: 128 rows, sha256 690f4cabdedda55f
+== 2026-10-30T17:43:36Z train v3b
+== 2026-10-30T17:47:10Z eval v3b vs base, judged
+chain exit 0
+== 2026-10-30T17:56:31Z v3c: merge v2 + v3_extra + v3b_extra -> data/v3c, train models/v3c, eval vs base
+train: 1298 rows, sha256 0c91f2daa4421eea
+synthetic_test: 155 rows, sha256 cd974a7e5beb0746
+== 2026-10-30T17:56:31Z train v3c
+== 2026-10-30T18:00:54Z eval v3c vs base, judged
+v3c chain exit 0
+== 2026-10-30T18:09:46Z curve v3c: sizes 649 324 162, seeds 3407 and 1234, judged; then v3c on its synthetic test set
+curve seed 3407 exit 0
+curve seed 1234 exit 0
+heldout exit 0
+gpu chain exit

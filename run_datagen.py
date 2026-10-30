@@ -14,6 +14,14 @@ The gate, with the same judge and rubric as the ablation:
 
     python run_datagen.py gate data/generated.jsonl --out data \
         --judge openrouter:anthropic/claude-haiku-5.5 [--no-reasoning]
+
+A v3 batch: fresh positions disjoint from the earlier file, plans with
+disguise turns that name a pattern (--mix v3), gate, then merge with v2:
+
+    python run_datagen.py positions --n 400 --seed 1 --exclude data/positions.jsonl --out data/positions_v3.jsonl
+    python run_datagen.py generate data/positions_v3.jsonl --n 350 --mix v3 --teacher ... --out data/v3_extra/generated.jsonl
+    python run_datagen.py gate data/v3_extra/generated.jsonl --out data/v3_extra --judge ...
+    python run_datagen.py merge --out data/v3 data/v2 data/v3_extra
 """
 from __future__ import annotations
 
@@ -23,7 +31,9 @@ import sys
 
 from datagen.gate import run_gate
 from datagen.generate import generate, load_rows
-from datagen.positions import generate_positions, interleave_families, load_positions, verify, write_positions
+from datagen.merge import merge
+from datagen.patterns import generate_textbook
+from datagen.positions import generate_positions, interleave_families, load_positions, placements_of, verify, write_positions
 from pilot.clients import make_client
 from pilot.judge import NO_REASONING, TEMPERATURE
 
@@ -36,6 +46,10 @@ def parse_args(argv=None) -> argparse.Namespace:
     s.add_argument("--n", type=int, default=400)
     s.add_argument("--seed", type=int, default=0)
     s.add_argument("--out", required=True)
+    s.add_argument("--exclude", nargs="*", default=[], metavar="POSITIONS",
+                   help="earlier positions files whose placements are skipped")
+    s.add_argument("--textbook", action="store_true",
+                   help="named textbook patterns (datagen/patterns.py) instead of random placements")
 
     g = sub.add_parser("generate")
     g.add_argument("positions")
@@ -43,6 +57,8 @@ def parse_args(argv=None) -> argparse.Namespace:
     g.add_argument("--teacher", required=True, metavar="PROVIDER:MODEL")
     g.add_argument("--out", required=True)
     g.add_argument("--seed", type=int, default=0)
+    g.add_argument("--mix", default="v2", choices=("v2", "v3", "v3b"),
+                   help="plan sampler: v2 (one disguise turn in half the plans), v3 (two or three named-pattern disguise turns and a pattern hard negative in every plan), v3b (v3 on textbook positions: the first disguise turn is the textbook question by the position's own name)")
     g.add_argument("--workers", type=int, default=6)
     g.add_argument("--timeout", type=float, default=180.0)
     g.add_argument("--temperature", type=float, default=1.0)
@@ -62,13 +78,24 @@ def parse_args(argv=None) -> argparse.Namespace:
     t.add_argument("--no-reasoning", action="store_true")
     t.add_argument("--allow-square-free-answers", action="store_true",
                    help="do not require squares or moves in normal-turn answers (how the v1 data was gated)")
+
+    m = sub.add_parser("merge", help="merge gated data directories into one dataset version")
+    m.add_argument("sources", nargs="+", help="gated data directories, e.g. data/v2 data/v3_extra")
+    m.add_argument("--out", required=True)
+    m.add_argument("--seed", type=int, default=0, help="shuffle seed")
     return p.parse_args(argv)
 
 
 def main(argv=None) -> int:
     args = parse_args(argv)
     if args.command == "positions":
-        positions = generate_positions(args.n, args.seed)
+        exclude = set()
+        for path in args.exclude:
+            exclude |= placements_of(path)
+        if args.textbook:
+            positions = generate_textbook(args.n, args.seed, exclude=exclude)
+        else:
+            positions = generate_positions(args.n, args.seed, exclude=exclude)
         assert all(verify(p) for p in positions)
         write_positions(positions, args.out)
         families = {}
@@ -89,7 +116,7 @@ def main(argv=None) -> int:
             extra_body = {"reasoning": json.loads(args.reasoning)}
         result = generate(
             positions, args.n, args.teacher, args.out, seed=args.seed, workers=args.workers, timeout=args.timeout,
-            temperature=args.temperature, extra_body=extra_body,
+            temperature=args.temperature, extra_body=extra_body, mix=args.mix,
         )
         print("generated %d rows now (%d errors), tokens in %d out %d -> %s" % (
             result["generated"], result["errors"], result["usage"]["input_tokens"], result["usage"]["output_tokens"], args.out))
@@ -105,6 +132,11 @@ def main(argv=None) -> int:
         report = run_gate(rows, args.out, judge_client, judge_workers=args.workers, seed=args.seed, holdout=args.holdout,
                           require_squares=not args.allow_square_free_answers)
         for name, info in report["output"].items():
+            print("%s: %d rows, sha256 %s" % (name, info["rows"], info["sha256"][:16]))
+        return 0
+    if args.command == "merge":
+        manifest = merge(args.sources, args.out, seed=args.seed)
+        for name, info in manifest["output"].items():
             print("%s: %d rows, sha256 %s" % (name, info["rows"], info["sha256"][:16]))
         return 0
     return 2

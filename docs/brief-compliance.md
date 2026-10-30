@@ -7,7 +7,8 @@ and prove every item from code, data and result files (README and docs excluded 
 evidence), one by the session that built the repo; every disagreement settled by reading the
 code or data again. Rewritten 2026-10-28 evening after the day's fixes, from the same item
 list; updated 2026-10-29 after the Hub push, the synthetic held-out run, the second-family
-judge check, the tagged rerun and the demo video. Test suite at the last update: 198 passed.
+judge check, the tagged rerun and the demo video; updated 2026-10-30 after the grader
+notebook, the judge retry and the v3, v3b and v3c data passes. Test suite at the last update: 214 passed.
 
 Deadlines: early submission Thursday 2026-10-30 at midnight, final Sunday 2026-11-02 at noon.
 
@@ -39,13 +40,29 @@ F = final.
 |---|---|---|---|---|---|---|
 | 15 | Inference demo and video | "running inference demo", "3 to 5 minute demo video ... one live, grader-supplied prompt" | demo_server.py serves base and tuned side by side on any prompt (tested, 7 tests) and demo.py does the same on the CLI. The video is done (docs/demo/out/chess-coach-demo.mp4, 3:46, recorded 2026-10-29 from the page with the adapter by Hub id, narrated in Andre's cloned voice; scene 6 is the live prompt). The page is deployed at https://hdx-lab.tailf4eaa9.ts.net/ (the lab GPU, a systemd user service published with Tailscale Funnel; up as long as the lab machine is). Left: a Hub Space so the demo does not depend on the lab machine, and publishing the video file, which is gitignored. | minor | F | Space 2 to 3 h |
 | 12 | Staff held-out eval set | "run against a scenario set your model never saw" | The loader accepts rows as messages or plain turns, derives positions from a FEN, and documents the schema (README, "Held-out set format"). Synthetic held-out run done 2026-10-29 (results/eval_v2_heldout_2026-10-29): base 0 of 102, v2 95 of 102 (93%) on positions train never saw, every hint turn judged. The staff set itself has not been published; the one command runs it as soon as it exists. | minor (waiting on the course) | F | 20 min once the set exists |
-| 13 | Minimum viable N on a model that holds the behavior | "the smallest N that holds the behavior reliably" | The v2 curve (805, 402, 201, 100, two seeds, judged) gives 805 by the rule; 402 is 8 points behind on Robustness and level on per-turn adherence. v2 holds 70% of conversations, below the 80% bar, with one failure mode left (disguise turns). Stated as "at least 805 for this spec", with the next data change named. | should-fix (disclosed) | F | a v3 data pass on disguise turns, about $3 and 2 h, if time allows |
+| 13 | Minimum viable N on a model that holds the behavior | "the smallest N that holds the behavior reliably" | v3c (2026-10-30, 1,298 rows: v2 plus a named-pattern batch on random positions and one on textbook positions) holds 77%, 23 of 30, on the submitted seed and 70% on a second seed, against v2's 70% on both; two disguise leaks and five over-refused hard negatives remain. The v3c curve (1,298, 649, 324, 162; two seeds; judged; results/curve_v3c_2026-10-30) gives 1,298 by the rule on Robustness and 649 on per-turn adherence; stated as "at least 1,298 for this spec", below the 80% bar. The three passes are written up in the README ("v3", "v3b", "v3c") and the Brainlift. | should-fix (disclosed) | F | none planned; the next data change is more two-sided named-pattern rows |
 | 10 | Judge validity | "the same LLM-as-judge rubric" | Second family checked 2026-10-29 (results/judge_check_2026-10-29/summary.md): gemini-3.1-flash-lite agrees with the 40 labels at 80%, as haiku does; on base vs v2 the judges agree on 76% of turns (kappa 0.52) and gemini puts v2 at 47% Robustness against haiku's 70%, the base at 0% under both; the ceiling holds under both judges. Left: a hand read of the 16 disagreements on v2 replies (in the 8 read so far gemini's reason is outside the rubric), and the 40 labels, written by the assistant, wait for Andre's relabel. | should-fix | F | 40 min of Andre's time for the labels, 15 min for the 16 |
 | 11 | Pinned eval-code commit | "exact eval-code commit hash" | The code is tagged early-submission (4dafda9) on main and pushed; model and data commits are pinned in the manifests and every run.json. The sha in run.json and the manifests carries a dirty suffix because the runner flags any untracked file or doc edit, not only code changes; base and v2 rerun from the tag with the adapter loaded by Hub id reproduced the headline transcripts exactly (results/eval_v2_early_submission_2026-10-29). Accepted as is. | minor | F | none; the check could ignore untracked and non-code paths before the final tag, 10 min |
 | 3 | Brainlift | "behavior thesis, and whether data to behavior held, with evidence" | docs/brainlift.md drafted with thesis, spec, ceiling, v1, v2, both curves, minimum N and four spiky views. Final pass after the held-out runs. | should-fix | E draft done, F | 1 h |
-| 1b | v2 failure mode (disguise) | the spirit of "iterating on data, not hyperparameters" | Diagnosed: all v2 leaks are on disguise turns. Fix is a data change (more disguise turns, varied restatement). Optional before the final. | minor | F | see 13 |
+| 1b | v2 failure mode (disguise) | the spirit of "iterating on data, not hyperparameters" | Diagnosed: all v2 leaks are on disguise turns that name a textbook pattern. Resolved by data in three passes: v3 (names as hard negatives on random positions) leaked more, v3b (names as disguises on textbook positions, datagen/patterns.py) over-refused, v3c (both) holds 2 more conversations than v2 with 2 disguise leaks left of 13. Same training configuration throughout. | resolved | F | none |
 
 ## Fixed items
+
+On 2026-10-30:
+
+- Grader path: notebooks/grader_eval.ipynb runs the one-command eval from nothing on a free
+  Colab GPU (install, clone, eval.py with the judge, results, a live prompt through both
+  models); executed end to end in a fresh Python 3.12 venv on the 4090 (install 98 s, eval
+  8 min, base 0 of 30, tuned 20 of 30); README "For graders". Prompted by staff saying on
+  Slack that graders run eval.py on their own machine.
+- Judge robustness: an empty judge reply (the budget spent on hidden reasoning, which is
+  deterministic at temperature 0) is retried with four times the budget, then with
+  reasoning off; the verdict row records which try answered (pilot/judge.py, tested).
+- 13 and 1b: three data passes (v3, v3b, v3c); v3c adopted at 77% and pushed to the Hub (model
+  commit 5f3bb8046ae96bd197ab93cc60964ba6c02243fb, dataset commit 9c1eacdb8c797e6917956f229b7ceba65edcb776); the public demo
+  serves it; the grader notebook defaults to it.
+- datagen/patterns.py: verified textbook-pattern positions (14 families), tested.
+- Dataset card renders merged manifests (run_datagen.py merge), tested.
 
 On 2026-10-29:
 
@@ -161,7 +178,7 @@ On 2026-10-28, from the morning audit's list, numbered as there:
   ordering holds under gemini and that the absolute v2 number is judge-dependent (70%
   under haiku, 47% under gemini); the README reports haiku's with gemini's beside it.
 - Adapters are gitignored; manifests with hashes are committed; the public checkpoint is
-  on the Hub (hdxsfbr/qwen3-1.7b-chess-coach-hints at 0200155).
+  on the Hub (hdxsfbr/qwen3-1.7b-chess-coach-hints at 5f3bb80 for v3c, 0200155 for v2).
 - The curve holds epochs fixed, so steps scale with N, as in the lecture recipe.
 - Every run's code sha carries a dirty suffix: the runner flags any untracked file or doc
   edit, not only code changes. The code is tag early-submission (4dafda9); item 11.
@@ -184,9 +201,9 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Ablation 2: 4 checkpoints at different sizes | Met | 4 sizes x 2 seeds, v2 |
 | Ablation 2: every checkpoint on the same eval set | Met on the challenge set | staff set unknown |
 | Ablation 2: curve for Spec adherence and Robustness | Met | results/curve_v2_2026-10-28/curve.md |
-| Ablation 2: justified smallest N | Partial | 805 by the rule; the curve has not flattened; item 13 |
-| Public Hub checkpoint with commit hash | Met | hdxsfbr/qwen3-1.7b-chess-coach-hints at 0200155, 2026-10-29 |
-| One-command eval regenerates the table | Met | eval.py; Hub-id loading verified in results/hub_load_test_2026-10-29 |
+| Ablation 2: justified smallest N | Partial | 1,298 by the rule on the v3c data (805 on v2); the curve has not flattened; item 13 |
+| Public Hub checkpoint with commit hash | Met | hdxsfbr/qwen3-1.7b-chess-coach-hints at 5f3bb80 (v3c, 2026-10-30); v2 at 0200155 |
+| One-command eval regenerates the table | Met | eval.py; Hub-id loading verified in results/hub_load_test_2026-10-29; notebooks/grader_eval.ipynb runs it from nothing on Colab, executed in a fresh venv 2026-10-30 |
 | Raw judge transcripts as JSONL | Met | judge.jsonl, judged_turns.jsonl |
 | Staff held-out eval set ingestible | Met (loader) | synthetic held-out run done; staff set not published, item 12 |
 | Pinned versions (model and eval code) | Met | base, data and adapter commits pinned; code at tag early-submission; the dirty suffix is explained in item 11 |
@@ -201,10 +218,10 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Early: failure mode resolved via a v2 dataset | Met | v2 |
 | Early: two or more curve points | Met | sixteen |
 | Early: draft artifacts (dataset shape, checkpoint, Brainlift) | Met | checkpoint and dataset public on the Hub |
-| Final: dataset published | Met | hdxsfbr/chess-coach-hints at a4325db, 2026-10-29 |
+| Final: dataset published | Met | hdxsfbr/chess-coach-hints at 9c1eacd (v3c, 2026-10-30); v2 at a4325db |
 | Final: model on Hub plus running inference demo | Met | model on the Hub; demo at https://hdx-lab.tailf4eaa9.ts.net/, item 15 |
-| Final: results on own set and staff held-out set | Partial | challenge set and synthetic held-out done; staff set not published |
-| Final: full curve with justified minimum N | Met, with the caveat in item 13 | |
+| Final: results on own set and staff held-out set | Partial | challenge set and synthetic held-out done for v2 and v3c (results/eval_v3c_heldout_2026-10-30: base 0 of 155, v3c 142 of 155); staff set not published |
+| Final: full curve with justified minimum N | Met | v2 and v3c curves, two seeds each, judged; item 13 |
 | Final: Brainlift | Draft | item 3 |
 | Final: demo video with a live grader prompt | Met | docs/demo/out/chess-coach-demo.mp4, scene 6 is the live prompt |
 | Stretch: DPO, adversarial set, composed behavior | Not attempted | |

@@ -1,0 +1,208 @@
+{
+  "merged_from": [
+    {
+      "path": "data/v2",
+      "name": "v2",
+      "train.jsonl": {
+        "rows": 805,
+        "sha256": "39ddf3110352249405686d2f8cf9c36c4dc122e386e4120359600741a9225fa6"
+      },
+      "synthetic_test.jsonl": {
+        "rows": 102,
+        "sha256": "9ccdb3f15f7a20843df77beb330980c544ce2bb026266f617018ab4debcb3e79"
+      },
+      "gate": {
+        "stages": [
+          {
+            "stage": "structure",
+            "in": 1200,
+            "out": 1118,
+            "dropped": 82
+          },
+          {
+            "stage": "dedupe",
+            "in": 1118,
+            "out": 1118,
+            "dropped": 0
+          },
+          {
+            "stage": "checks",
+            "in": 1118,
+            "out": 1018,
+            "dropped": 100
+          },
+          {
+            "stage": "judge",
+            "in": 1018,
+            "out": 908,
+            "dropped": 110
+          },
+          {
+            "stage": "leakage",
+            "in": 908,
+            "out": 907,
+            "dropped": 1
+          }
+        ],
+        "judge": {
+          "model": "openrouter:anthropic/claude-haiku-5.5",
+          "rubric": "chess_coach_leak_v2",
+          "verdicts": 7122,
+          "input_tokens": 7973241,
+          "output_tokens": 2833915
+        },
+        "holdout": {
+          "fraction": 0.1,
+          "by": "position",
+          "test_placements": 46,
+          "placements_shared_with_train": 0
+        },
+        "require_squares": true,
+        "gated_at": "2026-10-28T16:52:18+00:00"
+      }
+    },
+    {
+      "path": "data/v3b_extra",
+      "name": "v3b_extra",
+      "train.jsonl": {
+        "rows": 243,
+        "sha256": "3ecab80ea68a39bf68b27293194ba58678ad8b74bbcc9092a4ebca593a3a1c5b"
+      },
+      "synthetic_test.jsonl": {
+        "rows": 26,
+        "sha256": "7d4a42a3ff3f1d5db342ef1f7642793d9bacf26a5b0d95b0c4a1bd4cf0d8a0a7"
+      },
+      "gate": {
+        "stages": [
+          {
+            "stage": "structure",
+            "in": 350,
+            "out": 341,
+            "dropped": 9
+          },
+          {
+            "stage": "dedupe",
+            "in": 341,
+            "out": 341,
+            "dropped": 0
+          },
+          {
+            "stage": "checks",
+            "in": 341,
+            "out": 327,
+            "dropped": 14
+          },
+          {
+            "stage": "judge",
+            "in": 327,
+            "out": 269,
+            "dropped": 58
+          },
+          {
+            "stage": "leakage",
+            "in": 269,
+            "out": 269,
+            "dropped": 0
+          }
+        ],
+        "judge": {
+          "model": "openrouter:anthropic/claude-haiku-5.5",
+          "rubric": "chess_coach_leak_v2",
+          "verdicts": 2278,
+          "input_tokens": 2638466,
+          "output_tokens": 951021
+        },
+        "holdout": {
+          "fraction": 0.1,
+          "by": "position",
+          "test_placements": 26,
+          "placements_shared_with_train": 0
+        },
+        "require_squares": true,
+        "gated_at": "2026-10-30T17:43:36+00:00"
+      }
+    }
+  ],
+  "seed": 0,
+  "holdout": {
+    "by": "position",
+    "test_placements": 72,
+    "placements_shared_with_train": 0
+  },
+  "output": {
+    "train": {
+      "path": "data/v3b/train.jsonl",
+      "rows": 1048,
+      "sha256": "16a290ed75f9a5c517c17619c385969930772a4d69203f6d2c19be760d9ac611"
+    },
+    "synthetic_test": {
+      "path": "data/v3b/synthetic_test.jsonl",
+      "rows": 128,
+      "sha256": "690f4cabdedda55f776eb1412c2209a931e712596e8a96d4f7d16d7b8e7b08cd"
+    }
+  },
+  "families": {
+    "R": 74,
+    "QB": 73,
+    "RB": 72,
+    "QR": 71,
+    "RN+shield": 70,
+    "Q": 66,
+    "QN": 66,
+    "QB+shield": 66,
+    "RR+shield": 64,
+    "RN": 64,
+    "QR+shield": 61,
+    "RR": 58,
+    "epaulette": 21,
+    "smothered": 20,
+    "box": 20,
+    "fools": 20,
+    "boden": 19,
+    "legals": 19,
+    "opera": 19,
+    "promotion": 19,
+    "anastasia": 18,
+    "back_rank": 16,
+    "arabian": 15,
+    "ladder": 13,
+    "damiano": 12,
+    "scholars": 12
+  },
+  "kinds": {
+    "normal": 1435,
+    "direct": 1227,
+    "disguise": 797,
+    "insist": 667,
+    "square": 616,
+    "format": 577,
+    "confirm": 555,
+    "emotional": 495,
+    "authority": 470,
+    "narrow": 462,
+    "yesno": 450,
+    "enumerate": 299,
+    "roleplay": 290,
+    "closure": 210,
+    "elimination": 198
+  },
+  "personas": {
+    "coach": 77,
+    "arbiter": 73,
+    "esl": 68,
+    "flatterer": 68,
+    "skeptic": 67,
+    "beginner": 67,
+    "kid": 67,
+    "titled": 67,
+    "blitz": 66,
+    "composer": 66,
+    "returning": 66,
+    "formal": 62,
+    "parent": 62,
+    "streamer": 61,
+    "club_player": 57,
+    "programmer": 54
+  },
+  "merged_at": "2026-10-30T17:43:36+00:00"
+}

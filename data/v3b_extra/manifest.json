@@ -1,0 +1,113 @@
+{
+  "stages": [
+    {
+      "stage": "structure",
+      "in": 350,
+      "out": 341,
+      "dropped": 9
+    },
+    {
+      "stage": "dedupe",
+      "in": 341,
+      "out": 341,
+      "dropped": 0
+    },
+    {
+      "stage": "checks",
+      "in": 341,
+      "out": 327,
+      "dropped": 14
+    },
+    {
+      "stage": "judge",
+      "in": 327,
+      "out": 269,
+      "dropped": 58
+    },
+    {
+      "stage": "leakage",
+      "in": 269,
+      "out": 269,
+      "dropped": 0
+    }
+  ],
+  "input": 350,
+  "require_squares": true,
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubric": "chess_coach_leak_v2",
+    "verdicts": 2278,
+    "input_tokens": 2638466,
+    "output_tokens": 951021
+  },
+  "holdout": {
+    "fraction": 0.1,
+    "by": "position",
+    "test_placements": 26,
+    "placements_shared_with_train": 0
+  },
+  "output": {
+    "train": {
+      "path": "data/v3b_extra/train.jsonl",
+      "rows": 243,
+      "sha256": "3ecab80ea68a39bf68b27293194ba58678ad8b74bbcc9092a4ebca593a3a1c5b"
+    },
+    "synthetic_test": {
+      "path": "data/v3b_extra/synthetic_test.jsonl",
+      "rows": 26,
+      "sha256": "7d4a42a3ff3f1d5db342ef1f7642793d9bacf26a5b0d95b0c4a1bd4cf0d8a0a7"
+    }
+  },
+  "families": {
+    "anastasia": 20,
+    "arabian": 17,
+    "back_rank": 18,
+    "boden": 21,
+    "box": 22,
+    "damiano": 13,
+    "epaulette": 23,
+    "fools": 22,
+    "ladder": 15,
+    "legals": 21,
+    "opera": 21,
+    "promotion": 21,
+    "scholars": 13,
+    "smothered": 22
+  },
+  "kinds": {
+    "direct": 269,
+    "disguise": 572,
+    "square": 122,
+    "normal": 449,
+    "insist": 145,
+    "authority": 83,
+    "closure": 62,
+    "format": 103,
+    "elimination": 40,
+    "emotional": 98,
+    "enumerate": 48,
+    "yesno": 81,
+    "narrow": 80,
+    "roleplay": 58,
+    "confirm": 111
+  },
+  "personas": {
+    "streamer": 13,
+    "beginner": 18,
+    "kid": 22,
+    "composer": 15,
+    "skeptic": 21,
+    "parent": 21,
+    "esl": 22,
+    "programmer": 8,
+    "titled": 17,
+    "coach": 18,
+    "blitz": 13,
+    "arbiter": 18,
+    "formal": 22,
+    "flatterer": 16,
+    "returning": 16,
+    "club_player": 9
+  },
+  "gated_at": "2026-10-30T17:43:36+00:00"
+}

@@ -6,7 +6,7 @@ __pycache__/
 .venv-train/
 models/*/checkpoints/
 # training artifacts and scratch outputs
-models/*/adapter/
+models/**/adapter/
 unsloth_compiled_cache/
 train_env_*.log
 results/mock/
@@ -16,3 +16,4 @@ docs/demo/audio/
 docs/demo/clips/
 docs/demo/slides/png/
 docs/demo/out/
+.venv-grader/

@@ -390,3 +390,75 @@ Sun 11-02 by noon
 - The demo hosting choice: Colab notebook (free) or a paid Hub Space.
 - 40 relabeled calibration items (about 40 minutes).
 - The staff held-out format, if the course has published one.
+
+## Plan to final, revised 2026-10-30 (after the early submission)
+
+The early submission went in on 2026-10-29 with the tag early-submission
+(4dafda9), the demo deployed at https://hdx-lab.tailf4eaa9.ts.net/ and the
+video done. This section maps what the brief's final checklist still needs
+and the order agreed with Andre on 2026-10-30. Balance at the start:
+$28.20.
+
+### Gaps against the final checklist, worst first
+
+| # | Gap | Closer | Effort, cost |
+|---|---|---|---|
+| 1 | eval.py needs Unsloth on a CUDA GPU with the CUDA 13 pins; staff said graders run it "on their machine" | A Colab notebook on a free T4 that installs, pulls the Hub model and runs the one command, tested in a fresh environment; a "For graders" README section (judge needs an OpenRouter key) | 2 h, $0.16 per judged run |
+| 2 | v2 holds 70%, under the 80% bar; minimum N stated as "at least 805" because the curve has not flattened | v3 data pass: every leak of v2 is a disguise turn that names a textbook pattern, so the v3 plans carry two or three named-pattern disguise turns and a named-pattern hard negative that does not fit the position; sample 50, then about 300 more, gate, merge with v2, train, eval, redo the 4 x 2 curve, push | 5 h mostly background, about $7 |
+| 3 | Results on the staff held-out set | One command when the course posts it (nothing on Slack as of 2026-10-30) | 20 min, $0.40 |
+| 4 | The demo depends on the lab machine | Keep the Funnel as the submitted URL; the Colab notebook doubles as the fallback demo (the account is not PRO, so a ZeroGPU Space is out and a T4 Space costs about $0.40 an hour) | folded into 1 |
+| 5 | The video file is unpublished (gitignored) | Andre uploads it to YouTube with docs/demo/youtube.md; the link goes into the README and the form | 15 min of Andre's time |
+| 6 | Brainlift says "in progress" | Final pass after v3 and the held-out set | 1 h |
+| 7 | The 40 judge labels were written by the assistant | Andre's relabel plus the 16 disputed v2 turns in results/judge_check_2026-10-29/eval_v2/disagreements_to_label.jsonl | 55 min of Andre's time |
+| 8 | Model card cites a stale code sha; compliance doc header is behind | Final tag, re-push the card, refresh the compliance doc and this plan | 30 min |
+
+Stretch, only after the above: DPO from the gate's rejected rows against
+accepted ones (no API spend, about 3 h).
+
+### v3 spend plan
+
+| # | Step | Model | Estimate |
+|---|---|---|---|
+| 10 | v3 sample, 50 conversations with the v3 mix, read 5 | sonnet-5.5, low reasoning | $0.80, actual $0.77 (1,859 in and 1,161 out tokens per conversation) |
+| 11 | v3 batch, 300 more | sonnet-5.5, low reasoning | $4.80, actual $4.59 |
+| 12 | v3 gate, about 2,800 verdicts | haiku-5.5 | $0.90, actual about $0.70 (2,228 verdicts) |
+| 13 | v3 and base on the challenge set | haiku-5.5 | $0.16, actual $0.16 |
+| 14 | v3 curve, 4 sizes x 2 seeds | haiku-5.5 | $0.50; stopped after two points, actual $0.16 |
+| | Total | | $7.16, actual about $6.40 |
+
+Outcome, second round (2026-10-30 18:10Z, after Andre chose v3b): v3b
+(textbook-pattern positions, datagen/patterns.py, 243 gated rows, $5.37
+teacher and $0.75 gate) at 21 of 30 with the disguise leaks gone (1 of
+13) and six hard negatives over-refused; v3c, the union of v2 with both
+batches (1,298 rows, no new generation, $0.16 eval), at 23 of 30 (77%),
+mixed 6 of 13, adopted: pushed to the Hub (model 5f3bb80, dataset
+9c1eacd), the public demo and the grader notebook point at it. The v3c
+curve (649, 324, 162, two seeds, $0.60) gives 1,298 by the rule, 649 on
+per-turn adherence; the full set's second seed lands at 70%, so the gain
+over v2 is one conversation per seed. The v3c held-out run ($0.60): base
+0 of 155, v3c 142 of 155 (92%). Day's spend about $15; balance about
+$27. Left for Sunday: the staff held-out set if posted, Andre's relabels
+and video upload, an optional re-record of the video with v3c (the
+pipeline is scripted, about an hour), the final tag and card re-push.
+
+Outcome, first round (2026-10-30 17:10Z): v3 at 19 of 30 (63%) against v2's 21; the
+six named-pattern conversations still leak, now in notation, because the
+eval's pattern names appear in the v3 rows almost only as hard negatives
+with squares (random placements are never those patterns). Written up in
+the README ("v3, 2026-10-30") and the Brainlift ("v3"); v2 stays the
+submitted model; the curve was stopped. Open decision for Andre: stop
+here, or a v3b batch on a textbook-pattern position generator (Arabian,
+Anastasia's, smothered, hook, epaulette, Scholar's-like, Fool's-like,
+skewer and promotion mates), about $6.50 and 4 to 5 hours, with the risk
+that the leak persists. Balance after the pass: $41.81 (credit added).
+
+### Order
+
+- Thu 10-30: Andre uploads the video and relabels. The grader notebook;
+  the v3 sample, read, then the batch and gate.
+- Fri 10-31: if v3b is wanted, the position generator, batch, train,
+  eval, curve and Hub push; otherwise Brainlift and README final passes.
+- Sat 11-01: buffer; the staff set if posted; DPO if everything else is
+  done; compliance doc rewrite.
+- Sun 11-02 morning: final tag, card re-push, rerun if code changed,
+  submit by noon.

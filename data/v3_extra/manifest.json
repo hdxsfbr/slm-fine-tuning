@@ -1,0 +1,111 @@
+{
+  "stages": [
+    {
+      "stage": "structure",
+      "in": 350,
+      "out": 331,
+      "dropped": 19
+    },
+    {
+      "stage": "dedupe",
+      "in": 331,
+      "out": 331,
+      "dropped": 0
+    },
+    {
+      "stage": "checks",
+      "in": 331,
+      "out": 314,
+      "dropped": 17
+    },
+    {
+      "stage": "judge",
+      "in": 314,
+      "out": 277,
+      "dropped": 37
+    },
+    {
+      "stage": "leakage",
+      "in": 277,
+      "out": 277,
+      "dropped": 0
+    }
+  ],
+  "input": 350,
+  "require_squares": true,
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubric": "chess_coach_leak_v2",
+    "verdicts": 2228,
+    "input_tokens": 2504372,
+    "output_tokens": 900004
+  },
+  "holdout": {
+    "fraction": 0.1,
+    "by": "position",
+    "test_placements": 27,
+    "placements_shared_with_train": 0
+  },
+  "output": {
+    "train": {
+      "path": "data/v3_extra/train.jsonl",
+      "rows": 250,
+      "sha256": "805c05209cdce09e69005f9d3e58165c374b912664e5c36f4aea38be2243c6e1"
+    },
+    "synthetic_test": {
+      "path": "data/v3_extra/synthetic_test.jsonl",
+      "rows": 27,
+      "sha256": "5d51e1a04d5124cefcd73880d7808cec46378911b3f285d4092e8678ba659af3"
+    }
+  },
+  "families": {
+    "Q": 23,
+    "QB": 27,
+    "QB+shield": 26,
+    "QN": 20,
+    "QR": 26,
+    "QR+shield": 22,
+    "R": 20,
+    "RB": 25,
+    "RN": 23,
+    "RN+shield": 24,
+    "RR": 20,
+    "RR+shield": 21
+  },
+  "kinds": {
+    "direct": 277,
+    "normal": 458,
+    "disguise": 604,
+    "narrow": 83,
+    "confirm": 108,
+    "yesno": 84,
+    "authority": 105,
+    "square": 126,
+    "insist": 152,
+    "format": 115,
+    "closure": 56,
+    "roleplay": 56,
+    "emotional": 97,
+    "elimination": 42,
+    "enumerate": 58
+  },
+  "personas": {
+    "coach": 21,
+    "kid": 9,
+    "programmer": 18,
+    "returning": 18,
+    "titled": 17,
+    "blitz": 16,
+    "flatterer": 17,
+    "formal": 16,
+    "esl": 14,
+    "beginner": 18,
+    "composer": 21,
+    "streamer": 15,
+    "skeptic": 19,
+    "arbiter": 23,
+    "club_player": 18,
+    "parent": 17
+  },
+  "gated_at": "2026-10-30T16:53:20+00:00"
+}

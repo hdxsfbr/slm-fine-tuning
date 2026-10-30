@@ -117,21 +117,31 @@ def _random_board(rng: random.Random, symbols: str, shield: bool) -> Optional[ch
 
 
 def mating_moves(board: chess.Board) -> List[chess.Move]:
+    """Every move that mates, with promotions to one square counted once
+    (the queen promotion stands for the under-promotions that also mate)."""
     out = []
     for move in board.legal_moves:
         board.push(move)
         if board.is_checkmate():
             out.append(move)
         board.pop()
-    return out
+    out.sort(key=lambda m: (m.from_square, m.to_square, m.promotion != chess.QUEEN))
+    deduped: List[chess.Move] = []
+    for move in out:
+        if deduped and (deduped[-1].from_square, deduped[-1].to_square) == (move.from_square, move.to_square):
+            continue
+        deduped.append(move)
+    return deduped
 
 
-def generate_positions(n: int, seed: int = 0, max_tries: int = 2_000_000) -> List[Dict]:
+def generate_positions(n: int, seed: int = 0, max_tries: int = 2_000_000, exclude: Optional[Set[str]] = None) -> List[Dict]:
     """n verified positions spread evenly over FAMILIES. Half of each family
     is mirrored so Black has the mate too. Each dict has id, fen, prose,
-    answer (SAN), family, pattern and side."""
+    answer (SAN), family, pattern and side. exclude holds extra placements
+    to skip (the earlier positions files, so a new batch shares no position
+    with the data already gated)."""
     rng = random.Random(seed)
-    excluded = eval_placements()
+    excluded = eval_placements() | set(exclude or ())
     seen: Set[str] = set()
     per_family = max(1, n // len(FAMILIES))
     out: List[Dict] = []
@@ -184,6 +194,11 @@ def write_positions(positions: List[Dict], path: str) -> None:
     with open(path, "w", encoding="utf-8") as fh:
         for p in positions:
             fh.write(json.dumps(p) + "\n")
+
+
+def placements_of(path: str) -> Set[str]:
+    """Piece placements (the first FEN field) of a positions file."""
+    return {_placement(p["fen"]) for p in load_positions(path)}
 
 
 def load_positions(path: str) -> List[Dict]:

@@ -237,3 +237,157 @@ def test_normal_answers_must_name_squares_unless_allowed():
     row["messages"][idx + 1]["content"] = "A rook moves along ranks and files, for example from a1 to a8, until something blocks it."
     ok, _ = gate.check_turns(row)
     assert ok
+
+
+# --- v3: named-pattern disguise turns ------------------------------------------
+
+
+def test_v3_plans_pair_named_disguise_turns_with_a_pattern_negative():
+    pos = {"id": "p", "family": "RN+shield"}
+    plans = [taxonomy.sample_plan(random.Random(i), pos, mix="v3") for i in range(200)]
+    assert plans[0] == taxonomy.sample_plan(random.Random(0), pos, mix="v3")
+    assert taxonomy.sample_plan(random.Random(0), pos) == taxonomy.sample_plan(random.Random(0), pos, mix="v2")
+    avoided = {p["topic"] for p in taxonomy.PATTERN_NEGATIVES if "RN+shield" in p["avoid"]}
+    pattern_topics = {p["topic"] for p in taxonomy.PATTERN_NEGATIVES}
+    for plan in plans:
+        assert plan["mix"] == "v3"
+        kinds = [t["kind"] for t in plan["turns"]]
+        assert kinds[0] == "direct" and len(kinds) <= taxonomy.MAX_TURNS
+        assert all(k in c.HINT_KINDS or k == "normal" for k in kinds)
+        slots = [i for i, k in enumerate(kinds) if k == "disguise"]
+        assert 2 <= len(slots) <= 3
+        assert all(b - a >= 2 for a, b in zip(slots, slots[1:]))
+        notes = [t["note"] for t in plan["turns"] if t["kind"] == "disguise"]
+        assert len(set(notes)) == len(notes)
+        for t in plan["turns"]:
+            if t["kind"] == "disguise" and t["framing"] == "named":
+                assert any(name in t["note"] for name in taxonomy.PATTERN_NAMES_BY_FAMILY["RN+shield"])
+        normals = [t for t in plan["turns"] if t["kind"] == "normal"]
+        assert 1 <= len(normals) <= 2
+        pattern = [t for t in normals if t["topic"] in pattern_topics]
+        assert len(pattern) == 1 and pattern[0]["topic"] not in avoided
+        # the pattern negative sits right before a disguise turn
+        i = plan["turns"].index(pattern[0])
+        assert kinds[i + 1] == "disguise"
+        for k in set(kinds) - {"normal", "disguise"}:
+            assert kinds.count(k) <= 2
+    assert len({t["framing"] for p in plans for t in p["turns"] if t["kind"] == "disguise"}) == len(taxonomy.DISGUISE_FRAMINGS)
+    with pytest.raises(ValueError):
+        taxonomy.sample_plan(random.Random(0), pos, mix="v9")
+
+
+def test_pattern_negatives_leave_every_family_a_choice():
+    for family in taxonomy.PATTERN_NAMES_BY_FAMILY:
+        assert len(taxonomy.pattern_negatives_for(family)) >= 6
+
+
+def test_v3_prompt_carries_the_pattern_note_and_v2_prompt_does_not():
+    pos = positions.generate_positions(12, seed=0)[0]
+    v2 = generate.teacher_prompt(pos, taxonomy.sample_plan(random.Random(0), pos))
+    v3 = generate.teacher_prompt(pos, taxonomy.sample_plan(random.Random(0), pos, mix="v3"))
+    assert "textbook pattern" not in v2
+    assert generate.PATTERN_NOTE.strip() in v3
+    assert "The specific way: names a textbook pattern" in v3 or "The specific way:" in v3
+    jobs = generate.make_jobs([pos], 3, seed=0, mix="v3")
+    assert all(j["plan"]["mix"] == "v3" for j in jobs)
+    # the mock teacher still follows a v3 plan and passes the structure check
+    reply = generate.mock_teacher_reply(generate.TEACHER_SYSTEM, [{"role": "user", "content": generate.teacher_prompt(pos, jobs[0]["plan"])}])
+    row = {"id": "x", "position": pos, "plan": jobs[0]["plan"], "messages": generate.parse_conversation(reply), "error": None}
+    assert gate.check_structure(row) is None
+
+
+def test_positions_exclude_skips_earlier_placements(tmp_path):
+    first = positions.generate_positions(12, seed=0)
+    path = str(tmp_path / "first.jsonl")
+    positions.write_positions(first, path)
+    again = positions.generate_positions(12, seed=0, exclude=positions.placements_of(path))
+    assert not ({p["fen"].split()[0] for p in again} & {p["fen"].split()[0] for p in first})
+    assert all(positions.verify(p) for p in again)
+
+
+def _gated_dir(tmp_path, name, fens_train, fens_test):
+    d = tmp_path / name
+    d.mkdir()
+    def row(i, fen):
+        return {"id": "gen_%04d" % (i + (100 if fen in fens_test else 0)), "family": "RR", "persona": "kid", "kinds": ["direct", "normal"],
+                "messages": [{"role": "user", "content": "FEN: %s w - - 0 1\nhelp" % fen}, {"role": "assistant", "content": "Look at the back rank."},
+                             {"role": "user", "content": "how does a rook move"}, {"role": "assistant", "content": "Along ranks and files, a1 to a8 or h1."}]}
+    for fname, fens in (("train.jsonl", fens_train), ("synthetic_test.jsonl", fens_test)):
+        with open(d / fname, "w") as fh:
+            for i, fen in enumerate(fens):
+                fh.write(json.dumps(row(i, fen)) + "\n")
+    (d / "manifest.json").write_text(json.dumps({"stages": [], "gated_at": "t"}))
+    return str(d)
+
+
+def test_merge_prefixes_ids_shuffles_and_checks_positions(tmp_path):
+    from datagen import merge as m
+    a = _gated_dir(tmp_path, "v2", ["6k1/5ppp/8/8/8/8/5PPP/3R2K1", "7k/8/8/8/8/8/8/R6K"], ["6k1/8/8/8/8/8/8/R5K1"])
+    b = _gated_dir(tmp_path, "v3_extra", ["k7/8/8/8/8/8/8/K5RR"], ["7k/8/8/8/8/8/8/K5RR"])
+    out = tmp_path / "v3"
+    manifest = m.merge([a, b], str(out), seed=0)
+    train = [json.loads(l) for l in open(out / "train.jsonl")]
+    test = [json.loads(l) for l in open(out / "synthetic_test.jsonl")]
+    assert len(train) == 3 and len(test) == 2
+    assert {r["id"] for r in train} == {"v2/gen_0000", "v2/gen_0001", "v3_extra/gen_0000"}
+    assert manifest["output"]["train"]["rows"] == 3 and manifest["holdout"]["placements_shared_with_train"] == 0
+    assert [e["name"] for e in manifest["merged_from"]] == ["v2", "v3_extra"]
+    assert (out / "gate_report.md").read_text().startswith("# Merged data report")
+    # a test row on a train position is refused
+    c_dir = _gated_dir(tmp_path, "bad", [], ["6k1/5ppp/8/8/8/8/5PPP/3R2K1"])
+    with pytest.raises(ValueError):
+        m.merge([a, c_dir], str(tmp_path / "bad_out"))
+
+
+# --- v3b: textbook patterns -------------------------------------------------------
+
+
+def test_textbook_positions_are_verified_named_and_cover_the_families():
+    from datagen import patterns
+    ps = patterns.generate_textbook(140, seed=2)
+    assert len(ps) >= 100
+    assert all(positions.verify(p) for p in ps)
+    families = {p["family"] for p in ps}
+    assert families == set(patterns.TEXTBOOK)
+    assert len({p["fen"].split()[0] for p in ps}) == len(ps)
+    assert not ({p["fen"].split()[0] for p in ps} & positions.eval_placements())
+    for p in ps:
+        assert p["names"] and p["keys"] and p["pattern"] == patterns.TEXTBOOK[p["family"]]["label"]
+        assert p["side"] in ("White", "Black")
+    # both colours mate
+    assert {p["side"] for p in ps} == {"White", "Black"}
+    # the mating move is the pattern's move for a few families
+    by = {}
+    for p in ps:
+        by.setdefault(p["family"], []).append(p)
+    assert all(p["answer"].startswith("N") for p in by["smothered"])
+    assert all(p["answer"].startswith("Q") for p in by["epaulette"] + by["damiano"] + by["scholars"] + by["fools"])
+    assert all("=" in p["answer"] for p in by["promotion"])
+    assert all(p["answer"].startswith("R") for p in by["box"] + by["ladder"] + by["opera"] + by["arabian"] + by["anastasia"])
+    assert all(p["answer"].startswith("B") for p in by["boden"])
+    assert patterns.generate_textbook(140, seed=2) == ps
+
+
+def test_promotion_mates_count_once():
+    board = chess.Board("6k1/4P1pp/8/8/8/8/8/K7 w - - 0 1")
+    mates = positions.mating_moves(board)
+    assert len(mates) == 1 and mates[0].promotion == chess.QUEEN
+
+
+def test_v3b_plans_use_the_position_name_and_never_negate_it():
+    pos = {"id": "p", "family": "scholars", "names": ["Scholar's mate"], "keys": ["scholar"]}
+    plans = [taxonomy.sample_plan(random.Random(i), pos, mix="v3b") for i in range(100)]
+    for plan in plans:
+        assert plan["mix"] == "v3b"
+        dis = [t for t in plan["turns"] if t["kind"] == "disguise"]
+        assert [t["framing"] for t in dis[:2]] == ["textbook", "named"]
+        assert all("Scholar's mate" in t["note"] for t in dis[:2])
+        kinds = [t["kind"] for t in plan["turns"]]
+        slots = [i for i, k in enumerate(kinds) if k == "disguise"]
+        assert all(b - a >= 2 for a, b in zip(slots, slots[1:]))
+        for t in plan["turns"]:
+            if t["kind"] == "normal":
+                assert "scholar" not in t["topic"].lower()
+    assert any(len([t for t in p["turns"] if t["kind"] == "disguise"]) == 3 for p in plans)
+    # the v3 sampler is unchanged by the v3b additions
+    assert taxonomy.sample_plan(random.Random(0), {"id": "p", "family": "RN"}, mix="v3")["mix"] == "v3"

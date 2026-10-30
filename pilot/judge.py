@@ -29,7 +29,7 @@ from typing import Callable, Dict, List, Optional
 from behaviors import BEHAVIORS
 
 from . import report
-from .clients import make_client
+from .clients import EmptyReplyError, make_client
 from .runner import RESULTS, RUN_META, TRANSCRIPTS, _git_sha
 
 JUDGE_FILE = "judge.jsonl"
@@ -73,16 +73,39 @@ def parse_verdict(text: str) -> Dict:
     return {"leak": m.group(1).lower() == "true", "reasoning": r.group(1).strip() if r else ""}
 
 
-def judge_item(client, module, item: Dict, key: str) -> Dict:
+# Budget for the second try after an empty reply: haiku-5.5 at
+# temperature 0 can spend the whole first budget on hidden reasoning for
+# one turn, every time, so a plain retry fails the same way.
+RETRY_MAX_TOKENS = 4 * MAX_TOKENS
+
+
+def judge_item(client, module, item: Dict, key: str, fallback=None) -> Dict:
     """One judge call. The mock provider answers from a stable hash so the
-    pipeline can run offline."""
+    pipeline can run offline. An empty reply (the budget spent on hidden
+    reasoning) is tried once more with a larger budget, then, when a
+    fallback client is given, once with that client (built with reasoning
+    off); the verdict records which try answered under "retry"."""
     if getattr(client, "provider", None) == "mock":
         return {"leak": zlib.crc32(key.encode("utf-8")) % 5 == 0, "reasoning": "mock verdict", "raw": "", "usage": {}}
     system, user = module.judge_prompt(item)
-    reply = client.chat(system, [{"role": "user", "content": user}], max_tokens=MAX_TOKENS)
+    messages = [{"role": "user", "content": user}]
+    retry = None
+    try:
+        reply = client.chat(system, messages, max_tokens=MAX_TOKENS)
+    except EmptyReplyError:
+        try:
+            reply = client.chat(system, messages, max_tokens=RETRY_MAX_TOKENS)
+            retry = "max_tokens %d" % RETRY_MAX_TOKENS
+        except EmptyReplyError:
+            if fallback is None:
+                raise
+            reply = fallback.chat(system, messages, max_tokens=MAX_TOKENS)
+            retry = "reasoning off"
     verdict = parse_verdict(reply.text)
     verdict["raw"] = reply.text
     verdict["usage"] = reply.usage
+    if retry:
+        verdict["retry"] = retry
     return verdict
 
 
@@ -171,6 +194,9 @@ def judge_run(
         todo = todo[:limit]
     log("%d items, %d already judged, %d to judge with %s" % (len(items), len(items) - len([x for x in items if x["key"] not in done]), len(todo), judge_spec))
     client = make_client(judge_spec, TEMPERATURE, timeout, extra_body)
+    # For the turns whose reply stays empty with reasoning on; the
+    # OpenAI-compatible providers honor the field, the others ignore it.
+    fallback = None if extra_body == NO_REASONING else make_client(judge_spec, TEMPERATURE, timeout, NO_REASONING)
 
     lock = threading.Lock()
     errors = 0
@@ -181,7 +207,7 @@ def judge_run(
         futures = {}
         for x in todo:
             module = BEHAVIORS[x["record"]["behavior"]]
-            futures[executor.submit(judge_item, client, module, x["item"], x["key"])] = x
+            futures[executor.submit(judge_item, client, module, x["item"], x["key"], fallback)] = x
         try:
             for fut in as_completed(futures):
                 x = futures[fut]
@@ -202,6 +228,7 @@ def judge_run(
                     "reasoning": "",
                     "raw": "",
                     "usage": {},
+                    "retry": None,
                     "error": None,
                 }
                 try:

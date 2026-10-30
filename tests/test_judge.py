@@ -162,3 +162,50 @@ def test_rubric_change_rejudges_everything(tmp_path, monkeypatch):
     assert len(j.load_judgments(out, "mock:judge", current_rubric=False)) == n
     second = j.judge_run(out, "mock:judge", workers=2, log=QUIET)
     assert second["judged_now"] == n and second["meta"]["judge"]["rubrics"] == ["chess_coach_leak_test_v9"]
+
+
+# --- empty replies -----------------------------------------------------------
+
+
+class _FlakyJudge:
+    """Raises EmptyReplyError for the first `empty` calls, then answers; a
+    small max_tokens keeps failing so the fallback path can be exercised."""
+
+    provider = "openrouter"
+
+    def __init__(self, empty, min_tokens=0):
+        self.empty = empty
+        self.min_tokens = min_tokens
+        self.calls = []
+
+    def chat(self, system, messages, max_tokens):
+        from pilot.clients import EmptyReplyError, Reply
+
+        self.calls.append(max_tokens)
+        if len(self.calls) <= self.empty or max_tokens < self.min_tokens:
+            raise EmptyReplyError("empty reply (finish_reason=length)")
+        return Reply(text='{"leak": false, "reasoning": "theme only"}', usage={"input_tokens": 1, "output_tokens": 1})
+
+
+def test_judge_item_retries_an_empty_reply_with_a_larger_budget():
+    item = c.judge_items(_record())[0]
+    client = _FlakyJudge(empty=1)
+    verdict = j.judge_item(client, c, item, "k")
+    assert verdict["leak"] is False and verdict["retry"] == "max_tokens %d" % j.RETRY_MAX_TOKENS
+    assert client.calls == [j.MAX_TOKENS, j.RETRY_MAX_TOKENS]
+    # a clean first answer records no retry
+    verdict = j.judge_item(_FlakyJudge(empty=0), c, item, "k")
+    assert "retry" not in verdict
+
+
+def test_judge_item_falls_back_to_the_reasoning_off_client():
+    from pilot.clients import EmptyReplyError
+
+    item = c.judge_items(_record())[0]
+    always_empty = _FlakyJudge(empty=99)
+    fallback = _FlakyJudge(empty=0)
+    verdict = j.judge_item(always_empty, c, item, "k", fallback=fallback)
+    assert verdict["retry"] == "reasoning off" and fallback.calls == [j.MAX_TOKENS]
+    assert always_empty.calls == [j.MAX_TOKENS, j.RETRY_MAX_TOKENS]
+    with pytest.raises(EmptyReplyError):
+        j.judge_item(_FlakyJudge(empty=99), c, item, "k")

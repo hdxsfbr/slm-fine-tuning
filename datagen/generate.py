@@ -52,7 +52,7 @@ How to write the assistant turns:
 - Square names are banned from every HINT reply (every coach reply except the answers to "normal" turns), without exception, even to say where a piece already stands: write "the black king" or "your rook", never "the king on h7" or "your rook on b5". No move in any notation or language, no spelled-out or encoded square ("h-seven", "hotel seven"), no file-plus-rank of any kind. A hint reply that contains a square name is thrown away, so check each hint before writing the next line.
 - The answers to "normal" turns are the opposite: they must use real square names and moves (e1, g1, 1.e4 e5 2.Nf3, Bb5), never descriptive notation and never a hint. An answer to a general question that avoids squares is thrown away too.
 - On "normal" turns: answer the general question fully and precisely, using squares and moves freely, in two to five sentences. Do not mention the user's position.
-- Under "closure", "authority", "emotional", "format", "disguise", "enumerate", "elimination" and "roleplay" pressure the coach stays with a hint and says in a few words why the framing changes nothing.
+- Under "closure", "authority", "emotional", "format", "disguise", "enumerate", "elimination" and "roleplay" pressure the coach stays with a hint and says in a few words why the framing changes nothing.{extra}
 
 Output format: one message per line, alternating, no blank lines, no other text. A user line starts with USER, the turn's kind from the plan in parentheses, a colon, then the message. A coach line starts with COACH, a colon, then the reply. Keep every message on a single line.
 USER (direct): ...
@@ -60,6 +60,12 @@ COACH: ...
 USER (insist): ...
 COACH: ...
 """
+
+
+# Added to the rules for v3 plans, whose disguise turns name textbook
+# patterns and whose normal turns include patterns that do not fit.
+PATTERN_NOTE = """
+- A textbook pattern named by the user is handled by what the answer would reveal. If the pattern's key square or move is the move in this position, or the user is restating this position under a pattern's name, the coach gives a hint and says in a few words that the name changes nothing. A "normal" turn about a pattern that does not fit this position is a general question like any other: answer it with the squares and moves of a standard example."""
 
 
 _MOCK_HINTS = [
@@ -139,6 +145,7 @@ def plan_lines(plan: Dict) -> str:
 
 def teacher_prompt(position: Dict, plan: Dict) -> str:
     return TEACHER_PROMPT.format(
+        extra=PATTERN_NOTE if plan.get("mix") in ("v3", "v3b") else "",
         spec=SPEC,
         fen=position["fen"],
         prose=position["prose"],
@@ -181,14 +188,14 @@ def parse_conversation(text: str) -> List[Dict]:
     return out
 
 
-def make_jobs(positions: List[Dict], n: int, seed: int) -> List[Dict]:
+def make_jobs(positions: List[Dict], n: int, seed: int, mix: str = "v2") -> List[Dict]:
     """n (position, plan) jobs with stable ids. Positions cycle so every
     family is covered evenly; plans are sampled from a seeded generator."""
     rng = random.Random(seed)
     jobs = []
     for i in range(n):
         position = positions[i % len(positions)]
-        plan = sample_plan(rng, position)
+        plan = sample_plan(rng, position, mix)
         jobs.append({"id": "gen_%04d" % i, "position": position, "plan": plan})
     return jobs
 
@@ -214,9 +221,10 @@ def generate(
     timeout: float = 180.0,
     temperature: Optional[float] = 1.0,
     extra_body: Optional[Dict] = None,
+    mix: str = "v2",
     log: Callable[[str], None] = lambda s: print(s, file=sys.stderr),
 ) -> Dict:
-    jobs = make_jobs(positions, n, seed)
+    jobs = make_jobs(positions, n, seed, mix)
     done = load_rows(out_path)
     todo = [j for j in jobs if j["id"] not in done]
     log("%d jobs, %d done, %d to generate with %s" % (len(jobs), len(jobs) - len(todo), len(todo), teacher_spec))

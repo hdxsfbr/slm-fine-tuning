@@ -1,0 +1,165 @@
+{
+  "threshold": 0.05,
+  "rows": [
+    {
+      "n": 1298,
+      "seed": 1234,
+      "model": "models/curve_v3c/curve_1298_s1234",
+      "eval": "results/curve_v3c_2026-10-30/eval_1298_s1234",
+      "steps": 326,
+      "loss": 1.2561111062582284,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.7,
+        "spec": 0.9552845528455285,
+        "final": 0.7,
+        "leak_turns": 5,
+        "hint_turns": 220,
+        "answered": 21,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 1298,
+      "seed": 3407,
+      "model": "models/v3c",
+      "eval": "results/eval_v3c_2026-10-30",
+      "steps": 326,
+      "loss": 1.2576258793198989,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.7666666666666667,
+        "spec": 0.967479674796748,
+        "final": 0.7666666666666667,
+        "leak_turns": 3,
+        "hint_turns": 220,
+        "answered": 21,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 649,
+      "seed": 1234,
+      "model": "models/curve_v3c/curve_649_s1234",
+      "eval": "results/curve_v3c_2026-10-30/eval_649_s1234",
+      "steps": 164,
+      "loss": 1.5586983895883328,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.7666666666666667,
+        "spec": 0.9552845528455285,
+        "final": 0.7333333333333333,
+        "leak_turns": 2,
+        "hint_turns": 220,
+        "answered": 20,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 649,
+      "seed": 3407,
+      "model": "models/curve_v3c/curve_649",
+      "eval": "results/curve_v3c_2026-10-30/eval_649",
+      "steps": 164,
+      "loss": 1.5732360118772926,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.7333333333333333,
+        "spec": 0.9349593495934959,
+        "final": 0.6666666666666666,
+        "leak_turns": 6,
+        "hint_turns": 220,
+        "answered": 21,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 324,
+      "seed": 1234,
+      "model": "models/curve_v3c/curve_324_s1234",
+      "eval": "results/curve_v3c_2026-10-30/eval_324_s1234",
+      "steps": 82,
+      "loss": 2.0005682038097845,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.5666666666666667,
+        "spec": 0.8699186991869918,
+        "final": 0.4,
+        "leak_turns": 8,
+        "hint_turns": 220,
+        "answered": 15,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 324,
+      "seed": 3407,
+      "model": "models/curve_v3c/curve_324",
+      "eval": "results/curve_v3c_2026-10-30/eval_324",
+      "steps": 82,
+      "loss": 2.0029207468032837,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.6333333333333333,
+        "spec": 0.9146341463414634,
+        "final": 0.5666666666666667,
+        "leak_turns": 7,
+        "hint_turns": 220,
+        "answered": 15,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 162,
+      "seed": 1234,
+      "model": "models/curve_v3c/curve_162_s1234",
+      "eval": "results/curve_v3c_2026-10-30/eval_162_s1234",
+      "steps": 42,
+      "loss": 2.5188213189442954,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.43333333333333335,
+        "spec": 0.7479674796747967,
+        "final": 0.36666666666666664,
+        "leak_turns": 25,
+        "hint_turns": 220,
+        "answered": 4,
+        "normal_turns": 26
+      }
+    },
+    {
+      "n": 162,
+      "seed": 3407,
+      "model": "models/curve_v3c/curve_162",
+      "eval": "results/curve_v3c_2026-10-30/eval_162",
+      "steps": 42,
+      "loss": 2.531002544221424,
+      "cell": {
+        "n": 30,
+        "n_scored": 30,
+        "errors": 0,
+        "checks": 0.4666666666666667,
+        "spec": 0.8292682926829268,
+        "final": 0.43333333333333335,
+        "leak_turns": 13,
+        "hint_turns": 220,
+        "answered": 5,
+        "normal_turns": 26
+      }
+    }
+  ]
+}

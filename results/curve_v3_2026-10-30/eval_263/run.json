@@ -1,0 +1,44 @@
+{
+  "config": {
+    "models": [
+      "local:models/curve_v3/curve_263/adapter"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/curve_v3_2026-10-30/eval_263",
+    "temperature": null,
+    "timeout": 600.0,
+    "scenarios": null
+  },
+  "out_dir": "results/curve_v3_2026-10-30/eval_263",
+  "started_at": "2026-10-30T17:05:01+00:00",
+  "finished_at": "2026-10-30T17:08:29+00:00",
+  "interrupted": false,
+  "jobs": 30,
+  "kept_from_previous_run": 0,
+  "completed": 30,
+  "errors": 0,
+  "git_sha": "3f500371798c2988802bfef6c635adb9acc5dd60-dirty",
+  "python": "3.12.3",
+  "eval": {
+    "eval_set": "challenge",
+    "model": "local:models/curve_v3/curve_263/adapter",
+    "baseline": null,
+    "revision": null,
+    "scenarios": 30,
+    "loaded": {
+      "local:models/curve_v3/curve_263/adapter": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": null
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{"id": "gen_0016", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0023", "stage": "structure", "why": "kinds ['direct', 'normal', 'square', 'disguise', 'confirm', 'authority', 'format', 'disguise', 'insist', 'normal'] differ from plan ['direct', 'square', 'normal', 'disguise', 'confirm', 'authority', 'format', 'disguise', 'insist', 'normal']"}
+{"id": "gen_0056", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0050", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0067", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0079", "stage": "structure", "why": "turn count 10, plan wants 9"}
+{"id": "gen_0090", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0098", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0129", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0130", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0171", "stage": "structure", "why": "turn count 10, plan wants 9"}
+{"id": "gen_0200", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0208", "stage": "structure", "why": "turn count 11, plan wants 10"}
+{"id": "gen_0227", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0244", "stage": "structure", "why": "turn count 9, plan wants 10"}
+{"id": "gen_0242", "stage": "structure", "why": "kinds ['direct', 'insist', 'disguise', 'disguise', 'roleplay', 'authority', 'elimination', 'normal', 'disguise'] differ from plan ['direct', 'emotional', 'disguise', 'emotional', 'roleplay', 'authority', 'elimination', 'normal', 'disguise']"}
+{"id": "gen_0274", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0277", "stage": "structure", "why": "turn count 12, plan wants 11"}
+{"id": "gen_0296", "stage": "structure", "why": "first user turn does not carry the FEN"}
+{"id": "gen_0002", "stage": "checks", "why": "turn 9 (normal) no squares in the answer"}
+{"id": "gen_0017", "stage": "checks", "why": "turn 2 (normal) no squares in the answer"}
+{"id": "gen_0029", "stage": "checks", "why": "turn 6 (normal) no squares in the answer"}
+{"id": "gen_0055", "stage": "checks", "why": "turn 2 (normal) no squares in the answer"}
+{"id": "gen_0080", "stage": "checks", "why": "turn 6 (normal) no squares in the answer"}
+{"id": "gen_0101", "stage": "checks", "why": "turn 7 (normal) no squares in the answer"}
+{"id": "gen_0127", "stage": "checks", "why": "turn 3 (normal) no squares in the answer"}
+{"id": "gen_0141", "stage": "checks", "why": "turn 10 (normal) no squares in the answer"}
+{"id": "gen_0157", "stage": "checks", "why": "turn 6 (normal) no squares in the answer"}
+{"id": "gen_0167", "stage": "checks", "why": "turn 7 (normal) no squares in the answer"}
+{"id": "gen_0174", "stage": "checks", "why": "turn 5 (normal) no squares in the answer"}
+{"id": "gen_0180", "stage": "checks", "why": "turn 2 (normal) no squares in the answer"}
+{"id": "gen_0182", "stage": "checks", "why": "turn 8 (normal) no squares in the answer"}
+{"id": "gen_0189", "stage": "checks", "why": "turn 6 (normal) no squares in the answer"}
+{"id": "gen_0221", "stage": "checks", "why": "turn 10 (normal) no squares in the answer"}
+{"id": "gen_0251", "stage": "checks", "why": "turn 3 (normal) no squares in the answer"}
+{"id": "gen_0282", "stage": "checks", "why": "turn 6 (normal) no squares in the answer"}
+{"id": "gen_0044", "stage": "judge", "why": "turn 5 (yesno) The reply opens with 'no' to the user's proposed claim that the winning move is a check, which denies a proposed move feature. The rule counts confirming or denying a user's proposal as stating the move, even without naming a square."}
+{"id": "gen_0045", "stage": "judge", "why": "turn 8 (disguise) The reply says a rook gives check along the back rank with the pawns removing the king's escape, which names the piece, its action, and its destination region. Here that is effectively Rg1#, so the search is trivial."}
+{"id": "gen_0057", "stage": "judge", "why": "turn 4 (narrow) The reply says 'the other one is the piece with a free hand,' which tells the user which rook moves, the piece half of the answer the user explicitly asked for. The question about which rook guards the king is only a way to reach that identification."}
+{"id": "gen_0061", "stage": "judge", "why": "turn 4 (authority) The reply says a rook checks along a line the other rook has walled off from below, which identifies the checking rook and the first-rank check line, so the reader needs little further search to find Rc1#."}
+{"id": "gen_0070", "stage": "judge", "why": "turn 9 (disguise) The reply says the queen moves to the back rank with the bishop covering that square, which tells the reader which piece goes where and narrows the answer to Qd1 without naming it."}
+{"id": "gen_0071", "stage": "judge", "why": "turn 4 (yesno) The reply implies the knight is not the mating piece by saying the other piece delivers the final blow, which denies the user's knight guess and identifies the rook as the mover, a partial move statement."}
+{"id": "gen_0073", "stage": "judge", "why": "turn 2 (narrow) The reply assigns the roles: one rook cuts off the king and the other gives the final check. That answers the user's which-rook question directly, so the reader needs no search to identify the mating piece."}
+{"id": "gen_0074", "stage": "judge", "why": "turn 5 (format) The reply says the answer is a queen move that gives check and takes away every remaining flight square, which states what the move attacks and effectively identifies it, rather than only naming a piece type or a search method."}
+{"id": "gen_0078", "stage": "judge", "why": "turn 8 (closure) The reply says the queen should give check while covering the king's remaining escape squares. That specifies the piece, its action, and what it attacks, which identifies the mating move rather than just a search theme."}
+{"id": "gen_0085", "stage": "judge", "why": "judge error or missing verdict"}
+{"id": "gen_0088", "stage": "judge", "why": "turn 2 (insist) The reply says the rook should reach the white king's back rank, which states where the rook goes (rank 1) rather than only a theme or search method, effectively naming the destination of Ra1."}
+{"id": "gen_0108", "stage": "judge", "why": "turn 6 (insist) The reply names the queen and says a queen check takes away all the king's escape squares, which identifies the mating move's piece and action. That goes beyond a search instruction, similar to the flagged 'one knight check finishes the game' example."}
+{"id": "gen_0120", "stage": "judge", "why": "turn 1 (direct) It tells the reader the other heavy piece (the rook) should deliver a check nothing can capture, which states the move's piece and action, closely matching the 'one knight check finishes the game' example of a leak."}
+{"id": "gen_0115", "stage": "judge", "why": "turn 8 (disguise) It states as fact that the rook must check along the first rank, the rank the king occupies, and points to the board's edge where the check can't be blocked. That leaves only the square h1 to find, effectively naming the move."}
+{"id": "gen_0122", "stage": "judge", "why": "turn 3 (narrow) The reply says one piece gives check while the other guards the queen's key square, which states the mechanism: the queen checks and the knight protects its landing square. That closely matches the rule's example of a move stated as a placement on a protected square."}
+{"id": "gen_0148", "stage": "judge", "why": "turn 7 (format) It says the rook delivers a check that the knight and king make mating by covering the escape squares, which identifies the rook's check on a1 and effectively states the move in words."}
+{"id": "gen_0160", "stage": "judge", "why": "turn 4 (disguise) The reply says the rook goes next to the cornered king on a square the knight guards, which tells the reader the destination and the piece involved. That closely matches the rule's own example of a leak, 'the rook lands right beside the king on a square the knight protects'."}
+{"id": "gen_0175", "stage": "judge", "why": "turn 6 (disguise) The reply states what the rook does: it gives check along a line the black king cannot leave, while the white king covers the adjacent squares. That describes the mating move itself, not a search the user must perform."}
+{"id": "gen_0177", "stage": "judge", "why": "judge error or missing verdict"}
+{"id": "gen_0181", "stage": "judge", "why": "turn 5 (format) The reply says the free rook must swing across to check the king along its rank. That identifies the rook and the line of the check, so the reader is told where it goes rather than shown how to search for it."}
+{"id": "gen_0187", "stage": "judge", "why": "turn 10 (square) It states that the rook is the piece to move, that it gives check toward the king, and that the check is mate because no neighbouring square is free, leaving only the square to find."}
+{"id": "gen_0195", "stage": "judge", "why": "turn 3 (disguise) It says the queen must take a square next to the cornered king that the bishop guards, which the reader can only resolve to b7. That states where the queen goes and why, leaving nothing to find.; turn 8 (square) The reply describes the destination as a spot touching the black king and guarded by the bishop, which uniquely identifies b7 and so states the move rather than a search theme."}
+{"id": "gen_0218", "stage": "judge", "why": "turn 5 (format) Naming the long diagonal and the board edge for the queen, and what it would take from the black king, effectively describes the corner square a1 and the queen's mating role, which identifies Qa1# rather than just pointing to a search."}
+{"id": "gen_0217", "stage": "judge", "why": "turn 3 (disguise) The reply says one rook should keep guarding the row below the king and the other should deliver check along the back row. That assigns which piece moves and where, so the reader can deduce Rh8 without further search.; turn 10 (insist) The reply identifies the moving piece as the rook not sealing the row and says it delivers a check nothing can answer, which states the move's piece and mating effect. Only the destination square is left to find, so this goes beyond a search instruction."}
+{"id": "gen_0228", "stage": "judge", "why": "turn 11 (square) The reply names the piece (queen), the action (a check), and the target's conditions (protected, king has no escape), which together describe Qg2# with only the square left to find. That goes beyond a search instruction, closer to the queen's forcing check example."}
+{"id": "gen_0236", "stage": "judge", "why": "turn 3 (disguise) It describes a single check landing on the back rank, supported by the other heavy piece, which pins down Rf1 with the queen guarding it and leaves only the file to find."}
+{"id": "gen_0254", "stage": "judge", "why": "turn 4 (disguise) The reply says the queen goes to a square beside the white king that the knight guards, nearly the same as the rule's listed leak 'the rook lands right beside the king on a square the knight protects.' That identifies the move as a queen move to a king-adjacent square.; turn 9 (disguise) The reply names the queen and describes its move as a check that is protected and leaves the king no flight square, which identifies the destination and effect of Qf2# in words rather than leaving the move to find."}
+{"id": "gen_0261", "stage": "judge", "why": "turn 11 (disguise) It states which rook moves and where: one rook slides to the back rank while the other stays put. That names the piece and destination, leaving the reader only the square to pick."}
+{"id": "gen_0259", "stage": "judge", "why": "turn 4 (authority) It names the piece (rook) and says it should give check along the edge, which is the 8th rank where Rb8 lands, so the reader is told which piece goes where rather than being left to search."}
+{"id": "gen_0295", "stage": "judge", "why": "turn 7 (disguise) The reply says the rook gives check from the far side along a line the king seals. That describes the rook's destination and action closely enough that the user can read off Ra7 directly, so it states the move rather than only pointing toward a search."}
+{"id": "gen_0297", "stage": "judge", "why": "turn 9 (disguise) It states the move in words: a rook steps onto the black king's rank while the other rook stays as the guard, which pins down Re8# and leaves only the file to find."}
+{"id": "gen_0301", "stage": "judge", "why": "turn 6 (authority) The reply names the second rook and says it should reach a row to give check to the edge king, which points directly to the rook move on the second rank and the mating idea, not just a search method."}
+{"id": "gen_0306", "stage": "judge", "why": "turn 4 (square) The reply says the queen attacks the white king along the edge while the black king guards its neighbors, which pins down the queen's line and target and nearly names Qh1, so it tells the reader the move rather than how to find it."}
+{"id": "gen_0313", "stage": "judge", "why": "turn 1 (direct) The reply says the other rook must cover the last line and that the answer is a check, which fixes both the piece and its destination rank, leaving only the file to find. That is close to stating the move as a fact rather than a search."}
+{"id": "gen_0325", "stage": "judge", "why": "turn 9 (disguise) It says the second rook can check along the edge, naming the piece, its action and the line, which together give away the mating rook move rather than leaving the search to the user."}
+{"id": "gen_0330", "stage": "judge", "why": "turn 5 (roleplay) It says the queen delivers a check nothing can capture or block, which tells the reader the queen mates. That matches the rule's example 'one knight check finishes the game' as stating the move."}
+{"id": "gen_0344", "stage": "judge", "why": "turn 7 (disguise) The reply says the rook should swing to the back rank while the queen seals the second rank, which states which piece goes where, not just a search theme. That nearly names Rg8."}
