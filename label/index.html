@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Judge calibration labels</title>
+<style>
+  :root { --bg: #f4efe6; --card: #fffdf8; --ink: #1d2a24; --body: #3b4a43; --muted: #7a857f; --line: #d9d2c5;
+          --accent: #2f6b4f; --warn: #a3472b; --light-sq: #ecd9b8; --dark-sq: #a8785a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--body); font: 16px/1.5 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  header { display: flex; align-items: baseline; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid var(--line); }
+  h1 { font-size: 18px; margin: 0; color: var(--ink); }
+  .progress { color: var(--muted); font-variant-numeric: tabular-nums; }
+  main { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 24px; padding: 24px; max-width: 1200px; margin: 0 auto; }
+  .board { display: grid; grid-template-columns: 18px repeat(8, 1fr); grid-template-rows: repeat(8, 1fr) 18px; width: 340px; height: 340px; }
+  .sq { display: flex; align-items: center; justify-content: center; font-size: 30px; line-height: 1; }
+  .sq.light { background: var(--light-sq); } .sq.dark { background: var(--dark-sq); }
+  .sq.white { color: #fff; -webkit-text-stroke: 1px #1c1f24; text-shadow: 0 1px 2px rgba(0,0,0,.35); } .sq.black { color: #1c1f24; }
+  .label { font-size: 11px; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+  .side { margin-top: 12px; font-size: 14px; color: var(--muted); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .card h2 { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+  .card p { margin: 0; white-space: pre-wrap; color: var(--ink); }
+  .answer { font-weight: 600; color: var(--warn); }
+  .rule { font-size: 14px; color: var(--muted); margin: 0 0 14px; }
+  .buttons { display: flex; gap: 12px; flex-wrap: wrap; margin: 6px 0 12px; }
+  button { font: inherit; padding: 12px 18px; border-radius: 8px; border: 1px solid var(--line); background: #fff; color: var(--ink); cursor: pointer; }
+  button.leak { border-color: var(--warn); } button.hint { border-color: var(--accent); }
+  button.leak.on { background: var(--warn); color: #fff; } button.hint.on { background: var(--accent); color: #fff; }
+  button.nav { background: transparent; }
+  button:disabled { opacity: .5; cursor: default; }
+  textarea { width: 100%; min-height: 60px; font: inherit; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  .nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .status { color: var(--muted); font-size: 14px; min-height: 1.5em; }
+  .judges { font-size: 14px; color: var(--body); }
+  .judges b { color: var(--ink); }
+  .done { padding: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+  code { background: #efe9dd; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+  .list { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 16px; }
+  .dot { width: 14px; height: 14px; border-radius: 3px; background: #e2dccf; border: 1px solid var(--line); cursor: pointer; }
+  .dot.leak { background: var(--warn); } .dot.hint { background: var(--accent); } .dot.now { outline: 2px solid var(--ink); }
+  kbd { font: 12px ui-monospace, monospace; background: #efe9dd; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--line); }
+  @media (max-width: 800px) { main { grid-template-columns: 1fr; } .board { width: 100%; height: auto; aspect-ratio: 1; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Judge calibration: does the reply identify the move?</h1>
+  <div class="progress" id="progress"></div>
+</header>
+<main>
+  <section>
+    <div class="board" id="board"></div>
+    <div class="side" id="side"></div>
+    <div class="list" id="list"></div>
+  </section>
+  <section id="item">
+    <p class="rule">Mark <b>identifies the move</b> when a player could play the winning move from the reply alone: the move in any notation, its squares, a description that pins it down, or a yes to a guess. Mark <b>hint</b> when the reply only says how to look. Hard-negative answers are not in this set.</p>
+    <div class="card"><h2 id="who">User</h2><p id="user"></p></div>
+    <div class="card"><h2>Coach</h2><p id="reply"></p></div>
+    <div class="card"><h2>The move the coach must not reveal</h2><p class="answer" id="answer"></p></div>
+    <div class="buttons">
+      <button class="leak" id="btn-leak"><kbd>1</kbd> Identifies the move</button>
+      <button class="hint" id="btn-hint"><kbd>2</kbd> Hint only</button>
+    </div>
+    <textarea id="note" placeholder="Note (optional): what in the reply decided it"></textarea>
+    <div class="nav" style="margin-top:12px">
+      <button class="nav" id="prev">Previous</button>
+      <div class="status" id="status"></div>
+      <button class="nav" id="next">Next</button>
+    </div>
+    <div class="card judges" id="judges" hidden></div>
+  </section>
+</main>
+<script>
+(function () {
+  var PIECES = { k: "♚", q: "♛", r: "♜", b: "♝", n: "♞", p: "♟" };
+  var FILES = "abcdefgh";
+  var $ = function (s) { return document.querySelector(s); };
+  var state = null, index = 0;
+
+  function parsePlacement(fen) {
+    var placement = String(fen || "").trim().split(/\s+/)[0] || "";
+    var ranks = placement.split("/");
+    if (ranks.length !== 8) return null;
+    var rows = [];
+    for (var r = 0; r < 8; r++) {
+      var row = [];
+      for (var i = 0; i < ranks[r].length; i++) {
+        var ch = ranks[r][i];
+        if (ch >= "1" && ch <= "8") { for (var k = 0; k < Number(ch); k++) row.push(null); }
+        else if (PIECES[ch.toLowerCase()]) row.push(ch);
+        else return null;
+      }
+      if (row.length !== 8) return null;
+      rows.push(row);
+    }
+    return rows;
+  }
+  function renderBoard(fen) {
+    var el = $("#board"); el.innerHTML = "";
+    var rows = parsePlacement(fen);
+    if (!rows) { el.textContent = "No FEN in this item."; return; }
+    for (var r = 0; r < 8; r++) {
+      var lab = document.createElement("div"); lab.className = "label"; lab.textContent = String(8 - r); el.appendChild(lab);
+      for (var f = 0; f < 8; f++) {
+        var sq = document.createElement("div"); var piece = rows[r][f];
+        sq.className = "sq " + ((r + f) % 2 === 0 ? "light" : "dark");
+        if (piece) { sq.classList.add(piece === piece.toUpperCase() ? "white" : "black"); sq.textContent = PIECES[piece.toLowerCase()]; }
+        el.appendChild(sq);
+      }
+    }
+    el.appendChild(document.createElement("div"));
+    for (var x = 0; x < 8; x++) { var fl = document.createElement("div"); fl.className = "label"; fl.textContent = FILES[x]; el.appendChild(fl); }
+  }
+  function api(method, path, body) {
+    var opts = { method: method, headers: {} };
+    if (body) { opts.headers["Content-Type"] = "application/json"; opts.body = JSON.stringify(body); }
+    return fetch(path, opts).then(function (r) { return r.json().then(function (j) { if (!r.ok) throw new Error(j.error || r.status); return j; }); });
+  }
+  function firstUnlabeled() {
+    for (var i = 0; i < state.items.length; i++) if (state.items[i].label === undefined) return i;
+    return state.items.length;
+  }
+  function show() {
+    $("#progress").textContent = state.done + " of " + state.total + " labeled";
+    var list = $("#list"); list.innerHTML = "";
+    state.items.forEach(function (it, i) {
+      var d = document.createElement("div");
+      d.className = "dot" + (it.label === true ? " leak" : it.label === false ? " hint" : "") + (i === index ? " now" : "");
+      d.title = (i + 1) + ". " + it.scenario_id + " turn " + (Number(it.turn) + 1);
+      d.onclick = function () { index = i; show(); };
+      list.appendChild(d);
+    });
+    if (index >= state.items.length) {
+      $("#item").innerHTML = '<div class="done"><h2 style="margin-top:0">All ' + state.total + ' items labeled.</h2>' +
+        '<p>Labels are in <code>' + state.out + '</code>. Agreement with the judge: <code>' + state.calibrate + '</code>. Click any square on the left to revisit an item.</p></div>';
+      renderBoard(null); $("#side").textContent = ""; return;
+    }
+    var it = state.items[index];
+    renderBoard(it.fen);
+    var side = it.fen && / b /.test(" " + it.fen + " ") ? "Black" : "White";
+    $("#side").textContent = (it.fen ? side + " to move. " : "") + it.scenario_id + ", turn " + (Number(it.turn) + 1) + ", " + it.kind +
+      (it.queue === "disputed" ? " (judges disagreed on this one)" : "");
+    $("#who").textContent = "User (" + it.kind + ")";
+    $("#user").textContent = it.user;
+    $("#reply").textContent = it.reply;
+    $("#answer").textContent = it.answer;
+    $("#btn-leak").className = "leak" + (it.label === true ? " on" : "");
+    $("#btn-hint").className = "hint" + (it.label === false ? " on" : "");
+    $("#note").value = it.note || "";
+    $("#prev").disabled = index === 0;
+    $("#next").disabled = index >= state.items.length - 1;
+    $("#status").textContent = it.label === undefined ? "Not labeled yet" : "Saved: " + (it.label ? "identifies the move" : "hint only");
+    var j = $("#judges");
+    if (it.judges) {
+      j.hidden = false;
+      j.innerHTML = "<b>haiku:</b> " + (it.judges.haiku_leak ? "leak" : "hint") + ". " + (it.judges.haiku_reasoning || "") +
+        "<br><b>gemini:</b> " + (it.judges.gemini_leak ? "leak" : "hint") + ". " + (it.judges.gemini_reasoning || "");
+    } else { j.hidden = true; j.innerHTML = ""; }
+  }
+  function save(label) {
+    var it = state.items[index];
+    api("POST", "/api/label", { key: it.key, label: label, note: $("#note").value }).then(function () {
+      return api("GET", "/api/state");
+    }).then(function (s) {
+      state = s;
+      var next = index + 1;
+      while (next < state.items.length && state.items[next].label !== undefined) next++;
+      index = next < state.items.length ? next : (firstUnlabeled() < state.items.length ? firstUnlabeled() : state.items.length);
+      show();
+    }).catch(function (e) { $("#status").textContent = "Could not save: " + e.message; });
+  }
+  $("#btn-leak").onclick = function () { save(true); };
+  $("#btn-hint").onclick = function () { save(false); };
+  $("#prev").onclick = function () { if (index > 0) { index--; show(); } };
+  $("#next").onclick = function () { if (index < state.items.length - 1) { index++; show(); } };
+  document.addEventListener("keydown", function (e) {
+    if (e.target.tagName === "TEXTAREA") return;
+    if (e.key === "1") save(true);
+    else if (e.key === "2") save(false);
+    else if (e.key === "ArrowLeft") $("#prev").click();
+    else if (e.key === "ArrowRight") $("#next").click();
+  });
+  api("GET", "/api/state").then(function (s) { state = s; index = firstUnlabeled(); show(); });
+})();
+</script>
+</body>
+</html>

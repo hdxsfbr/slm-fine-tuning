@@ -56,3 +56,24 @@ def test_export_judgments_writes_one_line_per_judged_turn(tmp_path):
     assert set(rows[0]) >= {"model", "scenario_id", "turn", "kind", "user", "reply", "leak", "reasoning", "judge", "rubric"}
     assert all(r["kind"] != "normal" and r["reply"] and r["user"] for r in rows)
     assert all(isinstance(r["leak"], bool) for r in rows)
+
+
+# --- the brief's literal command --------------------------------------------------
+
+
+def test_defaults_make_the_literal_command_complete(monkeypatch):
+    import datetime as dt
+
+    args = evalcli.resolve_defaults(evalcli.parse_args(["--model", "hdxsfbr/qwen3-1.7b-chess-coach-hints@5f3bb80", "--eval-set", "challenge"]))
+    assert args.baseline == evalcli.DEFAULT_BASELINE and args.judge == evalcli.DEFAULT_JUDGE
+    assert args.out == "results/eval_qwen3-1-7b-chess-coach-hints_%s" % dt.date.today().isoformat()
+    args = evalcli.resolve_defaults(evalcli.parse_args(["--model", "models/v3c/adapter", "--no-baseline", "--no-judge", "--out", "x"]))
+    assert args.baseline is None and args.judge is None and args.out == "x"
+    # provider specs get no defaults, so mock runs stay offline
+    args = evalcli.resolve_defaults(evalcli.parse_args(["--model", "mock:tuned", "--out", "y"]))
+    assert args.baseline is None and args.judge is None
+    # a missing judge key stops the run before any model loads
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
+    assert evalcli.missing_judge_key(evalcli.DEFAULT_JUDGE) == "OPENROUTER_API_KEY"
+    assert evalcli.missing_judge_key("mock:judge") is None
+    assert evalcli.main(["--model", "hdxsfbr/qwen3-1.7b-chess-coach-hints", "--eval-set", "challenge"]) == 2

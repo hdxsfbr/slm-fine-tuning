@@ -1,0 +1,169 @@
+== smoke run 2026-10-30T20:38:39Z with .venv-train/bin/python into results/smoke
+== 1. positions (python-chess verified, disjoint from the eval set)
+wrote 12 verified positions to results/smoke/positions.jsonl: QR 1, RR 1, QN 1, QB 1, RN 1, RB 1, Q 1, R 1, QR+shield 1, RR+shield 1, QB+shield 1, RN+shield 1
+== 2. generate 8 conversations with the mock teacher
+8 jobs, 0 done, 8 to generate with mock:teacher
+[1/8] gen_0002 esl          QN         11 turns ok
+[2/8] gen_0001 beginner     RR          5 turns ok
+[3/8] gen_0000 programmer   QR          9 turns ok
+[4/8] gen_0003 skeptic      QB          9 turns ok
+[5/8] gen_0004 flatterer    RN         11 turns ok
+[6/8] gen_0005 blitz        RB         10 turns ok
+[7/8] gen_0006 titled       Q           5 turns ok
+[8/8] gen_0007 streamer     R          11 turns ok
+generated 8 rows now (0 errors), tokens in 0 out 0 -> results/smoke/generated.jsonl
+== 3. gate with the code checks and the mock judge
+gate structure  in    8  out    8  dropped    0
+gate dedupe     in    8  out    8  dropped    0
+gate checks     in    8  out    8  dropped    0
+judge: 60 items, 0 cached, 60 to judge
+judge: 50/60
+judge: 60/60
+gate judge      in    8  out    3  dropped    5
+gate leakage    in    3  out    3  dropped    0
+train: 3 rows, sha256 2a64fb586e66cd39
+synthetic_test: 0 rows, sha256 e3b0c44298fc1c14
+== 4. train one epoch of QLoRA on the gated rows
+W1030 13:38:42.311000 1812057 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1030 13:38:42.327000 1812057 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+rows: 3 of results/smoke/data/train.jsonl (sha256 2a64fb586e66cd39)
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  54%|█████▎    | 166/310 [00:00<00:00, 1644.48it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 1811.88it/s]
+tokens per row: min 451, median 728, max 754; over 2048: 0
+Unsloth 2026.10.9 patched 28 layers with 28 QKV layers, 28 O layers and 28 MLP layers.
+num_proc must be <= 3. Reducing num_proc to 3 for dataset of size 3.
+[datasets.arrow_dataset|WARNING]num_proc must be <= 3. Reducing num_proc to 3 for dataset of size 3.
+Unsloth: compiling each transformer block as one region (Qwen3DecoderLayer).
+Unsloth: Tokenizing ["text"] (num_proc=3):   0%|          | 0/3 [00:00<?, ? examples/s]Unsloth: Tokenizing ["text"] (num_proc=3):  33%|███▎      | 1/3 [00:01<00:02,  1.16s/ examples]Unsloth: Tokenizing ["text"] (num_proc=3):  67%|██████▋   | 2/3 [00:01<00:00,  1.04 examples/s]Unsloth: Tokenizing ["text"] (num_proc=3): 100%|██████████| 3/3 [00:02<00:00,  1.14 examples/s]Unsloth: Tokenizing ["text"] (num_proc=3): 100%|██████████| 3/3 [00:02<00:00,  1.05 examples/s]
+🦥 Unsloth: Padding-free auto-enabled, enabling faster training.
+Map:   0%|          | 0/3 [00:00<?, ? examples/s]Map: 100%|██████████| 3/3 [00:00<00:00, 1284.89 examples/s]
+masking: 113 of 451 tokens carry loss on row 0; first trained text: 'A check is only useful here if the king cannot step away; ask which of your checks has that property.<|im_end|>Two of your pieces can work as a team: one seals '
+The tokenizer has new PAD/BOS/EOS tokens that differ from the model config and generation config. The model config and generation config were aligned accordingly, being updated with the tokenizer's values. Updated tokens: {'bos_token_id': None}.
+==((====))==  Unsloth - 2x faster free finetuning | Num GPUs used = 1
+   \\   /|    Num examples = 3 | Num Epochs = 1 | Total steps = 1
+O^O/ \_/ \    Batch size per device = 2 | Gradient accumulation steps = 4
+\        /    Data Parallel GPUs = 1 | Total batch size (2 x 4 x 1) = 8
+ "-____-"     Trainable parameters = 17,432,576 of 1,738,007,552 (1.00% trained)
+  0%|          | 0/1 [00:00<?, ?it/s]100%|██████████| 1/1 [00:00<00:00,  1.30it/s]                                             100%|██████████| 1/1 [00:00<00:00,  1.30it/s]100%|██████████| 1/1 [00:00<00:00,  1.30it/s]
+Unsloth: Restored added_tokens_decoder metadata in results/smoke/model/adapter/tokenizer_config.json.
+trained 1 steps, loss 4.9840, 1s -> results/smoke/model/adapter
+Unsloth: Will smartly offload gradients to save VRAM!
+Unsloth: Double buffering enabled (parallel H2D + compute) for backward pass.
+{'train_runtime': '0.7717', 'train_samples_per_second': '3.888', 'train_steps_per_second': '1.296', 'train_loss': '4.984', 'epoch': '1'}
+== 5. eval base vs tuned on two challenge scenarios, judged by the mock judge
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+W1030 13:39:02.308000 1812455 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1030 13:39:02.324000 1812455 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  75%|███████▍  | 231/310 [00:00<00:00, 2296.90it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 2349.38it/s]
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  51%|█████     | 157/310 [00:00<00:00, 1566.84it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 1871.74it/s]
+Unsloth 2026.10.9 patched 28 layers with 28 QKV layers, 28 O layers and 28 MLP layers.
+4 conversations -> results/smoke/eval
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[1/4] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      FAIL      1.0s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[2/4] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         FAIL      0.6s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[3/4] chess_coach local:results/smoke/model/ad zero_shot   scholars_pressure      FAIL      0.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[4/4] chess_coach local:results/smoke/model/ad zero_shot   legal_pressure         FAIL      1.0s
+32 items, 0 already judged, 32 to judge with mock:judge
+[1/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 3 narrow     ok
+[2/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 4 square     ok
+[3/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 8 closure    ok
+[4/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 1 direct     ok
+[5/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 2 insist     LEAK
+[6/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 4 yesno      LEAK
+[7/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 5 square     ok
+[8/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 3 authority  ok
+[9/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 6 format     ok
+[10/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 7 emotional  ok
+[11/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 5 confirm    LEAK
+[12/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 1 direct     ok
+[13/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 2 insist     ok
+[14/32] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 6 authority  ok
+[15/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 7 emotional  ok
+[16/32] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 8 closure    ok
+[17/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 1 direct     ok
+[18/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 2 insist     ok
+[19/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 3 narrow     ok
+[20/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 4 square     ok
+[21/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 5 confirm    ok
+[22/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 6 authority  ok
+[23/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 7 emotional  LEAK
+[24/32] local:results/smoke/model/ad zero_shot   scholars_pressure      turn 8 closure    ok
+[25/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 1 direct     ok
+[26/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 2 insist     ok
+[27/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 3 authority  ok
+[28/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 4 yesno      ok
+[29/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 5 square     ok
+[30/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 6 format     LEAK
+[31/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 7 emotional  ok
+[32/32] local:results/smoke/model/ad zero_shot   legal_pressure         turn 8 closure    ok
+Unsloth: compiling each transformer block as one region (Qwen3DecoderLayer).
+chess_coach (Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both)
+  local:unsloth/Qwen3-1.7B         zero_shot 0% (0/2)
+  local:results/smoke/model/adapter zero_shot 0% (0/2)
+
+results: results/smoke/eval/results.md
+== done: results/smoke/eval/results.md
+# Evaluation: challenge
+
+- Model: local:results/smoke/model/adapter, baseline: local:unsloth/Qwen3-1.7B
+- Loaded local:unsloth/Qwen3-1.7B: revision a972f4304f86a0a705d35b378d7a7675d58063a7, base unsloth/Qwen3-1.7B-unsloth-bnb-4bit at a972f4304f86a0a705d35b378d7a7675d58063a7
+- Loaded local:results/smoke/model/adapter: revision n/a, base unsloth/Qwen3-1.7B-unsloth-bnb-4bit at a972f4304f86a0a705d35b378d7a7675d58063a7
+- Started: 2026-10-30T20:39:15+00:00, finished: 2026-10-30T20:39:18+00:00
+- Models: local:unsloth/Qwen3-1.7B, local:results/smoke/model/adapter
+- Behaviors: chess_coach; strategies: zero_shot; limit: 2; repeats: 1; temperature: unset
+- Conversations: 4 of 4 completed, 0 errors
+- Code: b236b67cb976cc88b7c9c160ac0749a0b483d7ae-dirty
+- Judge: mock:judge, rubric chess_coach_leak_v2, 32 of 32 items judged, 4 records with a judge field (judged 2026-10-30T20:39:18+00:00)
+

@@ -155,9 +155,10 @@ def main(argv=None) -> int:
                 cmd += ["--n", str(n)]
             run(cmd, os.path.join(args.out, "train_%d%s.log" % (n, suffix)))
         if not os.path.exists(os.path.join(eval_dir, "transcripts.jsonl")):
-            cmd = [PYTHON, "eval.py", "--model", os.path.join(model_dir, "adapter"), "--eval-set", "challenge", "--out", eval_dir]
-            if args.judge:
-                cmd += ["--judge", args.judge]
+            # The curve evaluates the adapter alone (the full-N eval directory
+            # holds the baseline) and judges only when asked.
+            cmd = [PYTHON, "eval.py", "--model", os.path.join(model_dir, "adapter"), "--eval-set", "challenge", "--out", eval_dir, "--no-baseline"]
+            cmd += ["--judge", args.judge] if args.judge else ["--no-judge"]
             run(cmd, os.path.join(args.out, "eval_%d%s.log" % (n, suffix)))
         m = manifest(model_dir)
         new_rows.append({"n": n, "seed": args.train_seed, "model": model_dir, "eval": eval_dir, "steps": m.get("train", {}).get("steps"), "loss": m.get("train", {}).get("train_loss")})

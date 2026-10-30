@@ -52,19 +52,27 @@ Two independent reads of the brief against the code, data and result files (the 
 and docs excluded as evidence), after v3c and the re-recorded video. No blockers. The
 items found, and Andre's decision on each:
 
-- Fixed: the self-contained judge export (judged_turns.jsonl) was missing for the v3, v3b
-  and v3c result directories; exported for all of them (judge.jsonl, with the verdict and
-  reasoning per turn, was already there).
-- Accepted as is: the literal `eval.py --model <id> --eval-set <path>` needs `--out`
-  (and `--baseline`, `--judge` for the table), as the README and the notebook show; the
-  v3c runs loaded the adapter from models/v3c rather than by Hub id (the public demo and
-  the notebook load it by Hub id, and the v2 Hub-id runs reproduced the local ones byte
-  for byte); run.json and the Hub card cite the pre-commit sha 3f50037-dirty for code that
-  is committed as 2b432e2 (the judge retry is the only eval-code change, and rescoring
-  the result directories at HEAD gives identical tables); the held-out loader raises on
-  a row without a FEN or position rather than skipping it; the video's live prompt was
-  written for the recording and typed live, not supplied by a grader; the smoke log
-  predates the v3 data-generation code.
+- Fixed the same evening (Andre first accepted these, then asked for all of them):
+  - the self-contained judge export (judged_turns.jsonl) was missing for the v3, v3b and
+    v3c result directories; exported for all of them;
+  - the literal `eval.py --model <id> --eval-set <path>` needed `--out`, `--baseline` and
+    `--judge`; for a Hub id or path those now default to `results/eval_<model>_<date>`,
+    `unsloth/Qwen3-1.7B` and the haiku judge, with the judge key checked before any model
+    loads (`--no-baseline`, `--no-judge` switch them off; provider specs get no defaults);
+  - the v3c runs had loaded the adapter from models/v3c, not by Hub id: rerun from
+    `hdxsfbr/qwen3-1.7b-chess-coach-hints@5f3bb80` with the base in the same command
+    (results/eval_v3c_hub_2026-10-30); the 30 tuned transcripts are identical to the local
+    run's and the headline is the same 23 of 30;
+  - the held-out loader raised on a row without a FEN or position; it now also reads
+    single-turn rows (`prompt`, `user`, `question`, `input`, `text`) and ShareGPT
+    `conversation` rows, and leaves an unscorable row out with a warning, listing it in
+    run.json under `eval.skipped_rows` (tests/test_eval_sets.py);
+  - the smoke log predated the v3 data-generation code: rerun, results/smoke_2026-10-30.log;
+  - a labeling page for the 40 calibration items and the 16 disputed v2 turns
+    (label_server.py), so the relabel is Andre's own read (item 10).
+- Still open from the audit: the video's live prompt was written for the recording and
+  typed live, not supplied by a grader; scene 6 is re-recorded once Andre or a peer
+  supplies one. The eval-code commit is pinned by a tag on the final commit.
 - Optional, not done: the second-judge check on v3c ($0.30), a curve on the synthetic
   test rows (about $5), a model above the 80% bar (v3c is at 77% and 70% on two seeds).
 - Outside the repo: the video upload, Andre's relabels, the staff held-out set (not
@@ -228,16 +236,16 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Ablation 2: curve for Spec adherence and Robustness | Met | results/curve_v2_2026-10-28/curve.md |
 | Ablation 2: justified smallest N | Partial | 1,298 by the rule on the v3c data (805 on v2); the curve has not flattened; item 13 |
 | Public Hub checkpoint with commit hash | Met | hdxsfbr/qwen3-1.7b-chess-coach-hints at 5f3bb80 (v3c, 2026-10-30); v2 at 0200155 |
-| One-command eval regenerates the table | Met | eval.py; Hub-id loading verified in results/hub_load_test_2026-10-29; notebooks/grader_eval.ipynb runs it from nothing on Colab, executed in a fresh venv 2026-10-30 |
+| One-command eval regenerates the table | Met | eval.py, the brief's literal form with defaults; v3c loaded by Hub id in results/eval_v3c_hub_2026-10-30; notebooks/grader_eval.ipynb runs it from nothing on Colab, executed in a fresh venv 2026-10-30 |
 | Raw judge transcripts as JSONL | Met | judge.jsonl, judged_turns.jsonl |
-| Staff held-out eval set ingestible | Met (loader) | synthetic held-out run done; staff set not published, item 12 |
+| Staff held-out eval set ingestible | Met (loader) | tolerant loader, unscorable rows listed in run.json; synthetic held-out runs done; staff set not published, item 12 |
 | Pinned versions (model and eval code) | Met | base, data and adapter commits pinned; code at tag early-submission; the dirty suffix is explained in item 11 |
 | Live comparison in demo | Met | demo_server.py page and demo.py; the video shows it, item 15 |
 | Ablation reproducibility (script and training logs) | Met | run_pilot.py, run_judge.py, curve logs |
 | Early: finalized spec | Met | |
 | Early: full ablation report | Met | |
 | Early: eval harness committed | Met | main at 4dafda9, tag early-submission, pushed 2026-10-29 |
-| Early: smoke run of the full loop | Met | smoke.sh, results/smoke_2026-10-28.log |
+| Early: smoke run of the full loop | Met | smoke.sh, results/smoke_2026-10-28.log and results/smoke_2026-10-30.log |
 | Early: first dataset and first QLoRA run | Met | |
 | Early: first base-vs-tuned numbers in the verification format | Met | results/eval_v2_2026-10-28; checkpoint public |
 | Early: failure mode resolved via a v2 dataset | Met | v2 |

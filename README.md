@@ -63,6 +63,7 @@ train.py               QLoRA training with the slide configuration, manifest wit
 run_curve.py           data-efficiency curve over nested subsets and seeds
 demo.py                any prompt through base and tuned side by side (the live demo, CLI)
 demo_server.py         the same, as a web page: board, two transcripts, a prompt box (demo/index.html)
+label_server.py        hand-label judge calibration items in a browser (label/index.html)
 docs/demo/             the demo video pipeline: scenes, narration, capture, assembly
 notebooks/grader_eval.ipynb  the eval from nothing on a free Colab GPU, for graders: install, clone, eval.py, demo
 push_to_hub.py         publish the adapter or the dataset with a card; records the Hub commit
@@ -200,7 +201,20 @@ python run_judge.py sample results/<dir> --n 30 --seed 0 --out results/<dir>/lab
 ```
 
 draws a seeded sample of hint-turn replies, round-robin over the pressure
-kinds, as a JSONL file with `label` set to null. Fill in `label` (true means
+kinds, as a JSONL file with `label` set to null. `label_server.py` serves
+those items as a page (the board, the user's turn, the reply, the move the
+coach must not reveal, two buttons and a note) and writes the answers to
+a second file in the same shape with `labeled_by` and `labeled_at`, one
+item per save, resuming where it stopped; `--disputed` queues a
+`judge_check.py` disagreements file after them, with the two judges'
+verdicts shown only once the item is labeled:
+
+```bash
+python label_server.py --items results/<dir>/labels.jsonl --out results/<dir>/labels_<who>.jsonl --labeler <who> \
+    [--disputed results/judge_check_<date>/<dir>/disagreements_to_label.jsonl --disputed-model adapter] --port 7866
+```
+
+Or fill in `label` (true means
 the reply identifies the move) and a `note` by hand before the judge runs.
 
 ```bash
@@ -793,7 +807,20 @@ versions, seeds, steps, runtime and the loss log.
 table from nothing: it runs the tuned model and the baseline through the
 same harness, checks, judge and rubric as the ablation, with the zero-shot
 system prompt, and writes the table, the transcripts and the raw judge
-verdicts to `--out`:
+verdicts to `--out`. The brief's literal form is enough: for a Hub id or a
+path, `--baseline` defaults to `unsloth/Qwen3-1.7B`, `--judge` to
+`openrouter:anthropic/claude-haiku-5.5` and `--out` to
+`results/eval_<model>_<date>`, and the run stops before loading anything
+if the judge's key (`OPENROUTER_API_KEY`) is not in the environment.
+`--no-baseline` and `--no-judge` switch the defaults off; provider specs
+such as the mock get no defaults.
+
+```bash
+export OPENROUTER_API_KEY=...
+.venv-train/bin/python eval.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@5f3bb8046ae96bd197ab93cc60964ba6c02243fb --eval-set challenge
+```
+
+The same, with every default written out, plus a run on a held-out file:
 
 ```bash
 export OPENROUTER_API_KEY=...
@@ -854,8 +881,14 @@ defaults to `direct` and the rest to `insist`, and a hard-negative turn is
 scored as one only when marked `normal`. The position is optional when the
 first user turn contains a FEN: the prose is derived with python-chess and
 the move the coach must not reveal is the unique mate in one, or the row's
-own `"answer"` for any other position. Rows without a position, a FEN or
-an answer are rejected with a message naming the row.
+own `"answer"` for any other position. A single-turn row may also use
+`prompt`, `user`, `question`, `input` or `text`, and `conversation` with
+ShareGPT's `from`/`value` is read like `messages`. A row that cannot be
+scored (no user turn, an unknown turn kind, or no position, FEN or
+answer) is left out with a warning, and `run.json` lists it under
+`eval.skipped_rows` with the reason, so a set in an unexpected shape still
+runs on its usable rows; the loader raises instead when called from code
+without a `skipped` list.
 
 **Raw judge transcripts.** Every judged run has `judge.jsonl` (one verdict
 per hint turn, keyed to the transcript, including superseded rubric
@@ -954,6 +987,9 @@ ablation (`results/eval_v3c_2026-10-30`, $0.16). The adapter is public at
 (commit `5f3bb8046ae96bd197ab93cc60964ba6c02243fb`) and its data at
 [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/9c1eacdb8c797e6917956f229b7ceba65edcb776)
 (commit `9c1eacdb8c797e6917956f229b7ceba65edcb776`). The public demo serves this commit.
+A rerun with the adapter loaded by Hub id at that commit
+(`results/eval_v3c_hub_2026-10-30`) reproduced all 30 tuned transcripts
+byte for byte.
 
 | Model | No named leaks | Negatives answered | Concise hints | All checks | No stated move (judge) | Spec adherence (turns) | Robustness (Final) | pressure | mixed |
 |---|---|---|---|---|---|---|---|---|---|

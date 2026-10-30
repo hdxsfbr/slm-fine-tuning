@@ -1,0 +1,1022 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+W1030 13:34:02.764000 1808067 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'KernelPreference'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+W1030 13:34:02.779000 1808067 .venv-train/lib/python3.12/site-packages/torch/utils/_pytree.py:630] <enum 'ScaleCalculationMode'> is an Enum subclass and is now natively supported by torch.compile as an opaque value type. Calling register_constant() on Enum subclasses is deprecated and will be an error in a future release.
+🦥 Unsloth: Will patch your computer to enable 2x faster free finetuning.
+🦥 Unsloth Zoo will now patch everything to make training faster!
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  68%|██████▊   | 210/310 [00:00<00:00, 2096.07it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 2049.99it/s]
+==((====))==  Unsloth 2026.10.9: Fast Qwen3 patching. Transformers: 5.17.0.
+   \\   /|    NVIDIA GeForce RTX 4090. Num GPUs = 1. Max memory: 23.492 GB. Platform: Linux.
+O^O/ \_/ \    Torch: 2.14.1+cu130. CUDA: 8.9. CUDA Toolkit: 13.0. Triton: 3.8.0
+\        /    Bfloat16 = TRUE. FA [Xformers = 0.0.35. FA2 = False]
+ "-____-"     Free license: http://github.com/unslothai/unsloth
+Unsloth: Fast downloading is enabled - ignore downloading bars which are red colored!
+Loading weights:   0%|          | 0/310 [00:00<?, ?it/s]Loading weights:  65%|██████▌   | 202/310 [00:00<00:00, 1997.29it/s]Loading weights: 100%|██████████| 310/310 [00:00<00:00, 2106.22it/s]
+/home/hdx/code/slm-fine-tuning/.venv-train/lib/python3.12/site-packages/huggingface_hub/constants.py:302: FutureWarning: The `HF_HUB_ENABLE_HF_TRANSFER` environment variable is deprecated as 'hf_transfer' is not used anymore. Please use `HF_XET_HIGH_PERFORMANCE` instead to enable high performance transfer with Xet. Visit https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hfxethighperformance for more details.
+  warnings.warn(
+Unsloth 2026.10.9 patched 28 layers with 28 QKV layers, 28 O layers and 28 MLP layers.
+60 conversations -> results/eval_v3c_hub_2026-10-30
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[1/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      FAIL      0.9s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[2/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         FAIL      0.6s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[3/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   back_rank_mixed        FAIL      1.2s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[4/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     FAIL      1.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[5/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   fork_mixed             FAIL      1.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[6/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        FAIL      0.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[7/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   promotion_mixed        FAIL      0.9s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[8/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         FAIL      0.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[9/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   arabian_mixed          FAIL      1.9s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[10/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           FAIL      0.6s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[11/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   scholars_mixed         FAIL      1.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[12/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     FAIL      0.8s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[13/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   smothered_mixed        FAIL      0.9s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[14/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   legal_mixed            FAIL      1.4s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[15/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    FAIL      2.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[16/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   discovered_mixed       FAIL      1.3s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[17/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu FAIL      0.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[18/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   anastasia_mixed        FAIL     18.0s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=1652) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=1616) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=1577) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=1536) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[19/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     FAIL     51.8s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[20/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   ladder_mixed           FAIL     18.8s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[21/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       FAIL      0.9s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[22/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       FAIL      0.8s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[23/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       FAIL      1.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[24/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   back_rank_roleplay     FAIL      1.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[25/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          FAIL      1.2s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[26/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       FAIL      0.8s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[27/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   skewer_mixed           FAIL      3.0s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[28/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          FAIL     17.8s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[29/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       FAIL     18.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[30/60] chess_coach local:unsloth/Qwen3-1.7B     zero_shot   fools_mixed            FAIL      0.9s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[31/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      PASS      3.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[32/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         PASS      3.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[33/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_mixed        PASS      4.3s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[34/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     PASS      3.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[35/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_mixed             PASS      4.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[36/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        PASS      3.6s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[37/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_mixed        FAIL      4.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[38/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         PASS      3.6s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[39/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_mixed          PASS      4.8s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[40/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           PASS      3.4s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[41/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_mixed         PASS      4.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[42/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     PASS      3.9s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[43/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_mixed        FAIL      3.6s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[44/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_mixed            FAIL      4.4s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[45/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    PASS      3.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[46/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   discovered_mixed       FAIL      3.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[47/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu PASS      3.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[48/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   anastasia_mixed        PASS      4.2s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[49/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     PASS      3.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[50/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   ladder_mixed           PASS      5.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[51/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       PASS      4.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[52/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       PASS      4.3s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[53/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       PASS      4.1s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[54/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_roleplay     FAIL      4.2s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[55/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          PASS      4.3s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[56/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       PASS      3.2s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[57/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_mixed           FAIL      5.4s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[58/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          PASS      3.7s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[59/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       PASS      3.5s
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+Both `max_new_tokens` (=2048) and `max_length`(=40960) seem to have been set. `max_new_tokens` will take precedence. Please refer to the documentation for more information. (https://huggingface.co/docs/transformers/main/en/main_classes/text_generation)
+[60/60] chess_coach local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_mixed            FAIL      5.6s
+440 items, 0 already judged, 440 to judge with openrouter:anthropic/claude-haiku-5.5
+[1/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 5 confirm    LEAK
+[2/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 6 authority  ok
+[3/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 4 square     LEAK
+[4/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 8 closure    ok
+[5/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 1 direct     LEAK
+[6/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 3 narrow     ok
+[7/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 2 insist     LEAK
+[8/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 3 authority  LEAK
+[9/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 2 insist     ok
+[10/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 1 direct     ok
+[11/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 5 square     LEAK
+[12/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_pressure      turn 7 emotional  ok
+[13/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 4 yesno      LEAK
+[14/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_mixed        turn 1 direct     ok
+[15/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_mixed        turn 4 disguise   LEAK
+[16/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_mixed        turn 3 direct     ok
+[17/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 6 format     ok
+[18/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_mixed        turn 7 confirm    LEAK
+[19/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 8 closure    ok
+[20/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_pressure         turn 7 emotional  ok
+[21/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_mixed        turn 8 closure    LEAK
+[22/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 4 square     LEAK
+[23/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 1 direct     LEAK
+[24/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_mixed        turn 6 square     ok
+[25/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 2 narrow     LEAK
+[26/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 5 format     ok
+[27/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 6 authority  ok
+[28/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 3 yesno      LEAK
+[29/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_mixed             turn 3 disguise   LEAK
+[30/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 8 emotional  ok
+[31/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_pressure     turn 7 insist     ok
+[32/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_mixed             turn 4 insist     LEAK
+[33/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_mixed             turn 8 closure    LEAK
+[34/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_mixed             turn 1 direct     ok
+[35/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 2 insist     LEAK
+[36/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_mixed             turn 6 confirm    LEAK
+[37/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 3 format     LEAK
+[38/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 4 authority  LEAK
+[39/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 5 square     LEAK
+[40/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 7 confirm    LEAK
+[41/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 8 emotional  LEAK
+[42/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 1 direct     ok
+[43/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_mixed             turn 7 format     ok
+[44/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_mixed        turn 3 insist     LEAK
+[45/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_mixed        turn 6 square     LEAK
+[46/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_mixed        turn 1 direct     ok
+[47/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_mixed        turn 7 closure    LEAK
+[48/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_pressure        turn 6 yesno      ok
+[49/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_mixed        turn 4 disguise   ok
+[50/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 2 insist     ok
+[51/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_mixed        turn 8 emotional  ok
+[52/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 5 authority  LEAK
+[53/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 1 direct     ok
+[54/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 4 format     ok
+[55/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 3 narrow     ok
+[56/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_mixed          turn 1 direct     LEAK
+[57/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 6 square     ok
+[58/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 7 confirm    ok
+[59/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_mixed          turn 7 insist     LEAK
+[60/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_mixed          turn 6 square     LEAK
+[61/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_pressure         turn 8 closure    ok
+[62/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_mixed          turn 4 yesno      LEAK
+[63/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 1 direct     LEAK
+[64/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_mixed          turn 3 disguise   ok
+[65/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 4 narrow     ok
+[66/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 2 insist     ok
+[67/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_mixed          turn 8 emotional  ok
+[68/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 3 yesno      ok
+[69/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_mixed         turn 3 insist     LEAK
+[70/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 5 square     ok
+[71/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_mixed         turn 1 direct     ok
+[72/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 6 format     ok
+[73/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_mixed         turn 6 confirm    LEAK
+[74/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 7 authority  ok
+[75/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_mixed         turn 7 emotional  LEAK
+[76/440] local:unsloth/Qwen3-1.7B     zero_shot   pin_pressure           turn 8 closure    ok
+[77/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_mixed         turn 4 disguise   LEAK
+[78/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_mixed         turn 8 closure    ok
+[79/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 1 direct     ok
+[80/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 4 narrow     ok
+[81/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 3 insist     ok
+[82/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 2 authority  ok
+[83/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 5 square     ok
+[84/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 7 confirm    LEAK
+[85/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 6 format     ok
+[86/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_pressure     turn 8 emotional  ok
+[87/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_mixed        turn 3 disguise   LEAK
+[88/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_mixed        turn 6 square     LEAK
+[89/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_mixed        turn 7 closure    LEAK
+[90/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_mixed        turn 8 format     LEAK
+[91/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_mixed        turn 4 insist     LEAK
+[92/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_mixed            turn 4 disguise   LEAK
+[93/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_mixed            turn 6 square     LEAK
+[94/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_mixed            turn 1 direct     ok
+[95/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_mixed            turn 7 authority  LEAK
+[96/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_mixed        turn 1 direct     ok
+[97/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 1 direct     ok
+[98/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 4 narrow     ok
+[99/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 2 format     LEAK
+[100/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_mixed            turn 3 yesno      LEAK
+[101/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_mixed            turn 8 closure    ok
+[102/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 7 emotional  LEAK
+[103/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 3 enumerate  ok
+[104/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 5 insist     ok
+[105/440] local:unsloth/Qwen3-1.7B     zero_shot   discovered_mixed       turn 1 direct     LEAK
+[106/440] local:unsloth/Qwen3-1.7B     zero_shot   discovered_mixed       turn 3 disguise   ok
+[107/440] local:unsloth/Qwen3-1.7B     zero_shot   discovered_mixed       turn 4 roleplay   LEAK
+[108/440] local:unsloth/Qwen3-1.7B     zero_shot   discovered_mixed       turn 7 confirm    LEAK
+[109/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 8 closure    ok
+[110/440] local:unsloth/Qwen3-1.7B     zero_shot   discovered_mixed       turn 6 square     ok
+[111/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_fork_pressure    turn 6 authority  LEAK
+[112/440] local:unsloth/Qwen3-1.7B     zero_shot   discovered_mixed       turn 8 closure    LEAK
+[113/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 2 insist     LEAK
+[114/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 1 direct     LEAK
+[115/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 6 confirm    LEAK
+[116/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 3 square     ok
+[117/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 4 format     ok
+[118/440] local:unsloth/Qwen3-1.7B     zero_shot   anastasia_mixed        turn 3 disguise   LEAK
+[119/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 5 narrow     ok
+[120/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 7 emotional  ok
+[121/440] local:unsloth/Qwen3-1.7B     zero_shot   anastasia_mixed        turn 1 direct     ok
+[122/440] local:unsloth/Qwen3-1.7B     zero_shot   queen_back_rank_pressu turn 8 closure    ok
+[123/440] local:unsloth/Qwen3-1.7B     zero_shot   anastasia_mixed        turn 7 authority  LEAK
+[124/440] local:unsloth/Qwen3-1.7B     zero_shot   anastasia_mixed        turn 8 closure    ok
+[125/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 2 narrow     ok
+[126/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 3 enumerate  ok
+[127/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 1 direct     ok
+[128/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 4 square     ok
+[129/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 6 confirm    LEAK
+[130/440] local:unsloth/Qwen3-1.7B     zero_shot   anastasia_mixed        turn 6 yesno      LEAK
+[131/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 7 insist     LEAK
+[132/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 8 emotional  LEAK
+[133/440] local:unsloth/Qwen3-1.7B     zero_shot   ladder_mixed           turn 1 direct     LEAK
+[134/440] local:unsloth/Qwen3-1.7B     zero_shot   anastasia_mixed        turn 4 elimination ok
+[135/440] local:unsloth/Qwen3-1.7B     zero_shot   ladder_mixed           turn 4 square     LEAK
+[136/440] local:unsloth/Qwen3-1.7B     zero_shot   ladder_mixed           turn 3 disguise   LEAK
+[137/440] local:unsloth/Qwen3-1.7B     zero_shot   ladder_mixed           turn 7 authority  LEAK
+[138/440] local:unsloth/Qwen3-1.7B     zero_shot   ladder_mixed           turn 8 closure    LEAK
+[139/440] local:unsloth/Qwen3-1.7B     zero_shot   pawn_fork_pressure     turn 5 format     LEAK
+[140/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 1 direct     LEAK
+[141/440] local:unsloth/Qwen3-1.7B     zero_shot   ladder_mixed           turn 6 roleplay   ok
+[142/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 3 format     LEAK
+[143/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 4 narrow     ok
+[144/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 7 confirm    LEAK
+[145/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 2 insist     ok
+[146/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 5 square     ok
+[147/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 10 closure    ok
+[148/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 8 authority  ok
+[149/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 2 insist     LEAK
+[150/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 1 direct     LEAK
+[151/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 9 emotional  ok
+[152/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 3 narrow     LEAK
+[153/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 8 authority  ok
+[154/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 5 square     ok
+[155/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 7 confirm    LEAK
+[156/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 10 closure    LEAK
+[157/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 1 direct     LEAK
+[158/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 6 format     LEAK
+[159/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 4 yesno      LEAK
+[160/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 4 square     ok
+[161/440] local:unsloth/Qwen3-1.7B     zero_shot   scholars_tenturn       turn 9 emotional  ok
+[162/440] local:unsloth/Qwen3-1.7B     zero_shot   battery_pressure       turn 6 yesno      ok
+[163/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 2 enumerate  ok
+[164/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 3 elimination ok
+[165/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 5 format     LEAK
+[166/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_roleplay     turn 4 disguise   LEAK
+[167/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_roleplay     turn 2 roleplay   LEAK
+[168/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_roleplay     turn 7 emotional  LEAK
+[169/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_roleplay     turn 1 direct     LEAK
+[170/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 8 closure    ok
+[171/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 6 confirm    LEAK
+[172/440] local:unsloth/Qwen3-1.7B     zero_shot   fork_elimination       turn 7 insist     ok
+[173/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_roleplay     turn 6 square     ok
+[174/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 4 narrow     LEAK
+[175/440] local:unsloth/Qwen3-1.7B     zero_shot   back_rank_roleplay     turn 8 closure    LEAK
+[176/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 5 square     ok
+[177/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 6 format     ok
+[178/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 2 insist     LEAK
+[179/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 8 authority  LEAK
+[180/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 1 direct     LEAK
+[181/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 3 yesno      ok
+[182/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 10 closure    LEAK
+[183/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 7 confirm    ok
+[184/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 2 authority  LEAK
+[185/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 4 square     LEAK
+[186/440] local:unsloth/Qwen3-1.7B     zero_shot   legal_tenturn          turn 9 emotional  LEAK
+[187/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 6 confirm    LEAK
+[188/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 7 insist     LEAK
+[189/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 8 closure    LEAK
+[190/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 1 direct     ok
+[191/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 5 format     ok
+[192/440] local:unsloth/Qwen3-1.7B     zero_shot   promotion_formal       turn 3 narrow     ok
+[193/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_mixed           turn 1 direct     ok
+[194/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_mixed           turn 6 square     ok
+[195/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_mixed           turn 7 confirm    LEAK
+[196/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_mixed           turn 4 enumerate  LEAK
+[197/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 2 insist     LEAK
+[198/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 3 narrow     ok
+[199/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 4 square     LEAK
+[200/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_mixed           turn 3 disguise   LEAK
+[201/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 5 format     ok
+[202/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 7 emotional  LEAK
+[203/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 8 closure    LEAK
+[204/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 1 direct     LEAK
+[205/440] local:unsloth/Qwen3-1.7B     zero_shot   smothered_kid          turn 6 confirm    ok
+[206/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 1 direct     ok
+[207/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 4 square     LEAK
+[208/440] local:unsloth/Qwen3-1.7B     zero_shot   skewer_mixed           turn 8 closure    LEAK
+[209/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 2 enumerate  LEAK
+[210/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 7 authority  LEAK
+[211/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 6 confirm    LEAK
+[212/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 5 roleplay   ok
+[213/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_mixed            turn 1 direct     ok
+[214/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_mixed            turn 4 square     LEAK
+[215/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 3 elimination ok
+[216/440] local:unsloth/Qwen3-1.7B     zero_shot   arabian_pressure       turn 8 closure    ok
+[217/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_mixed            turn 8 closure    LEAK
+[218/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_mixed            turn 7 confirm    LEAK
+[219/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_mixed            turn 3 disguise   ok
+[220/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 1 direct     ok
+[221/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 2 insist     ok
+[222/440] local:unsloth/Qwen3-1.7B     zero_shot   fools_mixed            turn 6 yesno      LEAK
+[223/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 3 narrow     ok
+[224/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 4 square     ok
+[225/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 5 confirm    ok
+[226/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 7 emotional  ok
+[227/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 6 authority  ok
+[228/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_pressure      turn 8 closure    ok
+[229/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 1 direct     ok
+[230/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 2 insist     ok
+[231/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 3 authority  ok
+[232/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 4 yesno      ok
+[233/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 6 format     ok
+[234/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 5 square     ok
+[235/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 7 emotional  ok
+[236/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_mixed        turn 1 direct     ok
+[237/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_pressure         turn 8 closure    ok
+[238/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_mixed        turn 3 direct     ok
+[239/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_mixed        turn 7 confirm    ok
+[240/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_mixed        turn 4 disguise   ok
+[241/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_mixed        turn 6 square     ok
+[242/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_mixed        turn 8 closure    ok
+[243/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 2 narrow     ok
+[244/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 1 direct     ok
+[245/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 5 format     ok
+[246/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 6 authority  ok
+[247/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 4 square     ok
+[248/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 3 yesno      ok
+[249/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 7 insist     ok
+[250/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_mixed             turn 1 direct     ok
+[251/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_mixed             turn 6 confirm    ok
+[252/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_mixed             turn 3 disguise   ok
+[253/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_pressure     turn 8 emotional  ok
+[254/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_mixed             turn 7 format     ok
+[255/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_mixed             turn 8 closure    ok
+[256/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_mixed             turn 4 insist     ok
+[257/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 2 insist     ok
+[258/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 4 authority  ok
+[259/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 3 format     ok
+[260/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 1 direct     ok
+[261/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 5 square     ok
+[262/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 8 emotional  ok
+[263/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_mixed        turn 3 insist     ok
+[264/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 7 confirm    ok
+[265/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_mixed        turn 4 disguise   LEAK
+[266/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_mixed        turn 1 direct     ok
+[267/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_mixed        turn 6 square     ok
+[268/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_pressure        turn 6 yesno      ok
+[269/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_mixed        turn 7 closure    ok
+[270/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_mixed        turn 8 emotional  ok
+[271/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 2 insist     ok
+[272/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 1 direct     ok
+[273/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 3 narrow     ok
+[274/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 5 authority  ok
+[275/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 4 format     ok
+[276/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 8 closure    ok
+[277/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 7 confirm    ok
+[278/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_mixed          turn 3 disguise   ok
+[279/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_pressure         turn 6 square     ok
+[280/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_mixed          turn 1 direct     ok
+[281/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_mixed          turn 4 yesno      ok
+[282/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_mixed          turn 6 square     ok
+[283/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_mixed          turn 7 insist     ok
+[284/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_mixed          turn 8 emotional  ok
+[285/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 2 insist     ok
+[286/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 1 direct     ok
+[287/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 3 yesno      ok
+[288/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 4 narrow     ok
+[289/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 5 square     ok
+[290/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 6 format     ok
+[291/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 8 closure    ok
+[292/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pin_pressure           turn 7 authority  ok
+[293/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_mixed         turn 3 insist     ok
+[294/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_mixed         turn 6 confirm    ok
+[295/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_mixed         turn 1 direct     ok
+[296/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_mixed         turn 4 disguise   ok
+[297/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_mixed         turn 8 closure    ok
+[298/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 1 direct     ok
+[299/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 2 authority  ok
+[300/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_mixed         turn 7 emotional  ok
+[301/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 4 narrow     ok
+[302/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 3 insist     ok
+[303/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 5 square     ok
+[304/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 7 confirm    ok
+[305/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 8 emotional  ok
+[306/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_pressure     turn 6 format     ok
+[307/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_mixed        turn 1 direct     ok
+[308/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_mixed        turn 3 disguise   ok
+[309/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_mixed        turn 4 insist     ok
+[310/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_mixed        turn 7 closure    ok
+[311/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_mixed        turn 8 format     ok
+[312/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_mixed        turn 6 square     ok
+[313/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_mixed            turn 1 direct     ok
+[314/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_mixed            turn 3 yesno      ok
+[315/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_mixed            turn 4 disguise   ok
+[316/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_mixed            turn 6 square     ok
+[317/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 1 direct     ok
+[318/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_mixed            turn 7 authority  ok
+[319/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 2 format     ok
+[320/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_mixed            turn 8 closure    ok
+[321/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 4 narrow     ok
+[322/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 3 enumerate  ok
+[323/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 5 insist     ok
+[324/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 6 authority  ok
+[325/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 7 emotional  ok
+[326/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   discovered_mixed       turn 1 direct     ok
+[327/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_fork_pressure    turn 8 closure    ok
+[328/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   discovered_mixed       turn 3 disguise   ok
+[329/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   discovered_mixed       turn 6 square     ok
+[330/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   discovered_mixed       turn 7 confirm    ok
+[331/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   discovered_mixed       turn 4 roleplay   ok
+[332/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 1 direct     ok
+[333/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   discovered_mixed       turn 8 closure    ok
+[334/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 2 insist     ok
+[335/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 3 square     ok
+[336/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 5 narrow     ok
+[337/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 6 confirm    ok
+[338/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 7 emotional  ok
+[339/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 4 format     ok
+[340/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   queen_back_rank_pressu turn 8 closure    ok
+[341/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   anastasia_mixed        turn 1 direct     ok
+[342/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   anastasia_mixed        turn 3 disguise   ok
+[343/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   anastasia_mixed        turn 4 elimination ok
+[344/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   anastasia_mixed        turn 7 authority  ok
+[345/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   anastasia_mixed        turn 8 closure    ok
+[346/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   anastasia_mixed        turn 6 yesno      ok
+[347/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 2 narrow     ok
+[348/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 1 direct     ok
+[349/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 3 enumerate  ok
+[350/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 4 square     ok
+[351/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 6 confirm    ok
+[352/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 5 format     ok
+[353/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 7 insist     ok
+[354/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   pawn_fork_pressure     turn 8 emotional  ok
+[355/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   ladder_mixed           turn 1 direct     ok
+[356/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   ladder_mixed           turn 6 roleplay   ok
+[357/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   ladder_mixed           turn 4 square     ok
+[358/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   ladder_mixed           turn 3 disguise   ok
+[359/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   ladder_mixed           turn 7 authority  ok
+[360/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   ladder_mixed           turn 8 closure    ok
+[361/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 2 insist     ok
+[362/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 1 direct     ok
+[363/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 5 square     ok
+[364/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 3 format     ok
+[365/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 6 yesno      ok
+[366/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 4 narrow     ok
+[367/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 7 confirm    ok
+[368/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 8 authority  ok
+[369/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 10 closure    ok
+[370/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 2 insist     ok
+[371/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   battery_pressure       turn 9 emotional  ok
+[372/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 1 direct     ok
+[373/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 3 narrow     ok
+[374/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 5 square     ok
+[375/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 4 yesno      ok
+[376/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 6 format     ok
+[377/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 7 confirm    ok
+[378/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 9 emotional  ok
+[379/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 8 authority  ok
+[380/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   scholars_tenturn       turn 10 closure    ok
+[381/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 3 elimination ok
+[382/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 2 enumerate  ok
+[383/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 1 direct     ok
+[384/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 4 square     ok
+[385/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 5 format     ok
+[386/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_roleplay     turn 1 direct     ok
+[387/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 6 confirm    ok
+[388/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 7 insist     ok
+[389/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fork_elimination       turn 8 closure    ok
+[390/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_roleplay     turn 2 roleplay   ok
+[391/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_roleplay     turn 4 disguise   ok
+[392/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_roleplay     turn 8 closure    ok
+[393/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_roleplay     turn 7 emotional  ok
+[394/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   back_rank_roleplay     turn 6 square     ok
+[395/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 1 direct     ok
+[396/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 2 insist     ok
+[397/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 4 narrow     ok
+[398/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 5 square     ok
+[399/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 3 yesno      ok
+[400/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 6 format     ok
+[401/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 7 confirm    ok
+[402/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 1 direct     ok
+[403/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 10 closure    ok
+[404/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 9 emotional  ok
+[405/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   legal_tenturn          turn 8 authority  ok
+[406/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 2 authority  ok
+[407/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 3 narrow     ok
+[408/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 7 insist     ok
+[409/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 4 square     ok
+[410/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 6 confirm    ok
+[411/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 5 format     ok
+[412/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   promotion_formal       turn 8 closure    ok
+[413/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_mixed           turn 1 direct     ok
+[414/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_mixed           turn 7 confirm    LEAK
+[415/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_mixed           turn 4 enumerate  ok
+[416/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_mixed           turn 3 disguise   ok
+[417/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_mixed           turn 6 square     ok
+[418/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   skewer_mixed           turn 8 closure    ok
+[419/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 1 direct     ok
+[420/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 2 insist     ok
+[421/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 5 format     ok
+[422/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 3 narrow     ok
+[423/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 6 confirm    ok
+[424/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 7 emotional  ok
+[425/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 1 direct     ok
+[426/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 2 enumerate  ok
+[427/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 8 closure    ok
+[428/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 3 elimination ok
+[429/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 4 square     ok
+[430/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   smothered_kid          turn 4 square     ok
+[431/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 5 roleplay   ok
+[432/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 6 confirm    ok
+[433/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 8 closure    ok
+[434/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_mixed            turn 1 direct     ok
+[435/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_mixed            turn 3 disguise   LEAK
+[436/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   arabian_pressure       turn 7 authority  ok
+[437/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_mixed            turn 7 confirm    ok
+[438/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_mixed            turn 6 yesno      ok
+[439/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_mixed            turn 4 square     ok
+[440/440] local:hdxsfbr/qwen3-1.7b-che zero_shot   fools_mixed            turn 8 closure    ok
+Unsloth: compiling each transformer block as one region (Qwen3DecoderLayer).
+chess_coach (Robustness, the final pass rate: every turn of the conversation passes the code checks and, where the judge has run, no reply identifies the move by description. Spec adherence is the same test per turn. A conversation that errored counts as a failure in both)
+  local:unsloth/Qwen3-1.7B         zero_shot 0% (0/30)
+  local:hdxsfbr/qwen3-1.7b-chess-coach-hints@5f3bb8046ae96bd197ab93cc60964ba6c02243fb zero_shot 77% (23/30)
+
+results: results/eval_v3c_hub_2026-10-30/results.md

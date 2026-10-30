@@ -437,9 +437,13 @@ curve (649, 324, 162, two seeds, $0.60) gives 1,298 by the rule, 649 on
 per-turn adherence; the full set's second seed lands at 70%, so the gain
 over v2 is one conversation per seed. The v3c held-out run ($0.60): base
 0 of 155, v3c 142 of 155 (92%). Day's spend about $15; balance about
-$27. Left for Sunday: the staff held-out set if posted, Andre's relabels
-and video upload, an optional re-record of the video with v3c (the
-pipeline is scripted, about an hour), the final tag and card re-push.
+$27. The video was
+re-recorded against v3c the same evening (3:59). A final audit found no
+blockers; its fixes (eval.py defaults, tolerant loader, Hub-id rerun,
+smoke rerun, judge exports, a labeling page) landed the same night. Left
+for Sunday: the staff held-out set if posted, Andre's relabels
+(label_server.py) and video upload, a grader-supplied prompt for scene 6,
+the final tag.
 
 Outcome, first round (2026-10-30 17:10Z): v3 at 19 of 30 (63%) against v2's 21; the
 six named-pattern conversations still leak, now in notation, because the

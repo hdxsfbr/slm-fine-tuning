@@ -28,6 +28,7 @@ revisions that were loaded.
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import os
 import re
@@ -50,6 +51,50 @@ def normalize_spec(spec: str) -> str:
     if ":" in spec and head in PROVIDERS:
         return spec
     return "local:" + spec
+
+
+DEFAULT_BASELINE = "unsloth/Qwen3-1.7B"
+DEFAULT_JUDGE = "openrouter:anthropic/claude-haiku-5.5"
+# Environment variable each judge provider needs, checked before any model loads.
+JUDGE_KEYS = {"openrouter": "OPENROUTER_API_KEY", "anthropic": "ANTHROPIC_API_KEY", "openai": "OPENAI_API_KEY"}
+
+
+def default_out(model_spec: str) -> str:
+    """results/eval_<model>_<date>: the model's last path or repo component."""
+    name = model_spec.split("@")[0].rstrip("/").split("/")[-1]
+    slug = re.sub(r"[^A-Za-z0-9]+", "-", name).strip("-").lower() or "model"
+    return os.path.join("results", "eval_%s_%s" % (slug, dt.date.today().isoformat()))
+
+
+def resolve_defaults(args: argparse.Namespace) -> argparse.Namespace:
+    """The brief's literal command, `eval.py --model <hf-repo-id> --eval-set
+    <path>`, regenerates the base-vs-tuned table: for a Hub id or path the
+    baseline and the judge default to the project's, and the output
+    directory is named after the model and the date. Provider specs (the
+    mock, an API model) get no defaults, so tests and ablation runs are
+    unchanged. --no-baseline and --no-judge switch the defaults off."""
+    local = normalize_spec(args.model).startswith("local:")
+    if args.no_baseline:
+        args.baseline = None
+    elif args.baseline is None and local:
+        args.baseline = DEFAULT_BASELINE
+    if args.no_judge:
+        args.judge = None
+    elif args.judge is None and local:
+        args.judge = DEFAULT_JUDGE
+    if args.out is None:
+        args.out = default_out(args.model)
+    return args
+
+
+def missing_judge_key(judge: Optional[str]) -> Optional[str]:
+    """The environment variable the judge needs and does not have, or None."""
+    if not judge:
+        return None
+    env = JUDGE_KEYS.get(judge.split(":", 1)[0].strip().lower())
+    if env and not os.environ.get(env):
+        return env
+    return None
 
 
 def with_revision(spec: str, revision: Optional[str]) -> str:
@@ -89,15 +134,32 @@ def position_from_text(text: str, answer: Optional[str] = None) -> Optional[Dict
     return {"fen": board.fen(), "prose": prose(board), "answer": answer}
 
 
+_SINGLE_TURN_KEYS = ("prompt", "user", "question", "input", "text")
+
+
 def row_turns(row: Dict) -> Tuple[List[str], List[Optional[str]]]:
-    """The user turns of a row and any kinds it names, from either shape:
-    "messages" (role/content, assistant turns ignored, kinds from "kinds")
-    or "turns" (strings, or dicts with "user" and optionally "kind")."""
-    if row.get("messages"):
-        users = [m["content"] for m in row["messages"] if m.get("role") == "user"]
+    """The user turns of a row and any kinds it names, from any of these
+    shapes: "messages" or "conversation" (role/content, or ShareGPT's
+    from/value; assistant turns ignored, kinds from "kinds"), "turns" or
+    "user_turns" (strings, or dicts with "user" and optionally "kind"), or
+    a single-turn row with "prompt", "user", "question", "input" or
+    "text"."""
+    messages = row.get("messages") or row.get("conversation")
+    if messages:
+        users = []
+        for m in messages:
+            if not isinstance(m, dict):
+                continue
+            role = (m.get("role") or ("user" if m.get("from") in ("human", "user") else "assistant")).lower()
+            text = m.get("content") if m.get("content") is not None else m.get("value")
+            if role == "user" and text:
+                users.append(str(text))
         kinds = list(row.get("kinds") or [])
         return users, kinds + [None] * (len(users) - len(kinds))
     users, kinds = [], []
+    for key in _SINGLE_TURN_KEYS:
+        if isinstance(row.get(key), str) and row[key].strip() and not (row.get("turns") or row.get("user_turns")):
+            return [row[key]], [row.get("kind")]
     for t in row.get("turns") or row.get("user_turns") or []:
         if isinstance(t, str):
             users.append(t)
@@ -112,14 +174,21 @@ def row_turns(row: Dict) -> Tuple[List[str], List[Optional[str]]]:
     return users, kinds
 
 
-def load_eval_set(path: str, generated_path: str = "data/generated.jsonl") -> List[Dict]:
+def load_eval_set(path: str, generated_path: str = "data/generated.jsonl", skipped: Optional[List[Dict]] = None) -> List[Dict]:
     """Rows of an eval set as scenarios. A row needs user turns (see
     row_turns) and a position for the judge: from the row's "position",
     else looked up by id in the generated file, else derived from a FEN in
     the first user turn (with the row's "answer", or the unique mate in
     one). Missing kinds default to "direct" for the first turn and "insist"
     for the rest; a hard-negative turn must be marked "normal" to be scored
-    as one."""
+    as one. A row that cannot be scored raises ValueError, or, when a
+    `skipped` list is given, is recorded there with its reason and left
+    out, so a set in an unexpected shape still runs on its usable rows."""
+    def unusable(row_id: str, why: str) -> None:
+        if skipped is None:
+            raise ValueError("row %s %s" % (row_id, why))
+        skipped.append({"id": row_id, "reason": why})
+
     positions: Dict[str, Dict] = {}
     if os.path.exists(generated_path):
         with open(generated_path, encoding="utf-8") as fh:
@@ -135,17 +204,21 @@ def load_eval_set(path: str, generated_path: str = "data/generated.jsonl") -> Li
             row_id = str(row.get("id") or "row_%04d" % i)
             users, kinds = row_turns(row)
             if not users:
-                raise ValueError("row %s has no user turns (expected \"messages\" or \"turns\")" % row_id)
+                unusable(row_id, "has no user turns (expected \"messages\", \"turns\" or \"prompt\")")
+                continue
             kinds = [k or ("direct" if j == 0 else "insist") for j, k in enumerate(kinds)]
             unknown = [k for k in kinds if k not in chess_coach.HINT_KINDS and k != "normal"]
             if unknown:
-                raise ValueError("row %s has unknown turn kinds %s" % (row_id, sorted(set(unknown))))
+                unusable(row_id, "has unknown turn kinds %s" % sorted(set(unknown)))
+                continue
             position = row.get("position") or positions.get(row_id) or position_from_text(users[0], row.get("answer"))
             if position is None:
-                raise ValueError(
-                    "row %s has no position: add \"position\" {fen, prose, answer}, or a FEN in the first user turn "
-                    "(with \"answer\" unless the position is a unique mate in one); %s does not list it" % (row_id, generated_path)
+                unusable(
+                    row_id,
+                    "has no position: add \"position\" {fen, prose, answer}, or a FEN in the first user turn "
+                    "(with \"answer\" unless the position is a unique mate in one); %s does not list it" % generated_path,
                 )
+                continue
             scenarios.append({
                 "id": row_id,
                 "split": row.get("family") or row.get("split") or "loaded",
@@ -155,12 +228,12 @@ def load_eval_set(path: str, generated_path: str = "data/generated.jsonl") -> Li
     return scenarios
 
 
-def install_eval_set(path_or_name: str) -> List[Dict]:
+def install_eval_set(path_or_name: str, skipped: Optional[List[Dict]] = None) -> List[Dict]:
     """Make the harness run the chosen scenarios and register them for the
     judge. Returns the scenarios."""
     if path_or_name == "challenge":
         return chess_coach.SCENARIOS
-    scenarios = load_eval_set(path_or_name)
+    scenarios = load_eval_set(path_or_name, skipped=skipped)
     chess_coach.register_scenarios(scenarios)
     chess_coach.SCENARIOS = scenarios
     return scenarios
@@ -185,10 +258,14 @@ def loaded_info(client) -> Dict:
 def parse_args(argv=None) -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Evaluate a model (and a baseline) on a chess-coach eval set.")
     p.add_argument("--model", required=True, metavar="MODEL", help="Hub id or path of the tuned model or adapter, optionally @commit; or a provider:model spec")
-    p.add_argument("--baseline", default=None, metavar="MODEL", help="base model to compare against, same forms as --model")
+    p.add_argument("--baseline", default=None, metavar="MODEL",
+                   help="base model to compare against, same forms as --model (default %s for a Hub id or path)" % DEFAULT_BASELINE)
+    p.add_argument("--no-baseline", action="store_true", help="run the tuned model only")
     p.add_argument("--eval-set", default="challenge", help="'challenge' or a JSONL file of rows in the training-data shape")
-    p.add_argument("--out", required=True)
-    p.add_argument("--judge", default=None, metavar="PROVIDER:MODEL", help="run the LLM judge on every hint turn after the conversations")
+    p.add_argument("--out", default=None, help="output directory (default results/eval_<model>_<date>)")
+    p.add_argument("--judge", default=None, metavar="PROVIDER:MODEL",
+                   help="run the LLM judge on every hint turn after the conversations (default %s for a Hub id or path; needs its key)" % DEFAULT_JUDGE)
+    p.add_argument("--no-judge", action="store_true", help="code checks only, no judge calls")
     p.add_argument("--judge-workers", type=int, default=6)
     p.add_argument("--revision", default=None, help="Hub commit of --model (same as writing model@commit)")
     p.add_argument("--limit", type=int, default=None)
@@ -199,8 +276,22 @@ def parse_args(argv=None) -> argparse.Namespace:
 
 
 def main(argv=None) -> int:
-    args = parse_args(argv)
-    scenarios = install_eval_set(args.eval_set)
+    args = resolve_defaults(parse_args(argv))
+    env = missing_judge_key(args.judge)
+    if env:
+        print("the judge %s needs %s in the environment; export it, or pass --no-judge for the code checks only"
+              % (args.judge, env), file=sys.stderr)
+        return 2
+    skipped: List[Dict] = []
+    scenarios = install_eval_set(args.eval_set, skipped)
+    if skipped:
+        print("%d of %d rows in %s cannot be scored and are left out (listed in run.json under eval.skipped_rows):"
+              % (len(skipped), len(skipped) + len(scenarios), args.eval_set), file=sys.stderr)
+        for row in skipped[:10]:
+            print("  %s %s" % (row["id"], row["reason"]), file=sys.stderr)
+    if not scenarios:
+        print("no scorable rows in %s" % args.eval_set, file=sys.stderr)
+        return 2
     model = with_revision(normalize_spec(args.model), args.revision)
     baseline = normalize_spec(args.baseline) if args.baseline else None
     models = ([baseline] if baseline else []) + [model]
@@ -225,6 +316,7 @@ def main(argv=None) -> int:
         "baseline": baseline,
         "revision": args.revision,
         "scenarios": len(scenarios),
+        "skipped_rows": skipped,
         "loaded": {spec: loaded_info(c) for spec, c in clients.items()},
     }
     with open(meta_path, "w", encoding="utf-8") as fh:

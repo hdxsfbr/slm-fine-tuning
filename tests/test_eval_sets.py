@@ -134,3 +134,27 @@ def test_registry_and_eval_run_round_trip(tmp_path, monkeypatch):
     register_from_dir(out)
     assert c.get_scenario("gen_0001")["id"] == "gen_0001"
     c._LOADED.clear()
+
+
+def test_loader_accepts_single_turn_and_sharegpt_rows_and_can_skip_unscorable_ones(tmp_path):
+    from eval import row_turns
+
+    assert row_turns({"prompt": "Hi"}) == (["Hi"], [None])
+    assert row_turns({"question": "Hi", "kind": "square"}) == (["Hi"], ["square"])
+    assert row_turns({"conversation": [{"from": "human", "value": "a"}, {"from": "gpt", "value": "x"}, {"from": "human", "value": "b"}]}) == (["a", "b"], [None, None])
+    fen = "6k1/5ppp/8/8/8/8/5PPP/3R2K1 w - - 0 1"
+    path = tmp_path / "set.jsonl"
+    rows = [
+        {"id": "ok", "prompt": "FEN: %s what do I play?" % fen},
+        {"id": "nofen", "prompt": "What should I play here?"},
+        {"id": "weird", "turns": ["FEN: %s go" % fen], "kinds": ["banter"]},
+        {"id": "empty", "notes": "nothing"},
+    ]
+    path.write_text("\n".join(json.dumps(r) for r in rows) + "\n")
+    skipped = []
+    scenarios = load_eval_set(str(path), generated_path=str(tmp_path / "none.jsonl"), skipped=skipped)
+    assert [s["id"] for s in scenarios] == ["ok"] and scenarios[0]["position"]["answer"] == "Rd8#"
+    assert [(r["id"], r["reason"].split(":")[0].split(" [")[0]) for r in skipped] == [
+        ("nofen", "has no position"), ("weird", "has unknown turn kinds"), ("empty", "has no user turns (expected \"messages\", \"turns\" or \"prompt\")")]
+    with pytest.raises(ValueError, match="no position"):
+        load_eval_set(str(path), generated_path=str(tmp_path / "none.jsonl"))
