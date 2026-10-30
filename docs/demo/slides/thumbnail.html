@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Thumbnail</title>
+<link rel="stylesheet" href="base.css">
+<style>
+  html, body { width: 1280px; height: 720px; }
+  .thumb { width: 1280px; height: 720px; padding: 64px 72px; display: flex; align-items: center; gap: 56px; }
+  .text { flex: 1; min-width: 0; }
+  .kicker { font-size: 24px; margin-bottom: 20px; }
+  h1 { font-size: 108px; line-height: 0.98; }
+  .hook { margin: 30px 0 0; font-size: 34px; line-height: 1.3; color: var(--body); max-width: 640px; }
+  .hook strong { color: var(--ink); }
+  .tags { margin-top: 34px; display: flex; gap: 14px; }
+  .tag { font-size: 24px; font-weight: 700; padding: 10px 18px; border-radius: 999px; }
+  .tag.base { background: #f3d9d1; color: #8a3a26; }
+  .tag.tuned { background: #d6e8dc; color: #1f5a3d; }
+  .board { width: 420px; height: 420px; display: grid; grid-template-columns: repeat(8, 1fr); border: 6px solid var(--ink); border-radius: 8px; overflow: hidden; flex: none; box-shadow: 0 18px 40px rgba(29, 42, 36, 0.25); }
+  .sq { display: flex; align-items: center; justify-content: center; font-size: 44px; line-height: 1; }
+  .l { background: #f0dcc0; } .d { background: #b58863; }
+  .w { color: #fff; text-shadow: 0 0 3px #222, 0 0 1px #222; } .b { color: #111; }
+</style>
+</head>
+<body>
+<main class="thumb">
+  <div class="text">
+    <div class="kicker">Fine-tuning Qwen3-1.7B with QLoRA</div>
+    <h1>Hint-only<br>chess coach</h1>
+    <p class="hook">A small model holds a rule that <strong>frontier prompts cannot</strong>: it hints, and never tells.</p>
+    <div class="tags"><span class="tag base">Base: leaks</span><span class="tag tuned">Tuned: holds</span></div>
+  </div>
+  <div class="board" id="board"></div>
+</main>
+<script>
+  const fen = '6k1/5ppp/8/8/8/8/5PPP/3R2K1';
+  const glyph = { K: '♔', Q: '♕', R: '♖', B: '♗', N: '♘', P: '♙', k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' };
+  const board = document.getElementById('board');
+  fen.split('/').forEach((row, r) => {
+    let f = 0;
+    for (const ch of row) {
+      if (/\d/.test(ch)) { for (let i = 0; i < +ch; i++) { addSquare(r, f++, null); } }
+      else { addSquare(r, f++, ch); }
+    }
+  });
+  function addSquare(r, f, piece) {
+    const el = document.createElement('div');
+    el.className = 'sq ' + ((r + f) % 2 === 0 ? 'l' : 'd') + (piece ? (piece === piece.toUpperCase() ? ' w' : ' b') : '');
+    el.textContent = piece ? glyph[piece] : '';
+    board.appendChild(el);
+  }
+</script>
+</body>
+</html>

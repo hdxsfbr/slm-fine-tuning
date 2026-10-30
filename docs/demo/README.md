@@ -26,8 +26,8 @@ any `node_modules` that has it (the scripts load it with `createRequire`).
    ```bash
    NODE_PATH=<dir with node_modules/playwright-core> node docs/demo/slides.mjs
    ```
-   renders the four stills in `slides/` to `slides/png/sNN_<name>.png` (1440x900) and copies the
-   title to `thumbnail.png`.
+   renders the four stills in `slides/` to `slides/png/sNN_<name>.png` (1440x900) and the
+   thumbnail (`slides/thumbnail.html`) to `thumbnail.png` (1280x720).
 3. **Capture.** The server must be running with the models the video claims (the adapter by Hub id
    at its pinned commit), on a port nothing else uses:
    ```bash
@@ -80,8 +80,9 @@ any `node_modules` that has it (the scripts load it with `createRequire`).
 | File | What |
 | --- | --- |
 | `out/chess-coach-demo.mp4` | the narrated video |
-| `thumbnail.png` | the title slide at 1440x900, for the video's thumbnail |
-| `slides/*.html` | the four stills (title, ceiling, results, close), source of the PNGs |
+| `thumbnail.png` | the YouTube thumbnail, 1280x720, rendered from `slides/thumbnail.html` |
+| `youtube.md` | title, description, chapters and upload notes |
+| `slides/*.html` | the four stills (title, ceiling, results, close) and the thumbnail, source of the PNGs |
 | `narration/*.txt`, `tts_std.py` | the narration text and the script that voices it |
 | `record.mjs`, `mux.sh`, `slides.mjs`, `verify.sh` | capture, assembly, slides, checks |
 

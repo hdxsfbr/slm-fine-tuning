@@ -1,8 +1,8 @@
-// Renders the four stills in slides/ to slides/png/sNN_<name>.png (1440x900) and copies the title
-// as thumbnail.png. Usage, from the repo root:
+// Renders the four stills in slides/ to slides/png/sNN_<name>.png (1440x900) and the YouTube
+// thumbnail (slides/thumbnail.html, 1280x720) to thumbnail.png. Usage, from the repo root:
 //   NODE_PATH=<dir with node_modules/playwright-core> node docs/demo/slides.mjs
 import { createRequire } from 'node:module';
-import { copyFileSync, mkdirSync } from 'node:fs';
+import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 
 const require = createRequire(import.meta.url);
@@ -26,6 +26,9 @@ for (const [html, png] of Object.entries(SLIDES)) {
   await page.screenshot({ path: path.join(OUT, png) });
   console.log('rendered', html, '->', png);
 }
+await page.setViewportSize({ width: 1280, height: 720 });
+await page.goto('file://' + path.join(HERE, 'slides', 'thumbnail.html'), { waitUntil: 'networkidle' });
+await page.evaluate(() => document.fonts.ready);
+await page.screenshot({ path: path.join(HERE, 'thumbnail.png') });
+console.log('rendered thumbnail.html -> thumbnail.png (1280x720)');
 await browser.close();
-copyFileSync(path.join(OUT, 's01_title.png'), path.join(HERE, 'thumbnail.png'));
-console.log('thumbnail.png');
