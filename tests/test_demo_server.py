@@ -24,13 +24,15 @@ def served():
         server.server_close()
 
 
-def call(base_url, path, body=None, method=None):
+def call(base_url, path, body=None, method=None, session=None):
     """(status, decoded JSON or text) for one request; HTTP errors are
-    returned, not raised."""
+    returned, not raised. `session` sets the X-Session header."""
     data = None if body is None else json.dumps(body).encode("utf-8")
     req = urllib.request.Request(base_url + path, data=data, method=method or ("POST" if data else "GET"))
     if data is not None:
         req.add_header("Content-Type", "application/json")
+    if session is not None:
+        req.add_header("X-Session", session)
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             raw, status, ctype = resp.read(), resp.status, resp.headers.get("Content-Type", "")
@@ -137,3 +139,61 @@ def test_index_and_unknown_paths(served):
     assert call(url, "/nope")[0] == 404
     assert call(url, "/api/nope")[0] == 404
     assert call(url, "/api/health", method="POST")[0] == 404
+
+
+def test_sessions_keep_their_own_conversations(served):
+    url, state = served
+    a, b = "visitor-a", "visitor-b"
+    for sid in (a, b):
+        assert call(url, "/api/reset", method="POST", session=sid)[0] == 200
+    assert call(url, "/api/opening?fen=" + urllib.request.quote(FEN), session=a)[0] == 200
+    assert call(url, "/api/turn", {"model": "tuned", "text": "What should I play?"}, session=a)[0] == 200
+    assert call(url, "/api/turn", {"model": "tuned", "text": "How does castling work?"}, session=b)[0] == 200
+    ha, hb = call(url, "/api/history", session=a)[1], call(url, "/api/history", session=b)[1]
+    assert ha["fen"] == FEN and hb["fen"] is None
+    assert ha["tuned"][0]["content"] == "What should I play?" and hb["tuned"][0]["content"] == "How does castling work?"
+    assert ha["base"] == [] and hb["base"] == []
+    assert call(url, "/api/health", session=b)[1]["turns"] == 1
+    # the default session (no header) is untouched by either visitor
+    assert call(url, "/api/history")[1]["tuned"] == state.histories["tuned"]
+    assert call(url, "/api/history", session="bad id!")[0] == 400
+
+
+def test_caps_on_text_fen_and_turns(served, monkeypatch):
+    url, state = served
+    sid = "capped"
+    status, body = call(url, "/api/turn", {"model": "base", "text": "x" * (demo_server.MAX_TEXT_CHARS + 1)}, session=sid)
+    assert status == 400 and "characters" in body["error"]
+    assert call(url, "/api/opening?fen=" + "8/" * 60, session=sid)[0] == 400
+    monkeypatch.setattr(demo_server, "MAX_USER_TURNS", 2)
+    for i in range(2):
+        assert call(url, "/api/turn", {"model": "base", "text": "turn %d" % i}, session=sid)[0] == 200
+    status, body = call(url, "/api/turn", {"model": "base", "text": "one more"}, session=sid)
+    assert status == 400 and "limit" in body["error"]
+    assert len(call(url, "/api/history", session=sid)[1]["base"]) == 4
+    assert call(url, "/api/reset", method="POST", session=sid)[0] == 200
+    assert call(url, "/api/turn", {"model": "base", "text": "after reset"}, session=sid)[0] == 200
+
+
+def test_rate_limit_answers_429(served, monkeypatch):
+    url, state = served
+    monkeypatch.setattr(demo_server, "RATE_LIMIT", (2, 60.0))
+    state.turn_times.clear()
+    for i in range(2):
+        assert call(url, "/api/turn", {"model": "tuned", "text": "q%d" % i}, session="rate-%d" % i)[0] == 200
+    status, body = call(url, "/api/turn", {"model": "tuned", "text": "q2"}, session="rate-2")
+    assert status == 429 and "busy" in body["error"]
+    state.turn_times.clear()
+    assert call(url, "/api/turn", {"model": "tuned", "text": "q3"}, session="rate-3")[0] == 200
+
+
+def test_sessions_are_evicted_least_recently_used(served, monkeypatch):
+    url, state = served
+    monkeypatch.setattr(demo_server, "MAX_SESSIONS", 3)
+    with state.lock:
+        state.sessions.clear()
+    for sid in ("e1", "e2", "e3"):
+        assert call(url, "/api/health", session=sid)[0] == 200
+    assert call(url, "/api/health", session="e1")[0] == 200  # e1 becomes the most recent
+    assert call(url, "/api/health", session="e4")[0] == 200  # e2 is the oldest and goes
+    assert set(state.sessions) == {"e1", "e3", "e4"}

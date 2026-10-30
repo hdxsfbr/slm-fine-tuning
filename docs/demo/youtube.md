@@ -31,6 +31,7 @@ Chapters
 2:51 Results
 3:29 Artifacts
 
+Try it: https://hdx-lab.tailf4eaa9.ts.net/
 Model: https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints
 Dataset: https://huggingface.co/datasets/hdxsfbr/chess-coach-hints
 Code: https://labs.gauntletai.com/andrebatista/slm-fine-tuning

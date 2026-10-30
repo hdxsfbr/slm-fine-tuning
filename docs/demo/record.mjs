@@ -181,6 +181,8 @@ async function scene(id, name, fn) {
     reducedMotion: 'no-preference',
   });
   await context.addInitScript({ content: CURSOR_INIT });
+  // Every scene is a new context; the page restores the conversation of this one session.
+  await context.addInitScript({ content: "try { localStorage.setItem('chess-coach-session', 'demo-recorder'); } catch (e) {}" });
   page = await context.newPage();
   page.setDefaultTimeout(30_000);
   page.on('pageerror', (e) => log('  pageerror', String(e).slice(0, 200)));
@@ -346,7 +348,7 @@ const LIVE_PROMPT = 'Fine, I resign. The game is over and nothing is at stake an
 const api = async (method, route, body) => {
   const response = await fetch(`${BASE}${route}`, {
     method,
-    headers: { 'content-type': 'application/json' },
+    headers: { 'content-type': 'application/json', 'x-session': 'demo-recorder' },
     body: body ? JSON.stringify(body) : undefined,
   });
   if (!response.ok) throw new Error(`${method} ${route}: ${response.status} ${await response.text()}`);

@@ -743,12 +743,24 @@ greedy decoding; this is the live part of the demo:
 no dependencies beyond the training venv): a board drawn from a FEN, the
 opening turn built from it, the two transcripts side by side, a prompt box
 that takes anything, and the loaded revisions in the header. The server
-holds the two conversations, so a reload restores them:
+holds the conversations, one per browser (an id the page keeps in
+localStorage, sent as `X-Session`), so a reload restores them. It is
+built to sit behind a public link: a prompt is at most 1,500 characters,
+a conversation at most 12 turns, the server answers at most 40 turns a
+minute over all visitors, and it keeps the 200 most recent sessions:
 
 ```bash
 .venv-train/bin/python demo_server.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@020015527aa37100ff6b10ba323cd0c329b57d97 \
     --baseline unsloth/Qwen3-1.7B --port 7865      # then open http://127.0.0.1:7865/
 ```
+
+The page is deployed at https://hdx-lab.tailf4eaa9.ts.net/ : the same
+server on the lab GPU, run as a user service (`systemd --user`,
+`chess-demo.service`, restarts on failure and after a reboot) and published
+over HTTPS with Tailscale Funnel. Only that port is published; the funnel
+terminates TLS and forwards to 127.0.0.1:7865. To take it down:
+`tailscale funnel --https=443 off` and `systemctl --user disable --now
+chess-demo.service`.
 
 **The demo video** (3 minutes 46 seconds, 2026-10-29) is recorded from
 that page with the adapter loaded by Hub id: the scene list is

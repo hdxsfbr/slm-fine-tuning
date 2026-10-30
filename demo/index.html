@@ -388,9 +388,24 @@
     return true;
   }
 
-  // Server calls.
+  // Server calls. Each browser gets its own conversation on the server, named by an id kept
+  // in localStorage (or, where storage is unavailable, for the life of the page).
+  var memorySession = null;
+  function sessionId() {
+    try {
+      var id = localStorage.getItem("chess-coach-session");
+      if (!id) {
+        id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : "s-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+        localStorage.setItem("chess-coach-session", id);
+      }
+      return id;
+    } catch (e) {
+      if (!memorySession) memorySession = "s-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 10);
+      return memorySession;
+    }
+  }
   function api(method, path, body) {
-    var opts = { method: method, headers: {} };
+    var opts = { method: method, headers: { "X-Session": sessionId() } };
     if (body !== undefined) {
       opts.headers["Content-Type"] = "application/json";
       opts.body = JSON.stringify(body);

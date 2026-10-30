@@ -376,7 +376,9 @@ Fri 10-31 to Sat 11-01
   with a GPU costs money); the 3 to 5 minute video with a live grader
   prompt. Done 2026-10-29 ahead of schedule: demo_server.py and its page
   instead of Gradio (no new dependencies), the video from docs/demo
-  (3:46, cloned voice). Left: the Colab host and where to publish the file.
+  (3:46, cloned voice). Deployed the same evening at https://hdx-lab.tailf4eaa9.ts.net/ (lab GPU,
+  user service, Tailscale Funnel); a Hub Space can replace it by Sunday.
+  Left: where to publish the video file.
 - DPO stretch if time allows, from gate rejects, no API spend.
 
 Sun 11-02 by noon

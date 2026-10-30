@@ -7,11 +7,19 @@ watch both answer.
         --baseline unsloth/Qwen3-1.7B --port 7865
 
 Then open http://127.0.0.1:7865/. The page keeps nothing but what is on
-screen; this server holds one history per model, behind one lock, so turns
-are generated one at a time on the one GPU. The models, the system prompt
-and the token budget are the ones demo.py and eval.py use.
+screen; this server holds the conversations, one pair of histories (base
+and tuned) per session, behind one lock, so turns are generated one at a
+time on the one GPU. A session is named by the X-Session header (the page
+makes one id per browser and keeps it in localStorage; no header means the
+session "default"). The models, the system prompt and the token budget are
+the ones demo.py and eval.py use.
 
-Stdlib only. Endpoints (JSON):
+Built to sit behind a public URL: a prompt is at most MAX_TEXT_CHARS, a
+conversation at most MAX_USER_TURNS user turns, the server answers at most
+RATE_LIMIT turns per window (429 beyond that), and it keeps the
+MAX_SESSIONS most recently used sessions.
+
+Stdlib only. Endpoints (JSON, all scoped to the X-Session session):
 
     GET  /                      the page, demo/index.html
     GET  /api/health            specs, loaded revisions, the stored fen, user turns so far
@@ -19,13 +27,14 @@ Stdlib only. Endpoints (JSON):
     GET  /api/history           the stored fen and opening, and both histories, so a page
                                 opened later shows the conversation so far
     POST /api/turn              {"model": "base"|"tuned", "text": ...} -> {"text", "seconds"}
-    POST /api/reset             clears both histories (the fen and opening stay)
+    POST /api/reset             clears both histories of the session (the fen and opening stay)
 """
 from __future__ import annotations
 
 import argparse
 import json
 import os
+import re
 import sys
 import threading
 import time
@@ -41,6 +50,13 @@ from pilot.clients import make_client
 MODELS = ("base", "tuned")
 CLIENT_TIMEOUT_S = 600.0
 MAX_BODY_BYTES = 64 * 1024
+MAX_TEXT_CHARS = 1500
+MAX_FEN_CHARS = 100
+MAX_USER_TURNS = 12
+MAX_SESSIONS = 200
+RATE_LIMIT = (40, 60.0)  # turns per window, window in seconds, over all sessions
+DEFAULT_SESSION = "default"
+SESSION_ID_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 HERE = os.path.dirname(os.path.abspath(__file__))
 INDEX_PATH = os.path.join(HERE, "demo", "index.html")
 
@@ -49,18 +65,50 @@ def log(line: str) -> None:
     print(line, file=sys.stderr, flush=True)
 
 
+class Session:
+    """One visitor's conversation: a history per model, the position shown."""
+
+    def __init__(self) -> None:
+        self.histories: Dict[str, List[Dict[str, str]]] = {name: [] for name in MODELS}
+        self.fen: Optional[str] = None
+        self.opening: Optional[str] = None
+        self.last_used = time.time()
+
+
+class RateLimit(Exception):
+    """Too many turns in the window: answered with 429 and the message."""
+
+
 class DemoState:
-    """Two clients, two histories, one lock. The lock covers generation as
-    well as the histories, so concurrent turns run one after the other."""
+    """Two clients, the sessions, one lock. The lock covers generation as
+    well as the sessions, so concurrent turns run one after the other."""
 
     def __init__(self, specs: Dict[str, str], clients: Dict[str, object], system: str = STRATEGIES["zero_shot"]):
         self.specs = specs
         self.clients = clients
         self.system = system
-        self.histories: Dict[str, List[Dict[str, str]]] = {name: [] for name in MODELS}
-        self.fen: Optional[str] = None
-        self.opening: Optional[str] = None
+        self.sessions: Dict[str, Session] = {}
+        self.turn_times: List[float] = []
         self.lock = threading.Lock()
+
+    # The default session, for callers that send no X-Session header (demo.py's
+    # habits, curl, the first tests).
+    @property
+    def histories(self) -> Dict[str, List[Dict[str, str]]]:
+        with self.lock:
+            return self._session(DEFAULT_SESSION).histories
+
+    def _session(self, sid: str) -> Session:
+        """The session, created on first use; the least recently used one goes
+        when there are more than MAX_SESSIONS. Call with the lock held."""
+        session = self.sessions.get(sid)
+        if session is None:
+            if len(self.sessions) >= MAX_SESSIONS:
+                oldest = min(self.sessions, key=lambda k: self.sessions[k].last_used)
+                del self.sessions[oldest]
+            session = self.sessions[sid] = Session()
+        session.last_used = time.time()
+        return session
 
     def describe(self, name: str) -> Dict[str, Optional[str]]:
         c = self.clients[name]
@@ -71,30 +119,43 @@ class DemoState:
             "base_revision": getattr(c, "base_revision", None),
         }
 
-    def health(self) -> Dict:
+    def health(self, sid: str = DEFAULT_SESSION) -> Dict:
         with self.lock:
-            turns = max(sum(1 for m in h if m["role"] == "user") for h in self.histories.values())
-            return {"base": self.describe("base"), "tuned": self.describe("tuned"), "fen": self.fen, "turns": turns}
+            session = self._session(sid)
+            turns = max(sum(1 for m in h if m["role"] == "user") for h in session.histories.values())
+            return {"base": self.describe("base"), "tuned": self.describe("tuned"), "fen": session.fen, "turns": turns,
+                    "limits": {"text_chars": MAX_TEXT_CHARS, "user_turns": MAX_USER_TURNS}}
 
-    def opening_for(self, fen: str) -> str:
+    def opening_for(self, fen: str, sid: str = DEFAULT_SESSION) -> str:
         """The opening user turn for a FEN, remembered so a page opened
         later can show the position. Raises ValueError on a bad FEN."""
         text = opening_from_fen(fen)
         with self.lock:
-            self.fen = fen
-            self.opening = text
+            session = self._session(sid)
+            session.fen = fen
+            session.opening = text
         return text
 
-    def history(self) -> Dict:
+    def history(self, sid: str = DEFAULT_SESSION) -> Dict:
         with self.lock:
-            out: Dict[str, object] = {"fen": self.fen, "opening": self.opening}
+            session = self._session(sid)
+            out: Dict[str, object] = {"fen": session.fen, "opening": session.opening}
             for name in MODELS:
-                out[name] = [{"role": m["role"], "content": m["content"]} for m in self.histories[name]]
+                out[name] = [{"role": m["role"], "content": m["content"]} for m in session.histories[name]]
             return out
 
-    def turn(self, name: str, text: str) -> Dict:
+    def turn(self, name: str, text: str, sid: str = DEFAULT_SESSION) -> Dict:
         with self.lock:
-            history = self.histories[name]
+            now = time.time()
+            limit, window = RATE_LIMIT
+            self.turn_times = [t for t in self.turn_times if now - t < window]
+            if len(self.turn_times) >= limit:
+                raise RateLimit("the demo is busy; try again in a minute")
+            session = self._session(sid)
+            history = session.histories[name]
+            if sum(1 for m in history if m["role"] == "user") >= MAX_USER_TURNS:
+                raise BadRequest("this conversation is at its limit of %d turns; start a new one" % MAX_USER_TURNS)
+            self.turn_times.append(now)
             history.append({"role": "user", "content": text})
             t0 = time.time()
             try:
@@ -105,11 +166,15 @@ class DemoState:
             history.append({"role": "assistant", "content": reply.text})
             return {"text": reply.text, "seconds": round(time.time() - t0, 2)}
 
-    def reset(self) -> None:
-        """Clears the conversations; the fen and opening stay."""
+    def reset(self, sid: str = DEFAULT_SESSION) -> None:
+        """Clears the session's conversations; its fen and opening stay."""
         with self.lock:
-            for h in self.histories.values():
+            for h in self._session(sid).histories.values():
                 h.clear()
+
+
+class BadRequest(Exception):
+    """Client error: answered with 400 and the message."""
 
 
 def build_state(model: str, baseline: str = "unsloth/Qwen3-1.7B", revision: Optional[str] = None, temperature: Optional[float] = None) -> DemoState:
@@ -121,10 +186,6 @@ def build_state(model: str, baseline: str = "unsloth/Qwen3-1.7B", revision: Opti
         if hasattr(c, "revision"):
             log("%s: %s (revision %s, base %s at %s)" % (name, specs[name], c.revision, c.base, c.base_revision))
     return DemoState(specs, clients)
-
-
-class BadRequest(Exception):
-    """Client error: answered with 400 and the message."""
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -150,6 +211,8 @@ class Handler(BaseHTTPRequestHandler):
             status, payload = self._route(method, path)
         except BadRequest as e:
             status, payload = 400, {"error": str(e)}
+        except RateLimit as e:
+            status, payload = 429, {"error": str(e)}
         except Exception as e:  # a model or client failure must not take the server down
             status, payload = 500, {"error": "%s: %s" % (type(e).__name__, e)}
         if isinstance(payload, bytes):
@@ -158,25 +221,36 @@ class Handler(BaseHTTPRequestHandler):
             self._write(status, "application/json; charset=utf-8", json.dumps(payload).encode("utf-8"))
         log("%s %s %d %.2fs" % (method, self.path, status, time.time() - t0))
 
+    def _session_id(self) -> str:
+        sid = (self.headers.get("X-Session") or DEFAULT_SESSION).strip()
+        if not SESSION_ID_RE.match(sid):
+            raise BadRequest("X-Session must be 1 to 64 letters, digits, - or _")
+        return sid
+
     def _route(self, method: str, path: str) -> Tuple[int, object]:
         if method == "GET" and path == "/":
             if not os.path.isfile(INDEX_PATH):
                 return 404, {"error": "demo/index.html is missing"}
             with open(INDEX_PATH, "rb") as fh:
                 return 200, fh.read()
+        if not path.startswith("/api/"):
+            return 404, {"error": "not found"}
+        sid = self._session_id()
         if method == "GET" and path == "/api/health":
-            return 200, self.state.health()
+            return 200, self.state.health(sid)
         if method == "GET" and path == "/api/opening":
             query = parse_qs(urlsplit(self.path).query)
             fen = (query.get("fen") or [""])[0].strip()
             if not fen:
                 raise BadRequest("fen is required")
+            if len(fen) > MAX_FEN_CHARS:
+                raise BadRequest("fen is too long")
             try:
-                return 200, {"text": self.state.opening_for(fen)}
+                return 200, {"text": self.state.opening_for(fen, sid)}
             except Exception as e:
                 raise BadRequest("invalid FEN: %s" % e)
         if method == "GET" and path == "/api/history":
-            return 200, self.state.history()
+            return 200, self.state.history(sid)
         if method == "POST" and path == "/api/turn":
             body = self._json_body()
             model = body.get("model")
@@ -185,9 +259,11 @@ class Handler(BaseHTTPRequestHandler):
                 raise BadRequest("model must be one of %s" % ", ".join(MODELS))
             if not isinstance(text, str) or not text.strip():
                 raise BadRequest("text must be a non-empty string")
-            return 200, self.state.turn(model, text.strip())
+            if len(text) > MAX_TEXT_CHARS:
+                raise BadRequest("text is over %d characters" % MAX_TEXT_CHARS)
+            return 200, self.state.turn(model, text.strip(), sid)
         if method == "POST" and path == "/api/reset":
-            self.state.reset()
+            self.state.reset(sid)
             return 200, {"ok": True}
         return 404, {"error": "not found"}
 

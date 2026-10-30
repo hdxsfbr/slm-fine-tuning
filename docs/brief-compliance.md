@@ -25,7 +25,7 @@ judge; a smoke run of the whole loop; raw judge transcripts per turn; a Brainlif
 
 Open for the early submission: nothing; the public Hub checkpoint and the dataset went up on
 2026-10-29 and the code is committed on main (4dafda9, tagged early-submission).
-Open for the final: a hosted inference demo (the page runs locally; the video is done), the staff
+Open for the final: a Hub Space for the demo (it is deployed from the lab machine; the video is done), the staff
 held-out set when it is published (the synthetic held-out run is done), relabeled calibration items and a hand read of the 16 judge disagreements on v2
 (the second-family judge check itself is done), and a model above the 80% bar (v2 is at
 70%, with one failure mode left).
@@ -37,7 +37,7 @@ F = final.
 
 | # | Item | Brief wording | State | Sev. | Due | Effort |
 |---|---|---|---|---|---|---|
-| 15 | Inference demo and video | "running inference demo", "3 to 5 minute demo video ... one live, grader-supplied prompt" | demo_server.py serves base and tuned side by side on any prompt (tested, 7 tests) and demo.py does the same on the CLI. The video is done (docs/demo/out/chess-coach-demo.mp4, 3:46, recorded 2026-10-29 from the page with the adapter by Hub id, narrated in Andre's cloned voice; scene 6 is the live prompt). Left: hosting the page so a grader can run it without the repo (Colab on a free GPU planned), and publishing the video file, which is gitignored. | should-fix | F | notebook 1 h |
+| 15 | Inference demo and video | "running inference demo", "3 to 5 minute demo video ... one live, grader-supplied prompt" | demo_server.py serves base and tuned side by side on any prompt (tested, 7 tests) and demo.py does the same on the CLI. The video is done (docs/demo/out/chess-coach-demo.mp4, 3:46, recorded 2026-10-29 from the page with the adapter by Hub id, narrated in Andre's cloned voice; scene 6 is the live prompt). The page is deployed at https://hdx-lab.tailf4eaa9.ts.net/ (the lab GPU, a systemd user service published with Tailscale Funnel; up as long as the lab machine is). Left: a Hub Space so the demo does not depend on the lab machine, and publishing the video file, which is gitignored. | minor | F | Space 2 to 3 h |
 | 12 | Staff held-out eval set | "run against a scenario set your model never saw" | The loader accepts rows as messages or plain turns, derives positions from a FEN, and documents the schema (README, "Held-out set format"). Synthetic held-out run done 2026-10-29 (results/eval_v2_heldout_2026-10-29): base 0 of 102, v2 95 of 102 (93%) on positions train never saw, every hint turn judged. The staff set itself has not been published; the one command runs it as soon as it exists. | minor (waiting on the course) | F | 20 min once the set exists |
 | 13 | Minimum viable N on a model that holds the behavior | "the smallest N that holds the behavior reliably" | The v2 curve (805, 402, 201, 100, two seeds, judged) gives 805 by the rule; 402 is 8 points behind on Robustness and level on per-turn adherence. v2 holds 70% of conversations, below the 80% bar, with one failure mode left (disguise turns). Stated as "at least 805 for this spec", with the next data change named. | should-fix (disclosed) | F | a v3 data pass on disguise turns, about $3 and 2 h, if time allows |
 | 10 | Judge validity | "the same LLM-as-judge rubric" | Second family checked 2026-10-29 (results/judge_check_2026-10-29/summary.md): gemini-3.1-flash-lite agrees with the 40 labels at 80%, as haiku does; on base vs v2 the judges agree on 76% of turns (kappa 0.52) and gemini puts v2 at 47% Robustness against haiku's 70%, the base at 0% under both; the ceiling holds under both judges. Left: a hand read of the 16 disagreements on v2 replies (in the 8 read so far gemini's reason is outside the rubric), and the 40 labels, written by the assistant, wait for Andre's relabel. | should-fix | F | 40 min of Andre's time for the labels, 15 min for the 16 |
@@ -202,7 +202,7 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Early: two or more curve points | Met | sixteen |
 | Early: draft artifacts (dataset shape, checkpoint, Brainlift) | Met | checkpoint and dataset public on the Hub |
 | Final: dataset published | Met | hdxsfbr/chess-coach-hints at a4325db, 2026-10-29 |
-| Final: model on Hub plus running inference demo | Partial | model on the Hub; the demo page runs locally, hosting is item 15 |
+| Final: model on Hub plus running inference demo | Met | model on the Hub; demo at https://hdx-lab.tailf4eaa9.ts.net/, item 15 |
 | Final: results on own set and staff held-out set | Partial | challenge set and synthetic held-out done; staff set not published |
 | Final: full curve with justified minimum N | Met, with the caveat in item 13 | |
 | Final: Brainlift | Draft | item 3 |

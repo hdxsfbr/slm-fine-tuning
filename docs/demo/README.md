@@ -39,7 +39,8 @@ any `node_modules` that has it (the scripts load it with `createRequire`).
    NODE_PATH=<...> SCENES=s04,s05 node docs/demo/record.mjs               # selected scenes
    bash docs/demo/verify.sh sheets       # a contact sheet per clip, to look at before moving on
    ```
-   The scenes continue one conversation that the server holds and the page restores on load, so
+   The scenes continue one conversation that the server holds (session `demo-recorder`, which the
+   recorder sets in the page's localStorage before each scene) and the page restores on load, so
    they run in order: s03 loads the position (which starts the conversation over) and s04 to s06 add
    turns to it. A single scene can be re-recorded with `SCENES=` only while the server still holds
    the state the scene before it left, and only once on that state; otherwise run again from s03.
