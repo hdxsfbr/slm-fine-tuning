@@ -46,6 +46,31 @@ F = final.
 | 3 | Brainlift | "behavior thesis, and whether data to behavior held, with evidence" | docs/brainlift.md drafted with thesis, spec, ceiling, v1, v2, both curves, minimum N and four spiky views. Final pass after the held-out runs. | should-fix | E draft done, F | 1 h |
 | 1b | v2 failure mode (disguise) | the spirit of "iterating on data, not hyperparameters" | Diagnosed: all v2 leaks are on disguise turns that name a textbook pattern. Resolved by data in three passes: v3 (names as hard negatives on random positions) leaked more, v3b (names as disguises on textbook positions, datagen/patterns.py) over-refused, v3c (both) holds 2 more conversations than v2 with 2 disguise leaks left of 13. Same training configuration throughout. | resolved | F | none |
 
+## Final audit, 2026-10-30 evening
+
+Two independent reads of the brief against the code, data and result files (the README
+and docs excluded as evidence), after v3c and the re-recorded video. No blockers. The
+items found, and Andre's decision on each:
+
+- Fixed: the self-contained judge export (judged_turns.jsonl) was missing for the v3, v3b
+  and v3c result directories; exported for all of them (judge.jsonl, with the verdict and
+  reasoning per turn, was already there).
+- Accepted as is: the literal `eval.py --model <id> --eval-set <path>` needs `--out`
+  (and `--baseline`, `--judge` for the table), as the README and the notebook show; the
+  v3c runs loaded the adapter from models/v3c rather than by Hub id (the public demo and
+  the notebook load it by Hub id, and the v2 Hub-id runs reproduced the local ones byte
+  for byte); run.json and the Hub card cite the pre-commit sha 3f50037-dirty for code that
+  is committed as 2b432e2 (the judge retry is the only eval-code change, and rescoring
+  the result directories at HEAD gives identical tables); the held-out loader raises on
+  a row without a FEN or position rather than skipping it; the video's live prompt was
+  written for the recording and typed live, not supplied by a grader; the smoke log
+  predates the v3 data-generation code.
+- Optional, not done: the second-judge check on v3c ($0.30), a curve on the synthetic
+  test rows (about $5), a model above the 80% bar (v3c is at 77% and 70% on two seeds).
+- Outside the repo: the video upload, Andre's relabels, the staff held-out set (not
+  posted as of 2026-10-30), confirmation that graders can clone an internal GitLab
+  project.
+
 ## Fixed items
 
 On 2026-10-30:
