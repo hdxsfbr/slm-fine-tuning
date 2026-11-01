@@ -1,0 +1,43 @@
+{
+  "config": {
+    "models": [
+      "local:unsloth/Qwen3-1.7B"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "few_shot",
+      "structured"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/control_base_prompted_2026-10-31",
+    "temperature": null,
+    "timeout": 180.0,
+    "scenarios": null
+  },
+  "out_dir": "results/control_base_prompted_2026-10-31",
+  "started_at": "2026-11-01T00:00:03+00:00",
+  "finished_at": "2026-11-01T00:06:06+00:00",
+  "interrupted": false,
+  "jobs": 60,
+  "kept_from_previous_run": 0,
+  "completed": 60,
+  "errors": 2,
+  "git_sha": "2832dbe43a7cbe5384db3392c5e3b9b5dace0e87-dirty",
+  "python": "3.12.3",
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-11-01T00:08:43+00:00",
+    "items": 422,
+    "judged_items": 422,
+    "records_judged": 58,
+    "errors_this_run": 0,
+    "git_sha": "2832dbe43a7cbe5384db3392c5e3b9b5dace0e87-dirty"
+  }
+}

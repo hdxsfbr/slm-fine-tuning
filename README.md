@@ -5,10 +5,54 @@ Unsloth) to reliably hold one falsifiable behavior, and prove with numbers that
 the tuned model beats the base model. The brief is in
 [docs/](docs/G7_W7_Train_Your_Own_Small_Learning_Model.pdf).
 
-The gate before any training is a Prompt-Ceiling Ablation: frontier models from
-at least two families, using three prompting strategies, must plateau below the
-reliability bar. This repo currently holds the **pilot** for that ablation: a
-small run on two candidate behaviors that tells us which one has a real ceiling.
+## Results at a glance
+
+One behavior, the hint-only chess coach (C below): asked anything that would
+identify the move in their position, the coach gives one hint that names no
+square and no move; every other chess question is answered in full, squares
+included. Qwen3-1.7B, QLoRA through Unsloth, trained on 1,298 synthetic
+conversations written by a frontier teacher behind a code-and-judge gate.
+Scored on 30 hand-written challenge conversations of 8 to 10 turns
+(Robustness: every turn passes the code checks and the LLM judge finds no
+described move) and on held-out synthetic conversations on positions no
+training row uses.
+
+| | 30 challenge conversations | held-out synthetic |
+|---|---|---|
+| Qwen3-1.7B base, same system prompt | 0% (0 of 30) | 0% (0 of 155) |
+| Qwen3-1.7B base, the ablation's few-shot and structured prompts | 3% (1 of 30) under either | |
+| best frontier prompt (claude-sonnet-5.5, structured; gpt-5.5 reaches 10%) | 20% (6 of 30) | |
+| v2, the early submission, 805 rows | 70% (21 of 30), 70% on a second seed | 93% (95 of 102, its own test set) |
+| v3c, the final model, 1,298 rows | 77% (23 of 30); 70% and 73% on two more seeds | 92% (142 of 155) |
+| v3d, v3c plus 110 rows with varied lead-ins (not adopted) | 77% (23 of 30), 73% on a second seed | |
+
+The judge is claude-haiku-5.5 under one rubric for the ablation, the data gate
+and the evaluation; it agrees with the author's 40 hand labels 68% of the time,
+which is also how often two people agree on the same items. A second judge
+family (gemini-3.1-flash-lite) keeps the ordering, base, then frontier, then
+tuned, and scores v2 and v3c both at 47%; every number above is haiku's. The
+data-efficiency curve says the full 1,298 rows are needed on Robustness and
+649 on per-turn adherence. The seven conversations v3c fails are the same
+seven in every run, and "Where v3c fails" under Results says why.
+
+Reproduce the headline row in one command (a CUDA GPU, about $0.20 of judge
+calls through OpenRouter; `notebooks/grader_eval.ipynb` runs the same on Colab):
+
+```bash
+python eval.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@5f3bb8046ae96bd197ab93cc60964ba6c02243fb
+```
+
+Model: [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/5f3bb8046ae96bd197ab93cc60964ba6c02243fb)
+at that commit. Dataset: [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/9c1eacdb8c797e6917956f229b7ceba65edcb776).
+Live demo, base and tuned side by side: <https://hdx-lab.tailf4eaa9.ts.net/>.
+Video: "The demo video" under Results (3:59). Thinking and decisions:
+`docs/brainlift.md`; requirement-by-requirement audit: `docs/brief-compliance.md`.
+
+The gate before training was a prompt-ceiling ablation: frontier models from
+two families under three prompting strategies had to plateau below the
+reliability bar, and they did. The repo holds that ablation, the data
+pipeline, training, the evaluation harness, the judge checks, the demo server
+and the video pipeline; the candidate behaviors below are where it started.
 
 ## Candidate behaviors
 
@@ -289,6 +333,21 @@ counted as a leak. The 104 disagreements are in
 both reasonings and an empty `label` field for a hand read. What survives
 either judge: tuned beats base by 47 points or more, and tuned beats the
 best frontier prompt. The 70% figure is haiku's.
+
+**Second judge family on v3c (2026-10-31, `results/judge_check_2026-10-31`,
+$0.20).** The same check on the v3c eval: agreement 78% of 440 turns (kappa
+0.54), and gemini puts v3c at 47% Robustness (14 of 30), the same 47% it
+gives v2, against haiku's 77%. All 18 v3c turns the judges split on are
+haiku passes that gemini calls leaks, in 9 conversations; in the reasons
+gemini gives, the complaint is about something the reply does not contain
+(a queen the user does not have, square names in a reply with none, a
+check where there is none) or about a search instruction the rubric
+allows. Against Andre's 40 hand labels gemini scores 70% (28 of 40,
+`calibrate_gemini_andre.log`) and haiku 68%, so the labels do not pick a
+judge. The 18 turns are in `eval_v3c/disagreements_to_label.jsonl` for a
+hand read with `label_server.py`; the result goes here when it is in.
+Under haiku v3c beats v2 by 7 points on the submitted seed and 3 on the
+three-seed mean; under gemini they tie.
 
 **Rubric for the chess coach** (`JUDGE_RUBRIC` in `behaviors/chess_coach.py`,
 version `chess_coach_leak_v2`). The judge sees the rule, the position as the
@@ -781,6 +840,34 @@ so the name always gets a hint); each alone tipped the model over, and
 together every name appears on both sides of the line. This is the
 submitted dataset (Hub commit `9c1eacdb8c797e6917956f229b7ceba65edcb776`).
 
+**v3d data (2026-10-31, `data/v3d_extra/` and `data/v3d/`).** The failure
+analysis ("Where v3c fails" under Results) found the v3c model keying on
+the lead-in of a hard negative: the teacher prompt suggested "unrelated
+question" or "before that", and 960 of the 1,847 v3c hard negatives open
+with one of the two, every pattern-named one among them. The v3d batch is
+the v3 mix on 192 fresh random positions, with one of 30 lead-ins attached
+to every hard negative in the plan (`NEGATIVE_LEADS` in
+`datagen/taxonomy.py`; a third of the draws are no lead-in at all) and a
+note in the teacher prompt that bans the stock phrase for this mix
+(`LEAD_NOTE` in `datagen/generate.py`). None of the 30 copies the challenge
+set's own lead-ins except the plain word "also". 160 conversations from
+the same teacher at the same settings (about $2.50), then the same gate:
+structure 160 to 148, checks 148 to 140, judge 140 to 123, leakage 123
+to 122, giving 110 training rows and 12 test rows. In the gated rows the
+187 hard-negative turns open with "unrelated" 0 times, and the commonest
+opening ("what is", no lead-in) covers 11 of them. `data/v3d` is the merge
+of v2, v3_extra, v3b_extra and v3d_extra: 1,408 training rows and 167 test
+rows. What it does to the five over-refusals is the v3d model's row under
+"Results".
+
+```bash
+python run_datagen.py positions --n 200 --seed 2 --exclude data/positions.jsonl data/positions_v3.jsonl data/positions_textbook.jsonl --out data/positions_v3d.jsonl
+python run_datagen.py generate data/positions_v3d.jsonl --n 160 --seed 3 --mix v3d \
+    --teacher openrouter:anthropic/claude-sonnet-5.5 --reasoning '{"effort": "low"}' --out data/v3d_extra/generated.jsonl
+python run_datagen.py gate data/v3d_extra/generated.jsonl --out data/v3d_extra --judge openrouter:anthropic/claude-haiku-5.5
+python run_datagen.py merge --out data/v3d data/v2 data/v3_extra data/v3b_extra data/v3d_extra
+```
+
 ## Training and evaluation
 
 Training runs in its own Python 3.12 environment, because the system
@@ -873,10 +960,15 @@ claude-haiku-5.5 as the judge, prints `results.md`, exports
 needs a GPU runtime (a T4 is enough, about 5 GB) and an OpenRouter key in
 the Colab secret `OPENROUTER_API_KEY`; a full run is 440 judge calls, about
 $0.16. Executed end to end on 2026-10-30 in a fresh Python 3.12 venv on the
-RTX 4090: install 1 min 47 s, eval 8 min 15 s (conversations and model
-downloads 4 min 44 s, judge about 3 min), 10 min 25 s in all, with the
-same result as below (tuned 20 of 30, base 0 of 30); expect about three
-times that on a T4. `GIT_TOKEN` takes a GitLab token if the clone needs one.
+RTX 4090 with the v2 checkpoint: install 1 min 47 s, eval 8 min 15 s
+(conversations and model downloads 4 min 44 s, judge about 3 min),
+10 min 25 s in all, tuned 20 of 30, base 0 of 30. Executed again on
+2026-10-31 with the v3c default against commit 2832dbe, while the GPU was
+also training (`notebooks/grader_eval.executed.ipynb` is that run with its
+outputs): install 52 s, eval 9 min 1 s, base 0 of 30, tuned 22 of 30
+against 23 in `results/eval_v3c_2026-10-30`, the one conversation that a
+fresh judge pass moves. Expect about three times the eval time on a T4.
+`GIT_TOKEN` takes a GitLab token if the clone needs one.
 
 **Held-out set format.** An eval-set file is JSONL, one scenario per line,
 and `eval.py` accepts either of these shapes:
@@ -1006,19 +1098,22 @@ byte for byte.
 | Model | No named leaks | Negatives answered | Concise hints | All checks | No stated move (judge) | Spec adherence (turns) | Robustness (Final) | pressure | mixed |
 |---|---|---|---|---|---|---|---|---|---|
 | Qwen3-1.7B base | 0% (0/30) | 60% (18/30) | 67% (20/30) | 0% (0/30) | 3% (1/30) | 16% | 0% (0/30) | 0/17 | 0/13 |
+| Qwen3-1.7B base, few_shot prompt (control) | 10% (3/30) | 63% (19/30) | 90% (27/30) | 7% (2/30) | 7% (2/30) | 38% | 3% (1/30) | 1/17 | 0/13 |
 | v1 (haiku data, 455 rows) | 97% (29/30) | 73% (22/30) | 93% (28/30) | 63% (19/30) | 63% (19/30) | 90% | 50% (15/30) | 12/17 | 3/13 |
 | v2 (sonnet data, 805 rows) | 80% (24/30) | 87% (26/30) | 83% (25/30) | 70% (21/30) | 87% (26/30) | 96% | 70% (21/30) | 17/17 | 4/13 |
 | v3 (v2 + named-pattern turns on random positions, 1,055) | 77% (23/30) | 97% (29/30) | 77% (23/30) | 70% (21/30) | 77% (23/30) | 96% | 63% (19/30) | 15/17 | 4/13 |
 | v3b (v2 + the same plans on textbook positions, 1,048) | 97% (29/30) | 83% (25/30) | 97% (29/30) | 80% (24/30) | 90% (27/30) | 96% | 70% (21/30) | 17/17 | 4/13 |
 | v3c (v2 + both batches, 1,298) | 90% (27/30) | 87% (26/30) | 93% (28/30) | 77% (23/30) | 90% (27/30) | 97% | 77% (23/30) | 17/17 | 6/13 |
+| v3d (v3c + varied lead-ins, 1,408; not adopted) | 93% (28/30) | 90% (27/30) | 90% (27/30) | 80% (24/30) | 87% (26/30) | 96% | 77% (23/30) | 16/17 | 7/13 |
 | sonnet-5.5, best prompt (ablation) | 100% | 100% | 87% | 87% | 23% | 80% | 20% | 3/17 | 3/13 |
 | gpt-5.5, best prompt (ablation) | 100% | 100% | 100% | 100% | 10% | 54% | 10% | | |
 
 v3c holds every pressure conversation and 6 of the 13 mixed ones, two more
-than v2. A second training seed of the full set (the v3c curve below)
-gives 70%, so the two-seed mean is 73% against v2's 70% on both of its
-seeds: about one conversation per seed, at the edge of what the judge
-pass and training variance resolve. What is not at the edge is the
+than v2. Two more training seeds of the full set give 70% (the v3c curve
+below) and 73% (`results/sweep_2026-10-31/eval_s2024`), so the three-seed
+mean is 73% against v2's 70% on both of its seeds: about one conversation
+per seed, at the edge of what the judge pass and training variance
+resolve. What is not at the edge is the
 failure mode: of the 13 disguise turns the judge reads, 2 leak
 (v2: 4, v3: 5, v3b: 1): the promotion mate, where the reply names the
 promotion square, and Fool's mate. The 7 failures: those 2, a skewer
@@ -1028,6 +1123,76 @@ a back-rank position, Scholar's against Legal's, piece values and the
 Queen's Gambit in one conversation, the Italian Game in another). The
 v3 and v3b rows are the two halves of the data change that produced
 v3c; their paragraphs below say what each taught and what it cost.
+
+**The prompted base (control, 2026-10-31,
+`results/control_base_prompted_2026-10-31`).** The ablation's two stronger
+prompts, few-shot and structured, on the base model itself, same 30
+scenarios and judge: 3% (1 of 30) under either, against 0% zero-shot.
+Few-shot lifts per-turn adherence from 16% to 38% and stops the rambling
+(27 of 30 concise); structured makes it worse (18%, two conversations
+errored when the base ran past its context writing 90-sentence replies).
+So the small model has no prompting route to the behavior either, and the
+77% is the data's.
+
+**Hyperparameters on the v3c data (2026-10-31,
+`results/sweep_2026-10-31`, `sweep.sh`).** Three single-knob changes to the
+slide configuration, each trained on the same 1,298 rows and judged on the
+challenge set, next to the third seed of the unchanged configuration:
+
+| cell | steps | loss | Robustness | pressure | mixed | the four lead-in refusals |
+|---|---|---|---|---|---|---|
+| v3c, seed 3407 (submitted) | 326 | 1.26 | 77% (23/30) | 17/17 | 6/13 | all four |
+| v3c, seed 2024 | 326 | 1.25 | 73% (22/30) | 16/17 | 6/13 | all four |
+| 3 epochs | 489 | 1.10 | 77% (23/30) | 17/17 | 6/13 | three, plus a new disguise leak |
+| LoRA r=32, alpha 32 | 326 | 1.16 | 73% (22/30) | 16/17 | 6/13 | all four |
+| learning rate 1e-4 | 326 | 1.45 | 73% (22/30) | 17/17 | 5/13 | all four |
+
+No cell beats the submitted seed, and the four hard negatives refused
+for their lead-in (the Italian Game, Scholar's Mate against Legal's,
+piece values, Fool's Mate against a back rank) are refused in every cell;
+a longer or wider fit lowers the loss and changes nothing on the
+challenge set. The failure is in the data, which is what the v3d pass
+tests. Each cell cost about 5 minutes of GPU and $0.16 of judge calls.
+
+**v3d, 2026-10-31, trained and not adopted (`results/sweep_2026-10-31/eval_v3d`
+and `eval_v3d_s1234`).** The lead-in test: v3c's rows plus the 110 v3d rows
+("v3d data" above), same configuration, two seeds: 77% (23 of 30) and 73%
+(22 of 30), against v3c's 77%, 70% and 73%. Hard negatives refused across
+the 30 conversations, counting turns: v3c 5, 5 and 6 over its three seeds,
+the three hyperparameter cells 4, 5 and 7, v3d 3 and 5. On the first v3d
+seed the Italian Game and Queen's Gambit questions are answered and the
+conversations fail elsewhere (two disguise turns); on the second, the
+Italian Game is refused again. Two refusals survive both seeds: Scholar's
+Mate asked against Legal's position and the piece values. So 110 rows at
+8% of the data move the refused count by about one per seed and the
+headline by 0 and 3 points, inside seed variance, and the rule for
+adopting a cell (both seeds above 77% and 70%) is not met: v3c stays the
+submitted model. The finding stands as a direction, not a fix: a
+regeneration of the whole set with varied lead-ins, about $20, is the
+real test, and the two survivors suggest a second cue underneath, since
+the Scholar's-square question appears in training only as a disguise turn
+(8 times, never as a negative) and the piece values only 3 times.
+
+**Where v3c fails, and why.** The seven misses are the same seven
+scenarios in every tuned run, v2 through the third v3c seed, nearly always
+at the same turn. Five of the eight failing turns are hard negatives
+refused as if they were disguise turns, and the five questions share one
+feature: none announces itself as unrelated ("Also, in the Italian Game,
+which square...", "Before you answer: how many points is a queen worth",
+"Out of character: in Fool's Mate, which square..."). The training data
+announces nearly all of its hard negatives: the teacher prompt suggests
+"unrelated question" or "before that" for them, and 703 of the 1,847
+hard-negative turns in v3c open with the first phrase and 257 with the
+second, including every one of the 196 that names a pattern; the
+challenge set's lead-ins occur 0 to 9 times as a negative in training, and
+"not my game" and "in general" only on disguise turns. The model keys on
+the lead-in, one level below the pattern name that v3c balanced. The two
+disguise leaks are the promotion question (a rules fact whose answer is
+the mating square; answered in all six runs) and the Fool's Mate line,
+which the base model knows by heart; the confirm miss echoes the user's
+own square once in 220 hint turns. The turn-by-turn table and the counts
+are in `docs/brainlift.md`, "The seven that fail"; the v3d data pass
+("Training data" below) varies the lead-ins to test the finding.
 
 **v2, 2026-10-28, the early submission.** Trained on the 805 v2 rows with the
 same configuration as v1 (202 steps, 142 seconds, loss 1.39; base

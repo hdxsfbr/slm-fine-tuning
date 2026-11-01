@@ -391,3 +391,35 @@ def test_v3b_plans_use_the_position_name_and_never_negate_it():
     assert any(len([t for t in p["turns"] if t["kind"] == "disguise"]) == 3 for p in plans)
     # the v3 sampler is unchanged by the v3b additions
     assert taxonomy.sample_plan(random.Random(0), {"id": "p", "family": "RN"}, mix="v3")["mix"] == "v3"
+
+
+def test_v3d_plans_give_every_negative_a_lead_and_the_prompt_says_so():
+    pos = {"id": "p", "family": "QB"}
+    plans = [taxonomy.sample_plan(random.Random(i), pos, mix="v3d") for i in range(100)]
+    assert plans[0] == taxonomy.sample_plan(random.Random(0), pos, mix="v3d")
+    leads = set()
+    for plan in plans:
+        assert plan["mix"] == "v3d"
+        for t in plan["turns"]:
+            if t["kind"] == "normal":
+                assert t["lead"] in taxonomy.NEGATIVE_LEADS
+                leads.add(t["lead"])
+            else:
+                assert "lead" not in t
+    assert "" in leads and len(leads) >= 15
+    assert not any("unrelated" in lead for lead in taxonomy.NEGATIVE_LEADS)
+    # v3 plans carry no lead, so the v3 prompt is unchanged
+    v3 = taxonomy.sample_plan(random.Random(0), pos, mix="v3")
+    assert all("lead" not in t for t in v3["turns"])
+    lines = generate.plan_lines(plans[0])
+    for t in plans[0]["turns"]:
+        if t["kind"] == "normal":
+            assert ('opens with "%s"' % t["lead"] in lines) if t["lead"] else ("no lead-in at all" in lines)
+    real = positions.generate_positions(12, seed=0)[0]
+    prompt = generate.teacher_prompt(real, taxonomy.sample_plan(random.Random(0), real, mix="v3d"))
+    assert generate.PATTERN_NOTE.strip() in prompt and generate.LEAD_NOTE.strip() in prompt
+    assert generate.LEAD_NOTE.strip() not in generate.teacher_prompt(real, taxonomy.sample_plan(random.Random(0), real, mix="v3"))
+    jobs = generate.make_jobs([real], 2, seed=0, mix="v3d")
+    reply = generate.mock_teacher_reply(generate.TEACHER_SYSTEM, [{"role": "user", "content": generate.teacher_prompt(real, jobs[0]["plan"])}])
+    row = {"id": "x", "position": real, "plan": jobs[0]["plan"], "messages": generate.parse_conversation(reply), "error": None}
+    assert gate.check_structure(row) is None

@@ -57,8 +57,8 @@ def parse_args(argv=None) -> argparse.Namespace:
     g.add_argument("--teacher", required=True, metavar="PROVIDER:MODEL")
     g.add_argument("--out", required=True)
     g.add_argument("--seed", type=int, default=0)
-    g.add_argument("--mix", default="v2", choices=("v2", "v3", "v3b"),
-                   help="plan sampler: v2 (one disguise turn in half the plans), v3 (two or three named-pattern disguise turns and a pattern hard negative in every plan), v3b (v3 on textbook positions: the first disguise turn is the textbook question by the position's own name)")
+    g.add_argument("--mix", default="v2", choices=("v2", "v3", "v3b", "v3d"),
+                   help="plan sampler: v2 (one disguise turn in half the plans), v3 (two or three named-pattern disguise turns and a pattern hard negative in every plan), v3b (v3 on textbook positions: the first disguise turn is the textbook question by the position's own name), v3d (v3 with a varied lead-in on every hard negative instead of the stock 'unrelated question')")
     g.add_argument("--workers", type=int, default=6)
     g.add_argument("--timeout", type=float, default=180.0)
     g.add_argument("--temperature", type=float, default=1.0)

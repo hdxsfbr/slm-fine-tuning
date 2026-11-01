@@ -258,3 +258,22 @@ On 2026-10-28, from the morning audit's list, numbered as there:
 | Final: Brainlift | Draft | item 3 |
 | Final: demo video with a live grader prompt | Met | docs/demo/out/chess-coach-demo.mp4, scene 6 is the live prompt |
 | Stretch: DPO, adversarial set, composed behavior | Not attempted | |
+
+## Final-day additions, 2026-10-31
+
+Not required by the brief; added for completeness and recorded here so
+the requirement table above stays as audited. A prompted-base control
+(the ablation's few-shot and structured prompts on Qwen3-1.7B itself:
+3% under either, `results/control_base_prompted_2026-10-31`). A third
+training seed of v3c (73%; three seeds 77, 70, 73). A hyperparameter
+sweep on the v3c data (`sweep.sh`, `results/sweep_2026-10-31`: 3 epochs
+77%, r=32 73%, lr 1e-4 73%; none adopted). The second judge family on
+v3c (`results/judge_check_2026-10-31`: gemini 47% against haiku 77%,
+with the 18 disputed turns queued for a hand read). A failure analysis of
+the seven v3c misses (README "Where v3c fails", Brainlift "The seven that
+fail") and the v3d data pass that tests it (110 rows with varied
+hard-negative lead-ins; 77% and 73%; not adopted). The grader notebook
+executed again with the v3c default (`notebooks/grader_eval.executed.ipynb`,
+base 0 of 30, tuned 22 of 30). A concurrency check of the public demo
+(`demo_check.py`: three sessions at once, no failures). The suite is at
+219 tests. Item 15's video length is 3:59 since the 2026-10-30 re-record.

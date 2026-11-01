@@ -1,0 +1,57 @@
+{
+  "config": {
+    "models": [
+      "local:models/sweep_v3d_s1234/adapter"
+    ],
+    "behaviors": [
+      "chess_coach"
+    ],
+    "strategies": [
+      "zero_shot"
+    ],
+    "limit": null,
+    "repeats": 1,
+    "workers": 1,
+    "out_dir": "results/sweep_2026-10-31/eval_v3d_s1234",
+    "temperature": null,
+    "timeout": 600.0,
+    "scenarios": null
+  },
+  "out_dir": "results/sweep_2026-10-31/eval_v3d_s1234",
+  "started_at": "2026-11-01T00:49:40+00:00",
+  "finished_at": "2026-11-01T00:51:44+00:00",
+  "interrupted": false,
+  "jobs": 30,
+  "kept_from_previous_run": 0,
+  "completed": 30,
+  "errors": 0,
+  "git_sha": "2832dbe43a7cbe5384db3392c5e3b9b5dace0e87-dirty",
+  "python": "3.12.3",
+  "eval": {
+    "eval_set": "challenge",
+    "model": "local:models/sweep_v3d_s1234/adapter",
+    "baseline": null,
+    "revision": null,
+    "scenarios": 30,
+    "skipped_rows": [],
+    "loaded": {
+      "local:models/sweep_v3d_s1234/adapter": {
+        "base_revision": "a972f4304f86a0a705d35b378d7a7675d58063a7",
+        "base": "unsloth/Qwen3-1.7B-unsloth-bnb-4bit",
+        "model_revision": null
+      }
+    }
+  },
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubrics": [
+      "chess_coach_leak_v2"
+    ],
+    "judged_at": "2026-11-01T00:53:10+00:00",
+    "items": 220,
+    "judged_items": 220,
+    "records_judged": 30,
+    "errors_this_run": 0,
+    "git_sha": "2832dbe43a7cbe5384db3392c5e3b9b5dace0e87-dirty"
+  }
+}

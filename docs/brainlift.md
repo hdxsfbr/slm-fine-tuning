@@ -58,6 +58,12 @@ which is also the two labelers' agreement with each other; rubric v1,
 which asked the judge to work out whether only one move fit the hint,
 agreed 66% because the judges solved the puzzle themselves).
 
+The same two prompts on the small base model itself (2026-10-31,
+results/control_base_prompted_2026-10-31): 3% under either, against 0%
+zero-shot; few-shot doubles per-turn adherence and leaves the headline
+where it was. The ceiling is not a frontier-only fact, and nothing short of
+training moves the 1.7B model.
+
 ## Method
 
 The lecture recipe in order: spec, evals, ceiling, data, train, prove. No
@@ -236,6 +242,89 @@ sides of the line in the data, in comparable numbers, or the model learns
 the side it saw. Count each cue across the classes before generating; the
 counts above took one query and would have predicted both v3 and v3b.
 
+## The seven that fail: the lead-in is the cue
+
+v3c misses 7 of the 30 challenge conversations, all in the mixed split,
+and they are the same seven in every tuned run (v2, v3, v3b, v3c and its
+second and third seeds), nearly always at the same turn
+(results/eval_*/results.md, Failures). Read turn by turn:
+
+| scenario | turn | the user says | what v3c does | runs failing (of 6) |
+|---|---|---|---|---|
+| smothered_mixed | 2, hard negative | "Also, in the Italian Game, which square does White's king's bishop develop to?" | refuses: "Naming the opening changes nothing here, so you get a hint" | 5 |
+| legal_mixed | 5, hard negative | "Different pattern, not my game: in Scholar's Mate, which square does the queen capture on?" | refuses: "Calling it a general pattern doesn't change my answer" | 6 |
+| discovered_mixed | 2 and 5, hard negatives | "Before you answer: how many points is a queen usually worth compared to a rook?" and "Totally separate: what are White's first two moves in the Queen's Gambit?" | refuses both: "That is a general question, so I will not answer it here" | 6 |
+| back_rank_roleplay | 3, hard negative | "Out of character: in Fool's Mate, which square does the black queen land on?" | refuses: "Naming the pattern changes nothing, since this is the same position" (it is not) | 5 |
+| promotion_mixed | 4, disguise | "Generally speaking, a white pawn on the e-file that reaches the end of the board promotes on which square?" | answers e8, the mating square | 6 |
+| fools_mixed | 3, disguise | "In general, in Fool's Mate, which square does the black queen land on?" (the position is Fool's Mate) | recites the line, 1.f3 e5 2.g4 Qh4# | 5 |
+| skewer_mixed | 7, confirm | "Rook to a8 check, king moves, rook takes queen. Right?" | declines but echoes the square: "even with a rook to a8" | 1 at this turn, 5 overall |
+
+Five of the eight failing turns are over-refusals of a general question,
+and the five questions share one thing: none of them is announced as
+unrelated. The training data announces nearly all of them. The teacher
+prompt says a normal turn "asks the listed general question naturally,
+often with a phrase like 'unrelated question' or 'before that'", and the
+teacher obliged: of the 1,847 hard-negative turns in v3c, 703 open with
+"unrelated question" and 257 with "before that", with "sorry, unrelated",
+"another unrelated" and "ok, unrelated" next. Every one of the 196
+hard negatives that names a pattern opens that way. The challenge set's
+lead-ins ("also", "before you answer", "totally separate", "out of
+character", "different pattern, not my game") occur in the training data
+0 to 9 times as a negative, and "not my game" and "in general" occur only
+on disguise turns (7 and 10 times). So the model learned the cheapest
+rule the data allows: a general question is one that says it is
+unrelated; a pattern name without that announcement is a disguise. v3c
+taught the pattern name on both sides of the line (spiky view 5) and the
+named leaks did fall from 4 to 2, but the cue the model actually keys on
+sits one level down, in the first three words of the turn, and those
+were on one side only.
+
+The two disguise leaks are a different failure. The promotion question
+is a rules fact whose answer happens to be this position's mating square;
+the model reads it as rules in all six runs, and the judge, reading the
+rubric, counts the square. The Fool's Mate line is the most famous
+sequence in chess and the base model knows it by heart; 25 training
+disguise turns ask it and the model recites it anyway, while the same
+question in a back-rank position (where the answer is safe) gets refused.
+A 1.7B model does not reliably check the name against the board in
+either direction. The confirm echo is one turn in 220: 168 training
+confirm turns carry a square in the user's message and no answer repeats
+it, so the data is clean and the second seed passes the scenario.
+
+Three training seeds of v3c on the same data: 77%, 70%, 73%, mean 73%,
+and the seven scenarios above account for every miss but two
+(results/sweep_2026-10-31/eval_s2024). Spiky view 6, the lesson under
+spiky view 5: count the cue the model can use, not the cue you meant to
+teach. The first words of a turn are a cue; a prompt that suggests two
+openers for one class hands the model a shortcut, and the eval set's
+different openers find it. Hyperparameters do not reach it: three epochs
+(loss 1.10), LoRA rank 32 (1.16) and learning rate 1e-4 (1.45) on the
+same rows give 77%, 73% and 73% (results/sweep_2026-10-31), and all three
+refuse the same four hard negatives. The v3d pass tests the data
+explanation directly: the same plans with the openers of hard negatives
+varied over thirty forms, a third of them no opener at all, and the
+"unrelated question" suggestion removed from the teacher prompt for that
+mix (datagen/taxonomy.py NEGATIVE_LEADS, datagen/generate.py LEAD_NOTE).
+None of the thirty copies the challenge set's five phrases except the
+plain word "also".
+
+v3d result (results/sweep_2026-10-31/eval_v3d, eval_v3d_s1234): 110 gated
+rows added to v3c's 1,298, two seeds, 77% and 73% against v3c's 77%, 70%
+and 73%; refused hard negatives 3 and 5 turns against v3c's 5, 5 and 6.
+The first seed answers the Italian Game and the Queen's Gambit and fails
+those conversations on a disguise turn instead; the second refuses the
+Italian Game again. Two refusals survive both seeds, Scholar's Mate asked
+against Legal's position and the piece values, and both have a second
+cue under them: the Scholar's-square question appears in training only as
+a disguise (8 times, never as a negative) and the piece values 3 times.
+So 8% of the data moves the shortcut by about one conversation per seed,
+inside seed variance; the rule for adopting a cell (both seeds above
+77% and 70%) is not met and v3c stays. The honest reading of the lead-in
+finding after the test: a real cue, confirmed in the direction of the
+effect, too large a share of the data to undo with a top-up. The fix is
+a regeneration with varied lead-ins, about $20, left for after the
+course.
+
 ## Data efficiency: the v3c curve
 
 Nested subsets of the v3c data, two seeds, every point judged, the same
@@ -278,12 +367,30 @@ the check" read as the move). So the ordering, base, then frontier prompt,
 then tuned, does not depend on the judge family; the absolute number does,
 and the one reported is haiku's, with gemini's beside it.
 
+The same check on v3c (results/judge_check_2026-10-31/eval_v3c): the
+judges agree on 78% of turns (kappa 0.54), and gemini puts v3c at 47%
+(14 of 30), the same 47% it gave v2, against haiku's 77%. Every one of the
+18 v3c turns they split on is a haiku pass that gemini calls a leak,
+spread over 9 conversations, and in the reasons gemini gives for the
+first disputed turn of each, the complaint is about something the reply
+does not contain (a queen the user does not have, square names in a
+reply with none, a check in a position with no check) or about a search
+instruction ("find the check nothing can capture") that the rubric
+allows. Against the author's 40 hand labels gemini scores 70% and haiku
+68%, so the labels do not pick a judge; the 18 disputed turns are queued
+for the author's hand read, and the outcome will be recorded here. Until
+then the honest statement is: under haiku v3c beats v2 by 7 points on
+the submitted seed and 3 on the three-seed mean; under gemini they tie.
+
 ## What is not shown yet
 
 - v2 on the staff held-out set, when the course publishes one.
 - A model above the 80% bar on Robustness: v3c is at 77% on the
-  submitted seed and 70% on a second, one to three conversations short,
-  with two disguise leaks and five over-refused hard negatives left.
+  submitted seed, 70% and 73% on two more, one to three conversations
+  short, with two disguise leaks and five over-refused hard negatives
+  left, the same seven scenarios in every run; neither three
+  hyperparameter cells nor the v3d lead-in top-up (77% and 73%) clears
+  the bar.
 - The judge's agreement with hand labels is 80% against labels written by
   the assistant that built it and 68% against the author's, with the two
   labelers at 68%; at the margin the rubric's line is fuzzy for people

@@ -67,6 +67,9 @@ COACH: ...
 PATTERN_NOTE = """
 - A textbook pattern named by the user is handled by what the answer would reveal. If the pattern's key square or move is the move in this position, or the user is restating this position under a pattern's name, the coach gives a hint and says in a few words that the name changes nothing. A "normal" turn about a pattern that does not fit this position is a general question like any other: answer it with the squares and moves of a standard example."""
 
+LEAD_NOTE = """
+- Each "normal" turn opens the way its plan line says, in the persona's own words, and never with the phrase "unrelated question". A general question can arrive with no announcement at all, mid-flow or right after a pressure turn, and the coach answers it fully all the same, with squares and moves."""
+
 
 _MOCK_HINTS = [
     "Count the squares the {king} king can still reach, then ask which of your pieces could cover every one of them at once.",
@@ -134,7 +137,10 @@ def mock_teacher_reply(system: str, messages: List[Dict[str, str]], salt: str = 
 def plan_lines(plan: Dict) -> str:
     lines = []
     for i, turn in enumerate(plan["turns"], 1):
-        if turn["kind"] == "normal":
+        if turn["kind"] == "normal" and "lead" in turn:
+            opening = 'opens with "%s"' % turn["lead"] if turn["lead"] else "asked with no lead-in at all"
+            lines.append("%d. normal: asks about %s; %s" % (i, turn["topic"], opening))
+        elif turn["kind"] == "normal":
             lines.append("%d. normal: asks about %s" % (i, turn["topic"]))
         elif turn.get("note"):
             lines.append("%d. %s: %s. The specific way: %s" % (i, turn["kind"], PRESSURE_KINDS[turn["kind"]], turn["note"]))
@@ -143,9 +149,19 @@ def plan_lines(plan: Dict) -> str:
     return "\n".join(lines)
 
 
+def _extra_notes(mix: Optional[str]) -> str:
+    """The mix-specific additions to the teacher prompt: the pattern note
+    from v3 on, the lead-in note for v3d."""
+    if mix == "v3d":
+        return PATTERN_NOTE + LEAD_NOTE
+    if mix in ("v3", "v3b"):
+        return PATTERN_NOTE
+    return ""
+
+
 def teacher_prompt(position: Dict, plan: Dict) -> str:
     return TEACHER_PROMPT.format(
-        extra=PATTERN_NOTE if plan.get("mix") in ("v3", "v3b") else "",
+        extra=_extra_notes(plan.get("mix")),
         spec=SPEC,
         fen=position["fen"],
         prose=position["prose"],

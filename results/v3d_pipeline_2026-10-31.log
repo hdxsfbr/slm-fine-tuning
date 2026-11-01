@@ -1,0 +1,199 @@
+== tests 23:59:43Z
+.........................                                                [100%]
+25 passed in 2.94s
+== generate v3d 23:59:50Z
+160 jobs, 0 done, 160 to generate with openrouter:anthropic/claude-sonnet-5.5
+[1/160] gen_0001 returning    RR          6 turns ok
+[2/160] gen_0004 skeptic      RN          6 turns ok
+[3/160] gen_0005 titled       RB          7 turns ok
+[4/160] gen_0003 titled       QB          8 turns ok
+[5/160] gen_0002 skeptic      QN          9 turns ok
+[6/160] gen_0000 esl          QR          8 turns ok
+[7/160] gen_0007 returning    R           8 turns ok
+[8/160] gen_0006 returning    Q          10 turns ok
+[9/160] gen_0008 arbiter      QR+shield  10 turns ok
+[10/160] gen_0011 kid          RN+shield  10 turns ok
+[11/160] gen_0010 programmer   QB+shield   8 turns ok
+[12/160] gen_0009 parent       RR+shield   9 turns ok
+[13/160] gen_0016 composer     RN          9 turns ok
+[14/160] gen_0013 kid          RR         10 turns ok
+[15/160] gen_0014 returning    QN          8 turns ok
+[16/160] gen_0012 returning    QR          7 turns ok
+[17/160] gen_0015 beginner     QB          9 turns ok
+[18/160] gen_0017 blitz        RB         11 turns ok
+[19/160] gen_0018 blitz        Q           9 turns ok
+[20/160] gen_0019 returning    R           7 turns ok
+[21/160] gen_0020 streamer     QR+shield   7 turns ok
+[22/160] gen_0022 composer     QB+shield  10 turns ok
+[23/160] gen_0023 flatterer    RN+shield   8 turns ok
+[24/160] gen_0021 returning    RR+shield   8 turns ok
+[25/160] gen_0025 streamer     RR          9 turns ok
+[26/160] gen_0024 streamer     QR          9 turns ok
+[27/160] gen_0026 arbiter      QN         11 turns ok
+[28/160] gen_0028 composer     RN          9 turns ok
+[29/160] gen_0027 flatterer    QB          8 turns ok
+[30/160] gen_0029 formal       RB          8 turns ok
+[31/160] gen_0031 formal       R           8 turns ok
+[32/160] gen_0032 programmer   QR+shield   6 turns ok
+[33/160] gen_0034 composer     QB+shield   7 turns ok
+[34/160] gen_0035 beginner     RN+shield   7 turns ok
+[35/160] gen_0033 streamer     RR+shield   8 turns ok
+[36/160] gen_0030 kid          Q          11 turns ok
+[37/160] gen_0037 returning    RR          7 turns ok
+[38/160] gen_0036 skeptic      QR         10 turns ok
+[39/160] gen_0039 esl          QB          9 turns ok
+[40/160] gen_0040 kid          RN          9 turns ok
+[41/160] gen_0041 flatterer    RB          8 turns ok
+[42/160] gen_0038 flatterer    QN         10 turns ok
+[43/160] gen_0042 esl          Q          10 turns ok
+[44/160] gen_0043 coach        R           7 turns ok
+[45/160] gen_0046 composer     QB+shield   7 turns ok
+[46/160] gen_0044 blitz        QR+shield   9 turns ok
+[47/160] gen_0045 composer     RR+shield   8 turns ok
+[48/160] gen_0047 skeptic      RN+shield   9 turns ok
+[49/160] gen_0048 kid          QR          7 turns ok
+[50/160] gen_0049 parent       RR          9 turns ok
+[51/160] gen_0050 titled       QN          8 turns ok
+[52/160] gen_0051 streamer     QB          9 turns ok
+[53/160] gen_0052 skeptic      RN         10 turns ok
+[54/160] gen_0053 streamer     RB         10 turns ok
+[55/160] gen_0054 returning    Q           7 turns ok
+[56/160] gen_0055 blitz        R           9 turns ok
+[57/160] gen_0056 skeptic      QR+shield   8 turns ok
+[58/160] gen_0058 flatterer    QB+shield  10 turns ok
+[59/160] gen_0057 formal       RR+shield  11 turns ok
+[60/160] gen_0060 composer     QR          7 turns ok
+[61/160] gen_0059 beginner     RN+shield  11 turns ok
+[62/160] gen_0062 streamer     QN          9 turns ok
+[63/160] gen_0061 formal       RR         10 turns ok
+[64/160] gen_0063 programmer   QB          7 turns ok
+[65/160] gen_0064 kid          RN          9 turns ok
+[66/160] gen_0066 titled       Q          10 turns ok
+[67/160] gen_0065 coach        RB         10 turns ok
+[68/160] gen_0069 arbiter      RR+shield   9 turns ok
+[69/160] gen_0071 formal       RN+shield   7 turns ok
+[70/160] gen_0067 titled       R           9 turns ok
+[71/160] gen_0068 beginner     QR+shield  11 turns ok
+[72/160] gen_0070 formal       QB+shield   9 turns ok
+[73/160] gen_0072 programmer   QR          9 turns ok
+[74/160] gen_0073 programmer   RR          8 turns ok
+[75/160] gen_0075 composer     QB          6 turns ok
+[76/160] gen_0074 skeptic      QN          9 turns ok
+[77/160] gen_0077 kid          RB          8 turns ok
+[78/160] gen_0078 skeptic      Q           6 turns ok
+[79/160] gen_0082 club_player  QB+shield   8 turns ok
+[80/160] gen_0076 arbiter      RN          7 turns ok
+[81/160] gen_0079 flatterer    R           9 turns ok
+[82/160] gen_0080 kid          QR+shield   7 turns ok
+[83/160] gen_0081 flatterer    RR+shield   8 turns ok
+[84/160] gen_0083 arbiter      RN+shield  11 turns ok
+[85/160] gen_0085 parent       RR          9 turns ok
+[86/160] gen_0088 kid          RN          8 turns ok
+[87/160] gen_0084 kid          QR          8 turns ok
+[88/160] gen_0087 returning    QB          9 turns ok
+[89/160] gen_0089 skeptic      RB          9 turns ok
+[90/160] gen_0090 programmer   Q           8 turns ok
+[91/160] gen_0091 parent       R           7 turns ok
+[92/160] gen_0092 arbiter      QR+shield   9 turns ok
+[93/160] gen_0086 streamer     QN          7 turns ok
+[94/160] gen_0093 composer     RR+shield   8 turns ok
+[95/160] gen_0095 streamer     RN+shield   8 turns ok
+[96/160] gen_0099 arbiter      QB          7 turns ok
+[97/160] gen_0098 arbiter      QN          9 turns ok
+[98/160] gen_0094 streamer     QB+shield  11 turns ok
+[99/160] gen_0096 blitz        QR         11 turns ok
+[100/160] gen_0097 formal       RR         11 turns ok
+[101/160] gen_0100 composer     RN          7 turns ok
+[102/160] gen_0101 streamer     RB          9 turns ok
+[103/160] gen_0102 titled       Q          10 turns ok
+[104/160] gen_0103 esl          R          10 turns ok
+[105/160] gen_0104 flatterer    QR+shield  10 turns ok
+[106/160] gen_0105 club_player  RR+shield  10 turns ok
+[107/160] gen_0106 titled       QB+shield   8 turns ok
+[108/160] gen_0108 blitz        QR          9 turns ok
+[109/160] gen_0107 coach        RN+shield   7 turns ok
+[110/160] gen_0109 esl          RR          7 turns ok
+[111/160] gen_0111 blitz        QB          8 turns ok
+[112/160] gen_0110 skeptic      QN          7 turns ok
+[113/160] gen_0112 titled       RN          7 turns ok
+[114/160] gen_0114 streamer     Q           7 turns ok
+[115/160] gen_0113 parent       RB          7 turns ok
+[116/160] gen_0116 esl          QR+shield   9 turns ok
+[117/160] gen_0115 beginner     R          10 turns ok
+[118/160] gen_0117 parent       RR+shield  11 turns ok
+[119/160] gen_0118 beginner     QB+shield  11 turns ok
+[120/160] gen_0120 flatterer    QR          7 turns ok
+[121/160] gen_0119 beginner     RN+shield   9 turns ok
+[122/160] gen_0122 streamer     QN          9 turns ok
+[123/160] gen_0121 programmer   RR         11 turns ok
+[124/160] gen_0123 esl          QB          9 turns ok
+[125/160] gen_0124 kid          RN          9 turns ok
+[126/160] gen_0125 blitz        RB         11 turns ok
+[127/160] gen_0126 parent       Q          11 turns ok
+[128/160] gen_0127 coach        R           7 turns ok
+[129/160] gen_0130 titled       QB+shield   9 turns ok
+[130/160] gen_0128 streamer     QR+shield  11 turns ok
+[131/160] gen_0129 parent       RR+shield  10 turns ok
+[132/160] gen_0131 esl          RN+shield  10 turns ok
+[133/160] gen_0133 skeptic      RR          7 turns ok
+[134/160] gen_0132 programmer   QR          8 turns ok
+[135/160] gen_0134 composer     QN          8 turns ok
+[136/160] gen_0136 programmer   RN          6 turns ok
+[137/160] gen_0135 flatterer    QB          9 turns ok
+[138/160] gen_0137 club_player  RB          8 turns ok
+[139/160] gen_0139 composer     R           9 turns ok
+[140/160] gen_0138 esl          Q          10 turns ok
+[141/160] gen_0140 programmer   QR+shield  10 turns ok
+[142/160] gen_0142 blitz        QB+shield   7 turns ok
+[143/160] gen_0143 blitz        RN+shield   8 turns ok
+[144/160] gen_0141 returning    RR+shield   8 turns ok
+[145/160] gen_0144 skeptic      QR         10 turns ok
+[146/160] gen_0145 programmer   RR         10 turns ok
+[147/160] gen_0146 titled       QN          8 turns ok
+[148/160] gen_0148 composer     RN          7 turns ok
+[149/160] gen_0149 parent       RB          8 turns ok
+[150/160] gen_0147 parent       QB          9 turns ok
+[151/160] gen_0151 club_player  R           7 turns ok
+[152/160] gen_0150 club_player  Q          10 turns ok
+[153/160] gen_0152 flatterer    QR+shield   9 turns ok
+[154/160] gen_0153 titled       RR+shield  11 turns ok
+[155/160] gen_0155 parent       RN+shield   8 turns ok
+[156/160] gen_0154 formal       QB+shield  10 turns ok
+[157/160] gen_0156 arbiter      QR         10 turns ok
+[158/160] gen_0159 programmer   QB          7 turns ok
+[159/160] gen_0158 formal       QN          9 turns ok
+[160/160] gen_0157 skeptic      RR         11 turns ok
+generated 160 rows now (0 errors), tokens in 315008 out 189585 -> data/v3d_extra/generated.jsonl
+== gate 00:04:55Z
+gate structure  in  160  out  148  dropped   12
+gate dedupe     in  148  out  148  dropped    0
+gate checks     in  148  out  140  dropped    8
+judge: 977 items, 0 cached, 977 to judge
+judge: 50/977
+judge: 100/977
+judge: 150/977
+judge: 200/977
+judge: 250/977
+judge: 300/977
+judge: 350/977
+judge: 400/977
+judge: 450/977
+judge: 500/977
+judge: 550/977
+judge: 600/977
+judge: 650/977
+judge: 700/977
+judge: 750/977
+judge: 800/977
+judge: 850/977
+judge: 900/977
+judge: 950/977
+judge: 977/977
+gate judge      in  140  out  123  dropped   17
+gate leakage    in  123  out  122  dropped    1
+train: 110 rows, sha256 d4d7c003e77b1d30
+synthetic_test: 12 rows, sha256 6aad8d5db3b6c4b4
+== merge 00:11:28Z
+train: 1408 rows, sha256 b0cae531dcd2f738
+synthetic_test: 167 rows, sha256 a5a36d2d9bbcd232
+== data done 00:11:29Z

@@ -1,0 +1,13 @@
+== v3d sweep start 00:36:21Z
+== v3d: train --seed 3407  00:36:21Z
+== v3d: eval  00:41:06Z
+| local:models/sweep_v3d/adapter | zero_shot | 30 | 93% (28/30) | 90% (27/30) | 90% (27/30) | 80% (24/30) | 87% (26/30) | 96% (237/246) | 77% (23/30) | 0 |
+| local:models/sweep_v3d/adapter | 77% (23/30) | zero_shot 77% (23/30) |
+| local:models/sweep_v3d/adapter | zero_shot | 94% (16/17) | 54% (7/13) |
+== v3d_s1234: train --seed 1234  00:44:45Z
+== v3d_s1234: eval  00:49:29Z
+| local:models/sweep_v3d_s1234/adapter | zero_shot | 30 | 90% (27/30) | 87% (26/30) | 90% (27/30) | 80% (24/30) | 87% (26/30) | 96% (236/246) | 73% (22/30) | 0 |
+| local:models/sweep_v3d_s1234/adapter | 73% (22/30) | zero_shot 73% (22/30) |
+| local:models/sweep_v3d_s1234/adapter | zero_shot | 100% (17/17) | 38% (5/13) |
+== sweep done 00:53:10Z
+== v3d sweep done 00:53:10Z

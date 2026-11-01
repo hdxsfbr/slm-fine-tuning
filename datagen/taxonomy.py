@@ -133,11 +133,15 @@ def sample_plan(rng: random.Random, position: Dict, mix: str = "v2") -> Dict:
     turns; about 80% of plans include one to three hard negatives (v2; v1
     had one or two in 45% of plans), each emotional turn carries a flavor,
     and closure turns go near the end where they belong. mix "v3" hands
-    over to sample_plan_v3 (disguise turns that name a pattern)."""
+    over to sample_plan_v3 (disguise turns that name a pattern), "v3b" to
+    the same on textbook positions, "v3d" to v3 with a varied lead-in on
+    every hard negative."""
     if mix == "v3":
         return sample_plan_v3(rng, position)
     if mix == "v3b":
         return sample_plan_v3(rng, position, textbook=True)
+    if mix == "v3d":
+        return sample_plan_v3(rng, position, leads=True)
     if mix != "v2":
         raise ValueError("unknown plan mix %r" % mix)
     persona = rng.choice(PERSONAS)
@@ -243,6 +247,27 @@ TEXTBOOK_FRAMING: Dict = {
 }
 
 
+# v3d: how a hard negative opens. The teacher prompt used to suggest
+# "unrelated question" or "before that", and 703 of the 1,847 v3c negatives
+# start with the first phrase and 257 with the second; the v3c model treats
+# a general question without such an announcement as a disguise turn (the
+# five over-refusals on the challenge set all open some other way). One of
+# these is attached to every normal turn of a v3d plan; the empty string
+# means no announcement at all, which is the most common case in real
+# conversation and so is listed three times.
+NEGATIVE_LEADS: List[str] = [
+    "", "", "",
+    "quick one", "side note", "while I think about that", "different topic",
+    "this one is not about my game", "for my notes", "my kid asked me this yesterday",
+    "settle a bet for me", "changing the subject", "can I ask something else first",
+    "random, but", "off topic", "before we go on", "hold that thought", "humor me",
+    "stepping away from the board for a second", "sorry, tangent", "a general one",
+    "also", "one for the road", "separate thing", "while you're here",
+    "I keep forgetting this", "out of curiosity", "forget my game for a moment",
+    "pop quiz for you", "my coach never explained this",
+]
+
+
 def pattern_negatives_for(family: str, keys: Optional[List[str]] = None) -> List[Dict]:
     """The named-pattern topics that are safe to answer against a position
     of this family. keys (v3b, textbook positions) are the words that name
@@ -253,7 +278,7 @@ def pattern_negatives_for(family: str, keys: Optional[List[str]] = None) -> List
     return out
 
 
-def sample_plan_v3(rng: random.Random, position: Dict, textbook: bool = False) -> Dict:
+def sample_plan_v3(rng: random.Random, position: Dict, textbook: bool = False, leads: bool = False) -> Dict:
     """A v3 plan: 5 to 9 pressure turns, two or three of them disguise turns
     with distinct framings, never adjacent, at least one in the second
     half; one or two hard negatives, the first a named pattern that does
@@ -263,7 +288,11 @@ def sample_plan_v3(rng: random.Random, position: Dict, textbook: bool = False) -
     textbook (the v3b mix, for positions that are named patterns and carry
     "names" and "keys"): the first disguise turn is the one-sentence
     textbook question by the position's own name, the second claims the
-    position is that pattern, and the hard negative never names it."""
+    position is that pattern, and the hard negative never names it.
+
+    leads (the v3d mix): every hard negative carries a lead-in from
+    NEGATIVE_LEADS, so the teacher varies how a general question opens
+    instead of announcing it as unrelated."""
     family = position.get("family", "")
     persona = rng.choice(PERSONAS)
     situation = rng.choice(SITUATIONS)
@@ -317,11 +346,15 @@ def sample_plan_v3(rng: random.Random, position: Dict, textbook: bool = False) -
         if textbook and position.get("keys"):
             topics = [t for t in HARD_NEGATIVES if not any(k in t.lower() for k in position["keys"])]
         turns.insert(slot, {"kind": "normal", "topic": rng.choice(topics)})
+    if leads:
+        for turn in turns:
+            if turn["kind"] == "normal":
+                turn["lead"] = rng.choice(NEGATIVE_LEADS)
     return {
         "persona": persona[0],
         "persona_description": persona[1],
         "situation": situation,
         "turns": turns,
         "position_id": position["id"],
-        "mix": "v3b" if textbook else "v3",
+        "mix": "v3d" if leads else "v3b" if textbook else "v3",
     }

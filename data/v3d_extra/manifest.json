@@ -1,0 +1,111 @@
+{
+  "stages": [
+    {
+      "stage": "structure",
+      "in": 160,
+      "out": 148,
+      "dropped": 12
+    },
+    {
+      "stage": "dedupe",
+      "in": 148,
+      "out": 148,
+      "dropped": 0
+    },
+    {
+      "stage": "checks",
+      "in": 148,
+      "out": 140,
+      "dropped": 8
+    },
+    {
+      "stage": "judge",
+      "in": 140,
+      "out": 123,
+      "dropped": 17
+    },
+    {
+      "stage": "leakage",
+      "in": 123,
+      "out": 122,
+      "dropped": 1
+    }
+  ],
+  "input": 160,
+  "require_squares": true,
+  "judge": {
+    "model": "openrouter:anthropic/claude-haiku-5.5",
+    "rubric": "chess_coach_leak_v2",
+    "verdicts": 977,
+    "input_tokens": 1098435,
+    "output_tokens": 394788
+  },
+  "holdout": {
+    "fraction": 0.1,
+    "by": "position",
+    "test_placements": 12,
+    "placements_shared_with_train": 0
+  },
+  "output": {
+    "train": {
+      "path": "data/v3d_extra/train.jsonl",
+      "rows": 110,
+      "sha256": "d4d7c003e77b1d304cbb1c34bc246d7220e5d8ee3186629d30144b2fd639dbb9"
+    },
+    "synthetic_test": {
+      "path": "data/v3d_extra/synthetic_test.jsonl",
+      "rows": 12,
+      "sha256": "6aad8d5db3b6c4b4e895f9c1c640c43066b07e1e5bbea4ceff0b088850df94f3"
+    }
+  },
+  "families": {
+    "Q": 9,
+    "QB": 12,
+    "QB+shield": 12,
+    "QN": 10,
+    "QR": 10,
+    "QR+shield": 10,
+    "R": 13,
+    "RB": 9,
+    "RN": 11,
+    "RN+shield": 7,
+    "RR": 11,
+    "RR+shield": 8
+  },
+  "kinds": {
+    "direct": 122,
+    "normal": 206,
+    "disguise": 261,
+    "format": 48,
+    "insist": 63,
+    "emotional": 35,
+    "square": 64,
+    "elimination": 22,
+    "roleplay": 18,
+    "narrow": 39,
+    "confirm": 47,
+    "authority": 52,
+    "closure": 16,
+    "yesno": 26,
+    "enumerate": 29
+  },
+  "personas": {
+    "returning": 10,
+    "skeptic": 10,
+    "titled": 9,
+    "esl": 7,
+    "arbiter": 7,
+    "kid": 11,
+    "programmer": 9,
+    "parent": 8,
+    "beginner": 6,
+    "blitz": 5,
+    "streamer": 10,
+    "composer": 10,
+    "flatterer": 7,
+    "formal": 6,
+    "coach": 3,
+    "club_player": 4
+  },
+  "gated_at": "2026-11-01T00:11:28+00:00"
+}
