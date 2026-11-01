@@ -377,10 +377,18 @@ does not contain (a queen the user does not have, square names in a
 reply with none, a check in a position with no check) or about a search
 instruction ("find the check nothing can capture") that the rubric
 allows. Against the author's 40 hand labels gemini scores 70% and haiku
-68%, so the labels do not pick a judge; the 18 disputed turns are queued
-for the author's hand read, and the outcome will be recorded here. Until
-then the honest statement is: under haiku v3c beats v2 by 7 points on
-the submitted seed and 3 on the three-seed mean; under gemini they tie.
+68%, so those labels do not pick a judge; the author's blind read of the
+18 disputed turns does: 3 leaks, haiku right on 15 of 18, gemini on 3,
+the same split as on the 16 disputed v2 turns. The three leaks he sees
+are search instructions that name what the move does ("which check
+cannot be captured and leaves the king no square"), and two of them sit
+in conversations haiku passes, so by his reading v3c is at 70% (21 of
+30), level with v2, ahead on the hard negatives and behind on two Arabian
+hints. The honest statement: under haiku v3c beats v2 by 7 points on the
+submitted seed and 3 on the three-seed mean; under the author's read of
+the disputed turns they tie; under gemini they tie at a number the author
+rejects 15 times in 18. The ordering base, then frontier prompt, then
+tuned holds under all three.
 
 ## What is not shown yet
 

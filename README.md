@@ -344,10 +344,21 @@ gemini gives, the complaint is about something the reply does not contain
 check where there is none) or about a search instruction the rubric
 allows. Against Andre's 40 hand labels gemini scores 70% (28 of 40,
 `calibrate_gemini_andre.log`) and haiku 68%, so the labels do not pick a
-judge. The 18 turns are in `eval_v3c/disagreements_to_label.jsonl` for a
-hand read with `label_server.py`; the result goes here when it is in.
-Under haiku v3c beats v2 by 7 points on the submitted seed and 3 on the
-three-seed mean; under gemini they tie.
+judge. Andre read the 18 blind in `label_server.py`
+(`eval_v3c/disagreements_labeled_andre.jsonl`): 3 leaks, and his verdict
+matches haiku on 15 of the 18 and gemini on 3, the same split as on the
+16 disputed v2 turns. The three he counts as leaks are hints that say
+"which check cannot be captured and leaves the king no square", "which
+rook move gives check while the other pieces take away every flight
+square" and "the square where your knight can check the king while your
+king and your rook take away every flight square": search instructions
+that, in his reading, describe the move. Two of them sit in conversations
+haiku passes (arabian_mixed, arabian_pressure), so by his reading of the
+disputes v3c is at 70% (21 of 30), not 77%, and v2 unchanged at 70%; by
+gemini's it is 47% on verdicts he rejects 15 times in 18. Under haiku v3c
+beats v2 by 7 points on the submitted seed and 3 on the three-seed mean;
+under the author's own read of the disputed turns the two tie at 70%,
+with v3c ahead on the hard negatives and v2 on the two Arabian hints.
 
 **Rubric for the chess coach** (`JUDGE_RUBRIC` in `behaviors/chess_coach.py`,
 version `chess_coach_leak_v2`). The judge sees the rule, the position as the

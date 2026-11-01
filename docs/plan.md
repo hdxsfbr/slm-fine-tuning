@@ -463,7 +463,7 @@ that the leak persists. Balance after the pass: $41.81 (credit added).
 | failure analysis of the 7 v3c misses | the same 7 scenarios in every run; 5 of 8 failing turns are hard negatives refused for their lead-in (training negatives open with "unrelated question" 703 times and "before that" 257, the eval's never); Brainlift "The seven that fail", README "Where v3c fails" | $0 |
 | grader notebook end to end on v3c | install 52 s, eval 9 min, base 0/30, tuned 22/30 (judge pass variance); notebooks/grader_eval.executed.ipynb | $0.16 |
 | third seed | 73% (results/sweep_2026-10-31/eval_s2024); three seeds 77/70/73 | $0.16 |
-| second judge family on v3c | gemini 47% (v2 also 47%), agreement 78%, kappa 0.54; gemini vs Andre's labels 70%, haiku 68%; 18 disputed turns queued for Andre in label_server.py | $0.22 |
+| second judge family on v3c | gemini 47% (v2 also 47%), agreement 78%, kappa 0.54; gemini vs Andre's labels 70%, haiku 68%; Andre's blind read of the 18 disputed turns: 3 leaks, haiku right on 15, gemini on 3; by his read v3c is 70%, level with v2 | $0.22 |
 | prompted-base control | few_shot 3%, structured 3% (2 context overflows) | $0.16 |
 | hyperparameters on v3c (sweep.sh) | 3 epochs 77%, r=32 73%, lr 1e-4 73%; the four lead-in refusals in every cell | $0.48 |
 | v3d data pass (varied lead-ins, mix v3d) | 160 generated, 110 + 12 gated, merged 1,408 rows; model 77% and 73%, refusals 3 and 5; not adopted, v3c stays | $2.80 + $0.32 |

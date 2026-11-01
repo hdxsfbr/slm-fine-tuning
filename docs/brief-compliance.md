@@ -269,7 +269,8 @@ training seed of v3c (73%; three seeds 77, 70, 73). A hyperparameter
 sweep on the v3c data (`sweep.sh`, `results/sweep_2026-10-31`: 3 epochs
 77%, r=32 73%, lr 1e-4 73%; none adopted). The second judge family on
 v3c (`results/judge_check_2026-10-31`: gemini 47% against haiku 77%,
-with the 18 disputed turns queued for a hand read). A failure analysis of
+with the 18 disputed turns hand-read by Andre: haiku right on 15, gemini on 3, and by
+his read v3c at 70%, level with v2). A failure analysis of
 the seven v3c misses (README "Where v3c fails", Brainlift "The seven that
 fail") and the v3d data pass that tests it (110 rows with varied
 hard-negative lead-ins; 77% and 73%; not adopted). The grader notebook
