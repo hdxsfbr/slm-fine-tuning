@@ -411,6 +411,8 @@ tuned holds under all three.
   commit `020015527aa37100ff6b10ba323cd0c329b57d97`.
 - Dataset (v3c): [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/9c1eacdb8c797e6917956f229b7ceba65edcb776),
   commit `9c1eacdb8c797e6917956f229b7ceba65edcb776`; v2 at commit `a4325dbdfd3a14c7b59b371a27b28795bbc8a788`.
+- Demo video: <https://youtu.be/BvwQkEsGI0o> (3:59, recorded against the v3c
+  commit); live demo at <https://hdx-lab.tailf4eaa9.ts.net/>.
 - Code: tag early-submission (commit 4dafda9) on main of the project
   repository; every result directory carries its run.json with the code
   sha and the loaded revisions.

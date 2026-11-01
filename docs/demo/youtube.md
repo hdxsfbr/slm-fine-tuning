@@ -1,5 +1,7 @@
 # YouTube listing for the demo video
 
+Published 2026-10-31 at <https://youtu.be/BvwQkEsGI0o>.
+
 Video: `out/chess-coach-demo.mp4` (3:59, 1440x900, H.264). Thumbnail: `thumbnail.png` (1280x720,
 76 KB, under the 2 MB limit). Chapter times come from `out/plan.tsv` and are exact for this cut; a
 re-render changes them.

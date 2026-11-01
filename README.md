@@ -45,7 +45,7 @@ python eval.py --model hdxsfbr/qwen3-1.7b-chess-coach-hints@5f3bb8046ae96bd197ab
 Model: [hdxsfbr/qwen3-1.7b-chess-coach-hints](https://huggingface.co/hdxsfbr/qwen3-1.7b-chess-coach-hints/tree/5f3bb8046ae96bd197ab93cc60964ba6c02243fb)
 at that commit. Dataset: [hdxsfbr/chess-coach-hints](https://huggingface.co/datasets/hdxsfbr/chess-coach-hints/tree/9c1eacdb8c797e6917956f229b7ceba65edcb776).
 Live demo, base and tuned side by side: <https://hdx-lab.tailf4eaa9.ts.net/>.
-Video: "The demo video" under Results (3:59). Thinking and decisions:
+Video: <https://youtu.be/BvwQkEsGI0o> (3:59). Thinking and decisions:
 `docs/brainlift.md`; requirement-by-requirement audit: `docs/brief-compliance.md`.
 
 The gate before training was a prompt-ceiling ablation: frontier models from
@@ -1050,8 +1050,8 @@ terminates TLS and forwards to 127.0.0.1:7865. To take it down:
 `tailscale funnel --https=443 off` and `systemctl --user disable --now
 chess-demo.service`.
 
-**The demo video** (3 minutes 59 seconds, 2026-10-30) is recorded from
-that page with the v3c adapter loaded by Hub id (commit `5f3bb80`, the
+**The demo video** (3 minutes 59 seconds, 2026-10-30,
+<https://youtu.be/BvwQkEsGI0o>) is recorded from that page with the v3c adapter loaded by Hub id (commit `5f3bb80`, the
 submitted checkpoint, the one the page serves): the scene list is
 `docs/demo-script.md`, the pipeline (narration in a cloned voice, headless
 capture with the model waits cut, assembly) is `docs/demo/README.md`, and
